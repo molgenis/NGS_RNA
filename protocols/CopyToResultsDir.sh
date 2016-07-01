@@ -126,6 +126,14 @@ fi
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
+# Copy Kallisto Results if available
+	if [ "${seqType}" == "PE" ]
+        then
+            	cp -r ${intermediateDir}/Kallisto ${projectResultsDir}/
+        else
+            	echo "Skip Kallisto. seqType is: ${seqType}"
+        fi	
+
 
 # write README.txt file
 

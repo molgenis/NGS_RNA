@@ -7,7 +7,7 @@ dbSNPFileID,dbsnp_137.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
 dbSNPDir,${dataDir}/dbSNP/
 hisatIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/${hisatVersion}/${indexFolderName}
-kallistoIndex,${indicesDir}/${indexFileID}.cdna.all.fa.idx
+kallistoIndex,${dataDir}/ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/Homo_sapiens.GRCh37.75.cdna.all.fa.idx
 indexFileFastaIndex,${indexSpecies}.fai
 indexSpecies,${indicesDir}/${indexFileID}.fasta
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list

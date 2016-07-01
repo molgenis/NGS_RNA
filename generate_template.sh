@@ -1,6 +1,6 @@
 #!/bin/bash
 
-module load NGS_RNA/3.2.3-Molgenis-Compute-v16.05.1-Java-1.8.0_45
+module load NGS_RNA/3.2.4-Molgenis-Compute-v16.05.1-Java-1.8.0_45
 module list
 
 HOST=$(hostname)
@@ -11,10 +11,12 @@ ENVIRONMENT_PARAMETERS=$(awk '{print $1}' ./environment_checks.txt)
 TMPDIR=$(awk '{print $2}' ./environment_checks.txt)
 GROUP=$(awk '{print $3}' ./environment_checks.txt)
 
+PROJECT="PROJECTNAME"
+RUNID="run01"
+
 GAF="/groups/${GROUP}/${TMPDIR}"
 BUILD="b37" # b37, b38
 ENVIRONMENT="calculon" # zinc-finger, calculon
-
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 PIPELINE="hisat" # hisat, lexogen
 

@@ -8,4 +8,5 @@ s05_QCStats,protocols/QCStats.sh,s04_MarkDuplicates
 s06_HTSeq_count,protocols/HTSeq_count.sh,s03_MergeBam
 s07_MakeExpressionTable,protocols/MakeExpressionTable.sh,s06_HTSeq_count
 s08_QC_Report,protocols/QC_Report.sh,s07_MakeExpressionTable;s05_QCStats
-s09_CopyToResultsDir,protocols/CopyToResultsDir.sh,s07_MakeExpressionTable;s01_FastQC;s05_QCStats
+s09_Kallisto,protocols/Kallisto.sh,s08_MakeExpressionTable
+s10_CopyToResultsDir,protocols/CopyToResultsDir.sh,s07_MakeExpressionTable;s01_FastQC;s05_QCStats
