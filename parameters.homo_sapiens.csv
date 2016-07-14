@@ -3,7 +3,7 @@ species,homo_sapiens
 annotationFileName,Homo_sapiens.${GR}
 indexFileID,human_g1k_v37
 indexFolderName,human_g1k_v37
-dbSNPFileID,dbsnp_137.${genome}
+dbSNPFileID,dbsnp_138.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
 dbSNPDir,${dataDir}/dbSNP/
 hisatIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/${hisatVersion}/${indexFolderName}
@@ -12,3 +12,7 @@ indexFileFastaIndex,${indexSpecies}.fai
 indexSpecies,${indicesDir}/${indexFileID}.fasta
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list
 indexFileDictionary,${indexSpecies}.dict
+MillsAnd1000GGoldGtandard,/apps/data/1000G/phase1/Mills_and_1000G_gold_standard
+indelRealignmentTargets,${MillsAnd1000GGoldGtandard}/1000G_phase1.indels_Mills_and_1000G_gold_standard.indels.b37.human_g1k_v37.intervals
+oneKgPhase1IndelsVcf,${MillsAnd1000GGoldGtandard}/1000G_phase1.indels.b37.vcf
+goldStandardVcf,${MillsAnd1000GGoldGtandard}/1000G_phase1.indels_Mills_and_1000G_gold_standard.indels.b37.human_g1k_v37.vcf

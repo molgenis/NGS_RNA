@@ -10,15 +10,15 @@ TMPDIR=""
 GROUP=""
 if [ "${HOST}" == "zinc-finger.gcc.rug.nl" ]
 then
-    	ENVIRONMENT_PARAMETERS="parameters_zinc-finger.csv"
+    	ENVIRONMENT_PARAMETERS="zinc-finger"
         TMPDIR="tmp05"
 elif [ "${HOST}" == "leucine-zipper.gcc.rug.nl" ]
 then
-    	ENVIRONMENT_PARAMETERS="parameters_leucine-zipper.csv"
+    	ENVIRONMENT_PARAMETERS="leucine-zipper"
         TMPDIR="tmp06"
 elif [ "${HOST}" == "calculon" ]
 then
-    	ENVIRONMENT_PARAMETERS="parameters_calculon.csv"
+    	ENVIRONMENT_PARAMETERS="calculon"
         TMPDIR="tmp04"
 else
     	echo "unknown host: running is only possible on calculon,zinc-finger or leucine-zipper"

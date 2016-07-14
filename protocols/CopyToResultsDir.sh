@@ -42,12 +42,6 @@ mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/variants
 mkdir -p ${projectResultsDir}/qcmetrics
 
-# Copy error, out and finished logs to project jobs directory
-
-cp ${projectJobsDir}/*.out ${projectLogsDir}
-cp ${projectJobsDir}/*.err ${projectLogsDir}
-cp ${projectJobsDir}/*.log ${projectLogsDir}
-
 # Copy project csv file to project results directory
 
 cp ${projectJobsDir}/${project}.csv ${projectResultsDir}
@@ -62,15 +56,15 @@ usedWorkflow=$(basename ${workflow})
 
 if [ "${usedWorkflow}" == "workflow_lexogen.csv" ]
 then
-	cp ${intermediateDir}/*.unique_mapping_reads.sorted.merged.dedup.bam ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.unique_mapping_reads.sorted.merged.dedup.bam.md5 ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.unique_mapping_reads.sorted.merged.dedup.bai ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.unique_mapping_reads.sorted.merged.dedup.bai.md5 ${projectResultsDir}/alignment
+	cp ${intermediateDir}/*.sorted.merged.dedup.bam ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.bam.md5 ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.bai ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.bai.md5 ${projectResultsDir}/alignment
 else
-	cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.bam ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.bam.md5 ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.bai ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.bai.md5 ${projectResultsDir}/alignment
+	cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam.md5 ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.bai.realigned.bqsr.md5 ${projectResultsDir}/alignment
 fi
 
 # copy qc metrics to qcmetrics folder
@@ -120,7 +114,7 @@ fi
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp ${intermediateDir}/*.insertsizemetrics.png ${projectResultsDir}/images
+		cp ${intermediateDir}/*.insert_size_histogram.png ${projectResultsDir}/images
 		cp ${intermediateDir}/*.insert_size_histogram.pdf ${projectResultsDir}/images
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
@@ -129,7 +123,7 @@ fi
 # Copy Kallisto Results if available
 	if [ "${seqType}" == "PE" ]
         then
-            	cp -r ${intermediateDir}/Kallisto ${projectResultsDir}/
+            	cp -r ${intermediateDir}/Kallisto ${projectResultsDir}/expression/
         else
             	echo "Skip Kallisto. seqType is: ${seqType}"
         fi	

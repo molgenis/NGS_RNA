@@ -7,7 +7,7 @@
 #string tmpTmpDataDir
 #string tmpDataDir
 #string indexFile
-#string splitAndTrimBam,splitAndTrimBai
+#string bqsrBam,bqsrBai
 #string intermediateDir
 #string externalSampleID
 #string dbsnpVcf
@@ -38,7 +38,7 @@ array_contains () {
 }
 
 inputs=()
-for SampleID in "${splitAndTrimBam[@]}"
+for SampleID in "${bqsrBam[@]}"
 do
         array_contains inputs "-I $SampleID" || inputs+=("-I $SampleID")    # If bamFile does not exist in array add it
 done

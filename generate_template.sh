@@ -7,16 +7,15 @@ HOST=$(hostname)
 ##Running script for checking the environment variables
 sh ${EBROOTNGS_RNA}/checkEnvironment.sh ${HOST}
 
-ENVIRONMENT_PARAMETERS=$(awk '{print $1}' ./environment_checks.txt)
+ENVIRONMENT=$(awk '{print $1}' ./environment_checks.txt)
 TMPDIR=$(awk '{print $2}' ./environment_checks.txt)
 GROUP=$(awk '{print $3}' ./environment_checks.txt)
 
 PROJECT="PROJECTNAME"
 RUNID="run01"
 
-GAF="/groups/${GROUP}/${TMPDIR}"
+WORKDIR="/groups/${GROUP}/${TMPDIR}"
 BUILD="b37" # b37, b38
-ENVIRONMENT="calculon" # zinc-finger, calculon
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 PIPELINE="hisat" # hisat, lexogen
 
@@ -33,26 +32,26 @@ then
 fi
 
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.csv > \
-${GAF}/generatedscripts/${PROJECT}/parameters.csv
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv
 
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${BUILD}.csv > \
-${GAF}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv
 
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${SPECIES}.csv > \
-${GAF}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv
 
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${ENVIRONMENT}.csv > \
-${GAF}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv
 
 sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
--p ${GAF}/generatedscripts/${PROJECT}/parameters.csv \
--p ${GAF}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv \
--p ${GAF}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv \
--p ${GAF}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv \
--p ${GAF}/generatedscripts/${PROJECT}/${PROJECT}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv \
 -p ${EBROOTNGS_RNA}/chromosomes.${SPECIES}.csv \
 -w ${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv \
--rundir ${GAF}/generatedscripts/${PROJECT}/scripts \
+-rundir ${WORKDIR}/generatedscripts/${PROJECT}/scripts \
 --runid ${RUNID} \
 --weave \
 --generate \
@@ -60,8 +59,8 @@ sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 groupname=${GROUP};\
 mainParameters=${GAF}/generatedscripts/${PROJECT}/parameters.csv;\
 ngsversion=$(module list | grep -o -P 'NGS_RNA(.+)');\
-worksheet=${GAF}/generatedscripts/${PROJECT}/${PROJECT}.csv;\
-parameters_build=${GAF}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv;\
-parameters_species=${GAF}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv;\
+worksheet=${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv;\
+parameters_build=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv;\
+parameters_species=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv;\
 parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${SPECIES}.csv;\
-parameters_environment=${GAF}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv;"
+parameters_environment=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv;"
