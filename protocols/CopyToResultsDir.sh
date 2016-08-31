@@ -62,9 +62,9 @@ then
         cp ${intermediateDir}/*.sorted.merged.dedup.bai.md5 ${projectResultsDir}/alignment
 else
 	cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam.md5 ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam.md5sum ${projectResultsDir}/alignment
         cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.bai.realigned.bqsr.md5 ${projectResultsDir}/alignment
+        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai.md5sum ${projectResultsDir}/alignment
 fi
 
 # copy qc metrics to qcmetrics folder

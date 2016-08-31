@@ -57,7 +57,7 @@ sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 --generate \
 -o "workflowpath=${WORKFLOW};outputdir=scripts/jobs;\
 groupname=${GROUP};\
-mainParameters=${GAF}/generatedscripts/${PROJECT}/parameters.csv;\
+mainParameters=${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv;\
 ngsversion=$(module list | grep -o -P 'NGS_RNA(.+)');\
 worksheet=${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv;\
 parameters_build=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv;\
