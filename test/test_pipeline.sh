@@ -46,8 +46,8 @@ cd ${workfolder}/tmp/NGS_RNA/
 cp workflow_hisat.csv test_workflow_hisat.csv 
 tail -1 workflow_hisat.csv | perl -p -e 's|,|\t|g' | awk '{print "Autotest,test/protocols/Autotest.sh,"$1}' >> test_workflow_hisat.csv
 
-cp test/results/PlatinumSubset_NGS_RNA.variant.calls.genotyped.chr1.vcf /home/umcg-molgenis/NGS_RNA/
-cp test/results/PlatinumSubset_NGS_RNA.expression.genelevel.v75.htseq.txt.table /home/umcg-molgenis/NGS_RNA/
+cp test/results/PlatinumSubset_NGS_RNA.variant.calls.genotyped.chr1.true.vcf /home/umcg-molgenis/NGS_RNA/
+cp test/results/PlatinumSubset_NGS_RNA.expression.true.table /home/umcg-molgenis/NGS_RNA/
 cp test/autotest_generate_template.sh ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/generate_template.sh
 cp test/PlatinumSubset_NGS_RNA.csv ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/
 
