@@ -137,9 +137,9 @@ sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 -p ${parameters_species} \
 -p ${parameters_environment} \
 -p ${parameters_chromosomes} \
---header ${EBROOTMOLGENISMINCOMPUTE}/templates/slurm/header_gaf.ftl \
---footer ${EBROOTMOLGENISMINCOMPUTE}/templates/slurm/footer_gaf.ftl \
---submit ${EBROOTMOLGENISMINCOMPUTE}/templates/slurm/submit_gaf.ftl \
+--header ${EBROOTNGS_RNA}/templates/slurm/header.ftl \
+--footer ${EBROOTNGS_RNA}/templates/slurm/footer.ftl \
+--submit ${EBROOTNGS_RNA}/templates/slurm/submit.ftl \
 -p ${projectJobsDir}/${project}.csv -rundir ${projectJobsDir} \
 -w ${workflowpath} -b slurm -g -weave -runid ${runid} \
 -o "ngsversion=${ngsversion};groupname=${groupname};"

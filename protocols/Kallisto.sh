@@ -61,7 +61,27 @@ then
   fi
 
 else
-  echo "Single end kallisto skipped"
+
+	echo "Kallisto SR"
+	 	
+	 kallisto quant \
+	-i ${kallistoIndex} \
+	-o ${tmpIntermediateDir}/${uniqueID} \
+	--single \
+	-l 330 \
+	-s 12 \
+	${srBarcodeFqGz}
+
+	cd ${tmpIntermediateDir}/${uniqueID}
+
+	md5sum abundance.h5 > abundance.h5.md5
+	md5sum run_info.json > run_info.json.md5
+	md5sum abundance.tsv > abundance.tsv.md5
+ 	cd -
+
+	mv -f ${tmpIntermediateDir}/${uniqueID} ${intermediateDir}/Kallisto/
+	echo "succes moving files";
+
 fi
 
 echo "## "$(date)" ##  $0 Done "

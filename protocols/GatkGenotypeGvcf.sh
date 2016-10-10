@@ -1,4 +1,4 @@
-#MOLGENIS walltime=23:59:00 mem=8gb ppn=16 nodes=1
+#MOLGENIS walltime=23:59:00 mem=17gb ppn=3 nodes=1
 
 ############moet nog aangepast worden ########################
 #string stage
@@ -69,15 +69,14 @@ GvcfSize=${#ALLGVCFs[@]}
 if [ ${GvcfSize} -ne 0 ]
 then
 
-	java -Xmx6g -XX:ParallelGCThreads=16 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTGATK}/GenomeAnalysisTK.jar \
+	java -Xmx16g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTGATK}/GenomeAnalysisTK.jar \
 	-T GenotypeGVCFs \
 	-R ${indexFile} \
  	--dbsnp ${dbsnpVcf}\
 	-o ${tmpProjectBatchGenotypedVariantCalls} \
 	${ALLGVCFs[@]} \
 	-stand_call_conf 10.0 \
-	-stand_emit_conf 20.0 \
-	-nt 4
+	-stand_emit_conf 20.0
 
 	mv ${tmpProjectBatchGenotypedVariantCalls} ${projectBatchGenotypedVariantCalls}
 	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls} "
