@@ -19,7 +19,7 @@ BUILD="b37" # b37, b38
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 PIPELINE="hisat" # hisat, lexogen
 
-WORKFLOW=${EBROOTNGS_RNA}/workflow_${PIPELINE}.csv
+WORKFLOW=${EBROOTNGS_RNA}/test_workflow_${PIPELINE}.csv
 
 if [ -f .compute.properties ];
 then
