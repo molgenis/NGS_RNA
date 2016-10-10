@@ -2,7 +2,6 @@
 
 #string tmpName
 #string	project
-#string logsDir 
 #string groupname
 #string projectResultsDir
 
