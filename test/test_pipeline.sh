@@ -77,7 +77,7 @@ do
         minutes=$((minutes+1))
 
         count=$((count+1))
-        if [ $count -eq 15 ]
+        if [ $count -eq 20 ]
         then
                 echo "the test was not finished within 1 hour, let's kill it"
 		echo -e "\n"
