@@ -39,6 +39,11 @@ then
 	rm -rf ${workfolder}/projects/PlatinumSubset_NGS_RNA/
 fi
 
+if [ -d ${workfolder}/tmp/PlatinumSubset_NGS_RNA ]
+then
+    	rm -rf ${workfolder}/tmp/PlatinumSubset_NGS_RNA/
+fi
+
 mkdir ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/
 
 ### create testworkflow
