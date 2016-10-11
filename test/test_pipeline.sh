@@ -68,7 +68,7 @@ sh submit.sh
 cd ${workfolder}/projects/PlatinumSubset_NGS_RNA/run01/jobs/
 perl -pi -e 's|--emitRefConfidence|-L 1:1-1200000 \\\n  --emitRefConfidence|' s*_GatkHaplotypeCallerGvcf_0.sh
 perl -pi -e 's|-stand_emit_conf|-L 1:1-1200000 \\\n  -stand_emit_conf|' s*_GatkGenotypeGvcf_*.sh
-perl -pe 's|GC.png|GC.png\n touch /groups/umcg-gaf//tmp04/tmp//PlatinumSubset_NGS_RNA/run01//PlatinumSample.GC.png|' s*_FastQC_*.sh
+perl -pi -e 's|cp|touch /groups/umcg-gaf//tmp04/tmp//PlatinumSubset_NGS_RNA/run01//MY_TEST_BAM_PROJECT_L1_None_1.fq_fastqc/Images/per_sequence_gc_content.png\n\t cp|' s*_FastQC_*.sh
 perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
 perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
