@@ -48,7 +48,8 @@ then
     md5sum run_info.json > run_info.json.md5
     md5sum abundance.tsv > abundance.tsv.md5
     cd -
-
+    
+    rm -rf ${intermediateDir}/Kallisto/${uniqueID}
     mv -f ${tmpIntermediateDir}/${uniqueID} ${intermediateDir}/Kallisto/
     echo "succes moving files";
 
@@ -79,6 +80,7 @@ else
 	md5sum abundance.tsv > abundance.tsv.md5
  	cd -
 
+	rm -rf ${intermediateDir}/Kallisto/${uniqueID} 
 	mv -f ${tmpIntermediateDir}/${uniqueID} ${intermediateDir}/Kallisto/
 	echo "succes moving files";
 

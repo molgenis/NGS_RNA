@@ -38,7 +38,7 @@ then
 
 	echo -e "\nFastQC finished succesfull. Moving temp files to final.\n\n"
 	mv -f ${tmpIntermediateDir}/* ${intermediateDir}
-	unzip ${peEnd1BarcodeFastQcZip}	-d ${intermediateDir}
+	unzip -f ${peEnd1BarcodeFastQcZip} -d ${intermediateDir}
 	cp ${BarcodeFastQcFolderPE}/Images/per_sequence_gc_content.png ${intermediateDir}/${externalSampleID}.GC.png
 
 else
@@ -47,6 +47,6 @@ else
 	
 	echo -e "\nFastQC finished succesfull. Moving temp files to final.\n\n"
 	mv -f ${tmpIntermediateDir}/* ${intermediateDir}
-	unzip ${srBarcodeFastQcZip} -d ${intermediateDir}
+	unzip -f ${srBarcodeFastQcZip} -d ${intermediateDir}
 	cp ${BarcodeFastQcFolder}/Images/per_sequence_gc_content.png ${intermediateDir}/${externalSampleID}.GC.png
 fi
