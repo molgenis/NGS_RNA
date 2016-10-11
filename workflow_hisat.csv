@@ -13,6 +13,6 @@ s08a_GatkHaplotypeCallerGvcf,protocols/GatkHaplotypeCallerGvcf.sh,s07c_BQSR
 s08b_GatkMergeGvcf,protocols/GatkMergeGvcf.sh,s08a_GatkHaplotypeCallerGvcf
 s08c_GatkGenotypeGvcf,protocols/GatkGenotypeGvcf.sh,s08b_GatkMergeGvcf
 s09_MakeExpressionTable,protocols/MakeExpressionTable.sh,s06_HTSeq_count
-s010_QC_Report,protocols/QC_Report.sh,s05_QCStats
+s10_QC_Report,protocols/QC_Report.sh,s05_QCStats
 s11_Kallisto,protocols/Kallisto.sh,s09_MakeExpressionTable
 s12_CopyToResultsDir,protocols/CopyToResultsDir.sh,s10_QC_Report;s08c_GatkGenotypeGvcf;s09_MakeExpressionTable;s11_Kallisto
