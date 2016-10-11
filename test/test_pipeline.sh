@@ -61,8 +61,8 @@ perl -pi -e 's|module load \$ngsversion|EBROOTNGS_RNA=/groups/umcg-gaf/tmp04/tmp
 sh submit.sh
 
 cd ${workfolder}/projects/PlatinumSubset_NGS_RNA/run01/jobs/
-perl -p -e 's|--emitRefConfidence|-L 1:1-1200000 \\ \n  --emitRefConfidence|' s*_GatkHaplotypeCallerGvcf_0.sh
-perl -p -e 's|-stand_emit_conf|-L 1:1-1200000 \\ \n  -stand_emit_conf|' s*_GatkHaplotypeCallerGvcf_*.sh
+perl -pi -e 's|--emitRefConfidence|-L 1:1-1200000 \\\n  --emitRefConfidence|' s*_GatkHaplotypeCallerGvcf_0.sh
+perl -pi -e 's|-stand_emit_conf|-L 1:1-1200000 \\\n  -stand_emit_conf|' s*_GatkGenotypeGvcf_*.sh
 perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
 perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
