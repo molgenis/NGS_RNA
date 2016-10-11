@@ -102,4 +102,4 @@ echo ""
 echo "Test succeeded!"
 echo ""
 
-head -2 /home/umcg-molgenis/output_NGS_RNA/vcfStats_RNA.txt
+head -2 /home/umcg-molgenis/output_NGS_RNA/vcfStats.txt
