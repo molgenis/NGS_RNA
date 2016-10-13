@@ -1,4 +1,4 @@
-#MOLGENIS walltime=43:59:00 mem=32gb ppn=4
+#MOLGENIS walltime=43:59:00 mem=32gb ppn=4 nodes=1
 #string stage
 #string gatkVersion
 #string checkStage

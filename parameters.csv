@@ -18,7 +18,7 @@ hisatVersion,hisat/0.1.5-beta-goolf-1.7.20
 pythonVersion,Python/2.7.9-goolf-1.7.20
 gatkVersion,GATK/3.4-46-Java-1.7.0_80 
 ghostscriptVersion,Ghostscript/9.16-goolf-1.7.20
-kallistoVersion,Kallisto/0.42.4-goolf-1.7.20
+kallistoVersion,Kallisto/0.43.0-goolf-1.7.20
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
 picardJar,picard.jar
 mergeSamFilesJar,MergeSamFiles
@@ -93,6 +93,8 @@ alignedFilteredBam,${intermediateDir}/${filePrefix}_${barcode}.bam
 alignedFilteredBai,${intermediateDir}/${filePrefix}_${barcode}.bai
 sortedBam,${intermediateDir}/${filePrefix}_${barcode}.sorted.bam
 sortedBai,${intermediateDir}/${filePrefix}_${barcode}.sorted.bai
+addOrReplaceGroupsBam,${intermediateDir}/${filePrefix}_${barcode}.rg.sorted.bam
+addOrReplaceGroupsBai,${intermediateDir}/${filePrefix}_${barcode}.rg.sorted.bai
 sampleMergedBam,${intermediateDir}/${externalSampleID}.sorted.merged.bam
 sampleMergedBai,${intermediateDir}/${externalSampleID}.sorted.merged.bai
 sampleMergedDedupBam,${intermediateDir}/${externalSampleID}.sorted.merged.dedup.bam
@@ -103,6 +105,11 @@ fragmentLength,200
 ##### Protocols 4,5a,5b,5c (SplitAndTrim,GatkHaplotypeCallerGvcf,GatkMergeGvcf,GatkGenotypeGvcf) #####
 splitAndTrimBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bam
 splitAndTrimBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bai
+IndelRealignedBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bam
+IndelRealignedBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bai
+bqsrBeforeGrp,${intermediateDir}${externalSampleID}.before.grp
+bqsrBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam
+bqsrBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai
 GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf
 GatkHaplotypeCallerGvcfidx,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.idx
 GatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf

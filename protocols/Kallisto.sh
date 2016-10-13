@@ -12,6 +12,8 @@
 #string kallistoIndex
 #string fragmentLength
 #string project
+#string groupname
+#string tmpName
 
 #Load module
 module load ${kallistoVersion}
@@ -22,6 +24,8 @@ tmpIntermediateDir=${MC_tmpFile}
 
 echo "## "$(date)" Start $0"
 echo "ID (project-internalSampleID-lane): ${project}-${externalSampleID}-L${lane}"
+
+mkdir -p ${intermediateDir}/Kallisto/
 
 uniqueID="${project}-${externalSampleID}-L${lane}"
 
@@ -36,7 +40,7 @@ then
     -o ${tmpIntermediateDir}/${uniqueID} \
     ${peEnd1BarcodeFqGz} ${peEnd2BarcodeFqGz}
   then
-    echo "returncode: $?"; putFile ${tmpIntermediateDir}/${uniqueID}/abundance.tsv
+    echo "returncode: $?"
 
     cd ${tmpIntermediateDir}/${uniqueID} 
 
@@ -44,69 +48,42 @@ then
     md5sum run_info.json > run_info.json.md5
     md5sum abundance.tsv > abundance.tsv.md5
     cd -
-
-    mv -f ${tmpIntermediateDir}/${uniqueID} ${intermediateDir} 
+    
+    rm -rf ${intermediateDir}/Kallisto/${uniqueID}
+    mv -f ${tmpIntermediateDir}/${uniqueID} ${intermediateDir}/Kallisto/
     echo "succes moving files";
 
   else
 
     echo "returncode: $?";
     echo "fail";
+    exit 1	
 
   fi
 
 else
 
-  mkdir -p ${tmpIntermediateDir}/${uniqueID}_${fragmentLength}
-  echo "Single end kallisto of ${srBarcodeFqGz}"
+	echo "Kallisto SR"
+	 	
+	 kallisto quant \
+	-i ${kallistoIndex} \
+	-o ${tmpIntermediateDir}/${uniqueID} \
+	--single \
+	-l 330 \
+	-s 12 \
+	${srBarcodeFqGz}
 
-  seq=`zcat ${srBarcodeFqGz} | head -2 | tail -1`
-  echo "seq used to determine read length: ${seq}"
-  readLength="${#seq}"
- 
-  if [ $readLength -ge 110 ]; then
-	fragmentLength=150
-  elif [ $readLength -ge 60 ]; then
-	numMism=3
-  else
-	numMism=2
-  fi
+	cd ${tmpIntermediateDir}/${uniqueID}
 
-echo "readLength=$readLength"
-	
+	md5sum abundance.h5 > abundance.h5.md5
+	md5sum run_info.json > run_info.json.md5
+	md5sum abundance.tsv > abundance.tsv.md5
+ 	cd -
 
-  mkdir -p ${tmpIntermediateDir}/${uniqueID}_${fragmentLength}
-  echo "Single end kallisto of ${srBarcodeFqGz}"
+	rm -rf ${intermediateDir}/Kallisto/${uniqueID} 
+	mv -f ${tmpIntermediateDir}/${uniqueID} ${intermediateDir}/Kallisto/
+	echo "succes moving files";
 
-
-  if kallisto quant \
-    -i ${kallistoIndex} \
-    -o ${tmpIntermediateDir}/${uniqueID}_${readLength} \
-    --single \
-    -l ${readLength} \
-    ${srBarcodeFqGz}
-  then
-    echo "returncode: $?"; 
-
-    cd ${tmpIntermediateDir}/${uniqueID}_${readLength}
-
-    md5sum abundance.h5 > abundance.h5.md5
-    md5sum run_info.json > run_info.json.md5
-    md5sum abundance.tsv > abundance.tsv.md5
-    cd -
-
-    mv -f ${tmpIntermediateDir}/${uniqueID}_${readLength}/ ${intermediateDir}
-    echo "succes moving files";
-
-  else
-
-    echo "returncode: $?";
-    echo "fail";
-    exit 1
-
-  fi
-
-	
 fi
 
 echo "## "$(date)" ##  $0 Done "

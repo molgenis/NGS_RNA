@@ -1,5 +1,4 @@
-#MOLGENIS walltime=23:59:00 mem=12gb ppn=8
-
+#MOLGENIS walltime=23:59:00 mem=12gb ppn=8 nodes=1
 
 #string stage
 #string gatkVersion
@@ -7,7 +6,7 @@
 #string tmpTmpDataDir
 #string tmpDataDir
 #string indexFile
-#string splitAndTrimBam,splitAndTrimBai
+#string bqsrBam,bqsrBai
 #string intermediateDir
 #string externalSampleID
 #string dbsnpVcf
@@ -38,7 +37,7 @@ array_contains () {
 }
 
 inputs=()
-for SampleID in "${splitAndTrimBam[@]}"
+for SampleID in "${bqsrBam[@]}"
 do
         array_contains inputs "-I $SampleID" || inputs+=("-I $SampleID")    # If bamFile does not exist in array add it
 done

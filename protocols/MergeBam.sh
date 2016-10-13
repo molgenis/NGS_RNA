@@ -8,7 +8,7 @@
 #string sampleMergedBam
 #string sampleMergedBai
 #string tempDir
-#list sortedBam,sortedBai
+#list addOrReplaceGroupsBam,addOrReplaceGroupsBai
 #string tmpDataDir
 #string project
 #string intermediateDir
@@ -48,13 +48,13 @@ INPUTS=()
 INPUTBAMS=()
 UNIQUEBAIS=()
 
-for bamFile in "${sortedBam[@]}"
+for bamFile in "${addOrReplaceGroupsBam[@]}"
 do
 	array_contains INPUTS "INPUT=$bamFile" || INPUTS+=("INPUT=$bamFile")    # If bamFile does not exist in array add it
 	array_contains INPUTBAMS "$bamFile" || INPUTBAMS+=("$bamFile")    # If bamFile does not exist in array add it
 done
 
-for baiFile in "${sortedBai[@]}"
+for baiFile in "${addOrReplaceGroupsBai[@]}"
 do
 	array_contains UNIQUEBAIS "$baiFile" || UNIQUEBAIS+=("$baiFile")    # If baiFile does not exist in array add it
 done
