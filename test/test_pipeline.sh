@@ -1,8 +1,6 @@
 set -e 
 set -u
 
-scancel -u umcg-molgenis
-
 workfolder="/groups/umcg-gaf/tmp04/"
 
 cd ${workfolder}/tmp/
@@ -24,10 +22,8 @@ COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
 echo "checkout commit: COMMIT"
 git checkout -f ${COMMIT}
 
-if [ ! -d ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/ ] 
-then
-	cp -r test/rawdata/MY_TEST_BAM_PROJECT/ ${workfolder}/rawdata/ngs/
-fi
+cp -r test/rawdata/MY_TEST_BAM_PROJECT/small_revertsam_RNA_1.fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
+cp -r test/rawdata/MY_TEST_BAM_PROJECT/small_revertsam_RNA_2.fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
 
 if [ -d ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA ] 
 then
