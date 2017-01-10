@@ -6,17 +6,17 @@ jobname,jobname
 ##### Tools and versions #####
 jdkVersion,Java/1.7.0_80
 NGSUtilsVersion,ngs-utils
-NGSRNAVersion,NGS_RNA/3.2.3-Molgenis-Compute-v16.05.1-Java-1.8.0_45
+NGSRNAVersion,NGS_RNA/3.2.4
 fastqcVersion,FastQC/0.11.3-Java-1.7.0_80
-samtoolsVersion,SAMtools/1.2-goolf-1.7.20
+samtoolsVersion,SAMtools/1.2-foss-2015b
 RVersion,R/3.2.1-goolf-1.7.20
 wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
 picardVersion,picard/1.130-Java-1.7.0_80
 anacondaVersion,Anaconda/1.8.0-Linux-x86_64
 htseqVersion,HTSeq/0.6.1p1
-hisatVersion,hisat/0.1.5-beta-goolf-1.7.20
+hisatVersion,hisat/0.1.6-beta-foss-2015b
 pythonVersion,Python/2.7.9-goolf-1.7.20
-gatkVersion,GATK/3.4-46-Java-1.7.0_80 
+gatkVersion,GATK/3.6-Java-1.8.0_74
 ghostscriptVersion,Ghostscript/9.16-goolf-1.7.20
 kallistoVersion,Kallisto/0.43.0-goolf-1.7.20
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
