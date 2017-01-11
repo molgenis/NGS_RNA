@@ -97,7 +97,7 @@ cd $ROCKETPOINT
 
 echo "before splitting"
 echo `pwd`
-module load ${NGSRNAVersion}
+#module load ${NGSRNAVersion}
 
 #
 # TODO: array for each sample:
