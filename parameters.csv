@@ -17,7 +17,7 @@ htseqVersion,HTSeq/0.6.1p1
 hisatVersion,hisat/0.1.6-beta-foss-2015b
 pythonVersion,Python/2.7.9-goolf-1.7.20
 gatkVersion,GATK/3.6-Java-1.8.0_74
-ghostscriptVersion,Ghostscript/9.16-goolf-1.7.20
+ghostscriptVersion,Ghostscript/9.16-foss-2015b
 kallistoVersion,Kallisto/0.43.0-goolf-1.7.20
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
 picardJar,picard.jar
