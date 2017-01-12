@@ -60,7 +60,7 @@ sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 -o "workflowpath=${WORKFLOW};outputdir=scripts/jobs;\
 groupname=${GROUP};\
 mainParameters=${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv;\
-ngsversion='NGS_RNA/3.2.4-Molgenis-Compute-v16.05.1-Java-1.8.0_45';\
+ngsversion='NGS_RNA/3.2.4';\
 worksheet=${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv;\
 parameters_build=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv;\
 parameters_species=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv;\
