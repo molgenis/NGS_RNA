@@ -54,9 +54,6 @@ tmpSortedBai=${MC_tmpFile}
 
 #Load modules
 ${stage} ${hisatVersion}
-${stage} ${samtoolsVersion}
-${stage} ${picardVersion}
-
 #check modules
 ${checkStage}
 
@@ -74,6 +71,11 @@ echo "## "$(date)" Start $0"
 
 	perl -nle 'print $2,"|\t",$1 while (m%^[ ]*([.0-9\%]+\s\(.+\)|[.0-9\%]+).(.+)%g);' ${intermediateDir}/${externalSampleID}_L${lane}.hisat.log > ${intermediateDir}/${externalSampleID}_L${lane}.hisat.final.log
 
+
+${stage} ${picardVersion}
+
+#check modules
+${checkStage}
 
 java -XX:ParallelGCThreads=4 -jar -Xmx6g ${EBROOTPICARD}/${picardJar} SortSam \
 	INPUT=${tmpAlignedSam} \

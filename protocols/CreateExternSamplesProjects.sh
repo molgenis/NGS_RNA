@@ -11,6 +11,7 @@
 #string jdkVersion
 #string groupname
 #string NGSUtilsVersion
+#string NGSRNAVersion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -36,7 +37,7 @@
 
 umask 0007
 module load Molgenis-Compute/${computeVersion}
-module load ngs-utils/16.09.1
+module load ${NGSUtilsVersion}
 
 module list
 #
@@ -96,7 +97,7 @@ cd $ROCKETPOINT
 
 echo "before splitting"
 echo `pwd`
-module load ${ngsUtilsVersion}
+module load ${NGSRNAVersion}
 
 #
 # TODO: array for each sample:

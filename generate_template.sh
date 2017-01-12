@@ -4,12 +4,11 @@ module load NGS_RNA/3.2.4-Molgenis-Compute-v16.05.1-Java-1.8.0_45
 module list
 
 HOST=$(hostname)
-##Running script for checking the environment variables
-sh ${EBROOTNGS_RNA}/checkEnvironment.sh ${HOST}
+thisDir=$(pwd)
 
-ENVIRONMENT=$(awk '{print $1}' ./environment_checks.txt)
-TMPDIR=$(awk '{print $2}' ./environment_checks.txt)
-GROUP=$(awk '{print $3}' ./environment_checks.txt)
+ENVIRONMENT="parameters.${HOST%%.*}.csv"
+TMPDIRECTORY=$(basename $(cd ../../ && pwd ))
+GROUP=$(basename $(cd ../../../ && pwd ))
 
 PROJECT="PROJECTNAME"
 RUNID="run01"

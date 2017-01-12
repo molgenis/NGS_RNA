@@ -6,7 +6,7 @@ indexFolderName,human_g1k_v37
 dbSNPFileID,dbsnp_138.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
 dbSNPDir,${dataDir}/dbSNP/
-hisatIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/${hisatVersion}/${indexFolderName}
+hisatIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/hisat/0.1.5-beta-goolf-1.7.20/${indexFolderName}
 kallistoIndex,${dataDir}/ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/Homo_sapiens.GRCh37.75.cdna.all.fa.idx
 indexFileFastaIndex,${indexSpecies}.fai
 indexSpecies,${indicesDir}/${indexFileID}.fasta
