@@ -1,0 +1,3 @@
+step,protocol,dependencies
+s00_FastQC,protocols/FastQC.sh,
+s01_TrimReads,protocols/trimReads.sh,s00_FastQC

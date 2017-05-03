@@ -41,7 +41,6 @@ mkdir -p ${projectResultsDir}/expression/expressionTable
 mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/variants
 mkdir -p ${projectResultsDir}/qcmetrics
-mkdir -p ${projectResultsDir}/Kallisto
 
 # Copy project csv file to project results directory
 
@@ -94,7 +93,7 @@ fi
 	cp ${intermediateDir}/*.htseq.txt ${projectResultsDir}/expression/perSampleExpression
 	cp ${projectHTseqExpressionTable} ${projectResultsDir}/expression/expressionTable
 	cp ${annotationGtf} ${projectResultsDir}/expression/
-	cp -r ${intermediateDir}/Kallisto/* ${projectResultsDir}/Kallisto/
+	#cp -r ${intermediateDir}/Kallisto/* ${projectResultsDir}/Kallisto/
 
 # Copy QC images and report to results directory
 

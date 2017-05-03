@@ -20,7 +20,9 @@
 #string picardVersion
 #string anacondaVersion
 #string hisatVersion
-#string genome
+#string indexFileID
+#string ensembleReleaseVersion
+
 #string ngsversion
 #string groupname
 #string tmpName
@@ -240,7 +242,7 @@ sequenced on an Illumina HiSeq2500 using default parameters (single read 1x50bp 
 End 2 x 100 bp) in pools of multiple samples.
 
 Gene expression quantification
-The trimmed fastQ files where aligned to build ${genome} human reference genome using 
+The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} reference genome using 
 ${hisatVersion} [1] allowing for 2 mismatches. Before gene quantification
 ${samtoolsVersion} [2] was used to sort the aligned reads.
 The gene level quantification was performed by ${htseqVersion} [3] using --mode=union

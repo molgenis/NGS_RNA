@@ -38,8 +38,8 @@ then
 	ktrim=l \
         qtrim=rl \
         trimq=14 \
-        minlength=20 \
-        forcetrimleft=11
+        minlength=20 
+	#\forcetrimleft=11
 
 	gzip ${peEnd1BarcodeFqGz}.tmp
 	gzip ${peEnd2BarcodeFqGz}.tmp
@@ -59,8 +59,8 @@ then
 	ktrim=l \
         qtrim=rl \
         trimq=14 \
-        minlength=20 \
-        forcetrimleft=11
+        minlength=20 
+	#forcetrimleft=11
 
 	gzip ${srBarcodeFqGz}.tmp
 	mv ${srBarcodeFqGz}.tmp.gz ${srBarcodeFqGz}
