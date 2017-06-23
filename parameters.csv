@@ -20,6 +20,7 @@ gatkVersion,GATK/3.6-Java-1.8.0_74
 ghostscriptVersion,Ghostscript/9.16-foss-2015b
 kallistoVersion,Kallisto/0.43.0-goolf-1.7.20
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
+multiqcVersion,multiqc/1.0-foss-2015b-Python-2.7.11
 picardJar,picard.jar
 mergeSamFilesJar,MergeSamFiles
 processReadCountsJar,ProcessReadCounts.jar

@@ -140,17 +140,6 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 
 Description of the different steps used in the RNA analysis pipeline
 
-RNA Isolation, Sample Preparation and sequencing
-Initial quality check of and RNA quantification of the samples was performed by capillary 
-electrophoresis using the LabChip GX (Perkin Elmer). Non-degraded RNA-samples were 
-selected for subsequent sequencing analysis. 
-Sequence libraries were generated using the TruSeq RNA sample preparation kits (Illumina) 
-using the Sciclone NGS Liquid Handler (Perkin Elmer). In case of contamination of adapter-
-duplexes an extra purification of the libraries was performed with the automated agarose 
-gel separation system Labchip XT (PerkinElmer). The obtained cDNA fragment libraries were 
-sequenced on an Illumina HiSeq2500 using default parameters (single read 1x50bp or Paired 
-End 2 x 100 bp) in pools of multiple samples.
-
 Gene expression quantification
 The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
 reference genome using ${hisatVersion} [1] with default settings. Before gene quantification 

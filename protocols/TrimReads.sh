@@ -32,7 +32,7 @@ then
 	in2=${peEnd2BarcodeFqGz} \
 	out1=${peEnd1BarcodeFqGz}.tmp \
 	out2=${peEnd2BarcodeFqGz}.tmp \
-	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz,${EBROOTBBMAP}/resources/polyG.fa.gz \
+	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz \
 	overwrite=true \
         k=13 \
 	ktrim=l \
@@ -53,7 +53,7 @@ then
 	${EBROOTBBMAP}/bbduk.sh -Xmx3g \
 	in=${srBarcodeFqGz} \
 	out=${srBarcodeFqGz}.tmp \
-	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz,${EBROOTBBMAP}/resources/polyG.fa.gz \
+	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz \
 	overwrite=true \
         k=13 \
 	ktrim=l \
