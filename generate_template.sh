@@ -3,10 +3,9 @@
 module load NGS_RNA/3.2.5
 module list
 
-HOST=$(hostname)
 thisDir=$(pwd)
 
-ENVIRONMENT="${HOST%%.*}"
+ENVIRONMENT=$(hostname -s)
 TMPDIR=$(basename $(cd ../../ && pwd ))
 GROUP=$(basename $(cd ../../../ && pwd ))
 
