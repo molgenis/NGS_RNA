@@ -24,7 +24,7 @@
 #string indexFileID
 #string ensembleReleaseVersion
 #string prepKit
-#string ngsversion
+#string NGSRNAVersion
 #string groupname
 #string tmpName
 #string jdkVersion
@@ -55,7 +55,7 @@ cat > ${intermediateDir}/${project}_QC_config.yaml <<'_EOF'
 
 report_header_info:
     - Contact E-mail: '${contact}'
-    - Pipeline Version: '${ngsversion}'
+    - Pipeline Version: '${NGSRNAVersion}'
     - Project : '${project}'
     - prepKit : '${prepKit}'
     - '' : ''
