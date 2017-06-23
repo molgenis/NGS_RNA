@@ -103,17 +103,6 @@ report_header_info:
     - '': '5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}'
 _EOF
 
-# Copy images to imagefolder
-mkdir -p ${projectQcDir}/images
-cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectQcDir}/images
-cp ${intermediateDir}/*.GC.png ${projectQcDir}/images
-
-#only available with PE
-
-if [ "${seqType}" == "PE" ]
-then
-	cp ${intermediateDir}/*.insert_size_histogram.png ${projectQcDir}/images
-fi
 
 # generate multiqc QC rapport
 
@@ -121,7 +110,5 @@ module load ${multiqcVersion}
 module list
 
 multiqc -c ${intermediateDir}/${project}_QC_config.yaml -f ${intermediateDir} -o ${projectResultsDir}
-
-#--comment "<b>Gene expression quantification</b> <br>The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} reference genome using <br>${hisatVersion} [1] allowing for 2 mismatches. Before gene quantification <br>${samtoolsVersion} [2] was used to sort the aligned reads. <br>The gene level quantification was performed by ${htseqVersion} [3] using --mode=union <br>--stranded=no and, Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included <br> in folder expression/.<br><br><b>Calculate QC metrics on raw and aligned data</b> <br>Quality control (QC) metrics are calculated for the raw sequencing data. This is done using<br>the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned reads using<br>Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-<br>Metrics and ${samtoolsVersion} flagstat.These QC metrics form the basis in this  final QC report.<br><br><br><b>Used toolversions:</b><br>${jdkVersion} <br>${fastqcVersion} <br>${hisatVersion} <br>${samtoolsVersion} <br>${RVersion} <br>${wkhtmltopdfVersion} <br>${picardVersion} <br>${htseqVersion} <br>${pythonVersion} <br>${gatkVersion} <br>${multiqcVersion} <br>${ghostscriptVersion} <br>"
 
 mv ${projectResultsDir}/multiqc_report.html ${projectResultsDir}/${project}_multiqc_report.html
