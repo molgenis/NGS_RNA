@@ -121,6 +121,7 @@ projectBatchCombinedVariantCalls,${projectPrefix}.variant.calls.combined.chr${ch
 ##### Protocols 2,7 (QCStats, QC_Report) #####
 collectMultipleMetricsPrefix,${intermediateDir}${externalSampleID}
 flagstatMetrics,${intermediateDir}${externalSampleID}.flagstat
+idxstatsMetrics,${intermediateDir}${externalSampleID}.idxstats
 dupStatMetrics,${intermediateDir}${externalSampleID}.mdupmetrics
 rnaSeqMetrics,${intermediateDir}${externalSampleID}.collectrnaseqmetrics
 alignmentMetrics,${intermediateDir}${externalSampleID}.alignment_summary_metrics

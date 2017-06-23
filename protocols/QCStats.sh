@@ -18,6 +18,7 @@
 #string qcMatrics
 #string rnaSeqMetrics
 #string dupStatMetrics
+#string idxstatsMetrics
 #string alignmentMetrics
 #string externalSampleID
 #string picardVersion
@@ -65,6 +66,9 @@ then
 
 	#Flagstat for reads mapping to the genome.
 	samtools flagstat ${sampleMergedDedupBam} >  ${flagstatMetrics}
+	
+	# Fagstats idxstats, reads per chr.
+	samtools idxstats ${sampleMergedDedupBam} > ${idxstatsMetrics}
 
 	#CollectRnaSeqMetrics.jar
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g ${EBROOTPICARD}/${picardJar} CollectRnaSeqMetrics \
