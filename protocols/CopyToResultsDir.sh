@@ -93,14 +93,10 @@ fi
 	cp ${intermediateDir}/*.htseq.txt ${projectResultsDir}/expression/perSampleExpression
 	cp ${projectHTseqExpressionTable} ${projectResultsDir}/expression/expressionTable
 	cp ${annotationGtf} ${projectResultsDir}/expression/
-	#cp -r ${intermediateDir}/Kallisto/* ${projectResultsDir}/Kallisto/
 
 # Copy QC images and report to results directory
 
-	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images
-	cp ${intermediateDir}/*.GC.png ${projectResultsDir}/images
-	cp ${projectQcDir}/${project}_QCReport.html ${projectResultsDir}
-	cp ${projectQcDir}/${project}_QCReport.pdf ${projectResultsDir}
+	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images	cp ${intermediateDir}/*.GC.png ${projectResultsDir}/images
 
 # Copy variants vcfs to results directory
 
@@ -217,7 +213,7 @@ zip -gr ${projectResultsDir}/${project}.zip qcmetrics
 zip -gr ${projectResultsDir}/${project}.zip expression
 zip -gr ${projectResultsDir}/${project}.zip variants
 zip -gr ${projectResultsDir}/${project}.zip images
-zip -g ${projectResultsDir}/${project}.zip ${project}_QCReport.pdf
+zip -g ${projectResultsDir}/${project}.zip ${project}_multiqc_report.html
 zip -g ${projectResultsDir}/${project}.zip README.txt
 
 # Create md5sum for zip file
