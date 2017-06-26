@@ -91,6 +91,8 @@ then
         #Flagstat for reads mapping to the genome.
         samtools flagstat ${sampleMergedDedupBam} > ${flagstatMetrics}
 
+	# Fagstats idxstats, reads per chr.
+        samtools idxstats ${sampleMergedDedupBam} > ${idxstatsMetrics}
 
 	echo -e "generate CollectMultipleMetrics"
 

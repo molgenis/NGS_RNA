@@ -38,8 +38,8 @@ mkdir -p ${projectResultsDir}/fastqc
 mkdir -p ${projectResultsDir}/expression
 mkdir -p ${projectResultsDir}/expression/perSampleExpression
 mkdir -p ${projectResultsDir}/expression/expressionTable
-mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/variants
+mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/qcmetrics
 
 # Copy project csv file to project results directory
@@ -78,6 +78,7 @@ fi
 	cp ${intermediateDir}/*.base_distribution_by_cycle_metrics ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.alignment_summary_metrics ${projectResultsDir}/qcmetrics
         cp ${intermediateDir}/*.flagstat ${projectResultsDir}/qcmetrics
+	cp ${intermediateDir}/*.idxstats ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.mdupmetrics ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.collectrnaseqmetrics ${projectResultsDir}/qcmetrics
 
@@ -96,7 +97,7 @@ fi
 
 # Copy QC images and report to results directory
 
-	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images	cp ${intermediateDir}/*.GC.png ${projectResultsDir}/images
+	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images
 
 # Copy variants vcfs to results directory
 
@@ -116,14 +117,6 @@ fi
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
-
-# Copy Kallisto Results if available
-	if [ "${seqType}" == "PE" ]
-        then
-            	cp -r ${intermediateDir}/Kallisto ${projectResultsDir}/expression/
-        else
-            	echo "Skip Kallisto. seqType is: ${seqType}"
-        fi	
 
 
 # write README.txt file
