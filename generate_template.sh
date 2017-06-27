@@ -1,13 +1,12 @@
 #!/bin/bash
 
-module load NGS_RNA/3.2.4-Molgenis-Compute-v16.05.1-Java-1.8.0_45
+module load NGS_RNA/3.2.5
 module list
 
-HOST=$(hostname)
 thisDir=$(pwd)
 
-ENVIRONMENT="parameters.${HOST%%.*}.csv"
-TMPDIRECTORY=$(basename $(cd ../../ && pwd ))
+ENVIRONMENT=$(hostname -s)
+TMPDIR=$(basename $(cd ../../ && pwd ))
 GROUP=$(basename $(cd ../../../ && pwd ))
 
 PROJECT="PROJECTNAME"

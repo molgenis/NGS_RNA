@@ -18,9 +18,12 @@
 #string fastqcVersion
 #string samtoolsVersion
 #string picardVersion
+#string multiqcVersion
 #string anacondaVersion
 #string hisatVersion
-#string genome
+#string indexFileID
+#string ensembleReleaseVersion
+
 #string ngsversion
 #string groupname
 #string tmpName
@@ -228,19 +231,8 @@ three months after</pre> <script language="javascript">
 <pre>
 Description of the RNA Isolation, Sample Preparation and sequencing and different steps used in the RNA analysis pipeline
 
-RNA Isolation, Sample Preparation and sequencing
-Initial quality check of and RNA quantification of the samples was performed by capillary
-electrophoresis using the LabChip GX (Perkin Elmer). Non-degraded RNA-samples were
-selected for subsequent sequencing analysis.
-Sequence libraries were generated using the TruSeq RNA sample preparation kits (Illumina)
-using the Sciclone NGS Liquid Handler (Perkin Elmer). In case of contamination of adapter-
-duplexes an extra purification of the libraries was performed with the automated agarose
-gel separation system Labchip XT (PerkinElmer). The obtained cDNA fragment libraries were
-sequenced on an Illumina HiSeq2500 using default parameters (single read 1x50bp or Paired
-End 2 x 100 bp) in pools of multiple samples.
-
 Gene expression quantification
-The trimmed fastQ files where aligned to build ${genome} human reference genome using 
+The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} reference genome using 
 ${hisatVersion} [1] allowing for 2 mismatches. Before gene quantification
 ${samtoolsVersion} [2] was used to sort the aligned reads.
 The gene level quantification was performed by ${htseqVersion} [3] using --mode=union
@@ -267,6 +259,7 @@ ${picardVersion}
 ${htseqVersion}
 ${pythonVersion}
 ${gatkVersion}
+${multiqcVersion}
 ${ghostscriptVersion}
 
 1. Dobin A, Davis C a, Schlesinger F, Drenkow J, Zaleski C, Jha S, Batut P, Chaisson M,
@@ -504,3 +497,11 @@ fi
 #convert to pdf
 
 wkhtmltopdf-amd64 --page-size A0 ${projectQcDir}/${project}_QCReport.html ${projectQcDir}/${project}_QCReport.pdf
+
+# generate multiqc QC rapport
+
+module load ${multiqcVersion}
+
+multiqc -f --comment "<b>Gene expression quantification</b> <br>The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} reference genome using <br>${hisatVersion} [1] allowing for 2 mismatches. Before gene quantification <br>${samtoolsVersion} [2] was used to sort the aligned reads. <br>The gene level quantification was performed by ${htseqVersion} [3] using --mode=union <br>--stranded=no and, Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included <br> in folder expression/.<br><br><b>Calculate QC metrics on raw and aligned data</b> <br>Quality control (QC) metrics are calculated for the raw sequencing data. This is done using<br>the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned reads using<br>Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-<br>Metrics and ${samtoolsVersion} flagstat.These QC metrics form the basis in this  final QC report.<br><br><br><b>Used toolversions:</b><br>${jdkVersion} <br>${fastqcVersion} <br>${hisatVersion} <br>${samtoolsVersion} <br>${RVersion} <br>${wkhtmltopdfVersion} <br>${picardVersion} <br>${htseqVersion} <br>${pythonVersion} <br>${gatkVersion} <br>${multiqcVersion} <br>${ghostscriptVersion} <br>" ${intermediateDir} -o ${projectResultsDir}
+
+

@@ -38,10 +38,9 @@ mkdir -p ${projectResultsDir}/fastqc
 mkdir -p ${projectResultsDir}/expression
 mkdir -p ${projectResultsDir}/expression/perSampleExpression
 mkdir -p ${projectResultsDir}/expression/expressionTable
-mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/variants
+mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/qcmetrics
-mkdir -p ${projectResultsDir}/Kallisto
 
 # Copy project csv file to project results directory
 
@@ -79,6 +78,7 @@ fi
 	cp ${intermediateDir}/*.base_distribution_by_cycle_metrics ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.alignment_summary_metrics ${projectResultsDir}/qcmetrics
         cp ${intermediateDir}/*.flagstat ${projectResultsDir}/qcmetrics
+	cp ${intermediateDir}/*.idxstats ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.mdupmetrics ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.collectrnaseqmetrics ${projectResultsDir}/qcmetrics
 
@@ -94,14 +94,10 @@ fi
 	cp ${intermediateDir}/*.htseq.txt ${projectResultsDir}/expression/perSampleExpression
 	cp ${projectHTseqExpressionTable} ${projectResultsDir}/expression/expressionTable
 	cp ${annotationGtf} ${projectResultsDir}/expression/
-	cp -r ${intermediateDir}/Kallisto/* ${projectResultsDir}/Kallisto/
 
 # Copy QC images and report to results directory
 
 	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images
-	cp ${intermediateDir}/*.GC.png ${projectResultsDir}/images
-	cp ${projectQcDir}/${project}_QCReport.html ${projectResultsDir}
-	cp ${projectQcDir}/${project}_QCReport.pdf ${projectResultsDir}
 
 # Copy variants vcfs to results directory
 
@@ -122,14 +118,6 @@ fi
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
-# Copy Kallisto Results if available
-	if [ "${seqType}" == "PE" ]
-        then
-            	cp -r ${intermediateDir}/Kallisto ${projectResultsDir}/expression/
-        else
-            	echo "Skip Kallisto. seqType is: ${seqType}"
-        fi	
-
 
 # write README.txt file
 
@@ -140,17 +128,6 @@ University of Groningen, University Medical Center Groningen, Genomics Coordinat
 University of Groningen, University Medical Center Groningen, Department of Genetics, Groningen, the Netherlands
 
 Description of the different steps used in the RNA analysis pipeline
-
-RNA Isolation, Sample Preparation and sequencing
-Initial quality check of and RNA quantification of the samples was performed by capillary 
-electrophoresis using the LabChip GX (Perkin Elmer). Non-degraded RNA-samples were 
-selected for subsequent sequencing analysis. 
-Sequence libraries were generated using the TruSeq RNA sample preparation kits (Illumina) 
-using the Sciclone NGS Liquid Handler (Perkin Elmer). In case of contamination of adapter-
-duplexes an extra purification of the libraries was performed with the automated agarose 
-gel separation system Labchip XT (PerkinElmer). The obtained cDNA fragment libraries were 
-sequenced on an Illumina HiSeq2500 using default parameters (single read 1x50bp or Paired 
-End 2 x 100 bp) in pools of multiple samples.
 
 Gene expression quantification
 The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
@@ -229,7 +206,7 @@ zip -gr ${projectResultsDir}/${project}.zip qcmetrics
 zip -gr ${projectResultsDir}/${project}.zip expression
 zip -gr ${projectResultsDir}/${project}.zip variants
 zip -gr ${projectResultsDir}/${project}.zip images
-zip -g ${projectResultsDir}/${project}.zip ${project}_QCReport.pdf
+zip -g ${projectResultsDir}/${project}.zip ${project}_multiqc_report.html
 zip -g ${projectResultsDir}/${project}.zip README.txt
 
 # Create md5sum for zip file

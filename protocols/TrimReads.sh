@@ -32,14 +32,14 @@ then
 	in2=${peEnd2BarcodeFqGz} \
 	out1=${peEnd1BarcodeFqGz}.tmp \
 	out2=${peEnd2BarcodeFqGz}.tmp \
-	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz,${EBROOTBBMAP}/resources/polyG.fa.gz \
+	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz \
 	overwrite=true \
         k=13 \
 	ktrim=l \
         qtrim=rl \
         trimq=14 \
-        minlength=20 \
-        forcetrimleft=11
+        minlength=20 
+	#\forcetrimleft=11
 
 	gzip ${peEnd1BarcodeFqGz}.tmp
 	gzip ${peEnd2BarcodeFqGz}.tmp
@@ -53,14 +53,14 @@ then
 	${EBROOTBBMAP}/bbduk.sh -Xmx3g \
 	in=${srBarcodeFqGz} \
 	out=${srBarcodeFqGz}.tmp \
-	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz,${EBROOTBBMAP}/resources/polyG.fa.gz \
+	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz \
 	overwrite=true \
         k=13 \
 	ktrim=l \
         qtrim=rl \
         trimq=14 \
-        minlength=20 \
-        forcetrimleft=11
+        minlength=20 
+	#forcetrimleft=11
 
 	gzip ${srBarcodeFqGz}.tmp
 	mv ${srBarcodeFqGz}.tmp.gz ${srBarcodeFqGz}

@@ -18,6 +18,7 @@
 #string qcMatrics
 #string rnaSeqMetrics
 #string dupStatMetrics
+#string idxstatsMetrics
 #string alignmentMetrics
 #string externalSampleID
 #string picardVersion
@@ -65,6 +66,9 @@ then
 
 	#Flagstat for reads mapping to the genome.
 	samtools flagstat ${sampleMergedDedupBam} >  ${flagstatMetrics}
+	
+	# Fagstats idxstats, reads per chr.
+	samtools idxstats ${sampleMergedDedupBam} > ${idxstatsMetrics}
 
 	#CollectRnaSeqMetrics.jar
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g ${EBROOTPICARD}/${picardJar} CollectRnaSeqMetrics \
@@ -81,23 +85,14 @@ then
 
 	# Collect QC data from several QC matricses, and write a tablular output file.
 
-	#add header to qcMatrics
-        echo "Sample:	${externalSampleID}" > ${qcMatrics}
-
-	python ${EBROOTNGS_RNA}/report/pull_RNA_Seq_Stats.py \
-	-i ${insertsizeMetrics} \
-	-f ${flagstatMetrics} \
-	-r ${rnaSeqMetrics} \
-	-d ${dupStatMetrics} \
-	-a ${alignmentMetrics} \
-	>> ${qcMatrics}
-
 elif [ ${seqType} == "SR" ]
 then
 
         #Flagstat for reads mapping to the genome.
         samtools flagstat ${sampleMergedDedupBam} > ${flagstatMetrics}
 
+	# Fagstats idxstats, reads per chr.
+        samtools idxstats ${sampleMergedDedupBam} > ${idxstatsMetrics}
 
 	echo -e "generate CollectMultipleMetrics"
 
@@ -126,14 +121,4 @@ then
 	#convert pdf to png
 	convert -density 150 ${rnaSeqMetrics}.pdf -quality 90 ${rnaSeqMetrics}.png
 
-	#add header to qcMatrics
-	echo "Sample:	${externalSampleID}" > ${qcMatrics} 
-
-	#Pull RNASeq stats without intsertSizeMatrics
-	python ${EBROOTNGS_RNA}/report/pull_RNA_Seq_Stats.py \
-	-f ${flagstatMetrics} \
-	-r ${rnaSeqMetrics} \
-	-d ${dupStatMetrics} \
-	-a ${alignmentMetrics} \
-	>> ${qcMatrics}
 fi

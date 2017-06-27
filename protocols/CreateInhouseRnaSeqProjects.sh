@@ -11,7 +11,7 @@
 #string jdkVersion
 #string groupname
 #string NGSUtilsVersion
-
+#string NGSRNAVersion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -42,8 +42,8 @@ umask 0007
 
 #FIX!
 module load ${ngsversion}
-
 module load ${NGSUtilsVersion}
+module load ${NGSRNAVersion}
 module list
 
 #
@@ -129,7 +129,6 @@ fi
 
 echo "before run second rocket"
 echo pwd
-
 
 sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 -p ${mainParameters} \
