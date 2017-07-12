@@ -41,7 +41,7 @@ echo "## "$(date)" Start $0"
  OUTPUT=${tmpAddOrReplaceGroupsBam} \
  SORT_ORDER=coordinate \
  RGID=${externalSampleID} \
- RGLB=${sequencer}_${flowcell}_${run}_${lane}_${barcode} \
+ RGLB=${externalSampleID}_${barcode} \
  RGPL=ILLUMINA \
  RGPU=${sequencer}_${flowcell}_${run}_${lane}_${barcode} \
  RGSM=${externalSampleID} \
