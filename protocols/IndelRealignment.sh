@@ -1,4 +1,4 @@
-#MOLGENIS nodes=1 ppn=8 mem=10gb walltime=23:59:00
+#MOLGENIS nodes=1 ppn=8 mem=11gb walltime=23:59:00
 
 #string project
 #string stage
@@ -39,7 +39,7 @@ echo
 echo "Running GATK IndelRealignment:"
 
 
-java -Xmx8g -XX:ParallelGCThreads=8 -Djava.io.tmpdir=${tmpTmpDataDir} -jar $EBROOTGATK/GenomeAnalysisTK.jar \
+java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir=${tmpTmpDataDir} -jar $EBROOTGATK/GenomeAnalysisTK.jar \
  -T IndelRealigner \
  -R ${indexFile} \
  -I ${splitAndTrimBam} \
