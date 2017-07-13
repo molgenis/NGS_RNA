@@ -6,14 +6,15 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Please use both affiliations
 
 # Methods
+This describes how the analysis of high troughput sequencing data was performed by our facility for expression quantification of RNAseq.
 
 #### Alignment
 Hisat version 0.1.5-beta [1] was used for aligning to the human genome reference build 37 created by the 1000 genomes phase 1 project [4]. Before gene quantification SAMtools version 1.2 [2] was used to sort the aligned reads.
 
-#### Quantification default
+#### Gene quantification default
 The gene level quantification was performed by HTSeq version 0.6.1p1 [3] using ‘--mode=union ’, disregarding strandedness and for annotation the Ensembl version 75 [5] gene annotation was used.
 
-#### Quantification lexogen
+#### Gene quantification lexogen
 The gene level quantification was performed by HTSeq version 0.6.1p1 [3] using ‘--mode=union ’, enabling strandedness, and for annotation the Ensembl version 75 [5] gene annotation was used.
 
 1. Kim D, Langmead B, Salzberg SL: HISAT: a fast spliced aligner with low memory requirements.Nature Methods 2015,  12:357–360, doi:10.1038/nmeth.3317.
