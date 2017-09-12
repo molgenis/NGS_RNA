@@ -16,6 +16,7 @@ module load ${htseqVersion}
 module load ${samtoolsVersion}
 module list
 
+set -o pipefail
 
 makeTmpDir ${sampleHTseqExpressionText}
 tmpSampleHTseqExpressionText=${MC_tmpFile}
@@ -52,7 +53,7 @@ echo -e "\nQuantifying expression"
   samtools \
         view -h \
         ${sampleMergedBam}.nameSorted.bam | \
-        $EBROOTHTSEQ/scripts/htseq-count \
+        htseq-count \
         -m union \
         -s ${STRANDED} \
         - \
