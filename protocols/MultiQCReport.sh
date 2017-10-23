@@ -109,6 +109,6 @@ _EOF
 module load ${multiqcVersion}
 module list
 
-multiqc -c ${intermediateDir}/${project}_QC_config.yaml -f ${intermediateDir} -o ${projectResultsDir}
+multiqc -c ${intermediateDir}/${project}_QC_config.yaml -f ${intermediateDir} ${fastqcFolder} -o ${projectResultsDir}
 
 mv ${projectResultsDir}/multiqc_report.html ${projectResultsDir}/${project}_multiqc_report.html
