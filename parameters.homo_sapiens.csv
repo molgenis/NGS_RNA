@@ -1,5 +1,4 @@
 #### GENOME VARIABLES ####
-species,homo_sapiens
 annotationFileName,Homo_sapiens.${GR}
 indexFileID,human_g1k_v37
 indexFolderName,human_g1k_v37
