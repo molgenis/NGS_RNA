@@ -10,6 +10,8 @@
 #string project
 #string groupname
 #string tmpName
+#string externalSampleID
+#string lane
 
 #Echo parameter values
 echo "seqType: ${seqType}"
@@ -38,7 +40,7 @@ then
 	ktrim=l \
         qtrim=rl \
         trimq=14 \
-        minlength=20 
+        minlength=20 > ${intermediateDir}/${externalSampleID}_L${lane}.trimming.log 2>&1
 	#\forcetrimleft=11
 
 	gzip ${peEnd1BarcodeFqGz}.tmp
@@ -59,7 +61,7 @@ then
 	ktrim=l \
         qtrim=rl \
         trimq=14 \
-        minlength=20 
+        minlength=20 > ${intermediateDir}/${externalSampleID}_L${lane}.trimming.log 2>&1
 	#forcetrimleft=11
 
 	gzip ${srBarcodeFqGz}.tmp

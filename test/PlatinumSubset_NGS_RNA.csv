@@ -1,2 +1,2 @@
-internalSampleID,externalSampleID,project,sequencer,contact,sequencingStartDate,run,flowcell,lane,seqType,prepKit,capturingKit,barcode,barcodeType,externalFastQ_1,externalFastQ_2
-1,PlatinumSample,PlatinumSubset_NGS_RNA,TEST,,MY,BAM,PROJECT,1,PE,Agilent,None,None,None,small_revertsam_RNA_1.fq.gz,small_revertsam_RNA_2.fq.gz
+internalSampleID,externalSampleID,project,sequencer,contact,sequencingStartDate,run,flowcell,lane,seqType,prepKit,capturingKit,barcode,barcodeType,externalFastQ_1,externalFastQ_2,species
+1,PlatinumSample,PlatinumSubset_NGS_RNA,TEST,,MY,BAM,PROJECT,1,PE,Agilent,None,None,None,small_revertsam_RNA_1.fq.gz,small_revertsam_RNA_2.fq.gz,homo_sapiens|GRCh37
