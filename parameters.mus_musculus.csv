@@ -1,6 +1,7 @@
 #### GENOME VARIABLES ####
 indexFileID,Mus_musculus.GRCm38
 annotationFileName,Mus_musculus.GRCm38
+spiciesFileName,mus_musculus
 indexFolderName,mus_musculus
 indicesDir,${dataDir}/ftp.ensembl.org/pub/release-82/fasta/mus_musculus/
 dbSNPFileID,Mus_musculus_structural_variations

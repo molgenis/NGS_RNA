@@ -1,5 +1,6 @@
 #### GENOME VARIABLES ####
 annotationFileName,Homo_sapiens.${GR}
+speciesFileName,homo_sapiens
 indexFileID,human_g1k_v37
 indexFolderName,human_g1k_v37
 dbSNPFileID,dbsnp_138.${genome}

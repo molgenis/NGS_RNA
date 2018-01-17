@@ -1,6 +1,7 @@
 #### GENOME VARIABLES ####
 indexFileID,Callithrix_jacchus.GRCm38
 annotationFileName,Callithrix_jacchus.GRCm38
+speciesFileName,callithrix_jacchus
 indexFolderName,callithrix_jacchus
 indicesDir,${dataDir}/ftp.ensembl.org/pub/release-82/fasta/${indexFolderName}
 dbSNPFileID,dbsnp_142.GRCh38

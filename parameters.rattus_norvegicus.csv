@@ -1,6 +1,7 @@
 #### GENOME VARIABLES ####
 indexFileID,Rattus_norvegicus.GRCm38
 annotationFileName,Rattus_norvegicus.GRCm38
+speciesFileName,rattus_norvegicus
 indexFolderName,rattus_norvegicus
 indicesDir,${dataDir}/ftp.ensembl.org/pub/release-82/fasta/rattus_norvegicus/
 dbSNPFileID,Mus_musculus_structural_variations
