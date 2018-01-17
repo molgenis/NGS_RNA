@@ -51,8 +51,6 @@ if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
 genScripts="${workDir}/generatedscripts/${filePrefix}/"
 samplesheet="${genScripts}/${filePrefix}.csv" ; mac2unix "${samplesheet}"
 
-EBROOTNGS_RNA="/home/umcg-gvdvries/github/NGS_RNA/"
-
 python "${EBROOTNGS_RNA}/scripts/sampleSheetChecker.py" "${samplesheet}"
 if [ -f "${samplesheet}.temp" ]
 then
