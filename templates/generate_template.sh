@@ -6,10 +6,10 @@ module list
 #thisDir=$(pwd)
 
 ENVIRONMENT=$(hostname -s)
-#TMPDIR=$(basename $(cd ../../ && pwd ))
-#group=$(basename $(cd ../../../ && pwd ))
+TMPDIR=$(basename $(cd ../../ && pwd ))
+group=$(basename $(cd ../../../ && pwd ))
 
-#workDir="/groups/${group}/${TMPDIR}"
+workDir="/groups/${group}/${TMPDIR}"
 PIPELINE="hisat" # hisat, lexogen
 
 function showHelp() {
