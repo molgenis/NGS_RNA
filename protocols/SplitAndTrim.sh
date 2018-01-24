@@ -17,6 +17,7 @@
 #string project
 #string groupname
 #string tmpName
+#string logsDir
 
 makeTmpDir ${splitAndTrimBam} 
 tmpsplitAndTrimBam=${MC_tmpFile}

@@ -19,6 +19,7 @@
 #string project
 #string groupname
 #string tmpName
+#string logsDir
 
 makeTmpDir ${IndelRealignedBam} 
 tmpIndelRealignedBam=${MC_tmpFile}

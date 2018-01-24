@@ -28,6 +28,7 @@
 #string ensembleReleaseVersion
 #string groupname
 #string tmpName
+#string logsDir
 
 # Change permissions
 

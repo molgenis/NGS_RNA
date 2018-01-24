@@ -11,6 +11,7 @@
 #string prepKit
 #string groupname
 #string tmpName
+#string logsDir
 
 module load ${htseqVersion}
 module load ${samtoolsVersion}

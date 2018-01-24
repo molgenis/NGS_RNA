@@ -12,6 +12,7 @@
 #string tmpName
 #string externalSampleID
 #string lane
+#string logsDir
 
 #Echo parameter values
 echo "seqType: ${seqType}"

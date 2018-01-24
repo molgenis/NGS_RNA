@@ -21,6 +21,7 @@
 #string filePrefix
 #string groupname
 #string	tmpName
+#string logsDir
 
 makeTmpDir ${addOrReplaceGroupsBam}
 tmpAddOrReplaceGroupsBam=${MC_tmpFile}

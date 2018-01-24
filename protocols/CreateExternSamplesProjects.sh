@@ -28,7 +28,7 @@
 #list internalSampleID
 #string project
 #string scriptDir
-
+#string logsDir
 #list barcode
 #list lane
 
