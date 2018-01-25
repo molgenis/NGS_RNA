@@ -23,7 +23,7 @@
 #string hisatVersion
 #string indexFileID
 #string ensembleReleaseVersion
-
+#string logsDir
 #string ngsversion
 #string groupname
 #string tmpName

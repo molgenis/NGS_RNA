@@ -20,6 +20,7 @@
 #string project
 #string groupname
 #string tmpName
+#string logsDir
 
 #Load module
 module load ${fastqcVersion}

@@ -16,6 +16,7 @@
 #string project
 #string groupname
 #string tmpName
+#string logsDir
 
 makeTmpDir ${GatkHaplotypeCallerGvcf}
 tmpGatkHaplotypeCallerGvcf=${MC_tmpFile}

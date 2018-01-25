@@ -4,6 +4,7 @@
 
 #string projectResultsDir
 #string project
+#string logsDir
 #string intermediateDir
 #string projectLogsDir
 #string projectQcDir
@@ -27,6 +28,7 @@
 #string ensembleReleaseVersion
 #string groupname
 #string tmpName
+#string logsDir
 
 # Change permissions
 
@@ -215,7 +217,15 @@ cd ${projectResultsDir}
 md5sum ${project}.zip > ${projectResultsDir}/${project}.zip.md5
 cd ${projectJobsDir}
 
-# add u+rwx,g+r+w rights for GAF group
+CURRENT_DIR=$(pwd)
 
-chmod -R u+rwX,g+rwX ${projectResultsDir}
-chmod -R g+rwX ${intermediateDir}
+runNumber=$(basename $( dirname "${projectResultsDir}"))
+if [ -f "${logsDir}/${project}/${runNumber}.pipeline.started" ]
+then
+	mv "${logsDir}/${project}/${runNumber}.pipeline".{started,finished}
+else
+	touch "${logsDir}/${project}/${runNumber}.pipeline.finished"
+fi
+rm -f "${logsDir}/${project}/${runNumber}.pipeline.failed"
+echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
+

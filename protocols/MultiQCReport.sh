@@ -35,7 +35,7 @@
 #string ghostscriptVersion
 #string kallistoVersion
 #string ensembleReleaseVersion
-
+#string logsDir
 
 #Function to check if array contains value
 array_contains () { 

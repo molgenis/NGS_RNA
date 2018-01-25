@@ -21,6 +21,7 @@
 #string project
 #string groupname
 #string tmpName
+#string logsDir
 
 makeTmpDir ${bqsrBam} 
 tmpBqsrBam=${MC_tmpFile}

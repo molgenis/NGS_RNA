@@ -16,7 +16,7 @@
 #list sequencer
 #list run
 #list flowcell
-
+#string logsDir
 #string mainParameters
 #string parameters_build
 #string parameters_species
@@ -136,8 +136,8 @@ sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 -p ${parameters_species} \
 -p ${parameters_environment} \
 -p ${parameters_chromosomes} \
---header ${EBROOTNGS_RNA}/templates/slurm/header.ftl \
---footer ${EBROOTNGS_RNA}/templates/slurm/footer.ftl \
+--header ${EBROOTNGS_RNA}/templates/slurm/header_tnt.ftl \
+--footer ${EBROOTNGS_RNA}/templates/slurm/footer_tnt.ftl \
 --submit ${EBROOTNGS_RNA}/templates/slurm/submit.ftl \
 -p ${projectJobsDir}/${project}.csv -rundir ${projectJobsDir} \
 -w ${workflowpath} -b slurm -g -weave -runid ${runid} \

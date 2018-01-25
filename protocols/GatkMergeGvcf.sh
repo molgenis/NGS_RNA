@@ -18,6 +18,7 @@
 #string project
 #string groupname
 #string tmpName
+#string logsDir
 
 makeTmpDir ${projectBatchCombinedVariantCalls}
 tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}

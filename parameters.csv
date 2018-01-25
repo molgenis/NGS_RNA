@@ -37,7 +37,7 @@ allRawNgsPrmDataDir,${permanentDir}/rawdata/ngs
 allRawtmpDataDir,${tmpDataDir}/rawdata/
 allRawNgstmpDataDir,${allRawtmpDataDir}/ngs/
 rawtmpDataDir,${allRawNgstmpDataDir}/${runPrefix}
-
+logsDir,${tmpDataDir}/logs
 srInputFile,${rawtmpDataDir}/${filePrefix}.fq.gz
 peEnd1FqGz,${rawtmpDataDir}/${filePrefix}_1.fq.gz
 peEnd2FqGz,${rawtmpDataDir}/${filePrefix}_2.fq.gz

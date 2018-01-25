@@ -1,9 +1,7 @@
 #!/bin/bash
 
-module load NGS_RNA/3.2.5
+module load NGS_RNA/3.3.0
 module list
-
-#thisDir=$(pwd)
 
 ENVIRONMENT=$(hostname -s)
 TMPDIR=$(basename $(cd ../../ && pwd ))

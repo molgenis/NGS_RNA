@@ -8,7 +8,7 @@
 #list sequencer
 #list run
 #list flowcell
-
+#string logsDir
 #string mainParameters
 #string worksheet 
 #string outputdir

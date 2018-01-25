@@ -14,6 +14,15 @@ set -u
 
 ENVIRONMENT_DIR='.'
 
+WHOAMI=$(whoami)
+if [[ -f "/home/$WHOAMI/molgenis.cfg" && -r "/home/$WHOAMI/molgenis.cfg" ]]
+then
+	source /home/$WHOAMI/molgenis.cfg
+else
+	printf '%s\n' "FATAL: cannot find or cannot access /home/$WHOAMI/molgenis.cfg"
+	exit 1
+fi
+
 #
 # Variables declared in MOLGENIS Compute headers/footers always start with a MC_ prefix.
 #
@@ -25,12 +34,14 @@ declare MC_jobScriptSTDOUT="${taskId}.out"
 # File to indicate failure of a complete workflow in
 # a central location for log files for all projects.
 #
-
 logsDirectory="${logsDir}/${project}/"
+mydate_start=$(date +"%Y-%m-%dT%H:%M:%S+0200")
+export mydate_start
 
 <#noparse>
 runName=$(basename $(cd ../ && pwd ))
 MC_failedFile="${logsDirectory}/${runName}.pipeline.failed"
+
 
 declare MC_singleSeperatorLine=$(head -c 120 /dev/zero | tr '\0' '-')
 declare MC_doubleSeperatorLine=$(head -c 120 /dev/zero | tr '\0' '=')
@@ -58,6 +69,10 @@ function errorExitAndCleanUp() {
 	echo "${MC_doubleSeperatorLine}"                > ${MC_failedFile}
 	echo "${errorMessage}"                         >> ${MC_failedFile}
 
+	CURLRESPONSE=$(curl -H "Content-Type: application/json" -X POST -d "{"username"="${USERNAME}", "password"="${PASSWORD}"}" https://${MOLGENISSERVER}/api/v1/login)
+	TOKEN=${CURLRESPONSE:10:32}
+	curl -H "Content-Type:application/json" -H "x-molgenis-token:${TOKEN}" -X PUT -d "Error" https://${MOLGENISSERVER}/api/v1/status_jobs/</#noparse>${project}_${taskId}/status
+<#noparse>
 	if [ -f "${MC_jobScriptSTDERR}" ]; then
 		echo "${MC_singleSeperatorLine}"           >> ${MC_failedFile}
 		printf "${format}" "${MC_jobScriptSTDERR}" >> ${MC_failedFile}
@@ -114,7 +129,15 @@ trap 'errorExitAndCleanUp ERR  $LINENO $?' ERR
 
 touch ${MC_jobScript}.started
 
-</#noparse>
+
+CURLRESPONSE=$(curl -H "Content-Type: application/json" -X POST -d "{"username"="${USERNAME}", "password"="${PASSWORD}"}" https://${MOLGENISSERVER}/api/v1/login)
+TOKEN=${CURLRESPONSE:10:32}
+
+curl -H "Content-Type:application/json" -H "x-molgenis-token:${TOKEN}" -X PUT -d "running" https://${MOLGENISSERVER}/api/v1/status_jobs/</#noparse>${project}_${taskId}/status
+<#noparse>
+curl -H "Content-Type:application/json" -H "x-molgenis-token:${TOKEN}" -X PUT -d "'${mydate_start}'" https://${MOLGENISSERVER}/api/v1/status_jobs/</#noparse>${project}_${taskId}/started_date
+
+
 
 #
 # When dealing with timing / synchronization issues of large parallel file systems,

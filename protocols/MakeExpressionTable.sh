@@ -10,6 +10,7 @@
 #string tmpTmpDataDir
 #string groupname
 #string tmpName
+#string logsDir
 
 #Function to check if array contains value
 array_contains () {

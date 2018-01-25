@@ -15,6 +15,7 @@
 #string picardJar
 #string groupname
 #string tmpName
+#string logsDir
 
 sleep 5
 

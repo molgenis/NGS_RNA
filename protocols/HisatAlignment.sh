@@ -28,6 +28,7 @@
 #string seqType
 #string groupname
 #string	tmpName
+#string logsDir
 
 if [ ${seqType} == "SR" ]
 then
