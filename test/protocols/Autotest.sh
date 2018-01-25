@@ -4,6 +4,7 @@
 #string	project
 #string groupname
 #string projectResultsDir
+#string logsDir
 
 rm -rf /home/umcg-molgenis/output_NGS_RNA
 
