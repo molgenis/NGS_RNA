@@ -1,7 +1,7 @@
 set -e 
 set -u
 
-workfolder="/groups/umcg-gaf/tmp04/"
+workfolder="/groups/umcg-atd/tmp04/"
 
 cd ${workfolder}/tmp/
 if [ -d ${workfolder}/tmp/NGS_RNA ]
@@ -57,14 +57,14 @@ cd ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/
 sh generate_template.sh 
 
 cd scripts
-perl -pi -e 's|module load \$ngsversion|EBROOTNGS_RNA=/groups/umcg-gaf/tmp04/tmp/NGS_RNA/|' *.sh  
+perl -pi -e 's|module load \$ngsversion|EBROOTNGS_RNA=/groups/umcg-atd/tmp04/tmp/NGS_RNA/|' *.sh  
 
 sh submit.sh
 
 cd ${workfolder}/projects/PlatinumSubset_NGS_RNA/run01/jobs/
 perl -pi -e 's|--emitRefConfidence|-L 1:1-1200000 \\\n  --emitRefConfidence|' s*_GatkHaplotypeCallerGvcf_0.sh
 perl -pi -e 's|-stand_emit_conf|-L 1:1-1200000 \\\n  -stand_emit_conf|' s*_GatkGenotypeGvcf_*.sh
-perl -pi -e 's|cp |touch /groups/umcg-gaf//tmp04/tmp//PlatinumSubset_NGS_RNA/run01//MY_TEST_BAM_PROJECT_L1_None_1.fq_fastqc/Images/per_sequence_gc_content.png\n\t cp |' s*_FastQC_*.sh
+perl -pi -e 's|cp |touch /groups/umcg-atd//tmp04/tmp//PlatinumSubset_NGS_RNA/run01//MY_TEST_BAM_PROJECT_L1_None_1.fq_fastqc/Images/per_sequence_gc_content.png\n\t cp |' s*_FastQC_*.sh
 perl -pi -e 's|mem 32gb|mem 4gb|' s*_GatkMergeGvcf_*.sh
 perl -pi -e 's|time=43:59:00|time=3:59:00|' s*_GatkMergeGvcf_*.sh
 perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
@@ -74,7 +74,7 @@ sh submit.sh --qos=dev
 
 count=0
 minutes=0
-while [ ! -f /groups/umcg-gaf/tmp04/projects/PlatinumSubset_NGS_RNA/run01/jobs/Autotest_0.sh.finished ]
+while [ ! -f /groups/umcg-atd/tmp04/projects/PlatinumSubset_NGS_RNA/run01/jobs/Autotest_0.sh.finished ]
 do
 
         echo "not finished in $minutes minutes, sleeping for 1 minute"
@@ -86,7 +86,7 @@ do
         then
                 echo "the test was not finished within 1 hour, let's kill it"
 		echo -e "\n"
-		for i in $(ls /groups/umcg-gaf/tmp04/projects/PlatinumSubset_NGS_RNA/run01/jobs/*.sh)
+		for i in $(ls /groups/umcg-atd/tmp04/projects/PlatinumSubset_NGS_RNA/run01/jobs/*.sh)
 		do
 			if [ ! -f $i.finished ]
 			then
