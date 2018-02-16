@@ -38,7 +38,7 @@ function preparePipeline(){
 	perl -pi -e 's|sh \$EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh|module load Molgenis-Compute/dummy\nsh \$EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 	perl -pi -e "s|module load Molgenis-Compute/dummy|module load Molgenis-Compute/\$mcVersion|" ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 
-	perl -pi -e 's|workflow=\${EBROOTNGS_RNA}/workflow_hisat.csv|workflow=\${EBROOTNGS_RNA}/test_workflow_hisat.csv|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
+	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 	cp ${workfolder}/tmp/NGS_RNA/test/${_projectName}.csv ${workfolder}/generatedscripts/${_projectName}/
 	perl -pi -e "s|/groups/umcg-atd/tmp03/|${workfolder}/|g" ${workfolder}/generatedscripts/${_projectName}/${_projectName}.csv
 	cd ${workfolder}/generatedscripts/${_projectName}/
