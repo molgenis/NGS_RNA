@@ -43,7 +43,7 @@ umask 0007
 #FIX!
 module load ${ngsversion}
 module load ${NGSUtilsVersion}
-module load ${NGSRNAVersion}
+#module load ${NGSRNAVersion}
 module list
 
 #
