@@ -80,7 +80,7 @@ then
 fi
 
 echo "BUILD ${BUILD}"
-echo "SPECIES ${SPECIES}"
+echo "SPECIES ${SPECIESS}"
 echo "ENVIRONMENT ${ENVIRONMENT}"
 
 

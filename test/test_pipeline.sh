@@ -49,6 +49,11 @@ function preparePipeline(){
 	perl -pi -e "s|module load test| module load ${NGS_RNA_VERSION}|" *.sh
 	######
 	perl -pi -e "s|/apps/software/${NGS_RNA_VERSION}/|${workfolder}/tmp/NGS_RNA/|g" *.sh
+
+	perl -pi -e 's|slurm/header_tnt.ftl|slurm/header.ftl|' *.sh
+	perl -pi -e 's|slurm/footer_tnt.ftl|slurm/footer.ftl|' *.sh
+
+
 	sh submit.sh
 
 	cd ${workfolder}/projects/${_projectName}/run01/jobs/
