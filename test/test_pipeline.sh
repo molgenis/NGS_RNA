@@ -34,6 +34,8 @@ function preparePipeline(){
 
 	## Grep used version of molgenis compute out of the parameters file
 	perl -pi -e "s|module load ${NGS_RNA_VERSION}|EBROOTNGS_RNA=${workfolder}/tmp/NGS_RNA/|" ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
+
+	perl -pi -e 's|create_in-house_ngs_projects_workflow.csv|create_external_samples_ngs_projects_workflow.csv|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 	perl -pi -e 's|ngsversion=.*|ngsversion="test";\\|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 	perl -pi -e 's|sh \$EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh|module load Molgenis-Compute/dummy\nsh \$EBROOTMOLGENISMINCOMPUTE/molgenis_compute.sh|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 	perl -pi -e "s|module load Molgenis-Compute/dummy|module load Molgenis-Compute/\$mcVersion|" ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
