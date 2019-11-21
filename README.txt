@@ -7,7 +7,7 @@ Gene expression quantification
 The trimmed fastQ files where aligned to build 37 human reference genome using STAR 2.3.1 [1] allowing for 2 mismatches. 
 Before gene quantification SAMtools 0.1.18 [2] was used to sort the aligned reads. 
 The gene level quantification was performed by HTSeq-0.5.4 [3] using --mode=union --stranded=no and,
-Ensembl version 71 was used as gene annotation database.
+Ensembl version 71 was used as gene annotation database. 
 
 1. Dobin A, Davis C a, Schlesinger F, Drenkow J, Zaleski C, Jha S, Batut P, Chaisson M,
 Gingeras TR: STAR: ultrafast universal RNA-seq aligner. Bioinformatics 2013, 29:15–21.
