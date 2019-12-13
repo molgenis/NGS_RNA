@@ -10,6 +10,11 @@ group=$(basename $(cd ../../../ && pwd ))
 workDir="/groups/${group}/${TMPDIR}"
 PIPELINE="hisat" # hisat, lexogen
 
+#defaults
+BUILD="b37"
+SPECIESS="homo_sapiens"
+PROJECT=${filePrefix}
+
 function showHelp() {
 	#
 	# Display commandline help on STDOUT.
@@ -58,10 +63,6 @@ fi
 ## get only uniq lines and removing txt.tmp file
 for i in $(ls *.txt.tmp); do cat "${i}" | sort -u > ${i%.*} ; rm "${i}" ;done
 
-#defaults
-BUILD="b37"
-SPECIESS="homo_sapiens"
-PROJECT=${filePrefix}
 
 if [ -s build.txt ]; then BUILD=$(cat build.txt);fi
 if [ -s species.txt ];then SPECIES=$(cat species.txt); fi
