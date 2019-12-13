@@ -1,6 +1,5 @@
 #!/bin/bash
 
-module load NGS_RNA/3.2.5
 module list
 
 thisDir=$(pwd)
