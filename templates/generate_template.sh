@@ -5,13 +5,14 @@ module list
 thisDir=$(pwd)
 
 ENVIRONMENT=$(hostname -s)
-TMPDIR=$(basename $(cd ../../ && pwd ))
-GROUP=$(basename $(cd ../../../ && pwd ))
 
-PROJECT="PROJECTNAME"
-RUNID="run01"
+if [[ -z "${TMPDIR:-}" ]]; then TMPDIR=$(basename $(cd ../../ && pwd )) ; fi ; echo "TMPDIR=${TMPDIR}"
+if [[ -z "${GROUP:-}" ]]; then GROUP=$(basename $(cd ../../../ && pwd )) ; fi ; echo "GROUP=${GROUP}"
+if [[ -z "${WORKDIR:-}" ]]; then WORKDIR="/groups/${GROUP}/${TMPDIR}" ; fi ; echo "WORKDIR=${WORKDIR}"
+if [[ -z "${FILEPREFIX:-}" ]]; then FILEPREFIX=$(basename $(pwd )) ; fi ; echo "FILEPREFIX=${FILEPREFIX}"
+if [[ -z "${RUNID:-}" ]]; then RUNID="run01" ; fi ; echo "RUNID=${RUNID}"
+if [[ -z "${PROJECT:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
 
-WORKDIR="/groups/${GROUP}/${TMPDIR}"
 BUILD="GRCh37" # GRCh37, GRCh38
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 PIPELINE="hisat" # hisat, lexogen
