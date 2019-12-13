@@ -11,7 +11,7 @@
 #string jdkVersion
 #string groupname
 #string NGSUtilsVersion
-#string NGSRNAVersion
+#string ngsversion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -96,7 +96,7 @@ cd $ROCKETPOINT
 
 echo "before splitting"
 echo `pwd`
-module load ${NGSRNAVersion}
+module load ${ngsversion}
 
 #
 # TODO: array for each sample:

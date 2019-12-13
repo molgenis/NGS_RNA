@@ -11,7 +11,7 @@
 #string jdkVersion
 #string groupname
 #string NGSUtilsVersion
-#string NGSRNAVersion
+#string ngsversion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -43,10 +43,6 @@ umask 0007
 #FIX!
 module load ${ngsversion}
 module load ${NGSUtilsVersion}
-<<<<<<< HEAD
-=======
-#module load ${NGSRNAVersion}
->>>>>>> 313ef00ad8593cc5ce3b43f0682cb21e174c1a7c
 module list
 
 #
