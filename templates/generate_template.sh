@@ -11,7 +11,7 @@ if [[ -z "${GROUP:-}" ]]; then GROUP=$(basename $(cd ../../../ && pwd )) ; fi ; 
 if [[ -z "${WORKDIR:-}" ]]; then WORKDIR="/groups/${GROUP}/${TMPDIR}" ; fi ; echo "WORKDIR=${WORKDIR}"
 if [[ -z "${FILEPREFIX:-}" ]]; then FILEPREFIX=$(basename $(pwd )) ; fi ; echo "FILEPREFIX=${FILEPREFIX}"
 if [[ -z "${RUNID:-}" ]]; then RUNID="run01" ; fi ; echo "RUNID=${RUNID}"
-if [[ -z "${PROJECT:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
+if [[ -z "${PROJECT:-}" ]]; then PROJECT="${FILEPREFIX}" ; fi ; echo "PROJECT=${PROJECT}"
 
 BUILD="GRCh37" # GRCh37, GRCh38
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
