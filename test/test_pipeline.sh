@@ -25,26 +25,26 @@ git checkout -f ${COMMIT}
 cp -r test/rawdata/MY_TEST_BAM_PROJECT/small_revertsam_RNA_1.fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
 cp -r test/rawdata/MY_TEST_BAM_PROJECT/small_revertsam_RNA_2.fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
 
-if [ -d ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA ] 
+if [ -d ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA ]
 then
 	rm -rf ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/
 fi
 
-if [ -d ${workfolder}/projects/PlatinumSubset_NGS_RNA ] 
+if [ -d ${workfolder}/projects/PlatinumSubset_NGS_RNA ]
 then
 	rm -rf ${workfolder}/projects/PlatinumSubset_NGS_RNA/
 fi
 
 if [ -d ${workfolder}/tmp/PlatinumSubset_NGS_RNA ]
 then
-    	rm -rf ${workfolder}/tmp/PlatinumSubset_NGS_RNA/
+	rm -rf ${workfolder}/tmp/PlatinumSubset_NGS_RNA/
 fi
 
 mkdir ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/
 
 ### create testworkflow
 cd ${workfolder}/tmp/NGS_RNA/
-cp workflow_hisat.csv test_workflow_hisat.csv 
+cp workflow_hisat.csv test_workflow_hisat.csv
 tail -1 workflow_hisat.csv | perl -p -e 's|,|\t|g' | awk '{print "Autotest,test/protocols/Autotest.sh,"$1}' >> test_workflow_hisat.csv
 
 cp test/results/PlatinumSubset_NGS_RNA.variant.calls.genotyped.chr1.true.vcf /home/umcg-molgenis/NGS_RNA/
@@ -54,10 +54,10 @@ cp test/PlatinumSubset_NGS_RNA.csv ${workfolder}/generatedscripts/PlatinumSubset
 
 cd ${workfolder}/generatedscripts/PlatinumSubset_NGS_RNA/
 
-sh generate_template.sh 
+sh generate_template.sh
 
 cd scripts
-perl -pi -e 's|module load \$ngsversion|EBROOTNGS_RNA=/groups/umcg-gaf/tmp04/tmp/NGS_RNA/|' *.sh  
+perl -pi -e 's|module load \$ngsversion|EBROOTNGS_RNA=/groups/umcg-gaf/tmp04/tmp/NGS_RNA/|' *.sh
 
 sh submit.sh
 
@@ -92,7 +92,7 @@ do
 			then
 				echo "$(basename $i) is not finished"
 			fi
-		done		
+		done
                 exit 1
         fi
 done

@@ -11,7 +11,7 @@ workDir="/groups/${group}/${TMPDIR}"
 PIPELINE="hisat" # hisat, lexogen
 
 #defaults
-BUILD="b37"
+BUILD="GRCh37"
 SPECIESS="homo_sapiens"
 PROJECT=${filePrefix}
 

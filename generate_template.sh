@@ -12,7 +12,7 @@ PROJECT="PROJECTNAME"
 RUNID="run01"
 
 WORKDIR="/groups/${GROUP}/${TMPDIR}"
-BUILD="b37" # b37, b38
+BUILD="GRCh37" # GRCh37, GRCh37
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 PIPELINE="hisat" # hisat, lexogen
 
