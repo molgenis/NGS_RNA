@@ -24,7 +24,7 @@
 #string picardVersion
 #string anacondaVersion
 #string samtoolsVersion
-#string NGSRNAVersion
+#string ngsversion
 #string pythonVersion
 #string ghostscriptVersion
 #string picardJar
@@ -38,7 +38,7 @@
 module load ${picardVersion}
 module load ${samtoolsVersion}
 module load ${pythonVersion}
-module load ${NGSRNAVersion}
+module load ${ngsversion}
 module load ${ghostscriptVersion}
 module list
 
