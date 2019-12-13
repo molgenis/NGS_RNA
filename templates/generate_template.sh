@@ -1,6 +1,5 @@
 #!/bin/bash
 
-module load NGS_RNA/3.3.0
 module list
 
 ENVIRONMENT=$(hostname -s)

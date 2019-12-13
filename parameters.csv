@@ -6,7 +6,6 @@ jobname,jobname
 ##### Tools and versions #####
 jdkVersion,Java/1.7.0_80
 NGSUtilsVersion,ngs-utils
-NGSRNAVersion,NGS_RNA/3.3.0
 fastqcVersion,FastQC/0.11.3-Java-1.7.0_80
 samtoolsVersion,SAMtools/1.2-foss-2015b
 RVersion,R/3.2.1-foss-2015b

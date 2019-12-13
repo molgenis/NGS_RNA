@@ -1,7 +1,6 @@
 #!/bin/bash
 
-
-EBROOTNGS_RNA=/groups/umcg-gaf/tmp04/tmp/NGS_RNA/
+EBROOTNGS_RNA=/groups/umcg-atd/tmp04/tmp/NGS_RNA/
 
 HOST=$(hostname)
 ##Running script for checking the environment variables
