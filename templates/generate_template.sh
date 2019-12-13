@@ -1,5 +1,6 @@
 #!/bin/bash
 
+module load NGS_RNA/3.3.0
 module list
 
 ENVIRONMENT=$(hostname -s)
@@ -8,11 +9,6 @@ group=$(basename $(cd ../../../ && pwd ))
 
 workDir="/groups/${group}/${TMPDIR}"
 PIPELINE="hisat" # hisat, lexogen
-
-#defaults
-BUILD="GRCh37"
-SPECIESS="homo_sapiens"
-PROJECT=${filePrefix}
 
 function showHelp() {
 	#
@@ -62,6 +58,10 @@ fi
 ## get only uniq lines and removing txt.tmp file
 for i in $(ls *.txt.tmp); do cat "${i}" | sort -u > ${i%.*} ; rm "${i}" ;done
 
+#defaults
+BUILD="b37"
+SPECIESS="homo_sapiens"
+PROJECT=${filePrefix}
 
 if [ -s build.txt ]; then BUILD=$(cat build.txt);fi
 if [ -s species.txt ];then SPECIES=$(cat species.txt); fi
@@ -80,7 +80,7 @@ then
 fi
 
 echo "BUILD ${BUILD}"
-echo "SPECIES ${SPECIES}"
+echo "SPECIES ${SPECIESS}"
 echo "ENVIRONMENT ${ENVIRONMENT}"
 
 
