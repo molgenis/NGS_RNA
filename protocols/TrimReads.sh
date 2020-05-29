@@ -58,13 +58,15 @@ then
 	out=${srBarcodeFqGz}.tmp \
 	ref=${EBROOTBBMAP}/resources/polyA.fa.gz,${EBROOTBBMAP}/resources/truseq.fa.gz \
 	overwrite=true \
-        k=13 \
-	ktrim=l \
-        qtrim=rl \
-        trimq=14 \
+	k=13 \
+	ktrim=r \
+	useshortkmers=t \
+	mink=5 \
+	qtrim=r \
+	trimq=10 \
         minlength=20 > ${intermediateDir}/${externalSampleID}_L${lane}.trimming.log 2>&1
-	#forcetrimleft=11
 
+k=13 ktrim=r useshortkmers=t mink=5 qtrim=r trimq=10 minlength=20
 	gzip ${srBarcodeFqGz}.tmp
 	mv ${srBarcodeFqGz}.tmp.gz ${srBarcodeFqGz}
 

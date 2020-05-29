@@ -22,6 +22,7 @@ for row in reader:
 			if k == "species":
 				vals = v.split('|')
 				species.write(vals[0]+'\n')
+				build.write(vals[1]+'\n')
 		if "sampleType" in row:
 			if k == "sampleType":
 				sampleType.write(v+'\n')

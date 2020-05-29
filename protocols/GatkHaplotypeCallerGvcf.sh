@@ -56,8 +56,7 @@ echo "## "$(date)" Start $0"
   -T HaplotypeCaller \
   -R ${indexFile} \
   ${inputs[@]} \
-  --dbsnp ${dbsnpVcf}\
-  -dontUseSoftClippedBases \
+  --dbsnp ${dbsnpVcf} \
   -stand_call_conf 10.0 \
   -stand_emit_conf 20.0 \
   -o ${tmpGatkHaplotypeCallerGvcf} \
@@ -65,7 +64,7 @@ echo "## "$(date)" Start $0"
   -variant_index_parameter 128000 \
   --emitRefConfidence GVCF
 
-
+#  -dontUseSoftClippedBases \
 
   mv ${tmpGatkHaplotypeCallerGvcf} ${GatkHaplotypeCallerGvcf}
   mv ${tmpGatkHaplotypeCallerGvcfidx} ${GatkHaplotypeCallerGvcfidx}
