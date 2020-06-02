@@ -28,7 +28,7 @@
 
 
 #Load module
-module load ${starVersion}
+module load "${starVersion}"
 module list
 
 makeTmpDir ${intermediateDir}
@@ -42,35 +42,24 @@ echo "ID (project-internalSampleID-lane): ${project}-${externalSampleID}-L${lane
 
 uniqueID="${project}-${externalSampleID}-L${lane}"
 
-echo "STAR SR for RNA"
+echo "STAR for RNA"
 
-        $EBROOTSTAR/bin/STAR \
-	--genomeDir ${starIndex} \
-	--runThreadN 2 \
-	--sjdbOverhang 100 \
-	--readFilesIn ${leftbarcodefqgz} ${rightbarcodefqgz} --readFilesCommand zcat \
+	"${EBROOTSTAR}"/bin/STAR \
+	--genomeDir "${starIndex}" \
+	--runThreadN 8 \
+	--readFilesIn "${leftbarcodefqgz}" "${rightbarcodefqgz}" \
+	--readFilesCommand zcat \
 	--twopassMode Basic \
-	--outSAMattributes NH NM MD \
-	--outSAMtype BAM SortedByCoordinate \
-	--limitBAMsortRAM 45000000000 \
+ 	--genomeLoad NoSharedMemory \
+ 	--outFilterMultimapNmax 1 \
+ 	--quantMode GeneCounts \
 	--outSAMunmapped Within \
-	--outSAMmapqUnique 50 \
-	--outFilterType BySJout \
-	--outSJfilterCountUniqueMin -1 2 2 2 \
-	--outSJfilterCountTotalMin -1 2 2 2 \
-	--outFilterIntronMotifs RemoveNoncanonical \
-	--chimSegmentMin 12 \
-	--chimJunctionOverhangMin 12 \
-	--chimScoreDropMax 30 \
-	--chimSegmentReadGapMax 5 \
-	--chimScoreSeparation 5 \
-	--chimOutType WithinBAM \
-	--outFileNamePrefix ${tmpintermediateDir}/${filePrefix}_${barcode}.
+	--outFileNamePrefix "${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".
 
-	mv "${tmpintermediateDir}"/${filePrefix}_${barcode}.Aligned.sortedByCoord.out.bam ${sortedBam}
-	mv "${tmpintermediateDir}"/${filePrefix}_${barcode}.Log.final.out ${intermediateDir}
-	#mv ${tmpsortedBai} ${sortedBai}
-	#mv ${tmpIntermediateDir}/${uniqueID}.bamLog.final.out ${intermediateDir}/${uniqueID}.final.log
+	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}.Aligned.sortedByCoord.out.bam" "${sortedBam}"
+	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}.Log.final.out" "${intermediateDir}"
+	mv "${tmpsortedBai}" "${sortedBai}"
+	mv "${tmpIntermediateDir}/${uniqueID}.bamLog.final.out" "${intermediateDir}/${uniqueID}.final.log"
 
 echo "succes moving files";
 echo "## "$(date)" ##  $0 Done "
