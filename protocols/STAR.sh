@@ -28,7 +28,7 @@
 
 
 #Load module
-module load ${starVersion}
+module load "${starVersion}"
 module list
 
 makeTmpDir ${intermediateDir}
@@ -54,7 +54,7 @@ echo "STAR for RNA"
  	--outFilterMultimapNmax 1 \
  	--quantMode GeneCounts \
 	--outSAMunmapped Within \
-	--outFileNamePrefix ${tmpintermediateDir}/${filePrefix}_${barcode}.
+	--outFileNamePrefix "${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".
 
 	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}.Aligned.sortedByCoord.out.bam" "${sortedBam}"
 	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}.Log.final.out" "${intermediateDir}"
