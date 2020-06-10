@@ -1,7 +1,7 @@
 step,protocol,dependencies
-s00_FastQC,protocols/FastQC.sh,
-s01_STAR,protocols/STAR.sh,
-s02_AddOrReplaceReadGroups,protocols/AddOrReplaceReadGroups.sh,s01_HisatAlignment
+s00_TrimReads_FastQC,protocols/TrimReads_TrimGalore.sh,
+s01_STAR,protocols/STAR.sh,TrimReads_TrimGalore.sh
+s02_AddOrReplaceReadGroups,protocols/AddOrReplaceReadGroups.sh,s01_STAR
 s03_MergeBam,protocols/MergeBam.sh,s02_AddOrReplaceReadGroups
 s04_MarkDuplicates,protocols/MarkDuplicates.sh,s03_MergeBam
 s05_QCStats,protocols/QCStats.sh,s04_MarkDuplicates
