@@ -2,6 +2,7 @@
 
 #Parameter mapping
 #string.RSeQCVersion
+#string project
 #string alignedFilteredBam
 #string sortedBam
 #string sortedBai
