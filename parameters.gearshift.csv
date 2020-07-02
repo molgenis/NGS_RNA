@@ -1,0 +1,9 @@
+#### ENVIRONMENT VARIABLES ####
+queue,atd
+workDir,/groups/${groupname}/
+dataDir,${root}/data/
+tmpName,tmp01
+root,/apps/
+tempDir,${workDir}/${tmpName}/tmp/
+permanentDir,${workDir}/prm03
+toolchain,foss-2018b
