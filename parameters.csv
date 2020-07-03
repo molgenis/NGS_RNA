@@ -41,7 +41,6 @@ mergeSamFilesJar,MergeSamFiles
 processReadCountsJar,ProcessReadCounts.jar
 TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
 cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
-STARVersion,STAR/2.7.3a-${toolchain}
 RSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
 
 ##### GENERAL DIRECTORIES #####
