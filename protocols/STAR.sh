@@ -5,9 +5,9 @@
 #string externalSampleID
 #string project
 #string starIndex
-#string	starVersion
-#string leftbarcodefqgz
-#string rightbarcodefqgz
+#string starVersion
+#string trimmedLeftBarcodeFqGz
+#string trimmedRightBarcodeFqGz
 #string srBarcodeFqGz
 #string alignedSam
 #string alignedFilteredBam
@@ -47,19 +47,18 @@ echo "STAR for RNA"
 	"${EBROOTSTAR}"/bin/STAR \
 	--genomeDir "${starIndex}" \
 	--runThreadN 8 \
-	--readFilesIn "${leftbarcodefqgz}" "${rightbarcodefqgz}" \
+	--readFilesIn "${trimmedLeftBarcodeFqGz}" "${trimmedRightBarcodeFqGz}" \
 	--readFilesCommand zcat \
 	--twopassMode Basic \
- 	--genomeLoad NoSharedMemory \
- 	--outFilterMultimapNmax 1 \
- 	--quantMode GeneCounts \
+	--genomeLoad NoSharedMemory \
+	--outFilterMultimapNmax 1 \
+	--quantMode GeneCounts \
+	--outSAMtype BAM SortedByCoordinate \
+	--limitBAMsortRAM 45000000000 \
 	--outSAMunmapped Within \
 	--outFileNamePrefix "${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".
 
-	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}.Aligned.sortedByCoord.out.bam" "${sortedBam}"
-	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}.Log.final.out" "${intermediateDir}"
-	mv "${tmpsortedBai}" "${sortedBai}"
-	mv "${tmpIntermediateDir}/${uniqueID}.bamLog.final.out" "${intermediateDir}/${uniqueID}.final.log"
+	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}."* "${intermediateDir}"
 
 echo "succes moving files";
 echo "## "$(date)" ##  $0 Done "
