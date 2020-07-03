@@ -71,7 +71,7 @@ rightbarcodefq,${rightbarcode}.fq
 leftbarcodefqgz,${leftbarcodefq}.gz
 rightbarcodefqgz,${rightbarcodefq}.gz
 trimmedLeftBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_val_1.fq.gz
-trimmedLightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_val_2.fq.gz
+trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_val_2.fq.gz
 workflowFile,$MC_HOME/NGS_RNA_seq_pipeline/workflow.csv
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
