@@ -38,8 +38,8 @@ ${checkStage}
 echo "## "$(date)" Start $0"
 
  java -Xmx6g -XX:ParallelGCThreads=8 -jar ${EBROOTPICARD}/${picardJar} AddOrReplaceReadGroups \
- INPUT=${sortedBam} \
- OUTPUT=${tmpAddOrReplaceGroupsBam} \
+ I=${sortedBam} \
+ O=${tmpAddOrReplaceGroupsBam} \
  SORT_ORDER=coordinate \
  RGID=${externalSampleID} \
  RGLB=${externalSampleID}_${barcode} \

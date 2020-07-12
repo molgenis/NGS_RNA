@@ -5,7 +5,8 @@
 #string externalSampleID
 #string project
 #string starIndex
-#string starVersion
+#string	starVersion
+#string sambambaTools
 #string trimmedLeftBarcodeFqGz
 #string trimmedRightBarcodeFqGz
 #string srBarcodeFqGz
@@ -29,6 +30,7 @@
 
 #Load module
 module load "${starVersion}"
+module load "${sambambaTools}"
 module list
 
 makeTmpDir ${intermediateDir}
@@ -50,13 +52,18 @@ echo "STAR for RNA"
 	--readFilesIn "${trimmedLeftBarcodeFqGz}" "${trimmedRightBarcodeFqGz}" \
 	--readFilesCommand zcat \
 	--twopassMode Basic \
-	--genomeLoad NoSharedMemory \
-	--outFilterMultimapNmax 1 \
-	--quantMode GeneCounts \
-	--outSAMtype BAM SortedByCoordinate \
-	--limitBAMsortRAM 45000000000 \
+ 	--genomeLoad NoSharedMemory \
+ 	--outFilterMultimapNmax 1 \
+ 	--quantMode GeneCounts \
+        --outSAMtype BAM SortedByCoordinate \
+        --limitBAMsortRAM 45000000000 \
 	--outSAMunmapped Within \
 	--outFileNamePrefix "${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".
+
+	#index bam
+	"${sambambaTools}" index \
+	"${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".Aligned.sortedByCoord.out.bam \
+	"${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".Aligned.sortedByCoord.out.bai \
 
 	mv "${tmpintermediateDir}"/"${filePrefix}_${barcode}."* "${intermediateDir}"
 
