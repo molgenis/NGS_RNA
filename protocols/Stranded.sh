@@ -1,11 +1,13 @@
 #MOLGENIS nodes=1 ppn=1 mem=10gb walltime=05:00:00
 
 #Parameter mapping
-#string.RSeQCVersion
+#string RSeQCVersion
 #string project
 #string alignedFilteredBam
+#string strandedness
 #string sortedBam
 #string sortedBai
+#string bed12
 #string tempDir
 #string logsDir
 #string intermediateDir
@@ -14,19 +16,18 @@
 module load "${RSeQCVersion}"
 module list
 
-makeTmpDir ${intermediateDir}
-tmpintermediateDir=${MC_tmpFile}
+makeTmpDir ${strandedness}
+tmpStrandedness=${MC_tmpFile}
 
 
 echo "## "$(date)" Start $0"
 
 for i in $(ls "${intermediateDir}"/*.Aligned.sortedByCoord.out.bam -1 |shuf -n 1)
 do 
-	infer_experiment.py -r /apps/data/Ensembl/GrCh37.75/All_Exon/Ensembl.GRCh37.75-AllExons_+20_-20bp.bed -i "${i}"
-done > "{tmpintermediateDir}"/"${i}".stranded.txt
+	infer_experiment.py -r "${bed12}" -i "${i}" > "${tmpStrandedness}"
+done
 
-
-mv "{tmpintermediateDir}"/"${i}".stranded.txt "${intermediateDir}"
+mv "${tmpStrandedness}" "${strandedness}"
 
 echo "succes moving files";
 echo "## "$(date)" ##  $0 Done "

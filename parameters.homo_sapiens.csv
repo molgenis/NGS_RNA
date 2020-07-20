@@ -15,4 +15,5 @@ indexFileDictionary,${indexSpecies}.dict
 MillsAnd1000GGoldGtandard,/apps/data/1000G/phase1/Mills_and_1000G_gold_standard
 indelRealignmentTargets,${MillsAnd1000GGoldGtandard}/1000G_phase1.indels_Mills_and_1000G_gold_standard.indels.b37.human_g1k_v37.intervals
 oneKgPhase1IndelsVcf,${MillsAnd1000GGoldGtandard}/1000G_phase1.indels.b37.vcf
+bed12,${dataDir}Ensembl/GrCh37.75/pub/release-75/bed/${speciesFileName}/${annotationFileName}.75.bed12
 goldStandardVcf,${MillsAnd1000GGoldGtandard}/1000G_phase1.indels_Mills_and_1000G_gold_standard.indels.b37.human_g1k_v37.vcf
