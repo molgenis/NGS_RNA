@@ -1,3 +1,4 @@
+#!/bin/bash
 #MOLGENIS nodes=1 ppn=4 mem=4gb walltime=05:59:00
 
 #Parameter mapping
@@ -28,7 +29,7 @@ module load "${TrimGaloreVersion}"
 module list
 
 #If paired-end do cutadapt for both ends, else only for one, and fastQC calculations.
-if [ ${seqType} == "PE" ]
+if [ "${seqType}" == "PE" ]
 then
 
 	trim_galore --paired --fastqc --gzip --output_dir "${intermediateDir}" "${peEnd1BarcodeFqGz}" "${peEnd2BarcodeFqGz}" # --clip_R1 --clip_R2
@@ -48,7 +49,7 @@ then
 	
 	echo -e "\nTrimGalore finished succesfull. Moving files to final.\n\n"
 
-elif [ ${seqType} == "SR" ]
+elif [ "${seqType}" == "SR" ]
 then
 
 	trim_galore --fastqc --gzip --output_dir "${intermediateDir}" "${srBarcodeFqGz}"

@@ -1,3 +1,4 @@
+#!/bin/bash
 #MOLGENIS nodes=1 ppn=8 mem=8gb walltime=05:00:00
 
 #string project
@@ -23,36 +24,36 @@
 #string	tmpName
 #string logsDir
 
-makeTmpDir ${addOrReplaceGroupsBam}
-tmpAddOrReplaceGroupsBam=${MC_tmpFile}
+makeTmpDir "${addOrReplaceGroupsBam}"
+tmpAddOrReplaceGroupsBam="${MC_tmpFile}"
 
-makeTmpDir ${addOrReplaceGroupsBai}
-tmpAddOrReplaceGroupsBai=${MC_tmpFile}
+makeTmpDir "${addOrReplaceGroupsBai}"
+tmpAddOrReplaceGroupsBai="${MC_tmpFile}"
 
 #Load modules
-${stage} ${picardVersion}
+module load "${picardVersion}"
 
 #check modules
-${checkStage}
+"${checkStage}"
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
- java -Xmx6g -XX:ParallelGCThreads=8 -jar ${EBROOTPICARD}/${picardJar} AddOrReplaceReadGroups \
- I=${sortedBam} \
- O=${tmpAddOrReplaceGroupsBam} \
- SORT_ORDER=coordinate \
- RGID=${externalSampleID} \
- RGLB=${externalSampleID}_${barcode} \
- RGPL=ILLUMINA \
- RGPU=${sequencer}_${flowcell}_${run}_${lane}_${barcode} \
- RGSM=${externalSampleID} \
- RGDT=$(date --rfc-3339=date) \
- CREATE_INDEX=true \
- MAX_RECORDS_IN_RAM=4000000 \
- TMP_DIR=${tempDir}
+java -Xmx6g -XX:ParallelGCThreads=8 -jar "${EBROOTPICARD}"/"${picardJar}" AddOrReplaceReadGroups \
+I="${sortedBam}" \
+O="${tmpAddOrReplaceGroupsBam}" \
+SORT_ORDER=coordinate \
+RGID="${externalSampleID}" \
+RGLB="${externalSampleID}"_"${barcode}" \
+RGPL=ILLUMINA \
+RGPU="${sequencer}"_"${flowcell}"_"${run}"_"${lane}"_"${barcode}" \
+RGSM="${externalSampleID}" \
+RGDT=$(date --rfc-3339=date) \
+CREATE_INDEX=true \
+MAX_RECORDS_IN_RAM=4000000 \
+TMP_DIR="${tempDir}"
 
- echo "returncode: $?";
- mv ${tmpAddOrReplaceGroupsBam} ${addOrReplaceGroupsBam}
- mv ${tmpAddOrReplaceGroupsBai} ${addOrReplaceGroupsBai}
- echo "succes moving files";
- echo "## "$(date)" ##  $0 Done "
+echo "returncode: $?";
+mv "${tmpAddOrReplaceGroupsBam}" "${addOrReplaceGroupsBam}"
+mv "${tmpAddOrReplaceGroupsBai}" "${addOrReplaceGroupsBai}"
+echo "succes moving files";
+echo "## $(date) ##  $0 Done "
