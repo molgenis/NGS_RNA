@@ -13,6 +13,7 @@ sambambaTools,sambamba/0.7.0
 RVersion,R/3.6.1-${toolchain}-bare
 RPlusVersion,RPlus/3.6.1-${toolchain}-v20.02.1
 picardVersion,picard/2.20.5-Java-11-LTS
+htseqVersion,HTSeq/0.11.0-GCCcore-7.3.0-Python-3.7.4
 hisatVersion,hisat2/2.1.0-${toolchain}
 pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
 PythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
