@@ -35,91 +35,91 @@
 #string logsDir
 
 #Load module
-module load ${picardVersion}
-module load ${samtoolsVersion}
-module load ${pythonVersion}
-module load ${ngsversion}
-module load ${ghostscriptVersion}
+module load "${picardVersion}"
+module load "${samtoolsVersion}"
+module load "${pythonVersion}"
+module load "${ngsversion}"
+module load "${ghostscriptVersion}"
 module list
 
-makeTmpDir ${intermediateDir}
-tmpIntermediateDir=${MC_tmpFile}
+makeTmpDir "${intermediateDir}"
+tmpIntermediateDir="${MC_tmpFile}"
 
 #If paired-end do fastqc for both ends, else only for one
-if [ ${seqType} == "PE" ]
+if [ "${seqType}" == "PE" ]
 then
 	echo -e "generate CollectMultipleMetrics"
 
 	# Picard CollectMultipleMetrics
-        java -jar -Xmx6g -XX:ParallelGCThreads=4 ${EBROOTPICARD}/${picardJar} CollectMultipleMetrics \
+		java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
 	I=${sampleMergedDedupBam} \
-        O=${collectMultipleMetricsPrefix} \
-        R=${indexSpecies} \
-        PROGRAM=CollectAlignmentSummaryMetrics \
-        PROGRAM=QualityScoreDistribution \
-        PROGRAM=MeanQualityByCycle \
-        PROGRAM=CollectInsertSizeMetrics \
-        TMP_DIR=${tempDir}/processing
+		O="${collectMultipleMetricsPrefix}" \
+		R="${indexSpecies}" \
+		PROGRAM=CollectAlignmentSummaryMetrics \
+		PROGRAM=QualityScoreDistribution \
+		PROGRAM=MeanQualityByCycle \
+		PROGRAM=CollectInsertSizeMetrics \
+		TMP_DIR="${tempDir}"/processing
 	
 
 	#convert pdf to png
-	convert -density 150 ${insertsizeMetricspdf} -quality 90 ${insertsizeMetricspng}
+	convert -density 150 "${insertsizeMetricspdf}" -quality 90 "${insertsizeMetricspng}"
 
 	#Flagstat for reads mapping to the genome.
-	samtools flagstat ${sampleMergedDedupBam} >  ${flagstatMetrics}
+	samtools flagstat "${sampleMergedDedupBam"} >  "${flagstatMetrics}"
 	
 	# Fagstats idxstats, reads per chr.
-	samtools idxstats ${sampleMergedDedupBam} > ${idxstatsMetrics}
+	samtools idxstats "${sampleMergedDedupBam}" > "${idxstatsMetrics}"
 
 	#CollectRnaSeqMetrics.jar
-	java -XX:ParallelGCThreads=4 -jar -Xmx6g ${EBROOTPICARD}/${picardJar} CollectRnaSeqMetrics \
-	REF_FLAT=${annotationRefFlat} \
-	I=${sampleMergedDedupBam} \
+	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
+	REF_FLAT="${annotationRefFlat}" \
+	I="${sampleMergedDedupBam}" \
 	STRAND_SPECIFICITY=NONE \
-	CHART_OUTPUT=${rnaSeqMetrics}.pdf  \
-	RIBOSOMAL_INTERVALS=${annotationIntervalList} \
+	CHART_OUTPUT="${rnaSeqMetrics}.pdf"  \
+	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 	VALIDATION_STRINGENCY=LENIENT \
-	O=${rnaSeqMetrics}
+	O="${rnaSeqMetrics}"
 
 	#convert pdf to png
-	convert -density 150 ${rnaSeqMetrics}.pdf -quality 90 ${rnaSeqMetrics}.png
+	convert -density 150 "${rnaSeqMetrics}.pdf" -quality 90 "${rnaSeqMetrics}.png"
 
 	# Collect QC data from several QC matricses, and write a tablular output file.
 
-elif [ ${seqType} == "SR" ]
+elif [ "${seqType}" == "SR" ]
 then
 
-        #Flagstat for reads mapping to the genome.
-        samtools flagstat ${sampleMergedDedupBam} > ${flagstatMetrics}
+		#Flagstat for reads mapping to the genome.
+		samtools flagstat "${sampleMergedDedupBam}" > "${flagstatMetrics}"
 
 	# Fagstats idxstats, reads per chr.
-        samtools idxstats ${sampleMergedDedupBam} > ${idxstatsMetrics}
+		samtools idxstats "${sampleMergedDedupBam}" > "${idxstatsMetrics}"
 
 	echo -e "generate CollectMultipleMetrics"
 
-        # Picard CollectMultipleMetrics
-        java -jar -Xmx6g -XX:ParallelGCThreads=4 ${EBROOTPICARD}/${picardJar} CollectMultipleMetrics \
-        I=${sampleMergedDedupBam} \
-        O=${collectMultipleMetricsPrefix} \
-        R=${indexSpecies} \
-        PROGRAM=CollectAlignmentSummaryMetrics \
-        PROGRAM=QualityScoreDistribution \
-        PROGRAM=MeanQualityByCycle \
-        PROGRAM=CollectInsertSizeMetrics \
-        TMP_DIR=${tempDir}/processing
+		# Picard CollectMultipleMetrics
+		java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
+		I="${sampleMergedDedupBam}" \
+		O="${collectMultipleMetricsPrefix}" \
+		R="${indexSpecies}" \
+		PROGRAM=CollectAlignmentSummaryMetrics \
+		PROGRAM=QualityScoreDistribution \
+		PROGRAM=MeanQualityByCycle \
+		PROGRAM=CollectInsertSizeMetrics \
+		TMP_DIR="${tempDir}"/processing
 
 
 	#CollectRnaSeqMetrics.jar
-	java -XX:ParallelGCThreads=4 -jar -Xmx6g ${EBROOTPICARD}/${picardJar} CollectRnaSeqMetrics \
-        REF_FLAT=${annotationRefFlat} \
-        I=${sampleMergedDedupBam} \
+	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
+		REF_FLAT="${annotationRefFlat}" \
+		I="${sampleMergedDedupBam}" \
 	STRAND_SPECIFICITY=NONE \
-	RIBOSOMAL_INTERVALS=${annotationIntervalList} \
-        CHART_OUTPUT=${rnaSeqMetrics}.pdf \
+	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
+		CHART_OUTPUT="${rnaSeqMetrics}.pdf" \
 	VALIDATION_STRINGENCY=LENIENT \
-        O=${rnaSeqMetrics}
+		O="${rnaSeqMetrics}"
 
 	#convert pdf to png
-	convert -density 150 ${rnaSeqMetrics}.pdf -quality 90 ${rnaSeqMetrics}.png
+	convert -density 150 "${rnaSeqMetrics}.pdf" -quality 90 "${rnaSeqMetrics}.png"
 
 fi

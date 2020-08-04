@@ -5,7 +5,7 @@ jobname,jobname
 
 ##### Tools and versions #####
 jdkVersion,Java/1.7.0_80
-NGSUtilsVersion,ngs-utils #(ngs-utils/19.03.3-GCCcore-7.3.0)
+NGSUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
 NGSRNAVersion,NGS_RNA/4.0.0
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-GCCcore-7.3.0
@@ -20,19 +20,11 @@ PythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 ghostscriptVersion,Ghostscript/9.27-GCCcore-7.3.0
 multiqcVersion,multiqc/1.7-GCCcore-7.3.0-Python-3.7.4-bare
-NGSUtilsVersion,ngs-utils
-fastqcVersion,FastQC/0.11.3-Java-1.7.0_80
-RVersion,R/3.2.1-${toolchain}
 wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
 anacondaVersion,Anaconda/1.8.0-Linux-x86_64
-hisatVersion,hisat/0.1.5-beta-${toolchain}
 starVersion,STAR/2.7.3a-${toolchain}
-pythonVersion,Python/2.7.10-${toolchain}
-gatkVersion,GATK/3.6-Java-1.8.0_74
-ghostscriptVersion,Ghostscript/9.16-${toolchain}
 kallistoVersion,Kallisto/0.43.0-${toolchain}
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
-multiqcVersion,multiqc/1.0-${toolchain}-Python-2.7.11
 picardJar,picard.jar
 mergeSamFilesJar,MergeSamFiles
 processReadCountsJar,ProcessReadCounts.jar
@@ -67,8 +59,8 @@ leftbarcodefq,${leftbarcode}.fq
 rightbarcodefq,${rightbarcode}.fq
 leftbarcodefqgz,${leftbarcodefq}.gz
 rightbarcodefqgz,${rightbarcodefq}.gz
-trimmedLeftBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_val_1.fq.gz
-trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_val_2.fq.gz
+trimmedLeftBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_1_val_1.fq.gz
+trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_2_val_2.fq.gz
 workflowFile,$MC_HOME/NGS_RNA_seq_pipeline/workflow.csv
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
