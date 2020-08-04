@@ -5,7 +5,7 @@ jobname,jobname
 
 ##### Tools and versions #####
 jdkVersion,Java/1.7.0_80
-NGSUtilsVersion,ngs-utils #(ngs-utils/19.03.3-GCCcore-7.3.0)
+NGSUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
 NGSRNAVersion,NGS_RNA/4.0.0
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-GCCcore-7.3.0
