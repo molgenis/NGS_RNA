@@ -21,8 +21,6 @@ cd "${intermediateDir}"
 
 cp "${projectJobsDir}/${project}.csv" "${intermediateDir}"/metadata.csv
 
-perl -pi -e 's|externalFastQ_1|samplename|g' "${intermediateDir}/metadata.csv"
-
 echo "creating design file."
 Rscript "${EBROOTNGS_RNA}/scripts/"design.R "${projectJobsDir}/${project}.csv"
 
