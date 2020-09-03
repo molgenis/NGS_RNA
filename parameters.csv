@@ -26,6 +26,7 @@ starVersion,STAR/2.7.3a-${toolchain}
 kallistoVersion,Kallisto/0.43.0-${toolchain}
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
 picardJar,picard.jar
+gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
 processReadCountsJar,ProcessReadCounts.jar
 TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
@@ -64,14 +65,13 @@ trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_2_val_2
 workflowFile,$MC_HOME/NGS_RNA_seq_pipeline/workflow.csv
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
-ensembleDir,${dataDir}/Ensembl/GrCh37.75/pub/release-${ensembleReleaseVersion}/gtf/${speciesFileName}/
 geneAnnotationTxt,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.annotation.geneIds.txt.gz
 annotationGtf,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.gtf
 annotationRefFlat,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.gtf.annotation.refFlat
 annotationIntervalList,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.rrna.interval_list
-starIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/${starVersion}/
 indexFile,${indexSpecies}
 dbsnpVcf,${dbSNPDir}${dbSNPFileID}.vcf
+starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.3a-foss-2018b/
 
 ##### PREFIXES,POSTFIXES #####
 rawFileExt,fq.gz
@@ -145,5 +145,5 @@ recreateinsertsizepdfR,createInsertSizePlot.R
 qcMatrics,${intermediateDir}/${externalSampleID}.total.qc.metrics.table
 
 ##### Protocols 3,6  (HTSeq count, MakeExpressionTable) #####
-sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.htseq.txt
-projectHTseqExpressionTable,${intermediateDir}/${project}.expression.genelevel.v${ensembleReleaseVersion}.htseq.txt.table
+sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.counts.txt
+projectHTseqExpressionTable,${intermediateDir}/${project}.expression.genelevel.v${ensembleReleaseVersion}.counts.txt.table

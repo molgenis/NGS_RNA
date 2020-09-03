@@ -1,10 +1,9 @@
 #!/usr/bin/env Rscript
 
 library(data.table)
+args = commandArgs(trailingOnly=TRUE)
 
-metadata <- list.files(".", pattern="metadata", full.names = TRUE)
-
-metadat <- read.csv(metadata, sep = ",")
+metadat <- read.csv(args[1], sep = ",")
 
 condition_list <- sort(unique(metadat$condition))
 for (cond1 in condition_list[seq(1,length(condition_list)-1)]) {

@@ -52,7 +52,7 @@ then
 
 	# Picard CollectMultipleMetrics
 		java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
-	I=${sampleMergedDedupBam} \
+		I="${sampleMergedDedupBam}" \
 		O="${collectMultipleMetricsPrefix}" \
 		R="${indexSpecies}" \
 		PROGRAM=CollectAlignmentSummaryMetrics \
@@ -62,11 +62,8 @@ then
 		TMP_DIR="${tempDir}"/processing
 	
 
-	#convert pdf to png
-	convert -density 150 "${insertsizeMetricspdf}" -quality 90 "${insertsizeMetricspng}"
-
 	#Flagstat for reads mapping to the genome.
-	samtools flagstat "${sampleMergedDedupBam"} >  "${flagstatMetrics}"
+	samtools flagstat "${sampleMergedDedupBam}" >  "${flagstatMetrics}"
 	
 	# Fagstats idxstats, reads per chr.
 	samtools idxstats "${sampleMergedDedupBam}" > "${idxstatsMetrics}"
@@ -80,9 +77,6 @@ then
 	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 	VALIDATION_STRINGENCY=LENIENT \
 	O="${rnaSeqMetrics}"
-
-	#convert pdf to png
-	convert -density 150 "${rnaSeqMetrics}.pdf" -quality 90 "${rnaSeqMetrics}.png"
 
 	# Collect QC data from several QC matricses, and write a tablular output file.
 
@@ -110,16 +104,13 @@ then
 
 
 	#CollectRnaSeqMetrics.jar
-	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
+		java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
 		REF_FLAT="${annotationRefFlat}" \
 		I="${sampleMergedDedupBam}" \
-	STRAND_SPECIFICITY=NONE \
-	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
+		STRAND_SPECIFICITY=NONE \
+		RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 		CHART_OUTPUT="${rnaSeqMetrics}.pdf" \
-	VALIDATION_STRINGENCY=LENIENT \
+		VALIDATION_STRINGENCY=LENIENT \
 		O="${rnaSeqMetrics}"
-
-	#convert pdf to png
-	convert -density 150 "${rnaSeqMetrics}.pdf" -quality 90 "${rnaSeqMetrics}.png"
 
 fi

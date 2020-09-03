@@ -38,10 +38,10 @@ makeTmpDir ${projectBatchGenotypedVariantCalls}
 tmpProjectBatchGenotypedVariantCalls=${MC_tmpFile}
 
 #Load modules
-${stage} ${gatkVersion}
+${stage} "${gatkVersion}"
 
 #Check modules
-${checkStage}
+"${checkStage}"
 
 echo "## "$(date)" Start $0"
 

@@ -11,6 +11,7 @@
 #string	externalSampleID
 #string splitAndTrimBam
 #string splitAndTrimBai
+#string gatkJar
 #string tmpDataDir
 #string indexFile
 #string tmpTmpDataDir
@@ -19,18 +20,18 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${splitAndTrimBam} 
-tmpsplitAndTrimBam=${MC_tmpFile}
+makeTmpDir "${splitAndTrimBam}"
+tmpsplitAndTrimBam="${MC_tmpFile}"
 
-makeTmpDir ${splitAndTrimBai}
-tmpsplitAndTrimBai=${MC_tmpFile}
+makeTmpDir "${splitAndTrimBai}"
+tmpsplitAndTrimBai="${MC_tmpFile}"
 
 #Load Modules
 ${stage} ${gatkVersion}
 ${stage} ${samtoolsVersion}
 
 #check modules
-${checkStage}
+module list
 
 echo "## "$(date)" Start $0"
 
@@ -38,29 +39,29 @@ echo
 echo
 echo "Running split and trim:"
 
-  java -Xmx9g -XX:ParallelGCThreads=8 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTGATK}/GenomeAnalysisTK.jar \
+  java -Xmx9g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tmpTmpDataDir}" -jar "${EBROOTGATK}"/"${gatkJar}" \
   -T SplitNCigarReads \
-  -R ${indexFile} \
-  -I ${sampleMergedDedupBam} \
-  -o ${tmpsplitAndTrimBam} \
-  -rf ReassignOneMappingQuality \
+  -R "${indexFile}" \
+  -I "${sampleMergedDedupBam}" \
+  -o "${tmpsplitAndTrimBam}" \
+  -rf ReassignOneMappingQuality" \
   -RMQF 255 \
   -RMQT 60 \
   -U ALLOW_N_CIGAR_READS
 
 
-  mv ${tmpsplitAndTrimBam} ${splitAndTrimBam}
-  mv ${tmpsplitAndTrimBai} ${splitAndTrimBai}
+  mv "${tmpsplitAndTrimBam}" "${splitAndTrimBam}"
+  mv "${tmpsplitAndTrimBai}" "${splitAndTrimBai}"
 
   # Create md5sum for zip file
 	
-  RUNDIR=${PWD}
-  cd ${intermediateDir}
-  md5sum ${splitAndTrimBam} > ${splitAndTrimBam}.md5
-  md5sum ${splitAndTrimBai} > ${splitAndTrimBai}.md5
+  RUNDIR="${PWD}"
+  cd "${intermediateDir}"
+  md5sum "${splitAndTrimBam}" > "${splitAndTrimBam}.md5"
+  md5sum "${splitAndTrimBai}" > "${splitAndTrimBai}.md5"
   echo "returncode: $?";
   echo "succes moving files";
-  cd ${RUNDIR}
+  cd "${RUNDIR}"
 
   echo "## "$(date)" ##  $0 Done "
 

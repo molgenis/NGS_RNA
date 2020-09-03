@@ -15,42 +15,42 @@ if [[ -z "${PROJECT:-}" ]]; then PROJECT="${FILEPREFIX}" ; fi ; echo "PROJECT=${
 
 BUILD="GRCh37" # GRCh37, GRCh38
 SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
-PIPELINE="STAR" # hisat, lexogen, STAR
+PIPELINE="STAR" # hisat, lexogen
 
-WORKFLOW="${EBROOTNGS_RNA}/workflow_${PIPELINE}.csv"
+WORKFLOW=${EBROOTNGS_RNA}/workflow_${PIPELINE}.csv
 
 if [ -f .compute.properties ];
 then
      rm .compute.properties
 fi
 
-if [ -f "${GAF}/generatedscripts/${PROJECT}/out.csv"  ];
+if [ -f ${GAF}/generatedscripts/${PROJECT}/out.csv  ];
 then
-	rm -rf "${GAF}/generatedscripts/${PROJECT}/out.csv"
+	rm -rf ${GAF}/generatedscripts/${PROJECT}/out.csv
 fi
 
-perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.csv" > \
-"${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv"
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.csv > \
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv
 
-perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${BUILD}.csv" > \
-"${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv"
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${BUILD}.csv > \
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv
 
-perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${SPECIES}.csv" > \
-"${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv"
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${SPECIES}.csv > \
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv
 
-perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${ENVIRONMENT}.csv" > \
-"${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv"
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${ENVIRONMENT}.csv > \
+${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv
 
-sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
--p "${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv" \
--p "${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv" \
--p "${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv" \
--p "${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv" \
--p "${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv" \
--p "${EBROOTNGS_RNA}/chromosomes.${SPECIES}.csv" \
--w "${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv" \
--rundir "${WORKDIR}/generatedscripts/${PROJECT}/scripts" \
---runid "${RUNID}" \
+sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv \
+-p ${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv \
+-p ${EBROOTNGS_RNA}/chromosomes.${SPECIES}.csv \
+-w ${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv \
+-rundir ${WORKDIR}/generatedscripts/${PROJECT}/scripts \
+--runid ${RUNID} \
 --weave \
 --generate \
 -o "workflowpath=${WORKFLOW};outputdir=scripts/jobs;\
