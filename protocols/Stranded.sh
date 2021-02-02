@@ -3,10 +3,7 @@
 #Parameter mapping
 #string RSeQCVersion
 #string project
-#string alignedFilteredBam
 #string strandedness
-#string sortedBam
-#string sortedBai
 #string bed12
 #string tempDir
 #string logsDir
@@ -22,10 +19,9 @@ tmpStrandedness=${MC_tmpFile}
 
 echo "## "$(date)" Start $0"
 
-for i in $(ls "${intermediateDir}"/*.Aligned.sortedByCoord.out.bam -1 |shuf -n 1)
-do 
-	infer_experiment.py -r "${bed12}" -i "${i}" > "${tmpStrandedness}"
-done
+i=$(ls "${intermediateDir}"/*.Aligned.sortedByCoord.out.bam -1 |shuf -n 1)
+
+infer_experiment.py -r "${bed12}" -i "${i}" > "${tmpStrandedness}"
 
 mv "${tmpStrandedness}" "${strandedness}"
 

@@ -5,6 +5,8 @@
 #string checkStage
 #string sampleMergedDedupBam
 #string sampleMergedDedupBai
+#string splitAndTrimShortBam
+#string splitAndTrimShortBai
 #string samtoolsVersion
 #string gatkVersion
 #string intermediateDir
@@ -55,13 +57,12 @@ echo "Running split and trim:"
 
   # Create md5sum for zip file
 	
-  RUNDIR="${PWD}"
   cd "${intermediateDir}"
-  md5sum "${splitAndTrimBam}" > "${splitAndTrimBam}.md5"
-  md5sum "${splitAndTrimBai}" > "${splitAndTrimBai}.md5"
+  md5sum "${splitAndTrimShortBam}" > "${splitAndTrimShortBam}.md5"
+  md5sum "${splitAndTrimShortBai}" > "${splitAndTrimShortBai}.md5"
   echo "returncode: $?";
   echo "succes moving files";
-  cd "${RUNDIR}"
+  cd -
 
   echo "## "$(date)" ##  $0 Done "
 

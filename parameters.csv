@@ -17,7 +17,8 @@ htseqVersion,HTSeq/0.11.0-GCCcore-7.3.0-Python-3.7.4
 hisatVersion,hisat2/2.1.0-${toolchain}
 pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
 PythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
-gatkVersion,GATK/4.1.4.1-Java-8-LTS
+#gatkVersion,GATK/4.1.4.1-Java-8-LTS
+gatkVersion,GATK/3.8.1.0-Java-8-LTS
 ghostscriptVersion,Ghostscript/9.27-GCCcore-7.3.0
 multiqcVersion,multiqc/1.7-GCCcore-7.3.0-Python-3.7.4-bare
 wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
@@ -27,11 +28,13 @@ kallistoVersion,Kallisto/0.43.0-${toolchain}
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
+gatkJar,GenomeAnalysisTK.jar
 mergeSamFilesJar,MergeSamFiles
 processReadCountsJar,ProcessReadCounts.jar
 TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
 cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
 RSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
+leafcutterVersion,leafcutter/aa12b1e-foss-2018b
 
 ##### GENERAL DIRECTORIES #####
 tmpDataDir,${workDir}/${tmpName}/
@@ -62,6 +65,7 @@ leftbarcodefqgz,${leftbarcodefq}.gz
 rightbarcodefqgz,${rightbarcodefq}.gz
 trimmedLeftBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_1_val_1.fq.gz
 trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_2_val_2.fq.gz
+trimmedSingleBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_trimmed.fq.gz
 workflowFile,$MC_HOME/NGS_RNA_seq_pipeline/workflow.csv
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
@@ -108,14 +112,16 @@ addOrReplaceGroupsBam,${intermediateDir}/${filePrefix}_${barcode}.rg.sorted.bam
 addOrReplaceGroupsBai,${intermediateDir}/${filePrefix}_${barcode}.rg.sorted.bai
 sampleMergedBam,${intermediateDir}/${externalSampleID}.sorted.merged.bam
 sampleMergedBai,${intermediateDir}/${externalSampleID}.sorted.merged.bai
+sampleMergedBamExt,sorted.merged.bam
 sampleMergedDedupBam,${intermediateDir}/${externalSampleID}.sorted.merged.dedup.bam
 sampleMergedDedupBai,${intermediateDir}/${externalSampleID}.sorted.merged.dedup.bai
 starLogFile,${intermediateDir}/${externalSampleID}.hisat.final.log,
-fragmentLength,200
 
 ##### Protocols 4,5a,5b,5c (SplitAndTrim,GatkHaplotypeCallerGvcf,GatkMergeGvcf,GatkGenotypeGvcf) #####
 splitAndTrimBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bam
 splitAndTrimBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bai
+splitAndTrimShortBam,${externalSampleID}.sorted.merged.dedup.splitAndTrim.bam
+splitAndTrimShortBai,${externalSampleID}.sorted.merged.dedup.splitAndTrim.bai
 IndelRealignedBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bam
 IndelRealignedBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bai
 bqsrBeforeGrp,${intermediateDir}${externalSampleID}.before.grp

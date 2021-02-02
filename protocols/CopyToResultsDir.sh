@@ -40,7 +40,6 @@ mkdir -p ${projectResultsDir}/fastqc
 mkdir -p ${projectResultsDir}/expression
 mkdir -p ${projectResultsDir}/expression/perSampleExpression
 mkdir -p ${projectResultsDir}/expression/expressionTable
-mkdir -p ${projectResultsDir}/variants
 mkdir -p ${projectResultsDir}/images
 mkdir -p ${projectResultsDir}/qcmetrics
 
@@ -56,22 +55,14 @@ cp ${projectJobsDir}/${project}.csv ${projectResultsDir}
 
 usedWorkflow=$(basename ${workflow})
 
-if [ "${usedWorkflow}" == "workflow_lexogen.csv" ]
-then
 	cp ${intermediateDir}/*.sorted.merged.dedup.bam ${projectResultsDir}/alignment
         cp ${intermediateDir}/*.sorted.merged.dedup.bam.md5 ${projectResultsDir}/alignment
         cp ${intermediateDir}/*.sorted.merged.dedup.bai ${projectResultsDir}/alignment
         cp ${intermediateDir}/*.sorted.merged.dedup.bai.md5 ${projectResultsDir}/alignment
-else
-	cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam.md5sum ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai.md5sum ${projectResultsDir}/alignment
-fi
 
 # copy qc metrics to qcmetrics folder
 
-	cp ${intermediateDir}/*.hisat.log ${projectResultsDir}/qcmetrics
+#	cp ${intermediateDir}/*.hisat.log ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.quality_by_cycle_metrics ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.quality_by_cycle.pdf ${projectResultsDir}/qcmetrics
 	cp ${intermediateDir}/*.quality_distribution.pdf ${projectResultsDir}/qcmetrics
@@ -93,23 +84,13 @@ fi
 
 # copy GeneCounts to results directory
 
-	cp ${intermediateDir}/*.htseq.txt ${projectResultsDir}/expression/perSampleExpression
+	cp ${intermediateDir}/*.counts.txt ${projectResultsDir}/expression/perSampleExpression
 	cp ${projectHTseqExpressionTable} ${projectResultsDir}/expression/expressionTable
 	cp ${annotationGtf} ${projectResultsDir}/expression/
 
 # Copy QC images and report to results directory
 
 	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images
-
-# Copy variants vcfs to results directory
-
-	usedWorkflow=$(basename ${workflow})
-	if [ "${usedWorkflow}" == "workflow_lexogen.csv" ]
-        then
-		echo "Variant vcfs are not existing, skipped"
-	else
-		cp ${intermediateDir}/${project}.variant.calls.genotyped.*.vcf* ${projectResultsDir}/variants
-	fi
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
