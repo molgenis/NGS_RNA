@@ -24,7 +24,9 @@ print(args[2])
 counts = list.files(".", pattern=".counts.txt", full.names=TRUE)
 annotation <- args[2]
 
+#annotation = list.files(".", pattern="_nodupes_genid.bak", full.names = TRUE)
 metadata <- args[1]
+#metadata = list.files(".", pattern="metadata", full.names = TRUE)
 design = list.files(".", pattern = "design.txt", full.names = TRUE)
 
 sampleFiles <- counts

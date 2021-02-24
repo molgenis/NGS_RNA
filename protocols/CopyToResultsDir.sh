@@ -35,68 +35,76 @@
 umask 0007
 
 # Make result directories
-mkdir -p ${projectResultsDir}/alignment
-mkdir -p ${projectResultsDir}/fastqc
-mkdir -p ${projectResultsDir}/expression
-mkdir -p ${projectResultsDir}/expression/perSampleExpression
-mkdir -p ${projectResultsDir}/expression/expressionTable
-mkdir -p ${projectResultsDir}/images
-mkdir -p ${projectResultsDir}/qcmetrics
+mkdir -p "${projectResultsDir}/alignment"
+mkdir -p "${projectResultsDir}/fastqc"
+mkdir -p "${projectResultsDir}/expression"
+mkdir -p "${projectResultsDir}/expression/perSampleExpression"
+mkdir -p "${projectResultsDir}/expression/expressionTable"
+mkdir -p "${projectResultsDir}/expression/deseq2"
+mkdir -p "${projectResultsDir}/leafcutter"
+mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy project csv file to project results directory
 
-cp ${projectJobsDir}/${project}.csv ${projectResultsDir}
+cp "${projectJobsDir}/${project}.csv" "${projectResultsDir}"
 
 # Copy fastQC output to results directory
 
-	cp ${intermediateDir}/*_fastqc.zip ${projectResultsDir}/fastqc
+	cp "${projectQcDir}/"* "${projectResultsDir}/fastqc/"
 
 # Copy BAM plus index plus md5 sum to results directory
 
 usedWorkflow=$(basename ${workflow})
 
-	cp ${intermediateDir}/*.sorted.merged.dedup.bam ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.bam.md5 ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.bai ${projectResultsDir}/alignment
-        cp ${intermediateDir}/*.sorted.merged.dedup.bai.md5 ${projectResultsDir}/alignment
+	cp "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bam.md5 "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bai "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bai.md5 "${projectResultsDir}/alignment"
 
 # copy qc metrics to qcmetrics folder
 
-#	cp ${intermediateDir}/*.hisat.log ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.quality_by_cycle_metrics ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.quality_by_cycle.pdf ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.quality_distribution.pdf ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.quality_distribution_metrics ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.base_distribution_by_cycle.pdf ${projectResultsDir}/qcmetrics 
-	cp ${intermediateDir}/*.base_distribution_by_cycle_metrics ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.alignment_summary_metrics ${projectResultsDir}/qcmetrics
-        cp ${intermediateDir}/*.flagstat ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.idxstats ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.mdupmetrics ${projectResultsDir}/qcmetrics
-	cp ${intermediateDir}/*.collectrnaseqmetrics ${projectResultsDir}/qcmetrics
+	cp "${intermediateDir}"/*.quality_by_cycle_metrics "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.quality_by_cycle.pdf "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.quality_distribution.pdf "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.quality_distribution_metrics "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics" 
+	cp "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics"
+        cp "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.mdupmetrics "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics"
 
 	if [ "${seqType}" == "PE" ]
         then
-		cp ${intermediateDir}/*.insert_size_metrics ${projectResultsDir}/qcmetrics
+		cp "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics"
 	else
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
 # copy GeneCounts to results directory
 
-	cp ${intermediateDir}/*.counts.txt ${projectResultsDir}/expression/perSampleExpression
-	cp ${projectHTseqExpressionTable} ${projectResultsDir}/expression/expressionTable
-	cp ${annotationGtf} ${projectResultsDir}/expression/
+	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}"/expression/perSampleExpression
+	cp "${projectHTseqExpressionTable}" "${projectResultsDir}"/expression/expressionTable
+	cp "${annotationGtf}" "${projectResultsDir}"/expression/
+
+	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/*_perind_* "${projectResultsDir}"/expression/deseq2/
 
 # Copy QC images and report to results directory
 
-	cp ${intermediateDir}/*.collectrnaseqmetrics.png ${projectResultsDir}/images
+	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}"/images
+
+# Copy leafcutter
+	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}"/leafcutter/
+
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp ${intermediateDir}/*.insert_size_histogram.png ${projectResultsDir}/images
-		cp ${intermediateDir}/*.insert_size_histogram.pdf ${projectResultsDir}/images
+		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}"/images
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
@@ -104,7 +112,7 @@ usedWorkflow=$(basename ${workflow})
 
 # write README.txt file
 
-cat > ${projectResultsDir}/README.txt <<'endmsg'
+cat > "${projectResultsDir}"/README.txt <<'endmsg'
 
 Morris A. Swertz
 University of Groningen, University Medical Center Groningen, Genomics Coordination Center, Groningen, the Netherlands
@@ -126,15 +134,8 @@ the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned 
 Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and ${samtoolsVersion} flagstat.
 
-GATK variant calling
-Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
-developed specially for RNAseq, which splits reads into exon segments (getting rid of Ns
-but maintaining grouping information) and hard-clip any sequences overhanging into the intronic regions.
-The variant calling it self was done using HaplotypeCaller in GVCF mode. All  samples are 
-then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs 
-on all of them together to create a set of raw SNP and indel calls per chomosome. [6]
-
-
+Splicing event calling
+...
 
 Results archive
 The zipped archive contains the following data and subfolders:
@@ -152,20 +153,23 @@ form the basis for this analysis.
 
 Used toolversions:
 
-${jdkVersion}
+${multiqcVersion}
 ${fastqcVersion}
 ${samtoolsVersion}
 ${RVersion}
-${wkhtmltopdfVersion}
+${TrimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
-${pythonVersion}
+${PythonPlusVersion}
 ${gatkVersion}
-${ghostscriptVersion}
-${hisatVersion}
+${RSeQCVersion}
+${starVersion}
+${leafcutterVersion}
 
-1. Daehwan Kim, Ben Langmead & Steven L Salzberg: HISAT: a fast spliced aligner with low
-memory requirements. Nature Methods 12, 357–360 (2015)
+
+1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski, 
+Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
+2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
 2. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R,
 Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
 Bioinforma 2009, 25 (16):2078–2079.
@@ -176,6 +180,8 @@ Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ $
 5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}
 6. The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. 
 McKenna A et al.2010 GENOME RESEARCH 20:1297-303, Version: ${gatkVersion}
+7. Li YI, Knowles DA, Humphrey J, et al. Annotation-free quantification of RNA splicing using LeafCutter. 
+Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
 
 endmsg
 
@@ -183,30 +189,16 @@ endmsg
 
 cd ${projectResultsDir}
 
-zip -gr ${projectResultsDir}/${project}.zip fastqc
-zip -g ${projectResultsDir}/${project}.zip ${project}.csv
-zip -gr ${projectResultsDir}/${project}.zip qcmetrics
-zip -gr ${projectResultsDir}/${project}.zip expression
-zip -gr ${projectResultsDir}/${project}.zip variants
-zip -gr ${projectResultsDir}/${project}.zip images
-zip -g ${projectResultsDir}/${project}.zip ${project}_multiqc_report.html
-zip -g ${projectResultsDir}/${project}.zip README.txt
+zip -gr "${projectResultsDir}/${project}".zip fastqc
+zip -g  "${projectResultsDir}/${project}".zip "${project}".csv
+zip -gr "${projectResultsDir}/${project}".zip qcmetrics
+zip -gr "${projectResultsDir}/${project}".zip expression
+zip -gr "${projectResultsDir}/${project}".zip images
+zip -g  "${projectResultsDir}/${project}".zip "${project}"_multiqc_report.html
+zip -g  "${projectResultsDir}/${project}".zip README.txt
 
 # Create md5sum for zip file
 
-cd ${projectResultsDir}
-md5sum ${project}.zip > ${projectResultsDir}/${project}.zip.md5
-cd ${projectJobsDir}
-
-CURRENT_DIR=$(pwd)
-
-runNumber=$(basename $( dirname "${projectResultsDir}"))
-if [ -f "${logsDir}/${project}/${runNumber}.pipeline.started" ]
-then
-	mv "${logsDir}/${project}/${runNumber}.pipeline".{started,finished}
-else
-	touch "${logsDir}/${project}/${runNumber}.pipeline.finished"
-fi
-rm -f "${logsDir}/${project}/${runNumber}.pipeline.failed"
-echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
-
+cd "${projectResultsDir}"
+md5sum "${project}".zip > "${projectResultsDir}"/"${project}".zip.md5
+cd "${projectJobsDir}"

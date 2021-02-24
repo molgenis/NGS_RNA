@@ -8,20 +8,23 @@
 #string strandedness
 #string sampleMergedBamExt
 #string leafcutterVersion
+#string python2Version
 
 #Load module
 module load ${leafcutterVersion}
+module load ${python2Version}
 module list
-
-#https://www.researchgate.net/publication/282645615_Alternative_Splicing_Signatures_in_RNA-seq_Data_Percent_Spliced_in_PSI
 
 # detect strand for RegTools
 STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7'} | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7'} | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "1"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "2"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "0"; fi)"
 
+#detect number of conditions
+read -r -a NUMBERCONDITIONS <<<$(col="condition"; head -n1 validatie_NGS_RNA_Diagnostiek-deel2.csv | tr "," "\n" | grep -n $col)
+
 echo -e "\nWith strandedness type: ${STRANDED}, 
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
 
-rm -f "${intermediateDir}""${project}"_juncfiles.txt
+rm -f "${intermediateDir}${project}_juncfiles.txt"
 cd "${intermediateDir}"
 for bamfile in $(ls *.${sampleMergedBamExt}); do
 
@@ -36,7 +39,7 @@ for bamfile in $(ls *.${sampleMergedBamExt}); do
     "${bamfile}" \
     -o "${bamfile}".junc
 
-    echo "${bamfile}".junc >> "${intermediateDir}${project}"_juncfiles.txt
+    echo "${intermediateDir}${bamfile}".junc >> "${intermediateDir}${project}"_juncfiles.txt
 done
 
 python "${EBROOTLEAFCUTTER}"/clustering/leafcutter_cluster_regtools.py \
@@ -53,18 +56,28 @@ awk -F',' '{print $1".sorted.merged.bam\t"$2}' "${intermediateDir}"/metadata.csv
 
 sed 1d "${intermediateDir}${project}"_groups_file.txt > "${intermediateDir}${project}"_groups_file.txt
 
-Rscript "${EBROOTLEAFCUTTER}"/scripts/leafcutter_ds.R \
---num_threads 4 \
--o "${intermediateDir}${project}_leafcutter_ds" \
-"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz \
-"${intermediateDir}${project}"_groups_file.txt
+if [[ "${NUMBERCONDITIONS[0]}" -gt 1 ]]
+then
+	echo "Differential Splicing with $NUMBERCONDITIONS groups."
+	Rscript "${EBROOTLEAFCUTTER}"/scripts/leafcutter_ds.R \
+	--num_threads 4 \
+	-o "${intermediateDir}${project}_leafcutter_ds" \
+	"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz \
+	"${intermediateDir}${project}"_groups_file.txt
 
-Rscript "${EBROOTLEAFCUTTER}"/scripts/ds_plots.R \
--e "${EBROOTLEAFCUTTER}"/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz \
--o "${intermediateDir}${project}_leafcutter_ds" \
-"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz \
-"${intermediateDir}${project}"_groups_file.txt \
-"${intermediateDir}${project}"_leafcutter_ds_cluster_significance.txt \
--f 0.05
+	Rscript "${EBROOTLEAFCUTTER}"/scripts/ds_plots.R \
+	-e "${EBROOTLEAFCUTTER}"/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz \
+	-o "${intermediateDir}${project}_leafcutter_ds" \
+	"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz \
+	"${intermediateDir}${project}"_groups_file.txt \
+	"${intermediateDir}${project}"_leafcutter_ds_cluster_significance.txt \
+	-f 0.05
+
+else
+       echo "Outlier Splicing, $NUMBERCONDITIONS conditions found."
+	Rscript	"${EBROOTLEAFCUTTER}"/scripts//leafcutterMD.R \
+	--num_threads 8 \
+	"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz
+fi 
 
 cd -

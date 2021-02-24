@@ -3,6 +3,10 @@
 library(data.table)
 args = commandArgs(trailingOnly=TRUE)
 
+#metadata <- list.files(".", pattern="metadata", full.names = TRUE)
+#metadata <- list.files(".", pattern="args[1]", full.names = TRUE)
+
+#metadat <- read.csv(metadata, sep = ",")
 metadat <- read.csv(args[1], sep = ",")
 
 condition_list <- sort(unique(metadat$condition))

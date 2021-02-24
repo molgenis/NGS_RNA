@@ -4,7 +4,7 @@ checkStage,module list
 jobname,jobname
 
 ##### Tools and versions #####
-jdkVersion,Java/1.7.0_80
+jdkVersion,Java/8-LTS
 NGSUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
 NGSRNAVersion,NGS_RNA/4.0.0
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
@@ -16,6 +16,7 @@ picardVersion,picard/2.20.5-Java-11-LTS
 htseqVersion,HTSeq/0.11.0-GCCcore-7.3.0-Python-3.7.4
 hisatVersion,hisat2/2.1.0-${toolchain}
 pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
+python2Version,Python/2.7.16-GCCcore-7.3.0-bare
 PythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
 #gatkVersion,GATK/4.1.4.1-Java-8-LTS
 gatkVersion,GATK/3.8.1.0-Java-8-LTS
@@ -152,4 +153,4 @@ qcMatrics,${intermediateDir}/${externalSampleID}.total.qc.metrics.table
 
 ##### Protocols 3,6  (HTSeq count, MakeExpressionTable) #####
 sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.counts.txt
-projectHTseqExpressionTable,${intermediateDir}/${project}.expression.genelevel.v${ensembleReleaseVersion}.counts.txt.table
+projectHTseqExpressionTable,${intermediateDir}/${project}.expression.genelevel.v${ensembleReleaseVersion}.counts.table

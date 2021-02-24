@@ -66,6 +66,11 @@ then
 	ln -sf $(basename "${INPUTBAMS[0]}") "${sampleMergedBam}"
 	ln -sf $(basename "${UNIQUEBAIS[0]}") "${sampleMergedBai}"
 	echo "nothing to merge because there is only one sample"
+	
+	cd ${intermediateDir}
+	md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5sum
+	md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5sum
+	cd -	
 
 else
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" "${mergeSamFilesJar}" \
@@ -82,5 +87,9 @@ else
 	mv "${tmpSampleMergedBam}" "${sampleMergedBam}"
 	mv "${tmpSampleMergedBai}" "${sampleMergedBai}"
 
+        cd ${intermediateDir}
+        md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5sum
+        md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5sum
+        cd -
 fi
 

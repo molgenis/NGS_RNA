@@ -60,10 +60,10 @@ echo "STAR for RNA"
 	--readFilesCommand zcat \
 	--twopassMode Basic \
  	--genomeLoad NoSharedMemory \
- 	--outFilterMultimapNmax 1 \
  	--quantMode GeneCounts \
         --outSAMtype BAM SortedByCoordinate \
         --limitBAMsortRAM 45000000000 \
+        --outSAMstrandField intronMotif \
 	--outSAMunmapped Within \
 	--outFileNamePrefix "${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".
 

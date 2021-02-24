@@ -14,19 +14,19 @@
 #string annotationFile
 
 module load "${RPlusVersion}"
-module load ${ngsversion}
+module load "${ngsversion}"
 module list
 
 cd "${intermediateDir}"
 
-cp "${projectJobsDir}/${project}.csv" "${intermediateDir}"/metadata.csv
+cp "${projectJobsDir}/${project}.csv" "${intermediateDir}/metadata.csv"
 
 perl -pi -e 's|externalFastQ_1|samplename|g' "${intermediateDir}/metadata.csv"
 
 echo "creating design file."
-Rscript "${EBROOTNGS_RNA}/scripts/"design.R "${projectJobsDir}/${project}.csv"
+Rscript "${EBROOTNGS_RNA}/scripts/design.R" "${projectJobsDir}/${project}.csv"
 
 echo "running: deseq2 analysis"
-Rscript "${EBROOTNGS_RNA}/scripts/"/deseq2_analysis.R "${intermediateDir}/metadata.csv" "${annotationFile}"
+Rscript "${EBROOTNGS_RNA}/scripts/deseq2_analysis.R" "${intermediateDir}/metadata.csv" "${annotationFile}"
 
 cd -
