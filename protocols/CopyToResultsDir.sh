@@ -41,6 +41,7 @@ mkdir -p "${projectResultsDir}/expression"
 mkdir -p "${projectResultsDir}/expression/perSampleExpression"
 mkdir -p "${projectResultsDir}/expression/expressionTable"
 mkdir -p "${projectResultsDir}/expression/deseq2"
+mkdir -p "${projectResultsDir}/images"
 mkdir -p "${projectResultsDir}/leafcutter"
 mkdir -p "${projectResultsDir}/qcmetrics"
 

@@ -31,11 +31,12 @@ for bamfile in $(ls *.${sampleMergedBamExt}); do
     echo Converting "${bamfile}" to "${bamfile}".junc
     samtools index "${bamfile}"
 
+    #BUG: set to standed 0.
     regtools junctions extract \
     -a 8 \
     -m 50 \
     -M 500000 \
-    -s "${STRANDED}" \
+    -s 0 \
     "${bamfile}" \
     -o "${bamfile}".junc
 
