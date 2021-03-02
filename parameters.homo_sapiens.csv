@@ -1,9 +1,9 @@
 #### GENOME VARIABLES ####
 annotationFileName,Homo_sapiens.${GR}
 speciesFileName,homo_sapiens
-indexFileID,Homo_sapiens.GRCh37.75.cdna.all.fa.gz
+indexFileID,Homo_sapiens.GRCh37.dna.primary_assembly.fa
 indexFolderName,human_g1k_v37
-dbSNPFileID,dbsnp_138.${genome}
+dbSNPFileID,dbsnp_137.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
 dbSNPDir,${dataDir}/dbSNP/
 hisatIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/hisat/0.1.5-beta-goolf-1.7.20/${indexFolderName}

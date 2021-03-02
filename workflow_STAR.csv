@@ -10,12 +10,10 @@ s07a_HTSeq_count,protocols/HTSeq_count.sh,s06_Stranded
 s07b_DESeq2,protocols/Design.sh,s07a_HTSeq_count
 s07c_Leafcutter,protocols/Leafcutter.sh,s06_Stranded
 #s07d_Majiq,protocols/Majiq.sh,s03_MergeBam
-#s08a_SplitAndTrim,protocols/SplitAndTrim.sh,s04_MarkDuplicates
-#s08b_IndelRealignment,protocols/IndelRealignment.sh,s08a_SplitAndTrim
-#s08c_BQSR,protocols/BQSR.sh,s08b_IndelRealignment
-#s09a_GatkHaplotypeCallerGvcf,protocols/GatkHaplotypeCallerGvcf.sh,s08c_BQSR
-#s09b_GatkMergeGvcf,protocols/GatkMergeGvcf.sh,s09a_GatkHaplotypeCallerGvcf
-#s09c_GatkGenotypeGvcf,protocols/GatkGenotypeGvcf.sh,s09b_GatkMergeGvcf
+s08a_SplitAndTrim,protocols/SplitAndTrim.sh,s04_MarkDuplicates
+s08b_BQSR,protocols/BQSR.sh,s08a_SplitAndTrim
+s09a_GatkHaplotypeCallerGvcf,protocols/GatkHaplotypeCallerGvcf.sh,s08b_BQSR
+s09b_GatkGenotypeGvcf,protocols/GatkGenotypeGvcf.sh,s09a_GatkHaplotypeCallerGvcf
 s10_MakeExpressionTable,protocols/MakeExpressionTable.sh,s07a_HTSeq_count
 s11_MultiQCReport,protocols/MultiQCReport.sh,s10_MakeExpressionTable;s05_QCStats
-s12_CopyToResultsDir,protocols/CopyToResultsDir.sh,s11_MultiQCReport;s09c_GatkGenotypeGvcf;s10_MakeExpressionTable
+s12_CopyToResultsDir,protocols/CopyToResultsDir.sh,s11_MultiQCReport;s09b_GatkGenotypeGvcf;s10_MakeExpressionTable

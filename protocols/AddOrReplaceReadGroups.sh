@@ -34,7 +34,7 @@ tmpAddOrReplaceGroupsBai="${MC_tmpFile}"
 module load "${picardVersion}"
 
 #check modules
-module list
+${checkStage}
 
 echo "## $(date) Start $0"
 

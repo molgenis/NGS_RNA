@@ -1,6 +1,5 @@
 #MOLGENIS walltime=23:59:00 mem=17gb ppn=3 nodes=1
 
-############moet nog aangepast worden ########################
 #string stage
 #string gatkVersion
 #string checkStage
@@ -9,11 +8,11 @@
 #string dbsnpVcf
 #string gatkVersion
 #string indexFile
-#list externalSampleID
+#list externalSampleID,GatkHaplotypeCallerGvcf
 #string intermediateDir
 #string projectPrefix
-#string projectBatchGenotypedVariantCalls
 #string projectBatchCombinedVariantCalls
+#string projectBatchGenotypedVariantCalls
 #string projectJobsDir
 #string project
 #string groupname
@@ -37,11 +36,14 @@ array_contains () {
 makeTmpDir ${projectBatchGenotypedVariantCalls}
 tmpProjectBatchGenotypedVariantCalls=${MC_tmpFile}
 
+makeTmpDir ${projectBatchCombinedVariantCalls}
+tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}
+
 #Load modules
 ${stage} "${gatkVersion}"
 
 #Check modules
-"${checkStage}"
+${checkStage}
 
 echo "## "$(date)" Start $0"
 
@@ -58,25 +60,47 @@ numberofbatches=$(($SAMPLESIZE / 200))
 
 for b in $(seq 0 $numberofbatches)
 do
-	if [ -f ${projectBatchCombinedVariantCalls}.$b ]
+	if [ -f ${GatkHaplotypeCallerGvcf}.$b ]
 	then
-		ALLGVCFs+=("--variant ${projectBatchCombinedVariantCalls}.$b")
+		ALLGVCFs+=("--variant GatkHaplotypeCallerGvcf}.$b")
 	fi
 done
+
+if [ "${SAMPLESIZE}" -gt 200 ]
+then
+    for b in $(seq 0 "${numberofbatches}")
+    do
+        if [ -f "${projectBatchCombinedVariantCalls}.${b}" ]
+        then
+            ALLGVCFs+=("--variant=${projectBatchCombinedVariantCalls}.${b}")
+        fi
+    done
+else
+    for sampleGvcf in "${GatkHaplotypeCallerGvcf[@]}"
+        do
+        if [ -f "${sampleGvcf}" ]
+        then
+            array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=$sampleGvcf")
+        fi
+    done
+fi 
+
 
 GvcfSize=${#ALLGVCFs[@]}
 
 if [ ${GvcfSize} -ne 0 ]
 then
 
-	java -Xmx16g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTGATK}/GenomeAnalysisTK.jar \
-	-T GenotypeGVCFs \
-	-R ${indexFile} \
- 	--dbsnp ${dbsnpVcf}\
-	-o ${tmpProjectBatchGenotypedVariantCalls} \
-	${ALLGVCFs[@]} \
-	-stand_call_conf 10.0 \
-	-stand_emit_conf 20.0
+    gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tmpTmpDataDir}" CombineGVCFs \
+        --reference="${indexFile}" \
+        "${ALLGVCFs[@]}" \
+        --output="${tmpProjectBatchCombinedVariantCalls}"
+
+    gatk --java-options "-Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir}" GenotypeGVCFs \
+        --reference="${indexFile}" \
+        --variant="${tmpProjectBatchCombinedVariantCalls}" \
+        --dbsnp="${dbsnpVcf}" \
+        --output="${tmpProjectBatchGenotypedVariantCalls}"
 
 	mv ${tmpProjectBatchGenotypedVariantCalls} ${projectBatchGenotypedVariantCalls}
 	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls} "
@@ -86,10 +110,8 @@ then
  	cd -
 	echo "succes moving files"
 
-
 else
 	echo ""
 	echo "there is nothing to genotype, skipped"
 	echo ""
 fi
-

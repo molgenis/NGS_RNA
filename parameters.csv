@@ -18,8 +18,7 @@ hisatVersion,hisat2/2.1.0-${toolchain}
 pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
 python2Version,Python/2.7.16-GCCcore-7.3.0-bare
 PythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
-#gatkVersion,GATK/4.1.4.1-Java-8-LTS
-gatkVersion,GATK/3.8.1.0-Java-8-LTS
+gatkVersion,GATK/4.1.4.1-Java-8-LTS
 ghostscriptVersion,Ghostscript/9.27-GCCcore-7.3.0
 multiqcVersion,multiqc/1.7-GCCcore-7.3.0-Python-3.7.4-bare
 wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
@@ -132,9 +131,8 @@ GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCalle
 GatkHaplotypeCallerGvcfidx,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.idx
 GatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf
 GatkMergeGvcfidx,${intermediateDir}.MergeGvcf.g.vcf.idx
-projectBatchGenotypedVariantCalls,${projectPrefix}.variant.calls.genotyped.chr${chr}.vcf
-projectBatchCombinedVariantCalls,${projectPrefix}.variant.calls.combined.chr${chr}.g.vcf 
-
+projectBatchGenotypedVariantCalls,${projectPrefix}.variant.calls.genotyped.vcf
+projectBatchCombinedVariantCalls,${projectPrefix}.variant.calls.combined.g.vcf 
 ##### Protocols 2,7 (QCStats, QC_Report) #####
 collectMultipleMetricsPrefix,${intermediateDir}${externalSampleID}
 flagstatMetrics,${intermediateDir}${externalSampleID}.flagstat
