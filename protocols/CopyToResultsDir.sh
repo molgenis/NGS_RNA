@@ -42,6 +42,7 @@ mkdir -p "${projectResultsDir}/expression/perSampleExpression"
 mkdir -p "${projectResultsDir}/expression/expressionTable"
 mkdir -p "${projectResultsDir}/expression/deseq2"
 mkdir -p "${projectResultsDir}/images"
+mkdir -p "${projectResultsDir}/variants"
 mkdir -p "${projectResultsDir}/leafcutter"
 mkdir -p "${projectResultsDir}/qcmetrics"
 
@@ -82,6 +83,11 @@ usedWorkflow=$(basename ${workflow})
 	else
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
+
+#copy variant to results directory.
+
+	cp "${projectBatchGenotypedVariantCalls}" "${projectResultsDir}/variants/"
+	cp "${projectBatchGenotypedVariantCalls}".md5 "${projectResultsDir}/variants/"
 
 # copy GeneCounts to results directory
 
@@ -137,6 +143,14 @@ Metrics and ${samtoolsVersion} flagstat.
 
 Splicing event calling
 ...
+
+GATK variant calling
+Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
+developed specially for RNAseq, which splits reads into exon segments (getting rid of Ns
+but maintaining grouping information) and hard-clip any sequences overhanging into the intronic regions.
+The variant calling it self was done using HaplotypeCaller in GVCF mode. All  samples are 
+then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs 
+on all of them together to create a set of raw SNP and indel calls. [6]
 
 Results archive
 The zipped archive contains the following data and subfolders:

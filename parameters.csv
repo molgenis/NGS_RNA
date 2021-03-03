@@ -125,14 +125,14 @@ splitAndTrimShortBai,${externalSampleID}.sorted.merged.dedup.splitAndTrim.bai
 IndelRealignedBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bam
 IndelRealignedBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bai
 bqsrBeforeGrp,${intermediateDir}${externalSampleID}.before.grp
-bqsrBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bam
-bqsrBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bqsr.bai
-GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf
+bqsrBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bam
+bqsrBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bai
+GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz
 GatkHaplotypeCallerGvcfidx,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.idx
 GatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf
 GatkMergeGvcfidx,${intermediateDir}.MergeGvcf.g.vcf.idx
 projectBatchGenotypedVariantCalls,${projectPrefix}.variant.calls.genotyped.vcf
-projectBatchCombinedVariantCalls,${projectPrefix}.variant.calls.combined.g.vcf 
+projectBatchCombinedVariantCalls,${projectPrefix}.variant.calls.combined.g.vcf.gz
 ##### Protocols 2,7 (QCStats, QC_Report) #####
 collectMultipleMetricsPrefix,${intermediateDir}${externalSampleID}
 flagstatMetrics,${intermediateDir}${externalSampleID}.flagstat

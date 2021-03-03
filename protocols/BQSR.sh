@@ -64,8 +64,8 @@ java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
   mv "${tmpBqsrBai}" "${bqsrBai}"
 
 cd "${intermediateDir}"
- md5sum $(basename "${bqsrBam}")> $(basename "${bqsrBam}").md5sum
- md5sum $(basename "${bqsrBai}")> $(basename "${bqsrBai}").md5sum
+ md5sum $(basename "${bqsrBam}")> $(basename "${bqsrBam}").md5
+ md5sum $(basename "${bqsrBai}")> $(basename "${bqsrBai}").md5
 cd -
 
   echo "returncode: $?";

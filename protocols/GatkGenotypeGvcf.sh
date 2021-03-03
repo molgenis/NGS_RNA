@@ -106,7 +106,7 @@ then
 	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls} "
 	
 	cd ${intermediateDir}
-	md5sum $(basename ${projectBatchGenotypedVariantCalls})> $(basename ${projectBatchGenotypedVariantCalls}).md5sum
+	md5sum $(basename ${projectBatchGenotypedVariantCalls})> $(basename ${projectBatchGenotypedVariantCalls}).md5
  	cd -
 	echo "succes moving files"
 

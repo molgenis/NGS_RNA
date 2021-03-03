@@ -88,8 +88,8 @@ else
 	mv "${tmpSampleMergedBai}" "${sampleMergedBai}"
 
         cd ${intermediateDir}
-        md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5sum
-        md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5sum
+        md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5
+        md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5
         cd -
 fi
 
