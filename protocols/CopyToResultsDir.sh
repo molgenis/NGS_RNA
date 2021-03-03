@@ -90,28 +90,28 @@ usedWorkflow=$(basename ${workflow})
 
 # copy GeneCounts to results directory
 
-	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}"/expression/perSampleExpression
-	cp "${projectHTseqExpressionTable}" "${projectResultsDir}"/expression/expressionTable
-	cp "${annotationGtf}" "${projectResultsDir}"/expression/
+	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/perSampleExpression"
+	cp "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/expressionTable"
+	cp "${annotationGtf}" "${projectResultsDir}/expression/"
 
-	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/pca_deseq2* "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/volcano_plot_test_vs_unknown.svg "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}/metadata.csv" "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}/design.txt" "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}/pca_deseq2"* "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}/volcano_plot_test_vs_unknown.svg" "${projectResultsDir}/expression/deseq2/"
 
 # Copy QC images and report to results directory
 
-	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}"/qcmetrics
+	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}/qcmetrics"
 
 # Copy leafcutter
-	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}"/leafcutter/
-	cp "${intermediateDir}"/"${project}"*_perind_* "${projectResultsDir}"/leafcutter/
+	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}/leafcutter/"
+	cp "${intermediateDir}"/"${project}"*_perind_* "${projectResultsDir}/leafcutter/"
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}"/qcmetrics
+		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}/qcmetrics"
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
@@ -135,7 +135,7 @@ The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] u
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
 in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
 For experimental group conditions the 'condition' column in the samplesheet was used the 
-distinced groups within the samples.
+distinct groups within the samples.
 
 Calculate QC metrics on raw and aligned data
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using 
@@ -205,19 +205,19 @@ endmsg
 
 # Create zip file for all "small text" files
 
-cd ${projectResultsDir}
+cd "${projectResultsDir}"
 
-zip -gr "${projectResultsDir}/${project}".zip fastqc
-zip -g  "${projectResultsDir}/${project}".zip "${project}".csv
-zip -gr "${projectResultsDir}/${project}".zip qcmetrics
-zip -gr "${projectResultsDir}/${project}".zip expression
-zip -gr "${projectResultsDir}/${project}".zip leafcutter
-zip -gr "${projectResultsDir}/${project}".zip multiqc_data
-zip -g  "${projectResultsDir}/${project}".zip "${project}"_multiqc_report.html
-zip -g  "${projectResultsDir}/${project}".zip README.txt
+zip -gr "${projectResultsDir}/${project}.zip" fastqc
+zip -g  "${projectResultsDir}/${project}.zip" "${project}".csv
+zip -gr "${projectResultsDir}/${project}.zip" qcmetrics
+zip -gr "${projectResultsDir}/${project}.zip" expression
+zip -gr "${projectResultsDir}/${project}.zip" leafcutter
+zip -gr "${projectResultsDir}/${project}.zip" multiqc_data
+zip -g  "${projectResultsDir}/${project}.zip" "${project}"_multiqc_report.html
+zip -g  "${projectResultsDir}/${project}.zip" README.txt
 
 # Create md5sum for zip file
 
 cd "${projectResultsDir}"
-md5sum "${project}".zip > "${projectResultsDir}"/"${project}".zip.md5
+md5sum "${project}".zip > "${projectResultsDir}/${project}".zip.md5
 cd "${projectJobsDir}"

@@ -28,7 +28,6 @@ kallistoVersion,Kallisto/0.43.0-${toolchain}
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
-gatkJar,GenomeAnalysisTK.jar
 mergeSamFilesJar,MergeSamFiles
 processReadCountsJar,ProcessReadCounts.jar
 TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
