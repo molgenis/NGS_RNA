@@ -85,8 +85,8 @@ usedWorkflow=$(basename ${workflow})
 
 #copy variant to results directory.
 
-	cp "${projectBatchGenotypedVariantCalls}" "${projectResultsDir}/variants/"
-	cp "${projectBatchGenotypedVariantCalls}".md5 "${projectResultsDir}/variants/"
+	cp "${intermediateDir}/${project}.variant.calls.genotyped.vcf" "${projectResultsDir}/variants/"
+	cp "${intermediateDir}/${project}.variant.calls.genotyped.vcf.md5" "${projectResultsDir}/variants/"
 
 # copy GeneCounts to results directory
 
@@ -107,7 +107,6 @@ usedWorkflow=$(basename ${workflow})
 # Copy leafcutter
 	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}"/leafcutter/
 	cp "${intermediateDir}"/"${project}"*_perind_* "${projectResultsDir}"/leafcutter/
-_perind_
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
@@ -134,7 +133,9 @@ reference genome using ${hisatVersion} [1] with default settings. Before gene qu
 ${samtoolsVersion} [2] was used to sort the aligned reads. 
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union, 
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
-in folder expression/. 
+in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
+For experimental group conditions the 'condition' column in the samplesheet was used the 
+distinced groups within the samples.
 
 Calculate QC metrics on raw and aligned data
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using 
@@ -142,8 +143,8 @@ the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned 
 Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and ${samtoolsVersion} flagstat.
 
-Splicing event calling
-...
+Splicing event calling using LeafCutter
+Leafcutter quantifies RNA splicing variation detection.
 
 GATK variant calling
 Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
