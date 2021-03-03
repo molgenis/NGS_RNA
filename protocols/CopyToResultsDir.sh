@@ -41,7 +41,6 @@ mkdir -p "${projectResultsDir}/expression"
 mkdir -p "${projectResultsDir}/expression/perSampleExpression"
 mkdir -p "${projectResultsDir}/expression/expressionTable"
 mkdir -p "${projectResultsDir}/expression/deseq2"
-mkdir -p "${projectResultsDir}/images"
 mkdir -p "${projectResultsDir}/variants"
 mkdir -p "${projectResultsDir}/leafcutter"
 mkdir -p "${projectResultsDir}/qcmetrics"
@@ -98,20 +97,22 @@ usedWorkflow=$(basename ${workflow})
 	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
 	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
 	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/*_perind_* "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/pca_deseq2* "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/volcano_plot_test_vs_unknown.svg "${projectResultsDir}"/expression/deseq2/
 
 # Copy QC images and report to results directory
 
-	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}"/images
+	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}"/qcmetrics
 
 # Copy leafcutter
 	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}"/leafcutter/
-
+	cp "${intermediateDir}"/"${project}"*_perind_* "${projectResultsDir}"/leafcutter/
+_perind_
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}"/images
+		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}"/qcmetrics
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
@@ -158,8 +159,9 @@ The zipped archive contains the following data and subfolders:
 - alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out)
 - expression: textfiles with gene level quantification per sample and per project. 
 - fastqc: FastQC output
-- images: QC images
-- qcmetrics: Multiple qcMetrics generated with Picard-tools or SAMTools Flagstat.
+- qcmetrics: Multiple qcMetrics and images generated with Picard-tools or SAMTools Flagstat.
+- leafcutter: Leafcutter and RegTools output files.
+- multiqc_data: Combined MultiQC tables used for multiqc report html.
 - variants: Variants calls using GATK. (optional)
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
 
@@ -208,7 +210,8 @@ zip -gr "${projectResultsDir}/${project}".zip fastqc
 zip -g  "${projectResultsDir}/${project}".zip "${project}".csv
 zip -gr "${projectResultsDir}/${project}".zip qcmetrics
 zip -gr "${projectResultsDir}/${project}".zip expression
-zip -gr "${projectResultsDir}/${project}".zip images
+zip -gr "${projectResultsDir}/${project}".zip leafcutter
+zip -gr "${projectResultsDir}/${project}".zip multiqc_data
 zip -g  "${projectResultsDir}/${project}".zip "${project}"_multiqc_report.html
 zip -g  "${projectResultsDir}/${project}".zip README.txt
 
