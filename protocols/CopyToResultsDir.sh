@@ -94,7 +94,7 @@ usedWorkflow=$(basename ${workflow})
 	cp "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/expressionTable"
 	cp "${annotationGtf}" "${projectResultsDir}/expression/"
 
-	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}/deseq2_"* "${projectResultsDir}/expression/deseq2/"
 	cp "${intermediateDir}/metadata.csv" "${projectResultsDir}/expression/deseq2/"
 	cp "${intermediateDir}/design.txt" "${projectResultsDir}/expression/deseq2/"
 	cp "${intermediateDir}/pca_deseq2"* "${projectResultsDir}/expression/deseq2/"
@@ -102,16 +102,16 @@ usedWorkflow=$(basename ${workflow})
 
 # Copy QC images and report to results directory
 
-	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}/"*".collectrnaseqmetrics.pdf" "${projectResultsDir}/qcmetrics"
 
 # Copy leafcutter
-	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}/leafcutter/"
-	cp "${intermediateDir}"/"${project}"*_perind_* "${projectResultsDir}/leafcutter/"
+	cp "${intermediateDir}/leafcutter_"* "${projectResultsDir}/leafcutter/"
+	cp "${intermediateDir}/${project}"*"_perind_"* "${projectResultsDir}/leafcutter/"
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}/qcmetrics"
+		cp "${intermediateDir}/"*".insert_size_"* "${projectResultsDir}/qcmetrics"
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
@@ -208,12 +208,12 @@ endmsg
 cd "${projectResultsDir}"
 
 zip -gr "${projectResultsDir}/${project}.zip" fastqc
-zip -g  "${projectResultsDir}/${project}.zip" "${project}".csv
+zip -g  "${projectResultsDir}/${project}.zip" "${project}.csv"
 zip -gr "${projectResultsDir}/${project}.zip" qcmetrics
 zip -gr "${projectResultsDir}/${project}.zip" expression
 zip -gr "${projectResultsDir}/${project}.zip" leafcutter
 zip -gr "${projectResultsDir}/${project}.zip" multiqc_data
-zip -g  "${projectResultsDir}/${project}.zip" "${project}"_multiqc_report.html
+zip -g  "${projectResultsDir}/${project}.zip" "${project}_multiqc_report.html"
 zip -g  "${projectResultsDir}/${project}.zip" README.txt
 
 # Create md5sum for zip file
