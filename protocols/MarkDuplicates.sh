@@ -21,7 +21,6 @@
 #string tmpName
 #string logsDir
 
-sleep 5
 
 #Function to check if array contains value
 array_contains () {
@@ -44,7 +43,7 @@ makeTmpDir "${sampleMergedDedupBai}"
 tmpSampleMergedDedupBai="${MC_tmpFile}"
 
 module load "${picardVersion}"
-
+module list
 
 #Duplicates statistics.
 java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" MarkDuplicates \

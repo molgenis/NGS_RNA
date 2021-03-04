@@ -42,7 +42,7 @@ tmpSampleMergedBai="${MC_tmpFile}"
 
 #Load Picard module
 module load "${picardVersion}"
-"${checkStage}"
+module list
 
 #Create string with input BAM files for Picard
 #This check needs to be performed because Compute generates duplicate values in array
@@ -66,6 +66,11 @@ then
 	ln -sf $(basename "${INPUTBAMS[0]}") "${sampleMergedBam}"
 	ln -sf $(basename "${UNIQUEBAIS[0]}") "${sampleMergedBai}"
 	echo "nothing to merge because there is only one sample"
+	
+	cd ${intermediateDir}
+	md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5
+	md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5
+	cd -	
 
 else
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" "${mergeSamFilesJar}" \
@@ -82,5 +87,8 @@ else
 	mv "${tmpSampleMergedBam}" "${sampleMergedBam}"
 	mv "${tmpSampleMergedBai}" "${sampleMergedBai}"
 
+        cd ${intermediateDir}
+        md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5
+        md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5
+        cd -
 fi
-

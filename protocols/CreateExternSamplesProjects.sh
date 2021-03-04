@@ -61,7 +61,7 @@ cd "${projectRawtmpDataDir}"
 #
 
 
-n_elements="${internalSampleID[@]}"
+#n_elements="${internalSampleID[@]}"
 max_index="${#internalSampleID[@]}"-1
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
 do
@@ -121,15 +121,15 @@ fi
 echo "before run second rocket"
 echo pwd
 
-sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
+sh "${EBROOTMOLGENISMINCOMPUTE}"/molgenis_compute.sh \
 -p "${mainParameters}" \
 -p "${parameters_build}" \
 -p "${parameters_species}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
---header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
---footer "${EBROOTNGS_RNA}/templates/slurm/footer.ftl" \
---submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
+--header "${EBROOTNGS_RNA}"/templates/slurm/header.ftl \
+--footer "${EBROOTNGS_RNA}"/templates/slurm/footer.ftl \
+--submit "${EBROOTNGS_RNA}"/templates/slurm/submit.ftl \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
 -o "ngsversion=${ngsversion};groupname=${groupname};"

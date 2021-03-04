@@ -3,7 +3,9 @@
 # Loading libraries and setting the requisite directory in which the count.txt files are stored.
 # Next the list of files is set as sampleFiles.
 
+library("DESeq2", "apeglm")
 suppressPackageStartupMessages( library("DESeq2", "apeglm"))
+library("data.table", "ggplot2")
 suppressPackageStartupMessages( library("data.table", "ggplot2"))
 library(ggrepel)
 
@@ -11,9 +13,20 @@ library(ggrepel)
 # corrections are made in the metadat data frame. This ensures that the sample files can be paired to the
 # information in the metadat data frame.
 
+#get samplesheet args[1], and annotation file. args[2]
+args = commandArgs(trailingOnly=TRUE)
+
+print(args[1])
+print(args[2])
+
+
+
 counts = list.files(".", pattern=".counts.txt", full.names=TRUE)
-annotation = list.files(".", pattern="_nodupes_genid.txt", full.names = TRUE)
-metadata = list.files(".", pattern="metadata", full.names = TRUE)
+annotation <- args[2]
+
+#annotation = list.files(".", pattern="_nodupes_genid.bak", full.names = TRUE)
+metadata <- args[1]
+#metadata = list.files(".", pattern="metadata", full.names = TRUE)
 design = list.files(".", pattern = "design.txt", full.names = TRUE)
 
 sampleFiles <- counts
@@ -22,10 +35,13 @@ ref_annot <- as.data.table(read.table(annotation, header = TRUE))
 setkey(ref_annot, Gene_id)
 
 metadat <- read.csv(metadata, sep = ",")
-print(metadat)
+#print(metadat)
 
-sampleTable <- data.frame(sampleName = sort(metadat$id), fileName = sort(sampleFiles), condition = metadat[order(metadat$id), , drop=FALSE]$condition)
+sampleTable <- data.frame(sampleName = sort(metadat$externalSampleID), fileName = sort(sampleFiles), condition = metadat[order(metadat$externalSampleID), , drop=FALSE]$condition)
+#print(sampleTable)
+
 ddsHTSeq <- DESeqDataSetFromHTSeqCount(sampleTable = sampleTable, directory = ".", design = ~ condition)
+#print(ddsHTSeq) 
 
 # From the ddsHTSeq DESeqDataSet only the rows with a sum of 10 or higher are selected and used to continue
 # analysis with. By removing rows in which there are very few reads, the memory size of the dds data object is
@@ -33,13 +49,13 @@ ddsHTSeq <- DESeqDataSetFromHTSeqCount(sampleTable = sampleTable, directory = ".
 
 keep <- rowSums(counts(ddsHTSeq)) >=10
 ddsHTSeq <- ddsHTSeq[keep,]
+#print(ddsHTSeq)
 
 # The sampleTable is built using sample-ids from the metadat data frame, filenames from the sampleFiles list, and
 # the conditions listed in the metadat data frame. After this the DESeqDataSet is built using the sampleTable, the
 # path to the count.txt files, and a design is loaded based on the conditions.
 
 design <-read.table(design, sep = "\t")
-
 # For each condition the reference group (condition) is set and differential expression analysis is performed with
 # DESeq. The coefficient names are checked with resultNames and the different coefficients are then used to perform
 # log fold shrinkage. Shrinkage of effect size (LFC estimates) is useful for visualization and ranking of genes, the
@@ -57,10 +73,10 @@ for (row in 1:nrow(design)){
   
   
   ddsHTSeq$condition <- relevel(ddsHTSeq$condition, ref = cond1)
-  print(cond1)
   dds <- DESeq(ddsHTSeq, quiet=T)
   print(resultsNames(dds))
-  # resLFC <- lfcShrink(dds, coef=paste0("condition_", cond2,"_vs_",cond1), type="apeglm")
+ 
+  resLFC <- lfcShrink(dds, coef=paste0("condition_", cond2,"_vs_",cond1), type="apeglm") ##
   res <- results(dds, name=paste0("condition_", cond2,"_vs_",cond1))
   res$geneName <- ref_annot[rownames(res)]$Gene_name
   resOrdered <- res[order(res$padj),]

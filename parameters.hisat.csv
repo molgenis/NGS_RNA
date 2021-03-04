@@ -60,8 +60,6 @@ geneAnnotationTxt,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}
 annotationGtf,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.gtf
 annotationRefFlat,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.gtf.annotation.refFlat
 annotationIntervalList,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.rrna.interval_list
-starIndex,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/${starVersion}/
-indexFile,${indexSpecies}
 dbsnpVcf,${dbSNPDir}${dbSNPFileID}.vcf
 
 ##### PREFIXES,POSTFIXES #####

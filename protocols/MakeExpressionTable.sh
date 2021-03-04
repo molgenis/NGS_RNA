@@ -39,7 +39,7 @@ done
 
 for sampleID in "${INPUTS[@]}" 
 do
-	echo -e "${sampleID}\t$intermediateDir/${sampleID}.htseq.txt" >> ${intermediateDir}/fileList.txt
+	echo -e "${sampleID}\t$intermediateDir/${sampleID}.counts.txt" >> ${intermediateDir}/fileList.txt
 done 
 
 module load ${jdkVersion}

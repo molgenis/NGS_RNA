@@ -6,7 +6,7 @@
 #string tmpTmpDataDir
 #string tmpDataDir
 #string indexFile
-#string bqsrBam,bqsrBai
+#string bqsrBam
 #string intermediateDir
 #string externalSampleID
 #string dbsnpVcf
@@ -37,13 +37,6 @@ array_contains () {
     return $in
 }
 
-inputs=()
-for SampleID in "${bqsrBam[@]}"
-do
-        array_contains inputs "-I $SampleID" || inputs+=("-I $SampleID")    # If bamFile does not exist in array add it
-done
-
-
 #Load modules
 ${stage} ${gatkVersion}
 
@@ -52,22 +45,15 @@ ${checkStage}
 
 echo "## "$(date)" Start $0"
 
-  java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTGATK}/GenomeAnalysisTK.jar \
-  -T HaplotypeCaller \
-  -R ${indexFile} \
-  ${inputs[@]} \
-  --dbsnp ${dbsnpVcf} \
-  -stand_call_conf 10.0 \
-  -stand_emit_conf 20.0 \
-  -o ${tmpGatkHaplotypeCallerGvcf} \
-  -variant_index_type LINEAR \
-  -variant_index_parameter 128000 \
-  --emitRefConfidence GVCF
+gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -Xmx12g" HaplotypeCaller \
+-R "${indexFile}" \
+-I "${bqsrBam}" \
+--dbsnp "${dbsnpVcf}" \
+-ERC GVCF \
+-O "${tmpGatkHaplotypeCallerGvcf}"
 
-#  -dontUseSoftClippedBases \
-
-  mv ${tmpGatkHaplotypeCallerGvcf} ${GatkHaplotypeCallerGvcf}
-  mv ${tmpGatkHaplotypeCallerGvcfidx} ${GatkHaplotypeCallerGvcfidx}
+  mv "${tmpGatkHaplotypeCallerGvcf}" "${GatkHaplotypeCallerGvcf}"
+  mv "${tmpGatkHaplotypeCallerGvcfidx}" "${GatkHaplotypeCallerGvcfidx}"
   echo "returncode: $?";
   echo "succes moving files";
 
