@@ -98,7 +98,7 @@ usedWorkflow=$(basename ${workflow})
 	cp "${intermediateDir}/metadata.csv" "${projectResultsDir}/expression/deseq2/"
 	cp "${intermediateDir}/design.txt" "${projectResultsDir}/expression/deseq2/"
 	cp "${intermediateDir}/pca_deseq2"* "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}/volcano_plot_test_vs_unknown.svg" "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}/volcano_plot_"* "${projectResultsDir}/expression/deseq2/"
 
 # Copy QC images and report to results directory
 

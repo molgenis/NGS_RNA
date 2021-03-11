@@ -1,4 +1,4 @@
-#MOLGENIS nodes=1 ppn=8 mem=10gb walltime=23:59:00
+#MOLGENIS nodes=1 ppn=1 mem=10gb walltime=23:59:00
 
 #string project
 #string stage
@@ -41,11 +41,7 @@ echo
 echo
 echo "Running split and trim:"
 
-java -Dsamjdk.use_async_io_read_samtools=false \
--Dsamjdk.use_async_io_write_samtools=true \
--Dsamjdk.use_async_io_write_tribble=false \
--Dsamjdk.compression_level=2 \
--jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads
+gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -Xmx10g" SplitNCigarReads \
 -R "${indexFile}" \
 -I "${sampleMergedDedupBam}" \
 -O "${tmpsplitAndTrimBam}"

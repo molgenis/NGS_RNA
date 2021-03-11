@@ -127,7 +127,7 @@ bqsrBeforeGrp,${intermediateDir}${externalSampleID}.before.grp
 bqsrBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bam
 bqsrBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bai
 GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz
-GatkHaplotypeCallerGvcfidx,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.idx
+GatkHaplotypeCallerGvcftbi,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz.tbi
 GatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf
 GatkMergeGvcfidx,${intermediateDir}.MergeGvcf.g.vcf.idx
 projectBatchGenotypedVariantCalls,${projectPrefix}.variant.calls.genotyped.vcf
