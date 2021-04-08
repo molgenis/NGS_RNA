@@ -2,9 +2,9 @@
 
 if module list | grep -o -P 'NGS_RNA(.+)' 
 then
-	echo "RNA pipeline loaded, proceding"
+	echo "RNA pipeline loaded, proceeding"
 else
-	echo "No RNA Pipeline loaded, exiting"
+	echo "No RNA pipeline loaded, exiting"
         exit 1
 fi
 
