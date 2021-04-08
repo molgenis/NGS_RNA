@@ -5,23 +5,26 @@
 #list externalSampleID
 #string project
 #string logsDir
+#string projectJobsDir
 #string strandedness
 #string sampleMergedBamExt
 #string leafcutterVersion
 #string python2Version
 
 #Load module
-module load ${leafcutterVersion}
-module load ${python2Version}
+module load "${leafcutterVersion}"
+module load "${python2Version}"
 module list
 
 # detect strand for RegTools
 STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7'} | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7'} | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "1"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "2"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "0"; fi)"
 
 #detect number of conditions
-read -r -a NUMBERCONDITIONS <<<$(col="condition"; head -n1 validatie_NGS_RNA_Diagnostiek-deel2.csv | tr "," "\n" | grep -n $col)
+col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n $col)
+colArray=(${col//:/ })
+conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "${colArray[0]}" | sort | uniq | wc -l)
 
-echo -e "\nWith strandedness type: ${STRANDED}, 
+echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
 
 rm -f "${intermediateDir}${project}_juncfiles.txt"
@@ -57,9 +60,9 @@ awk -F',' '{print $1".sorted.merged.bam\t"$2}' "${intermediateDir}"/metadata.csv
 
 sed 1d "${intermediateDir}${project}"_groups_file.txt > "${intermediateDir}${project}"_groups_file.txt
 
-if [[ "${NUMBERCONDITIONS[0]}" -gt 1 ]]
+if [[ "${conditionCount}" -gt 1 ]]
 then
-	echo "Differential Splicing with $NUMBERCONDITIONS groups."
+	echo "Differential Splicing with ${conditionCount} groups."
 	Rscript "${EBROOTLEAFCUTTER}"/scripts/leafcutter_ds.R \
 	--num_threads 4 \
 	-o "${intermediateDir}${project}_leafcutter_ds" \

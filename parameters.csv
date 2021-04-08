@@ -33,7 +33,7 @@ processReadCountsJar,ProcessReadCounts.jar
 TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
 cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
 RSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
-leafcutterVersion,leafcutter/aa12b1e-foss-2018b
+leafcutterVersion,leafcutter/20210303-aa12b1e-foss-2018b
 
 ##### GENERAL DIRECTORIES #####
 tmpDataDir,${workDir}/${tmpName}/
@@ -127,7 +127,7 @@ bqsrBeforeGrp,${intermediateDir}${externalSampleID}.before.grp
 bqsrBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bam
 bqsrBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bai
 GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz
-GatkHaplotypeCallerGvcfidx,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.idx
+GatkHaplotypeCallerGvcftbi,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz.tbi
 GatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf
 GatkMergeGvcfidx,${intermediateDir}.MergeGvcf.g.vcf.idx
 projectBatchGenotypedVariantCalls,${projectPrefix}.variant.calls.genotyped.vcf

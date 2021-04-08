@@ -45,7 +45,7 @@ java -Dsamjdk.use_async_io_read_samtools=false \
 -Dsamjdk.use_async_io_write_samtools=true \
 -Dsamjdk.use_async_io_write_tribble=false \
 -Dsamjdk.compression_level=2 \
--jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads
+-jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads \
 -R "${indexFile}" \
 -I "${sampleMergedDedupBam}" \
 -O "${tmpsplitAndTrimBam}"

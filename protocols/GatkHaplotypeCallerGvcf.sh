@@ -12,7 +12,7 @@
 #string dbsnpVcf
 #string dbSNPFileID
 #string GatkHaplotypeCallerGvcf
-#string GatkHaplotypeCallerGvcfidx
+#string GatkHaplotypeCallerGvcftbi
 #string project
 #string groupname
 #string tmpName
@@ -21,8 +21,8 @@
 makeTmpDir ${GatkHaplotypeCallerGvcf}
 tmpGatkHaplotypeCallerGvcf=${MC_tmpFile}
 
-makeTmpDir ${GatkHaplotypeCallerGvcfidx}
-tmpGatkHaplotypeCallerGvcfidx=${MC_tmpFile}
+makeTmpDir ${GatkHaplotypeCallerGvcftbi}
+tmpGatkHaplotypeCallerGvcftbi=${MC_tmpFile}
 
 array_contains () { 
     local array="$1[@]"
@@ -53,7 +53,7 @@ gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -
 -O "${tmpGatkHaplotypeCallerGvcf}"
 
   mv "${tmpGatkHaplotypeCallerGvcf}" "${GatkHaplotypeCallerGvcf}"
-  mv "${tmpGatkHaplotypeCallerGvcfidx}" "${GatkHaplotypeCallerGvcfidx}"
+  mv "${tmpGatkHaplotypeCallerGvcftbi}" "${GatkHaplotypeCallerGvcftbi}"
   echo "returncode: $?";
   echo "succes moving files";
 

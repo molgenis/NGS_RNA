@@ -1,64 +1,97 @@
 #!/bin/bash
 
+if module list | grep -o -P 'NGS_RNA(.+)' 
+then
+	echo "RNA pipeline loaded, proceeding"
+else
+	echo "No RNA pipeline loaded, exiting"
+        exit 1
+fi
+
 module list
 
-thisDir=$(pwd)
+host=$(hostname -s)
+#environmentParameters="parameters_${host}"
 
-ENVIRONMENT=$(hostname -s)
+function showHelp() {
+	#
+	# Display commandline help on STDOUT.
+	#
+	cat <<EOH
+===============================================================================================================
+Script to copy (sync) data from a succesfully finished analysis project from tmp to prm storage.
+Usage:
+	$(basename $0) OPTIONS
+Options:
+	-h   Show this help.
+	-p   projectname
+	-g   group (default=basename of ../../../ )
+	-f   filePrefix (default=basename of this directory)
+	-r   runID (default=run01)
+	-t   tmpDirectory (default=basename of ../../ )
+	-w   workdir (default= current dir, ${pwd)
+===============================================================================================================
+EOH
+	trap - EXIT
+	exit 0
+}
 
-if [[ -z "${TMPDIR:-}" ]]; then TMPDIR=$(basename $(cd ../../ && pwd )) ; fi ; echo "TMPDIR=${TMPDIR}"
-if [[ -z "${GROUP:-}" ]]; then GROUP=$(basename $(cd ../../../ && pwd )) ; fi ; echo "GROUP=${GROUP}"
-if [[ -z "${WORKDIR:-}" ]]; then WORKDIR="/groups/${GROUP}/${TMPDIR}" ; fi ; echo "WORKDIR=${WORKDIR}"
-if [[ -z "${FILEPREFIX:-}" ]]; then FILEPREFIX=$(basename $(pwd )) ; fi ; echo "FILEPREFIX=${FILEPREFIX}"
-if [[ -z "${RUNID:-}" ]]; then RUNID="run01" ; fi ; echo "RUNID=${RUNID}"
-if [[ -z "${PROJECT:-}" ]]; then PROJECT="${FILEPREFIX}" ; fi ; echo "PROJECT=${PROJECT}"
 
-BUILD="GRCh37" # GRCh37, GRCh38
-SPECIES="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
-PIPELINE="STAR" # hisat, lexogen
+while getopts "t:g:w:f:r:p:h" opt;
+do
+	case $opt in h)showHelp;; t)tmpDirectory="${OPTARG}";; g)group="${OPTARG}";; w)workDir="${OPTARG}";; f)filePrefix="${OPTARG}";; p)project="${OPTARG}";; r)runID="${OPTARG}";;
+	esac
+done
 
-WORKFLOW=${EBROOTNGS_RNA}/workflow_${PIPELINE}.csv
+if [[ -z "${tmpDirectory:-}" ]]; then tmpDirectory=$(basename $(cd ../../ && pwd )) ; fi ; echo "tmpDirectory=${tmpDirectory}"
+if [[ -z "${group:-}" ]]; then group=$(basename $(cd ../../../ && pwd )) ; fi ; echo "group=${group}"
+if [[ -z "${workDir:-}" ]]; then workDir=$( pwd ) ; fi ; echo "workDir=${workDir}"
+if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "filePrefix=${filePrefix}"
+if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
+if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
+
+build="GRCh37" # GRCh37, GRCh38
+species="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
+pipeline="STAR" # hisat, lexogen
+
+workflow=${EBROOTNGS_RNA}/workflow_${pipeline}.csv
 
 if [ -f .compute.properties ];
 then
      rm .compute.properties
 fi
 
-if [ -f ${GAF}/generatedscripts/${PROJECT}/out.csv  ];
-then
-	rm -rf ${GAF}/generatedscripts/${PROJECT}/out.csv
-fi
-
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.csv > \
-${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv
+${workDir}/parameters.csv
 
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${BUILD}.csv > \
-${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${build}.csv > \
+${workDir}/parameters.${build}.csv
 
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${SPECIES}.csv > \
-${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${species}.csv > \
+${workDir}/parameters.${species}.csv
 
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${ENVIRONMENT}.csv > \
-${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${host}.csv > \
+${workDir}/parameters.${host}.csv
+
 
 sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
--p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv \
--p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv \
--p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv \
--p ${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv \
--p ${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv \
--p ${EBROOTNGS_RNA}/chromosomes.${SPECIES}.csv \
--w ${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv \
--rundir ${WORKDIR}/generatedscripts/${PROJECT}/scripts \
---runid ${RUNID} \
+-p ${workDir}/parameters.csv \
+-p ${workDir}/parameters.${build}.csv \
+-p ${workDir}/parameters.${species}.csv \
+-p ${workDir}/parameters.${host}.csv \
+-p ${workDir}/${project}.csv \
+-p ${EBROOTNGS_RNA}/chromosomes.${species}.csv \
+-w ${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv \
+-rundir ${workDir}/scripts \
+--runid ${runID} \
 --weave \
 --generate \
--o "workflowpath=${WORKFLOW};outputdir=scripts/jobs;\
-groupname=${GROUP};\
-mainParameters=${WORKDIR}/generatedscripts/${PROJECT}/parameters.csv;\
+-o "workflowpath=${workflow};outputdir=scripts/jobs;\
+groupname=${group};\
+mainParameters=${workDir}/parameters.csv;\
 ngsversion=$(module list | grep -o -P 'NGS_RNA(.+)');\
-worksheet=${WORKDIR}/generatedscripts/${PROJECT}/${PROJECT}.csv;\
-parameters_build=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${BUILD}.csv;\
-parameters_species=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${SPECIES}.csv;\
-parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${SPECIES}.csv;\
-parameters_environment=${WORKDIR}/generatedscripts/${PROJECT}/parameters.${ENVIRONMENT}.csv;"
+worksheet=${workDir}/${project}.csv;\
+parameters_build=${workDir}/parameters.${build}.csv;\
+parameters_species=${workDir}/parameters.${species}.csv;\
+parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${species}.csv;\
+parameters_environment=${workDir}/parameters.${host}.csv;"
