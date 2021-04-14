@@ -78,8 +78,8 @@ mkdir ${root}/groups/$groupname/${tmpDir}/generatedscripts/TestRun
 ```BASH
 scp –r TestRun.csv username@yourcluster:/groups/$groupname/${tmpDir}/generatedscripts/
 ```
-Note: the name of the folder should be the same as samplesheet (.csv) file
-Note: Example samplesheet can be found in $EBROOTNGS_RNA/templates/externalSamplesheet.csv
+Note: the name of the folder should be the same as samplesheet (.csv) file.
+Note2: Example samplesheet can be found in $EBROOTNGS_RNA/templates/externalSamplesheet.csv
 
 <h3>4) Run the generate script </h3>
 
