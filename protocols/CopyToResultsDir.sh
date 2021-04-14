@@ -106,7 +106,7 @@ usedWorkflow=$(basename ${workflow})
 	cp "${intermediateDir}/"*".collectrnaseqmetrics.pdf" "${projectResultsDir}/qcmetrics"
 
 # Copy leafcutter
-	cp "${intermediateDir}/leafcutter_"* "${projectResultsDir}/leafcutter/"
+	cp "${intermediateDir}/${project}_leafcutter_"* "${projectResultsDir}/leafcutter/"
 	cp "${intermediateDir}/${project}"*"_perind_"* "${projectResultsDir}/leafcutter/"
 
 #only available with PE
@@ -162,7 +162,8 @@ The zipped archive contains the following data and subfolders:
 - expression: textfiles with gene level quantification per sample and per project. 
 - fastqc: FastQC output
 - qcmetrics: Multiple qcMetrics and images generated with Picard-tools or SAMTools Flagstat.
-- leafcutter: Leafcutter and RegTools output files.
+- leafcutter: Leafcutter and RegTools output files
+- expression/Deseq2: Deseq2 was used for differential expression analysis.
 - multiqc_data: Combined MultiQC tables used for multiqc report html.
 - variants: Variants calls using GATK. (optional)
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)

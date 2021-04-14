@@ -55,33 +55,34 @@ python "${EBROOTLEAFCUTTER}"/clustering/leafcutter_cluster_regtools.py \
 --checkchrom
 
 echo "create group_list"
-awk -F',' '{print $1".sorted.merged.bam\t"$2}' "${intermediateDir}"/metadata.csv \
-> "${intermediateDir}${project}"_groups_file.txt
+awk -F',' '{print $1".sorted.merged.bam\t"$2}' "${intermediateDir}/metadata.csv" \
+> "${intermediateDir}${project}_groups_file.txt"
 
-sed 1d "${intermediateDir}${project}"_groups_file.txt > "${intermediateDir}${project}"_groups_file.txt
+sed 1d "${intermediateDir}${project}_groups_file.txt" > "${intermediateDir}${project}"_groups_file.txt.tmp
+mv "${intermediateDir}${project}_groups_file.txt.tmp" "${intermediateDir}${project}_groups_file.txt"
 
 if [[ "${conditionCount}" -gt 1 ]]
 then
 	echo "Differential Splicing with ${conditionCount} groups."
-	Rscript "${EBROOTLEAFCUTTER}"/scripts/leafcutter_ds.R \
+	Rscript "${EBROOTLEAFCUTTER}/scripts/leafcutter_ds.R" \
 	--num_threads 4 \
 	-o "${intermediateDir}${project}_leafcutter_ds" \
-	"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz \
-	"${intermediateDir}${project}"_groups_file.txt
+	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
+	"${intermediateDir}${project}_groups_file.txt"
 
-	Rscript "${EBROOTLEAFCUTTER}"/scripts/ds_plots.R \
-	-e "${EBROOTLEAFCUTTER}"/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz \
+	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
+	-e "${EBROOTLEAFCUTTER}/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz" \
 	-o "${intermediateDir}${project}_leafcutter_ds" \
-	"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz \
-	"${intermediateDir}${project}"_groups_file.txt \
-	"${intermediateDir}${project}"_leafcutter_ds_cluster_significance.txt \
+	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
+	"${intermediateDir}${project}_groups_file.txt" \
+	"${intermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
 	-f 0.05
 
 else
        echo "Outlier Splicing, $NUMBERCONDITIONS conditions found."
-	Rscript	"${EBROOTLEAFCUTTER}"/scripts//leafcutterMD.R \
+	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
 	--num_threads 8 \
-	"${intermediateDir}${project}"_leafcutter_cluster_regtools_perind_numers.counts.gz
+	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
 fi 
 
 cd -
