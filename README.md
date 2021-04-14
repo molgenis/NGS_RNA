@@ -68,11 +68,13 @@ Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
 ```BASH
 scp –r SEQSTARTDATE_SEQ_RUNTEST_FLOWCELLXX username@yourcluster:${root}/groups/$groupname/${tmpDir}/rawdata/ngs/YOURDIR
 ```
-<h3>2) Create a folder in the generatedscripts folder</h3>
+<h3>2) Create a folder in the generatedscripts folder </h3>
+
 ```BASH
 mkdir ${root}/groups/$groupname/${tmpDir}/generatedscripts/TestRun
 ```
 <h3>3) Copy samplesheet to generatedscripts folder </h3>
+
 ```BASH
 scp –r TestRun.csv username@yourcluster:/groups/$groupname/${tmpDir}/generatedscripts/
 ```
