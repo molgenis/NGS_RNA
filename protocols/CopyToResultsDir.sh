@@ -11,20 +11,21 @@
 #string projectJobsDir
 #string projectHTseqExpressionTable
 #string annotationGtf
-#string anacondaVersion
 #string indexFileID
 #string seqType
 #string jdkVersion
 #string fastqcVersion
+#string TrimGaloreVersion
 #string samtoolsVersion
 #string RVersion
-#string wkhtmltopdfVersion
 #string picardVersion
-#string hisatVersion
 #string htseqVersion
 #string pythonVersion
 #string gatkVersion
-#string ghostscriptVersion
+#string RSeQCVersion
+#string starVersion
+#string leafcutterVersion
+#string multiqcVersion
 #string ensembleReleaseVersion
 #string groupname
 #string tmpName
@@ -128,14 +129,14 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Description of the different steps used in the RNA analysis pipeline
 
 Gene expression quantification
-The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
-reference genome using ${hisatVersion} [1] with default settings. Before gene quantification 
+The trimmed fastQ files using ${TrimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
+reference genome using ${starVersion} [1] with default settings. Before gene quantification 
 ${samtoolsVersion} [2] was used to sort the aligned reads. 
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union, 
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
 in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
 For experimental group conditions the 'condition' column in the samplesheet was used the 
-distinct groups within the samples.
+distinct groups within the samples. 
 
 Calculate QC metrics on raw and aligned data
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using 
@@ -178,7 +179,7 @@ ${RVersion}
 ${TrimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
-${PythonPlusVersion}
+${pythonVersion}
 ${gatkVersion}
 ${RSeQCVersion}
 ${starVersion}
