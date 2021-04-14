@@ -71,9 +71,8 @@ scp –r SEQSTARTDATE_SEQ_RUNTEST_FLOWCELLXX username@yourcluster:${root}/groups
 <h3>2) Create a folder in the generatedscripts folder</h3>
 ```BASH
 mkdir ${root}/groups/$groupname/${tmpDir}/generatedscripts/TestRun
-```BASH
-<h3>3) Copy samplesheet to generatedscripts folder </h3>
 ```
+<h3>3) Copy samplesheet to generatedscripts folder </h3>
 ```BASH
 scp –r TestRun.csv username@yourcluster:/groups/$groupname/${tmpDir}/generatedscripts/
 ```
@@ -94,7 +93,7 @@ Note: If you want to run the pipeline locally, you should change the backend in 
 ```BASH
 bash submit.sh
 ```
-<h3>5) Submit jobs <h3>
+<h3>5) Submit jobs </h3>
 
 Navigate to jobs folder. The location of the jobs folder will be outputted at the step before this one (step 4).
 ```BASH
