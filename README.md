@@ -15,7 +15,7 @@ the tool FastQC [4]. QC metrics are calculated for the aligned reads using
 Picard-tools [5], CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and SAMtools flagstat.
 
-<h3>Splicing event calling using Leafutter</h3>
+<h3>Splicing event calling using Leafcutter</h3>
 Leafcutter quantifies RNA splicing variation detection.
 
 <h3>GATK variant calling</h3>
