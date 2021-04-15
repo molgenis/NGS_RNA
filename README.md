@@ -3,28 +3,26 @@
 <h2>Description of the different steps used in the RNA analysis pipeline </h2>
 
 <h3>Gene expression quantification </h3>
-The trimmed fastQ files where aligned to  a reference genome using Star [1] with default settings. Before gene quantification 
+The trimmed fastQ files where aligned to a reference genome using Star [1] with default settings. Before gene quantification 
 SAMtools [2] was used to sort the aligned reads. 
 The gene level quantification was performed by HTSeq-count [3] using --mode=union. 
-The gene annotation database which is included in the results dir.
-in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
-For experimental group conditions the 'condition' column in the samplesheet was used the 
-distinct groups within the samples.
+The gene annotation database which is included in the results dir in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
+For experimental group conditions the 'condition' column in the samplesheet was used the distinct groups within the samples.
 
 <h3>Calculate QC metrics on raw and aligned data </h3>
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using 
 the tool FastQC [4]. QC metrics are calculated for the aligned reads using 
-Picard-tools [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
+Picard-tools [5], CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and SAMtools flagstat.
 
-<h3>Splicing event calling using LeafCutter</h3>
+<h3>Splicing event calling using Leafutter</h3>
 Leafcutter quantifies RNA splicing variation detection.
 
 <h3>GATK variant calling</h3>
 Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
 developed specially for RNAseq, which splits reads into exon segments (getting rid of Ns
 but maintaining grouping information) and hard-clip any sequences overhanging into the intronic regions.
-The variant calling it self was done using HaplotypeCaller in GVCF mode. All  samples are 
+The variant calling itself was done using HaplotypeCaller in GVCF mode. All  samples are 
 then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs 
 on all of them together to create a set of raw SNP and indel calls. [6]
 
