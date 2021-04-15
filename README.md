@@ -3,7 +3,7 @@
 <h2>Description of the different steps used in the RNA analysis pipeline </h2>
 
 <h3>Gene expression quantification </h3>
-The trimmed fastQ files where aligned to a reference genome using Star [1] with default settings. Before gene quantification 
+The trimmed fastQ files were aligned to a reference genome using Star [1] with default settings. Before gene quantification 
 SAMtools [2] was used to sort the aligned reads. 
 The gene level quantification was performed by HTSeq-count [3] using --mode=union. 
 The gene annotation database which is included in the results dir in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
