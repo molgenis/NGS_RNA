@@ -7,6 +7,7 @@
 #string tmpDataDir
 #string dbsnpVcf
 #string gatkVersion
+#string HTSLibVersion
 #string indexFile
 #list externalSampleID,GatkHaplotypeCallerGvcf
 #string intermediateDir
@@ -41,7 +42,7 @@ tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}
 
 #Load modules
 ${stage} "${gatkVersion}"
-
+${stage} "${HTSLibVersion}"
 #Check modules
 ${checkStage}
 
@@ -102,12 +103,16 @@ then
         --dbsnp="${dbsnpVcf}" \
         --output="${tmpProjectBatchGenotypedVariantCalls}"
 
-	mv ${tmpProjectBatchGenotypedVariantCalls} ${projectBatchGenotypedVariantCalls}
-	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls} "
-	
-	cd ${intermediateDir}
+	mv "${tmpProjectBatchGenotypedVariantCalls}" "${projectBatchGenotypedVariantCalls}"
+	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls}"
+
+	tabix -p vcf "${projectBatchGenotypedVariantCalls}"
+
+	printf "${projectBatchGenotypedVariantCalls} ..done\n"
+
+	cd "${intermediateDir}"
 	md5sum $(basename ${projectBatchGenotypedVariantCalls})> $(basename ${projectBatchGenotypedVariantCalls}).md5
- 	cd -
+	cd -
 	echo "succes moving files"
 
 else

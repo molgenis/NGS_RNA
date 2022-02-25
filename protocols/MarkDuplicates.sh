@@ -17,6 +17,7 @@
 #string picardJar
 #string project
 #string picardVersion
+#string sambambaVersion
 #string groupname
 #string tmpName
 #string logsDir
@@ -42,16 +43,18 @@ tmpSampleMergedDedupBam="${MC_tmpFile}"
 makeTmpDir "${sampleMergedDedupBai}"
 tmpSampleMergedDedupBai="${MC_tmpFile}"
 
-module load "${picardVersion}"
+module load "${sambambaVersion}"
 module list
 
 #Duplicates statistics.
-java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" MarkDuplicates \
-I="${sampleMergedBam}" \
-O="${tmpSampleMergedDedupBam}" \
-CREATE_INDEX=true \
-VALIDATION_STRINGENCY=LENIENT \
-M="${dupStatMetrics}" AS=true
+##Run picard, sort BAM file and create index on the fly
+sambamba markdup \
+--nthreads=4 \
+--overflow-list-size 1000000 \
+--hash-table-size 1000000 \
+-p \
+--tmpdir="${tempDir}" \
+"${sampleMergedBam}" "${tmpSampleMergedDedupBam}"
 
 mv "${tmpSampleMergedDedupBam}" "${sampleMergedDedupBam}"
 mv "${tmpSampleMergedDedupBai}" "${sampleMergedDedupBai}"

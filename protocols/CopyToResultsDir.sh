@@ -11,21 +11,20 @@
 #string projectJobsDir
 #string projectHTseqExpressionTable
 #string annotationGtf
+#string anacondaVersion
+#string VIPVersion
 #string indexFileID
 #string seqType
 #string jdkVersion
 #string fastqcVersion
-#string TrimGaloreVersion
 #string samtoolsVersion
 #string RVersion
+#string wkhtmltopdfVersion
 #string picardVersion
+#string hisatVersion
 #string htseqVersion
 #string pythonVersion
 #string gatkVersion
-#string RSeQCVersion
-#string starVersion
-#string leafcutterVersion
-#string multiqcVersion
 #string ensembleReleaseVersion
 #string groupname
 #string tmpName
@@ -39,10 +38,8 @@ umask 0007
 mkdir -p "${projectResultsDir}/alignment"
 mkdir -p "${projectResultsDir}/fastqc"
 mkdir -p "${projectResultsDir}/expression"
-mkdir -p "${projectResultsDir}/expression/perSampleExpression"
-mkdir -p "${projectResultsDir}/expression/expressionTable"
 mkdir -p "${projectResultsDir}/expression/deseq2"
-mkdir -p "${projectResultsDir}/variants"
+mkdir -p "${projectResultsDir}/variants/vip"
 mkdir -p "${projectResultsDir}/leafcutter"
 mkdir -p "${projectResultsDir}/qcmetrics"
 
@@ -69,7 +66,7 @@ usedWorkflow=$(basename ${workflow})
 	cp "${intermediateDir}"/*.quality_by_cycle.pdf "${projectResultsDir}/qcmetrics"
 	cp "${intermediateDir}"/*.quality_distribution.pdf "${projectResultsDir}/qcmetrics"
 	cp "${intermediateDir}"/*.quality_distribution_metrics "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics" 
+	cp "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics"
 	cp "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics"
 	cp "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics"
         cp "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics"
@@ -84,35 +81,33 @@ usedWorkflow=$(basename ${workflow})
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
-#copy variant to results directory.
-
-	cp "${intermediateDir}/${project}.variant.calls.genotyped.vcf" "${projectResultsDir}/variants/"
-	cp "${intermediateDir}/${project}.variant.calls.genotyped.vcf.md5" "${projectResultsDir}/variants/"
-
 # copy GeneCounts to results directory
 
-	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/perSampleExpression"
-	cp "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/expressionTable"
-	cp "${annotationGtf}" "${projectResultsDir}/expression/"
+	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}"/expression/
+	cp "${annotationGtf}" "${projectResultsDir}"/expression/
 
-	cp "${intermediateDir}/deseq2_"* "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}/metadata.csv" "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}/design.txt" "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}/pca_deseq2"* "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}/volcano_plot_"* "${projectResultsDir}/expression/deseq2/"
+	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/*_perind_* "${projectResultsDir}"/expression/deseq2/
 
 # Copy QC images and report to results directory
 
-	cp "${intermediateDir}/"*".collectrnaseqmetrics.pdf" "${projectResultsDir}/qcmetrics"
+	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}"/qcmetrics/
+
+# Copy variant vcfs.
+
+        cp "${projectBatchGenotypedVIPedVariantCalls}"* "${projectResultsDir}/variants/vip/"
+	cp "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 
 # Copy leafcutter
-	cp "${intermediateDir}/${project}_leafcutter_"* "${projectResultsDir}/leafcutter/"
-	cp "${intermediateDir}/${project}"*"_perind_"* "${projectResultsDir}/leafcutter/"
+	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}"/leafcutter/
+
 
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp "${intermediateDir}/"*".insert_size_"* "${projectResultsDir}/qcmetrics"
+		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}"/qcmetrics/
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
@@ -129,14 +124,12 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Description of the different steps used in the RNA analysis pipeline
 
 Gene expression quantification
-The trimmed fastQ files using ${TrimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
-reference genome using ${starVersion} [1] with default settings. Before gene quantification 
+The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
+reference genome using ${hisatVersion} [1] with default settings. Before gene quantification 
 ${samtoolsVersion} [2] was used to sort the aligned reads. 
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union, 
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
-in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
-For experimental group conditions the 'condition' column in the samplesheet was used the 
-distinct groups within the samples. 
+in folder expression/. 
 
 Calculate QC metrics on raw and aligned data
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using 
@@ -144,16 +137,8 @@ the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned 
 Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and ${samtoolsVersion} flagstat.
 
-Splicing event calling using LeafCutter
-Leafcutter quantifies RNA splicing variation detection.
-
-GATK variant calling
-Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
-developed specially for RNAseq, which splits reads into exon segments (getting rid of Ns
-but maintaining grouping information) and hard-clip any sequences overhanging into the intronic regions.
-The variant calling it self was done using HaplotypeCaller in GVCF mode. All  samples are 
-then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs 
-on all of them together to create a set of raw SNP and indel calls. [6]
+Splicing event calling
+...
 
 Results archive
 The zipped archive contains the following data and subfolders:
@@ -161,10 +146,8 @@ The zipped archive contains the following data and subfolders:
 - alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out)
 - expression: textfiles with gene level quantification per sample and per project. 
 - fastqc: FastQC output
-- qcmetrics: Multiple qcMetrics and images generated with Picard-tools or SAMTools Flagstat.
-- leafcutter: Leafcutter and RegTools output files
-- expression/Deseq2: Deseq2 was used for differential expression analysis.
-- multiqc_data: Combined MultiQC tables used for multiqc report html.
+- images: QC images
+- qcmetrics: Multiple qcMetrics generated with Picard-tools or SAMTools Flagstat.
 - variants: Variants calls using GATK. (optional)
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
 
@@ -180,12 +163,12 @@ ${RVersion}
 ${TrimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
-${pythonVersion}
+${PythonPlusVersion}
 ${gatkVersion}
 ${RSeQCVersion}
 ${starVersion}
 ${leafcutterVersion}
-
+${VIPVersion}
 
 1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski, 
 Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
@@ -207,19 +190,17 @@ endmsg
 
 # Create zip file for all "small text" files
 
-cd "${projectResultsDir}"
+cd ${projectResultsDir}
 
-zip -gr "${projectResultsDir}/${project}.zip" fastqc
-zip -g  "${projectResultsDir}/${project}.zip" "${project}.csv"
-zip -gr "${projectResultsDir}/${project}.zip" qcmetrics
-zip -gr "${projectResultsDir}/${project}.zip" expression
-zip -gr "${projectResultsDir}/${project}.zip" leafcutter
-zip -gr "${projectResultsDir}/${project}.zip" multiqc_data
-zip -g  "${projectResultsDir}/${project}.zip" "${project}_multiqc_report.html"
-zip -g  "${projectResultsDir}/${project}.zip" README.txt
+zip -gr "${projectResultsDir}/${project}".zip fastqc
+zip -g  "${projectResultsDir}/${project}".zip "${project}".csv
+zip -gr "${projectResultsDir}/${project}".zip qcmetrics
+zip -gr "${projectResultsDir}/${project}".zip expression
+zip -g  "${projectResultsDir}/${project}".zip "${project}"_multiqc_report.html
+zip -g  "${projectResultsDir}/${project}".zip README.txt
 
 # Create md5sum for zip file
 
 cd "${projectResultsDir}"
-md5sum "${project}".zip > "${projectResultsDir}/${project}".zip.md5
+md5sum "${project}".zip > "${projectResultsDir}"/"${project}".zip.md5
 cd "${projectJobsDir}"

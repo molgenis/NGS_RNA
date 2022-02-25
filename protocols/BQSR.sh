@@ -10,9 +10,6 @@
 #string bqsrBai
 #string splitAndTrimBam
 #string	splitAndTrimBai
-#string indelRealignmentTargets
-#string oneKgPhase1IndelsVcf
-#string goldStandardVcf
 #string bqsrBeforeGrp
 #string dbsnpVcf
 #string tmpDataDir

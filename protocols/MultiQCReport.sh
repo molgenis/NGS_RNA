@@ -7,7 +7,6 @@
 #string intermediateDir
 #string projectLogsDir
 #string projectQcDir
-#string scriptDir
 #list externalSampleID
 #string contact
 #string qcMatricsList
@@ -31,9 +30,8 @@
 #string RVersion
 #string htseqVersion
 #string pythonVersion
+#string sifDir
 #string gatkVersion
-#string ghostscriptVersion
-#string kallistoVersion
 #string ensembleReleaseVersion
 #string logsDir
 
@@ -72,7 +70,6 @@ report_header_info:
     - '': ${pythonVersion}
     - '': ${gatkVersion}
     - '': ${multiqcVersion}
-    - '': ${ghostscriptVersion}
     - '' : ''
     - pipeline description : ''
     - Gene expression quantification : ''
@@ -106,9 +103,11 @@ _EOF
 
 # generate multiqc QC rapport
 
-module load ${multiqcVersion}
 module list
 
-multiqc -c ${intermediateDir}/${project}_QC_config.yaml -f ${intermediateDir} -o ${projectResultsDir}
+singularity exec --bind "${intermediateDir}:/intermediateDir,${projectResultsDir}:/projectResultsDir" "${sifDir}${multiqcVersion}" \
+multiqc -c "/intermediateDir/${project}_QC_config.yaml" \
+-f "/intermediateDir/" \
+-o "/projectResultsDir/"
 
 mv ${projectResultsDir}/multiqc_report.html ${projectResultsDir}/${project}_multiqc_report.html

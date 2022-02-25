@@ -24,13 +24,12 @@
 #string parameters_chromosomes
 #string ngsversion
 
-#string worksheet 
+#string worksheet
 #string outputdir
 #string workflowpath
 
 #list internalSampleID
 #string project
-#string scriptDir
 
 #list barcode
 #list lane

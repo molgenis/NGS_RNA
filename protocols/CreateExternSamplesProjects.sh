@@ -16,9 +16,7 @@
 #list sequencer
 #list run
 #list flowcell
-#string mainParameters
 #string parameters_build
-#string parameters_species
 #string parameters_environment
 #string parameters_chromosomes
 #string ngsversion
@@ -27,7 +25,6 @@
 #string workflowpath
 #list internalSampleID
 #string project
-#string scriptDir
 #string logsDir
 #list barcode
 #list lane
@@ -122,9 +119,7 @@ echo "before run second rocket"
 echo pwd
 
 sh "${EBROOTMOLGENISMINCOMPUTE}"/molgenis_compute.sh \
--p "${mainParameters}" \
 -p "${parameters_build}" \
--p "${parameters_species}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
 --header "${EBROOTNGS_RNA}"/templates/slurm/header.ftl \

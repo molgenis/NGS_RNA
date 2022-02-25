@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if module list | grep -o -P 'NGS_RNA(.+)' 
+if module list | grep -o -P 'NGS_RNA(.+)'
 then
 	echo "RNA pipeline loaded, proceeding"
 else
@@ -50,7 +50,7 @@ if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "f
 if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
 if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
 
-build="GRCh37" # GRCh37, GRCh38
+build="hg19" # GRCh37, GRCh38 HG19
 species="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 pipeline="STAR" # hisat, lexogen
 
@@ -61,24 +61,15 @@ then
      rm .compute.properties
 fi
 
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.csv > \
-${workDir}/parameters.csv
-
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${build}.csv > \
-${workDir}/parameters.${build}.csv
-
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${species}.csv > \
-${workDir}/parameters.${species}.csv
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${species}.${build}.csv > \
+${workDir}/parameters.${species}.${build}.csv
 
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${host}.csv > \
 ${workDir}/parameters.${host}.csv
 
-
 sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
--p ${workDir}/parameters.csv \
--p ${workDir}/parameters.${build}.csv \
--p ${workDir}/parameters.${species}.csv \
 -p ${workDir}/parameters.${host}.csv \
+-p ${workDir}/parameters.${species}.${build}.csv \
 -p ${workDir}/${project}.csv \
 -p ${EBROOTNGS_RNA}/chromosomes.${species}.csv \
 -w ${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv \
@@ -88,10 +79,10 @@ sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 --generate \
 -o "workflowpath=${workflow};outputdir=scripts/jobs;\
 groupname=${group};\
-mainParameters=${workDir}/parameters.csv;\
 ngsversion=$(module list | grep -o -P 'NGS_RNA(.+)');\
 worksheet=${workDir}/${project}.csv;\
-parameters_build=${workDir}/parameters.${build}.csv;\
-parameters_species=${workDir}/parameters.${species}.csv;\
+parameters_build=${workDir}/parameters.${species}.${build}.csv;\
 parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${species}.csv;\
-parameters_environment=${workDir}/parameters.${host}.csv;"
+parameters_environment=${workDir}/parameters.${host}.csv"
+
+

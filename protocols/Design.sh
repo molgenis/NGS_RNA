@@ -3,30 +3,67 @@
 #Parameter mapping
 #string RPlusVersion
 #string intermediateDir
+#list externalSampleID
 #string project
 #string groupname
 #string tmpName
 #string logsDir
-#string ngsversion
-#string projectRawtmpDataDir
-#string projectQcDir
-#string projectJobsDir
-#string annotationFile
 
 module load "${RPlusVersion}"
-module load "${ngsversion}"
 module list
+
+#Function to check if array contains value
+array_contains () {
+	local array="$1[@]"
+	local seeking=$2
+	local in=1
+	for element in "${!array-}"; do
+		if [[ "${element}" == "${seeking}" ]]; then
+			in=0
+			break
+		fi
+	done
+	return $in
+}
+
+#Create string with input BAM files for Picard
+#This check needs to be performed because Compute generates duplicate values in array
+UNIQUESAMPLES=()
+
+for sample in "${externalSampleID[@]}"
+do
+	array_contains UNIQUESAMPLES "${sample}" || UNIQUESAMPLES+=("${sample}")    # If bamFile does not exist in array add it
+done
 
 cd "${intermediateDir}"
 
-cp "${projectJobsDir}/${project}.csv" "${intermediateDir}/metadata.csv"
+#cleanup old file if present
+rm -f "${intermediateDir}/*.design.tsv"
 
-perl -pi -e 's|externalFastQ_1|samplename|g' "${intermediateDir}/metadata.csv"
+# manage a design file for each sample detected
+# the design is simple : 1 vs all other
 
-echo "creating design file."
-Rscript "${EBROOTNGS_RNA}/scripts/design.R" "${projectJobsDir}/${project}.csv"
+for currentSample in "${UNIQUESAMPLES[@]}"
+do
+        # rewrite a new design file
 
-echo "running: deseq2 analysis"
-Rscript "${EBROOTNGS_RNA}/scripts/deseq2_analysis.R" "${intermediateDir}/metadata.csv" "${annotationFile}"
+	echo -e "sample"'\ttype' > "${intermediateDir}/$currentSample.outrider.design.tsv"
+        echo -e "${currentSample}"'\tsample' >> "${intermediateDir}/$currentSample.outrider.design.tsv"
+        echo -e "${currentSample}"'\tsample' > "${intermediateDir}/$currentSample.DE.design.tsv"
+        echo -e "${currentSample}.sorted.merged.bam"'\tsample' > "${intermediateDir}/$currentSample.SJ.design.tsv"
+
+        # all the other sample in the batch are controls
+        for tmpSample in "${UNIQUESAMPLES[@]}"
+        do
+                if [ "$currentSample" != "$tmpSample" ]
+                then
+                        echo -e "${tmpSample}"'\tcontrol' >> "${intermediateDir}/$currentSample.outrider.design.tsv"
+                        echo -e "${tmpSample}"'\tcontrol' >> "${intermediateDir}/$currentSample.DE.design.tsv"
+                        echo -e "${tmpSample}.sorted.merged.bam"'\tcontrol' >> "${intermediateDir}/$currentSample.SJ.design.tsv"
+                fi
+        done
+done
+
+echo "files written to: ${intermediateDir}/ *.design.tsv"
 
 cd -

@@ -2,7 +2,6 @@
 
 #Parameter mapping
 #string intermediateDir
-#list externalSampleID
 #string project
 #string logsDir
 #string projectJobsDir
@@ -53,41 +52,5 @@ python "${EBROOTLEAFCUTTER}"/clustering/leafcutter_cluster_regtools.py \
 -o "${project}"_leafcutter_cluster_regtools \
 -l 500000 \
 --checkchrom
-
-echo "create group_list"
-awk -F',' -v col=${colArray[0]} '{print $1".sorted.merged.bam\t"$col}' "${intermediateDir}/metadata.csv" \
-> "${intermediateDir}${project}_groups_file.txt"
-
-sed 1d "${intermediateDir}${project}_groups_file.txt" > "${intermediateDir}${project}"_groups_file.txt.tmp
-mv "${intermediateDir}${project}_groups_file.txt.tmp" "${intermediateDir}${project}_groups_file.txt"
-
-echo "conditionCount = ${conditionCount}"
-if [[ "${conditionCount}" -gt 1 ]]
-then
-	echo "Differential Splicing with ${conditionCount} groups."
-	Rscript "${EBROOTLEAFCUTTER}/scripts/leafcutter_ds.R" \
-	--num_threads 4 \
-        -i 1 \
-        -g 1 \
-        -c 3 \
-	-e "${annotationTxt}" \
-	-o "${intermediateDir}${project}_leafcutter_ds" \
-	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
-	"${intermediateDir}${project}_groups_file.txt"
-
-	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
-	-e "${EBROOTLEAFCUTTER}/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz" \
-	-o "${intermediateDir}${project}_leafcutter_ds" \
-	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
-	"${intermediateDir}${project}_groups_file.txt" \
-	"${intermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
-	-f 0.05
-
-else
-       echo "Outlier Splicing, $conditionCount conditions found."
-	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
-	--num_threads 8 \
-	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
-fi 
 
 cd -

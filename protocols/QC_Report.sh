@@ -7,7 +7,6 @@
 #string intermediateDir
 #string projectLogsDir
 #string projectQcDir
-#string scriptDir
 #list externalSampleID
 #string contact
 #string qcMatricsList
