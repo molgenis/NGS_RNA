@@ -32,7 +32,7 @@ TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
 cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
 RSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
 leafcutterVersion,leafcutter/aa12b1e-foss-2018b
-VIPVersion,vip/v3.3.0-foss-2018b
+VIPVersion,vip/v3.3.1-foss-2018b
 #RMATSNBIN,/groups/umcg-solve-rd/tmp01/umcg-gvdvries/rmats/rmats_turbo_v4_1_2
 sifDir,/groups/umcg-solve-rd/tmp01/resources/GAD/singularity/
 

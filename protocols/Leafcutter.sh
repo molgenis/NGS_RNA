@@ -10,6 +10,7 @@
 #string sampleMergedBamExt
 #string leafcutterVersion
 #string python2Version
+#string annotationTxt
 
 #Load module
 module load "${leafcutterVersion}"
@@ -26,33 +27,6 @@ conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "
 
 echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
-
-rm -f "${intermediateDir}${project}_juncfiles.txt"
-cd "${intermediateDir}"
-for bamfile in $(ls *.${sampleMergedBamExt}); do
-
-    echo Converting "${bamfile}" to "${bamfile}".junc
-    samtools index "${bamfile}"
-
-    #BUG: set to standed 0.
-    regtools junctions extract \
-    -a 8 \
-    -m 50 \
-    -M 500000 \
-    -s 0 \
-    "${bamfile}" \
-    -o "${bamfile}".junc
-
-    echo "${intermediateDir}${bamfile}".junc >> "${intermediateDir}${project}"_juncfiles.txt
-done
-
-python "${EBROOTLEAFCUTTER}"/clustering/leafcutter_cluster_regtools.py \
--j "${intermediateDir}/${project}"_juncfiles.txt \
--m 50 \
--r "${intermediateDir}" \
--o "${project}"_leafcutter_cluster_regtools \
--l 500000 \
---checkchrom
 
 echo "create group_list"
 awk -F',' -v col=${colArray[0]} '{print $1".sorted.merged.bam\t"$col}' "${intermediateDir}/metadata.csv" \
@@ -88,6 +62,6 @@ else
 	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
 	--num_threads 8 \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
-fi 
+fi
 
 cd -

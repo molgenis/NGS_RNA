@@ -16,7 +16,7 @@
 module load ${NGSRNAVersion}
 
 #make output dir
-mkdir -p "${projectResultsDir}/outrider/${externalSampleID}"
+mkdir -p "${projectResultsDir}/outrider/${externalSampleID}/QC"
 
 #run outrider
 singularity exec --pwd $PWD --bind ${sifDir}:/sifDir,/apps:/apps,/groups:/groups \

@@ -6,6 +6,8 @@
 #string tempDir
 #string tmpDataDir
 #string project
+#string ngsversion
+#string Python2PlusVersion
 #string externalSampleID
 #string intermediateDir
 #string strandedness
@@ -21,12 +23,9 @@
 makeTmpDir "${intermediateDir}"
 tmpSampleMergedDedupBam="${MC_tmpFile}"
 
-module load PythonPlus/2.7.16-foss-2018b-v20.12.1
-module load NGS_RNA/beta
+module load "${ngsversion}"
+module load "${Python2PlusVersion}"
 module list
-
-#tmp
-EBROOTNGS_RNA='/home/umcg-gvdvries/git/NGS_RNA'
 
 ZSCORE=3
 DELTAPSY=0.2
@@ -35,6 +34,7 @@ FORMATTMPFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATS.f
 FILTERTMPFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATS.filtered.tsv"
 OUTPUTFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.final.bed"
 
+echo "reformatting format_rMATS.py"
 "${EBROOTNGS_RNA}/scripts/format_rMATS.py" \
 -i "${rMATsOutputDir}/${externalSampleID}/" \
 -o $FORMATTMPFILE
@@ -46,8 +46,11 @@ OUTPUTFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.fina
 -d $DELTAPSY \
 -z $ZSCORE
 
+echo "created $FILTERTMPFILE"
+
 # convert to bed
 "${EBROOTNGS_RNA}/scripts/convert_rMATS_to_bed.py" \
 -i $FILTERTMPFILE \
 -o $OUTPUTFILE
 
+echo "Created $OUTPUTFILE"
