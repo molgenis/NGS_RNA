@@ -3,14 +3,14 @@
 #string intermediateDir
 #list externalSampleID
 #string projectHTseqExpressionTable
-#string NGSRNAVersion
+#string ngsversion
 #string project
 #string tmpTmpDataDir
 #string groupname
 #string tmpName
 #string logsDir
 
-module load ${NGSRNAVersion}
+module load "${ngsversion}"
 
 #Function to check if array contains value
 array_contains () {
@@ -29,7 +29,7 @@ array_contains () {
 makeTmpDir ${projectHTseqExpressionTable}
 tmpProjectHTseqExpressionTable=${MC_tmpFile}
 
-rm -f ${intermediateDir}/fileList.txt
+rm -f "${intermediateDir}/fileList.txt"
 
 INPUTS=()
 for sample in "${externalSampleID[@]}"
@@ -39,15 +39,15 @@ done
 
 for sampleID in "${INPUTS[@]}"
 do
-	echo -e "${intermediateDir}/${sampleID}.counts.txt" >> ${intermediateDir}/fileList.txt
+	echo -e "${intermediateDir}/${sampleID}.counts.txt" >> "${intermediateDir}/fileList.txt"
 done
 
 
-	python ${EBROOTNGS_RNA}/scripts/create_counts_matrix.py \
-	-i ${intermediateDir}/fileList.txt \
-	-o ${tmpProjectHTseqExpressionTable} \
-	-e $intermediateDir/create_counts_matrix.log
+	python "${EBROOTNGS_RNA}/scripts/create_counts_matrix.py" \
+	-i "${intermediateDir}/fileList.txt" \
+	-o "${tmpProjectHTseqExpressionTable}" \
+	-e "$intermediateDir/create_counts_matrix.log"
 
         echo "table create succesfull"
-        mv ${tmpProjectHTseqExpressionTable} ${projectHTseqExpressionTable}
+        mv "${tmpProjectHTseqExpressionTable}" "${projectHTseqExpressionTable}"
 

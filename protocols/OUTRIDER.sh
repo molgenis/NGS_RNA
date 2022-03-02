@@ -3,7 +3,7 @@
 #string intermediateDir
 #string externalSampleID
 #string projectHTseqExpressionTable
-#string NGSRNAVersion
+#string ngsversion
 #string project
 #string projectResultsDir
 #string annotationGtf
@@ -13,7 +13,7 @@
 #string logsDir
 #string sifDir
 
-module load ${NGSRNAVersion}
+module load "${ngsversion}"
 
 #make output dir
 mkdir -p "${projectResultsDir}/outrider/${externalSampleID}/QC"
@@ -30,12 +30,11 @@ Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
 #run outrider with given sample and expexted effected gene
 
 #singularity exec --pwd $PWD \
-#--bind /groups/umcg-atd/tmp10/gvdvries/singularity/OUTRIDER:/OUTRIDER,\
-#/groups/umcg-atd/tmp10/projects/testproject/run02/results/expression:/expression \
-#outrider_latest.sif \
-#Rscript /OUTRIDER/outrider.R \
-#/expression/expressionTable/testproject.expression.genelevel.v75.counts.table \
-#/OUTRIDER/sample_design.txt \
-#/OUTRIDER \
+#--bind ${sifDir}:/sifDir,/apps:/apps,/groups:/groups \
+#"${sifDir}/outrider_latest.sif" \
+#Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
+#"${projectHTseqExpressionTable}" \
+#"${intermediateDir}/${externalSampleID}.outrider.design.tsv" \
+#${annotationGtf}" \
 #SID.10017.counts.txt \
 #AGRN

@@ -61,11 +61,11 @@ then
 		PROGRAM=MeanQualityByCycle \
 		PROGRAM=CollectInsertSizeMetrics \
 		TMP_DIR="${tempDir}"/processing
-	
+
 
 	#Flagstat for reads mapping to the genome.
 	samtools flagstat "${sampleMergedDedupBam}" >  "${flagstatMetrics}"
-	
+
 	# Fagstats idxstats, reads per chr.
 	samtools idxstats "${sampleMergedDedupBam}" > "${idxstatsMetrics}"
 
@@ -105,7 +105,7 @@ then
 		TMP_DIR="${tempDir}"/processing
 
 
-	#CollectRnaSeqMetrics.jar
+		#CollectRnaSeqMetrics.jar
 		java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
 		REF_FLAT="${annotationRefFlat}" \
 		I="${sampleMergedDedupBam}" \

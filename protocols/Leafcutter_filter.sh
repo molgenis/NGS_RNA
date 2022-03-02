@@ -7,7 +7,7 @@
 #string logsDir
 #string projectJobsDir
 #string projectResultsDir
-#string NGSRNAVersion
+#string ngsversion
 #string sampleMergedBamExt
 #string leafcutterVersion
 #string python2Version
@@ -15,17 +15,13 @@
 
 #Load module
 module load "${leafcutterVersion}"
-module load "${NGSRNAVersion}"
+module load "${ngsversion}"
 module load "${python2Version}"
 module list
-
-
-
 
 # adding coordinates to leafcutter results
 TMPOUTFILE="${intermediateDir}${externalSampleID}.leafcutter.format.tsv.tmp"
 OUTPUTFILE="${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"
-
 
 echo "running format_leafcutter.py"
 "${EBROOTNGS_RNA}/scripts/format_leafcutter.py" \

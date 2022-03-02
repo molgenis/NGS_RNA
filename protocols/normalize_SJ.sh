@@ -1,4 +1,4 @@
-#MOLGENIS walltime=23:59:00 mem=4gb ppn=4
+#MOLGENIS walltime=23:59:00 mem=4gb ppn=1
 
 #Parameter mapping
 #list sampleMergedBam
@@ -18,20 +18,18 @@
 
 
 makeTmpDir "${intermediateDir}"
-tmpSampleMergedDedupBam="${MC_tmpFile}"
+tmpIntermediateDir="${MC_tmpFile}"
 
-module load PythonPlus/2.7.16-foss-2018b-v20.12.1
-module load NGS_RNA/beta
+module load "${ngsversion}"
+module load "${Python2PlusVersion}"
 module list
 
-#tmp
-EBROOTNGS_RNA='/home/umcg-gvdvries/git/NGS_RNA'
-
-INPUTFILE=${intermediateDir}/${externalSampleID}.SJ.out.tab
-OUTPUTFILE=${intermediateDir}/${externalSampleID}.SJ.out.norm.tab
+INPUTFILE=${tmpIntermediateDir}/${externalSampleID}.SJ.out.tab
+OUTPUTFILE=${tmpIntermediateDir}/${externalSampleID}.SJ.out.norm.tab
 
 "${EBROOTNGS_RNA}/scripts/normalize_SJ.py" \
--i $INPUTFILE \
--o $OUTPUTFILE
+-i "${tmpIntermediateDir}"/"${externalSampleID}.SJ.out.tab" \
+-o "${tmpIntermediateDir}"/"${externalSampleID}.SJ.out.norm.tab"
 
-echo "created: ${OUTPUTFILE}"
+mv "${tmpIntermediateDir}"/"${externalSampleID}.SJ.out.norm.tab" "${intermediateDir}/${externalSampleID}.SJ.out.norm.tab"
+echo "created: ${intermediateDir}/${externalSampleID}.SJ.out.norm.tab"

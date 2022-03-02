@@ -11,6 +11,7 @@
 #string annotationGtf
 #string omimList
 #string Python2PlusVersion
+#string ngsversion
 #string project
 #string groupname
 #string tmpName
@@ -20,12 +21,9 @@
 makeTmpDir "${intermediateDir}"
 tmpSampleMergedDedupBam="${MC_tmpFile}"
 
-module load ${Python2PlusVersion}
-module load NGS_RNA/beta
+module load "${ngsversion}"
+module load "${Python2PlusVersion}"
 module list
-
-#tmp
-EBROOTNGS_RNA='/home/umcg-gvdvries/git/NGS_RNA'
 
 echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_sjdb.py"
 

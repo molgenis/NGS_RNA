@@ -40,16 +40,16 @@ for bamfile in $(ls *.${sampleMergedBamExt}); do
     -M 500000 \
     -s 0 \
     "${bamfile}" \
-    -o "${bamfile}".junc
+    -o "${bamfile}.junc"
 
-    echo "${intermediateDir}${bamfile}".junc >> "${intermediateDir}${project}"_juncfiles.txt
+    echo "${intermediateDir}${bamfile}.junc" >> "${intermediateDir}${project}_juncfiles.txt"
 done
 
-python "${EBROOTLEAFCUTTER}"/clustering/leafcutter_cluster_regtools.py \
--j "${intermediateDir}/${project}"_juncfiles.txt \
+python "${EBROOTLEAFCUTTER}/clustering/leafcutter_cluster_regtools.py" \
+-j "${intermediateDir}/${project}_juncfiles.txt" \
 -m 50 \
 -r "${intermediateDir}" \
--o "${project}"_leafcutter_cluster_regtools \
+-o "${project}_leafcutter_cluster_regtools" \
 -l 500000 \
 --checkchrom
 
