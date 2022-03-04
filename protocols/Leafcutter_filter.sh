@@ -20,8 +20,7 @@ module load "${python2Version}"
 module list
 
 # adding coordinates to leafcutter results
-TMPOUTFILE="${intermediateDir}${externalSampleID}.leafcutter.format.tsv.tmp"
-OUTPUTFILE="${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"
+mkdir -p "${projectResultsDir}/leafcutter/"
 
 echo "running format_leafcutter.py"
 "${EBROOTNGS_RNA}/scripts/format_leafcutter.py" \
@@ -30,18 +29,16 @@ echo "running format_leafcutter.py"
 -o "${intermediateDir}${externalSampleID}.leafcutter.format.tsv"
 
 # omim annotation
-TMPINFILE="${TMPOUTFILE}"
-TMPOUTFILE="${intermediateDir}${externalSampleID}.leafcutter.format.omim.tsv"
 echo "Annotation with OMIM genes using annotate_leafcutter_events.py"
 "${EBROOTNGS_RNA}/scripts/annotate_leafcutter_events.py" \
 -i "${intermediateDir}${externalSampleID}.leafcutter.format.tsv" \
 -d "${omimList}" \
--o "${TMPOUTFILE}"
+-o "${intermediateDir}${externalSampleID}.leafcutter.format.omim.tsv"
 
 # filter and produce the final report
 echo "filter and produce the final report"
 
-grep "^cluster" $TMPOUTFILE > $OUTPUTFILE
-awk -F "\t" '($6<0.05){print $0}' $TMPOUTFILE >> $OUTPUTFILE
+grep "^cluster" "${intermediateDir}${externalSampleID}.leafcutter.format.omim.tsv" > "${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"
+awk -F "\t" '($6<0.05){print $0}' "${intermediateDir}${externalSampleID}.leafcutter.format.omim.tsv" >> "${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"
 
-echo "created $OUTPUTFILE"
+echo "created ${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"

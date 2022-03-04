@@ -65,3 +65,6 @@ done < "${intermediateDir}${externalSampleID}.SJ.design.tsv"
   --libType "${STRANDED}" \
   --od "${rMATsOutputDir}/${externalSampleID}/" \
   --tmp "${rMATsOutputDir}/${externalSampleID}/tmp/"
+
+  #cleanup tmpdir
+  rm -r "${rMATsOutputDir}/${externalSampleID}/tmp/"

@@ -9,6 +9,8 @@
 #string externalSampleID
 #string intermediateDir
 #string strandedness
+#string ngsversion
+#string Python2PlusVersion
 #string annotationGtf
 #string projectJobsDir
 #string project
@@ -24,12 +26,9 @@ module load "${ngsversion}"
 module load "${Python2PlusVersion}"
 module list
 
-INPUTFILE=${tmpIntermediateDir}/${externalSampleID}.SJ.out.tab
-OUTPUTFILE=${tmpIntermediateDir}/${externalSampleID}.SJ.out.norm.tab
-
 "${EBROOTNGS_RNA}/scripts/normalize_SJ.py" \
--i "${tmpIntermediateDir}"/"${externalSampleID}.SJ.out.tab" \
--o "${tmpIntermediateDir}"/"${externalSampleID}.SJ.out.norm.tab"
+-i "${intermediateDir}${externalSampleID}.SJ.out.tab" \
+-o "${tmpIntermediateDir}${externalSampleID}.SJ.out.norm.tab"
 
-mv "${tmpIntermediateDir}"/"${externalSampleID}.SJ.out.norm.tab" "${intermediateDir}/${externalSampleID}.SJ.out.norm.tab"
-echo "created: ${intermediateDir}/${externalSampleID}.SJ.out.norm.tab"
+mv "${tmpIntermediateDir}${externalSampleID}.SJ.out.norm.tab" "${intermediateDir}/${externalSampleID}.SJ.out.norm.tab"
+echo "created: ${intermediateDir}${externalSampleID}.SJ.out.norm.tab"

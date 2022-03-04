@@ -73,11 +73,11 @@ then
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
 	REF_FLAT="${annotationRefFlat}" \
 	I="${sampleMergedDedupBam}" \
-	STRAND_SPECIFICITY="${STRANDED}" \
+	STRAND_SPECIFICITY=${STRANDED} \
 	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 	VALIDATION_STRINGENCY=LENIENT \
-	O="${rnaSeqMetrics}"
-#	CHART_OUTPUT="${rnaSeqMetrics}.pdf"  \
+	O="${rnaSeqMetrics}" \
+	CHART_OUTPUT="${rnaSeqMetrics}.pdf"
 
 
 	# Collect QC data from several QC matricses, and write a tablular output file.
@@ -112,7 +112,7 @@ then
 		STRAND_SPECIFICITY="${STRANDED}" \
 		RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 		VALIDATION_STRINGENCY=LENIENT \
-		O="${rnaSeqMetrics}"
-#		CHART_OUTPUT="${rnaSeqMetrics}.pdf" \
+		O="${rnaSeqMetrics}" \
+		CHART_OUTPUT="${rnaSeqMetrics}.pdf"
 
 fi

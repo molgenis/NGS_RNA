@@ -6,7 +6,10 @@
 #string sampleMergedBam
 #string sampleMergedBai
 #string RSeQCVersion
-#string bed12
+#string samtoolsVersion
+#string BEDToolsVersion
+#string externalSampleID
+#string houseKeepingGenesBed
 #string TinDir
 #string tempDir
 #string project
@@ -15,16 +18,21 @@
 #string tmpName
 #string logsDir
 
-#Load Picard module
-module load "${RSeQCVersion}"
-module list
-
 echo "## "$(date)" Start $0"
 
 mkdir -p "${TinDir}"
 cd "${TinDir}"
 
-tin.py -r "${bed12}" -i "${sampleMergedBam}"
+# Extract the alignment of housekeeping genes.
+module load "${BEDToolsVersion}"
+bedtools intersect -a "${sampleMergedBam}"  -b "${houseKeepingGenesBed}" > "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
+
+# index BAM
+module load "${samtoolsVersion}"
+samtools index "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"  > "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam.bai"
+
+module load "${RSeQCVersion}"
+tin.py -r "${houseKeepingGenesBed}" -i "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
 
 cd -
 

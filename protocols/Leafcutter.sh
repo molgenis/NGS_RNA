@@ -29,7 +29,9 @@ echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
 
 echo "create group_list"
-awk -F',' -v col=${colArray[0]} '{print $1".sorted.merged.bam\t"$col}' "${intermediateDir}/metadata.csv" \
+col=$(col="externalSampleID"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n $col)
+colID=(${col//:/ })
+awk -F',' -v id=${colID[0]} -v con=${colArray[0]} '{print $id".sorted.merged.bam\t"$con}' "${projectJobsDir}/${project}.csv" \
 > "${intermediateDir}${project}_groups_file.txt"
 
 sed 1d "${intermediateDir}${project}_groups_file.txt" > "${intermediateDir}${project}"_groups_file.txt.tmp
@@ -56,12 +58,10 @@ then
 	"${intermediateDir}${project}_groups_file.txt" \
 	"${intermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
 	-f 0.05
-
 else
        echo "Outlier Splicing, $conditionCount conditions found."
 	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
 	--num_threads 8 \
+	-o "${intermediateDir}${project}" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
 fi
-
-cd -

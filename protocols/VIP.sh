@@ -11,11 +11,12 @@
 #string projectBatchGenotypedVariantCalls
 #string projectBatchGenotypedVIPPrefix
 #string projectJobsDir
-#string projectResultsDir
 #string project
 #string groupname
 #string tmpName
 #string logsDir
+#string spliceaiIndel
+#string spliceaiSnv
 
 makeTmpDir ${projectBatchGenotypedVIPPrefix}
 tmpProjectBatchGenotypedVIPPrefix=${MC_tmpFile}
@@ -25,17 +26,19 @@ ${stage} "${VIPVersion}"
 #Check modules
 ${checkStage}
 
-	echo "## "$(date)" Start $0"
+	cp "$EBROOTVIP/config/default.cfg" "${intermediateDir}/vip.config"
+	echo "annotate_vep_plugin_SpliceAI=${spliceaiSnv},${spliceaiIndel}" >> "${intermediateDir}/vip.config"
 
-	bash "${EBROOTVIP}"/pipeline.sh \
+	echo "## "$(date)" Start $0"
+	cd "${EBROOTVIP}"
+	bash pipeline.sh \
+	-c "${intermediateDir}/vip.config" \
 	-i "${projectBatchGenotypedVariantCalls}" \
 	-o "${projectBatchGenotypedVIPPrefix}.vcf.gz"
-
+	cd -
 	printf "VIP ..done\n"
 
 	cd "${intermediateDir}"
 	md5sum $(basename ${projectBatchGenotypedVIPPrefix}.vcf.gz)> $(basename ${projectBatchGenotypedVIPPrefix}.vcf.gz).md5
-	mkdir -p "${projectResultsDir}/variants/vip"
-	mv "${projectBatchGenotypedVIPPrefix}."* "${projectResultsDir}/variants/vip/"
 	cd -
-	echo "succes moved files"
+	echo "succes moving files"

@@ -1,4 +1,4 @@
-#MOLGENIS nodes=1 ppn=1 mem=34gb walltime=05:00:00
+#MOLGENIS nodes=1 ppn=1 mem=40gb walltime=05:00:00
 
 #Parameter mapping
 #string intermediateDir

@@ -9,6 +9,7 @@ NGSUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
 NGSRNAVersion,NGS_RNA/beta
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-GCCcore-7.3.0
+BEDToolsVersion,BEDTools/2.28.0-GCCcore-7.3.0
 sambambaVersion,sambamba/0.7.0
 RVersion,R/3.6.1-${toolchain}-bare
 RPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
@@ -84,7 +85,7 @@ projectLogsDir,${projectDir}/logs/
 projectResultsDir,${projectDir}/results/
 projectQcDir,${projectDir}/qc/
 rMATsOutputDir,${projectResultsDir}/rmats
-TinDir,${projectResultsDir}/TIN
+TinDir,${intermediateDir}/TIN
 
 ##### Protocols 0,1a,1b, (FastQC,HisatAlignment,MergeBam) #####
 peEnd1BarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc.zip
@@ -101,7 +102,7 @@ sortedBai,${intermediateDir}/${externalSampleID}.Aligned.sortedByCoord.out.bai
 addOrReplaceGroupsBam,${intermediateDir}/${externalSampleID}.rg.sorted.bam
 addOrReplaceGroupsBai,${intermediateDir}/${externalSampleID}.rg.sorted.bai
 sampleMergedBam,${intermediateDir}/${externalSampleID}.sorted.merged.bam
-sampleMergedBai,${intermediateDir}/${externalSampleID}.sorted.merged.bai
+sampleMergedBai,${intermediateDir}/${externalSampleID}.sorted.merged.bam.bai
 sampleMergedBamExt,sorted.merged.bam
 sampleMergedDedupBam,${intermediateDir}/${externalSampleID}.sorted.merged.dedup.bam
 sampleMergedDedupBai,${intermediateDir}/${externalSampleID}.sorted.merged.dedup.bam.bai
@@ -142,15 +143,16 @@ recreateinsertsizepdfR,createInsertSizePlot.R
 qcMatrics,${intermediateDir}/${externalSampleID}.total.qc.metrics.table
 ##### Protocols 3,6  (HTSeq count, MakeExpressionTable) #####
 sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.counts.txt
-projectHTseqExpressionTable,${intermediateDir}/${project}.expression.genelevel.v${ensembleReleaseVersion}.counts.table
+projectHTseqExpressionTable,${intermediateDir}/${project}.expression.counts.table
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
 geneAnnotationTxt,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.annotation.geneIds.txt.gz
 annotationGtf,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19.refseq.with_genes.gtf
+houseKeepingGenesBed,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19.HouseKeepingGenes.bed
 annotationTxt,/groups/umcg-solve-rd/tmp01/resources/GAD/others/hg19.refseq.with_genes.txt
 gencodeHg19AllExons,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/gencode_hg19_all_exons.txt.gz
 annotationRefFlat,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/Homo_sapiens.hg19.refFlat
-annotationIntervalList,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/Homo_sapiens.hg19.rrna.interval_list
+annotationIntervalList,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19_rRNA.interval_list
 gtexJunc,/groups/umcg-solve-rd/tmp01/resources/GAD/others/GTEx_v7_bflb_junctions.gct
 omimList,/groups/umcg-solve-rd/tmp01/resources/GAD/others/OMIM2.list
 indexFile,${indexSpecies}
@@ -177,3 +179,5 @@ bed12,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19.refGene.bed12
 MillsAnd1000GGoldGtandard,/apps/data/1000G/phase1/Mills_and_1000G_gold_standard
 annotationFile,${dataDir}Ensembl/GrCh37.75/pub/release-75/gtf/${speciesFileName}/${annotationFileName}.75_nodupes_genid.txt
 ensembleDir,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/${speciesFileName}/
+spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
+spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz

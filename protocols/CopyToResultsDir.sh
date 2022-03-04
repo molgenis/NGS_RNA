@@ -25,6 +25,8 @@
 #string htseqVersion
 #string pythonVersion
 #string gatkVersion
+#string projectBatchGenotypedVIPPrefix
+#string projectBatchGenotypedVariantCalls
 #string ensembleReleaseVersion
 #string groupname
 #string tmpName
@@ -41,6 +43,7 @@ mkdir -p "${projectResultsDir}/expression"
 mkdir -p "${projectResultsDir}/expression/deseq2"
 mkdir -p "${projectResultsDir}/variants/vip"
 mkdir -p "${projectResultsDir}/leafcutter"
+mkdir -p "${projectResultsDir}/STAR_SJ"
 mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy project csv file to project results directory
@@ -56,9 +59,9 @@ cp "${projectJobsDir}/${project}.csv" "${projectResultsDir}"
 usedWorkflow=$(basename ${workflow})
 
 	cp "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment"
-        cp "${intermediateDir}"/*.sorted.merged.bam.md5 "${projectResultsDir}/alignment"
-        cp "${intermediateDir}"/*.sorted.merged.bai "${projectResultsDir}/alignment"
-        cp "${intermediateDir}"/*.sorted.merged.bai.md5 "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bam.md5sum "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bam.bai "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bam.bai.md5sum "${projectResultsDir}/alignment"
 
 # copy qc metrics to qcmetrics folder
 
@@ -71,7 +74,7 @@ usedWorkflow=$(basename ${workflow})
 	cp "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics"
         cp "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics"
 	cp "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.mdupmetrics "${projectResultsDir}/qcmetrics"
+#	cp "${intermediateDir}"/*.mdupmetrics "${projectResultsDir}/qcmetrics"
 	cp "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics"
 
 	if [ "${seqType}" == "PE" ]
@@ -85,11 +88,12 @@ usedWorkflow=$(basename ${workflow})
 
 	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}"/expression/
 	cp "${annotationGtf}" "${projectResultsDir}"/expression/
+	cp "${projectHTseqExpressionTable}" "${projectResultsDir}"/expression/
 
-	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
-	cp "${intermediateDir}"/*_perind_* "${projectResultsDir}"/expression/deseq2/
+#	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
+#	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
+#	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
+#	cp "${intermediateDir}"/*_perind_* "${projectResultsDir}"/expression/deseq2/
 
 # Copy QC images and report to results directory
 
@@ -97,13 +101,14 @@ usedWorkflow=$(basename ${workflow})
 
 # Copy variant vcfs.
 
-        cp "${projectBatchGenotypedVIPedVariantCalls}"* "${projectResultsDir}/variants/vip/"
+        cp "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
 	cp "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 
 # Copy leafcutter
-	cp "${intermediateDir}"/leafcutter_* "${projectResultsDir}"/leafcutter/
+	cp "${intermediateDir}"*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
 
-
+# Copy STAR annotated SpliceJunctions
+	cp "${intermediateDir}/"*.SJ.* "${projectResultsDir}/STAR_SJ/"
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
