@@ -145,7 +145,8 @@ save.image(file='outrider.session.RData')
 # TODO plot for significant samples/genes, loop
 
 # PLOT Volcano plots
-cat("Ploting volcano plot\n")
+cat("Ploting volcano plot for sample:", plot_sample," \n")
+
 pdf(paste(outputdir, "/QC/plotVolcano.pdf", sep = ""))
 plotVolcano(ods, plot_sample , basePlot=TRUE)
 dev.off()
@@ -153,21 +154,21 @@ dev.off()
 
 # PLOT Gene level plots
 cat("Ploting gene level plot\n")
-pdf(paste(outputdir, "/QC/plotExpressionRank.pdf", sep = ""))
-plotExpressionRank(ods, plot_gene , basePlot=TRUE)
-dev.off()
+#pdf(paste(outputdir, "/QC/plotExpressionRank.pdf", sep = ""))
+#plotExpressionRank(ods, plot_gene , basePlot=TRUE)
+#dev.off()
 
 
 ## PLOT QQ-plot for a given gene
 cat("Ploting QQ plot\n")
-pdf(paste(outputdir, "/QC/plotQQ.pdf", sep = ""))
-plotQQ(ods, plot_gene)
-dev.off()
+#pdf(paste(outputdir, "/QC/plotQQ.pdf", sep = ""))
+#plotQQ(ods, plot_gene)
+#dev.off()
 
 cat("Ploting QQ plot\n")
 ## Observed versus expected gene expression
-plotExpectedVsObservedCounts(ods, plot_gene, basePlot=TRUE)
-dev.off()
+#plotExpectedVsObservedCounts(ods, plot_gene, basePlot=TRUE)
+#dev.off()
 
 ## P-values versus Mean Count
 plotPowerAnalysis(ods)
