@@ -32,7 +32,7 @@ library(OUTRIDER)
 # Read data
 cat("Loading data")
 ctsTable <- read.table(inputfile, sep="\t" , as.is = T , header=T , row.names = 1)
-metadata <- read.delim(metafile)
+metadata <- read.delim(metafile, sep="\t" , as.is = T , header=T)
 
 head(ctsTable)
 print(metadata)
@@ -140,12 +140,14 @@ pdf(paste(outputdir, "/QC/plotAberrantPerSample.pdf", sep = ""))
 plotAberrantPerSample(ods, padjCutoff=0.05)
 dev.off()
 
-save.image(file='outrider.session.RData')
+save.image(outputdir, file='outrider.session.RData')
 
 # TODO plot for significant samples/genes, loop
 
 # PLOT Volcano plots
 cat("Ploting volcano plot for sample:", plot_sample," \n")
+
+head(ods)
 
 pdf(paste(outputdir, "/QC/plotVolcano.pdf", sep = ""))
 plotVolcano(ods, plot_sample , basePlot=TRUE)

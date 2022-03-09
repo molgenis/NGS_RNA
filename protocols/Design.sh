@@ -49,7 +49,8 @@ do
 
 	echo -e "sample"'\ttype' > "${intermediateDir}/$currentSample.outrider.design.tsv"
         echo -e "${currentSample}"'\tsample' >> "${intermediateDir}/$currentSample.outrider.design.tsv"
-        echo -e "${currentSample}"'\tsample' > "${intermediateDir}/$currentSample.DE.design.tsv"
+        echo -e "externalSampleID"',conditions' > "${intermediateDir}/$currentSample.DE.design.csv"
+        echo -e "${currentSample}"',sample' >> "${intermediateDir}/$currentSample.DE.design.csv"
         echo -e "${currentSample}.sorted.merged.bam"'\tsample' > "${intermediateDir}/$currentSample.SJ.design.tsv"
 
         # all the other sample in the batch are controls
@@ -58,7 +59,7 @@ do
                 if [ "$currentSample" != "$tmpSample" ]
                 then
                         echo -e "${tmpSample}"'\tcontrol' >> "${intermediateDir}/$currentSample.outrider.design.tsv"
-                        echo -e "${tmpSample}"'\tcontrol' >> "${intermediateDir}/$currentSample.DE.design.tsv"
+                        echo -e "${tmpSample}"',control' >> "${intermediateDir}/$currentSample.DE.design.csv"
                         echo -e "${tmpSample}.sorted.merged.bam"'\tcontrol' >> "${intermediateDir}/$currentSample.SJ.design.tsv"
                 fi
         done

@@ -22,7 +22,7 @@ print(args[2])
 
 
 counts = list.files(".", pattern=".counts.txt", full.names=TRUE)
-annotation <- args[2]
+sampleID <- args[2]
 
 #annotation = list.files(".", pattern="_nodupes_genid.bak", full.names = TRUE)
 metadata <- args[1]
@@ -30,18 +30,19 @@ metadata <- args[1]
 design = list.files(".", pattern = "design.txt", full.names = TRUE)
 
 sampleFiles <- counts
+print(sampleFiles)
 
-ref_annot <- as.data.table(read.table(annotation, header = TRUE))
-setkey(ref_annot, Gene_id)
+#ref_annot <- as.data.table(read.table(annotation, header = TRUE))
+#setkey(ref_annot, Gene_id)
 
 metadat <- read.csv(metadata, sep = ",")
-#print(metadat)
+print(metadat)
 
 sampleTable <- data.frame(sampleName = sort(metadat$externalSampleID), fileName = sort(sampleFiles), condition = metadat[order(metadat$externalSampleID), , drop=FALSE]$condition)
-#print(sampleTable)
+print(sampleTable)
 
 ddsHTSeq <- DESeqDataSetFromHTSeqCount(sampleTable = sampleTable, directory = ".", design = ~ condition)
-#print(ddsHTSeq) 
+print(ddsHTSeq) 
 
 # From the ddsHTSeq DESeqDataSet only the rows with a sum of 10 or higher are selected and used to continue
 # analysis with. By removing rows in which there are very few reads, the memory size of the dds data object is
@@ -49,7 +50,7 @@ ddsHTSeq <- DESeqDataSetFromHTSeqCount(sampleTable = sampleTable, directory = ".
 
 keep <- rowSums(counts(ddsHTSeq)) >=10
 ddsHTSeq <- ddsHTSeq[keep,]
-#print(ddsHTSeq)
+print(ddsHTSeq)
 
 # The sampleTable is built using sample-ids from the metadat data frame, filenames from the sampleFiles list, and
 # the conditions listed in the metadat data frame. After this the DESeqDataSet is built using the sampleTable, the
@@ -78,20 +79,21 @@ for (row in 1:nrow(design)){
  
   resLFC <- lfcShrink(dds, coef=paste0("condition_", cond2,"_vs_",cond1), type="apeglm") ##
   res <- results(dds, name=paste0("condition_", cond2,"_vs_",cond1))
-  res$geneName <- ref_annot[rownames(res)]$Gene_name
+  res$geneName <- rownames(res)
+#  res$geneName <- ref_annot[rownames(res)]$Gene_name
   resOrdered <- res[order(res$padj),]
   head(subset(resOrdered, log2FoldChange >= 0 & padj <= 0.05))
   head(subset(resOrdered, log2FoldChange <= 0 & padj <= 0.05))
   
-  write.csv(subset(resOrdered, log2FoldChange >= 0 & padj <= 0.05), file = paste0("deseq2_up_", cond1, "_vs_", cond2, ".csv"))
-  write.csv(subset(resOrdered, log2FoldChange <= 0 & padj <= 0.05), file = paste0("deseq2_down_", cond1, "_vs_", cond2, ".csv"))
-  write.csv(resOrdered, file = paste0("deseq2_", cond1, "_vs_" , cond2, ".csv"))
+  write.csv(subset(resOrdered, log2FoldChange >= 0 & padj <= 0.05), file = paste0(sampleID,"_deseq2_up_", cond1, "_vs_", cond2, ".csv"))
+  write.csv(subset(resOrdered, log2FoldChange <= 0 & padj <= 0.05), file = paste0(sampleID,"_deseq2_down_", cond1, "_vs_", cond2, ".csv"))
+  write.csv(resOrdered, file = paste0(sampleID,"_deseq2_", cond1, "_vs_" , cond2, ".csv"))
   
   ntd <- normTransform(dds)
   plotdds <- ntd[ , ntd$condition %in% c(cond1, cond2)]
   plota <- ntd
   
-  svg(paste0("pca_deseq2_labels_", cond1, "_vs_", cond2, ".svg"))
+  svg(paste0(sampleID,"_pca_deseq2_labels_", cond1, "_vs_", cond2, ".svg"))
   pca <- plotPCA(plotdds, intgroup=c("condition"))
   nudge <- ggplot2::position_nudge(y = 1.5)
   print(pca + ggplot2::geom_text(ggplot2::aes(label = name), position = nudge))
@@ -107,7 +109,7 @@ for (row in 1:nrow(design)){
   print(p + ggplot2::geom_text(ggplot2::aes(label = name), position = nudge))
   dev.off()
   
-  svg(paste0("volcano_plot_", cond1, "_vs_", cond2, ".svg"))
+  svg(paste0(sampleID,"_volcano_plot_", cond1, "_vs_", cond2, ".svg"))
   resOrdered$Significant <- ifelse(resOrdered$padj <0.05, "padj < 0.05", ifelse(abs(resOrdered$log2FoldChange) > 1, "LFC > 1", "None"))
   resOrdered <- as.data.frame(resOrdered)
   p <- ggplot(resOrdered, aes(x = log2FoldChange, y = -log10(pvalue))) +
