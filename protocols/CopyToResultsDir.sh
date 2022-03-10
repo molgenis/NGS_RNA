@@ -90,10 +90,10 @@ usedWorkflow=$(basename ${workflow})
 	cp "${annotationGtf}" "${projectResultsDir}"/expression/
 	cp "${projectHTseqExpressionTable}" "${projectResultsDir}"/expression/
 
-#	cp "${intermediateDir}"/deseq2_* "${projectResultsDir}"/expression/deseq2/
-#	cp "${intermediateDir}"/metadata.csv "${projectResultsDir}"/expression/deseq2/
-#	cp "${intermediateDir}"/design.txt "${projectResultsDir}"/expression/deseq2/
-#	cp "${intermediateDir}"/*_perind_* "${projectResultsDir}"/expression/deseq2/
+# copy Deseq2 results to results directory
+	cp "${intermediateDir}"/*deseq2_* "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/*design.csv "${projectResultsDir}"/expression/deseq2/
+	cp "${intermediateDir}"/*.svg "${projectResultsDir}"/expression/deseq2/
 
 # Copy QC images and report to results directory
 
@@ -129,16 +129,16 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Description of the different steps used in the RNA analysis pipeline
 
 Gene expression quantification
-The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
-reference genome using ${hisatVersion} [1] with default settings. Before gene quantification 
-${samtoolsVersion} [2] was used to sort the aligned reads. 
-The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union, 
+The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion}
+reference genome using ${hisatVersion} [1] with default settings. Before gene quantification
+${samtoolsVersion} [2] was used to sort the aligned reads.
+The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union,
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
-in folder expression/. 
+in folder expression/.
 
 Calculate QC metrics on raw and aligned data
-Quality control (QC) metrics are calculated for the raw sequencing data. This is done using 
-the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned reads using 
+Quality control (QC) metrics are calculated for the raw sequencing data. This is done using
+the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned reads using
 Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and ${samtoolsVersion} flagstat.
 
@@ -149,15 +149,15 @@ Results archive
 The zipped archive contains the following data and subfolders:
 
 - alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out)
-- expression: textfiles with gene level quantification per sample and per project. 
+- expression: textfiles with gene level quantification per sample and per project.
 - fastqc: FastQC output
 - images: QC images
 - qcmetrics: Multiple qcMetrics generated with Picard-tools or SAMTools Flagstat.
 - variants: Variants calls using GATK. (optional)
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
 
-The root of the results directory contains the final QC report, README.txt and the samplesheet which 
-form the basis for this analysis. 
+The root of the results directory contains the final QC report, README.txt and the samplesheet which
+form the basis for this analysis.
 
 Used toolversions:
 
@@ -175,7 +175,7 @@ ${starVersion}
 ${leafcutterVersion}
 ${VIPVersion}
 
-1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski, 
+1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski,
 Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
 2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
 2. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R,
@@ -183,12 +183,12 @@ Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format 
 Bioinforma 2009, 25 (16):2078–2079.
 3. Anders S, Pyl PT, Huber W: HTSeq – A Python framework to work with high-throughput sequencing data
 HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.
-4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online]. 
+4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online].
 Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
 5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}
-6. The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. 
+6. The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data.
 McKenna A et al.2010 GENOME RESEARCH 20:1297-303, Version: ${gatkVersion}
-7. Li YI, Knowles DA, Humphrey J, et al. Annotation-free quantification of RNA splicing using LeafCutter. 
+7. Li YI, Knowles DA, Humphrey J, et al. Annotation-free quantification of RNA splicing using LeafCutter.
 Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
 
 endmsg

@@ -109,7 +109,7 @@ for (row in 1:nrow(design)){
   print(p + ggplot2::geom_text(ggplot2::aes(label = name), position = nudge))
   dev.off()
   
-  svg(paste0(sampleID,"_volcano_plot_", cond1, "_vs_", cond2, ".svg"))
+  svg(paste0(sampleID,"_deseq2_volcano_plot_", cond1, "_vs_", cond2, ".svg"))
   resOrdered$Significant <- ifelse(resOrdered$padj <0.05, "padj < 0.05", ifelse(abs(resOrdered$log2FoldChange) > 1, "LFC > 1", "None"))
   resOrdered <- as.data.frame(resOrdered)
   p <- ggplot(resOrdered, aes(x = log2FoldChange, y = -log10(pvalue))) +

@@ -67,6 +67,7 @@ ${workDir}/parameters.${species}.${build}.csv
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${host}.csv > \
 ${workDir}/parameters.${host}.csv
 
+
 sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
 -p ${workDir}/parameters.${host}.csv \
 -p ${workDir}/parameters.${species}.${build}.csv \
