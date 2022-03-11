@@ -24,7 +24,7 @@
 #string picardVersion
 #string anacondaVersion
 #string samtoolsVersion
-#string ngsversion
+#string ngsVersion
 #string pythonVersion
 #string picardJar
 #string project
@@ -37,7 +37,7 @@
 module load "${picardVersion}"
 module load "${samtoolsVersion}"
 module load "${pythonVersion}"
-module load "${ngsversion}"
+module load "${ngsVersion}"
 module list
 
 makeTmpDir "${intermediateDir}"
@@ -60,7 +60,7 @@ then
 		PROGRAM=QualityScoreDistribution \
 		PROGRAM=MeanQualityByCycle \
 		PROGRAM=CollectInsertSizeMetrics \
-		TMP_DIR="${tempDir}"/processing
+		TMP_DIR="${tempDir}/processing"
 
 
 	#Flagstat for reads mapping to the genome.
@@ -103,7 +103,6 @@ then
 		PROGRAM=MeanQualityByCycle \
 		PROGRAM=CollectInsertSizeMetrics \
 		TMP_DIR="${tempDir}/processing"
-
 
 		#CollectRnaSeqMetrics.jar
 		java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \

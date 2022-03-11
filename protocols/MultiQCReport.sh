@@ -12,22 +12,22 @@
 #string qcMatricsList
 #string gcPlotList
 #string seqType
-#string RVersion
+#string rVersion
 #string wkhtmltopdfVersion
 #string fastqcVersion
 #string samtoolsVersion
 #string picardVersion
 #string multiqcVersion
 #string anacondaVersion
-#string hisatVersion
+#string starVersion
 #string indexFileID
 #string ensembleReleaseVersion
 #string prepKit
-#string ngsversion
+#string ngsVersion
 #string groupname
 #string tmpName
 #string jdkVersion
-#string RVersion
+#string rVersion
 #string htseqVersion
 #string pythonVersion
 #string sifDir
@@ -39,7 +39,7 @@ cat > "${intermediateDir}/${project}_QC_config.yaml" <<'_EOF'
 
 report_header_info:
     - Contact E-mail: '${contact}'
-    - Pipeline Version: '${ngsversion}'
+    - Pipeline Version: '${ngsVersion}'
     - Project : '${project}'
     - prepKit : '${prepKit}'
     - '' : ''
@@ -47,9 +47,9 @@ report_header_info:
     - '' : ''
     - '': ${jdkVersion}
     - '': ${fastqcVersion}
-    - '': ${hisatVersion}
+    - '': ${starVersion}
     - '': ${samtoolsVersion}
-    - '': ${RVersion}
+    - '': ${rVersion}
     - '': ${wkhtmltopdfVersion}
     - '': ${picardVersion}
     - '': ${htseqVersion}
@@ -59,18 +59,18 @@ report_header_info:
     - '' : ''
     - pipeline description : ''
     - Gene expression quantification : ''
-    - '': 'The trimmed fastQ files where aligned to build human_g1k_v37 ensembleRelease 75 reference genome using'
-    - '': 'hisat/0.1.5-beta-foss-2015b [1] allowing for 2 mismatches. Before gene quantification'
-    - '': 'SAMtools/1.2-foss-2015b [2] was used to sort the aligned reads.'
-    - '': 'The gene level quantification was performed by HTSeq/0.6.1p1-foss-2015b [3] using --mode=union'
+    - '': 'The trimmed fastQ files where aligned to build ${indexFileID} reference genome using'
+    - '': '${starVersion} [1] allowing for 2 mismatches. Before gene quantification'
+    - '': '${samtoolsVersion} [2] was used to sort the aligned reads.'
+    - '': 'The gene level quantification was performed by ${htseqVersion} [3] using --mode=union'
     - '': '--stranded=no and, Ensembl version 75 was used as gene annotation database which is included'
     - '': 'in folder expression/.'
     - '' : ''
     - QC metrics: ''
     - '': 'Quality control (QC) metrics are calculated for the raw sequencing data. This is done using'
-    - '': 'the tool FastQC FastQC/0.11.3-Java-1.7.0_80 [4]. QC metrics are calculated for the aligned reads using'
-    - '': 'Picard-tools picard/1.130-Java-1.7.0_80 [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-'
-    - '': 'Metrics and SAMtools/1.2-foss-2015b flagstat.These QC metrics form the basis in this final QC report.'
+    - '': 'the tool FastQC FastQC [4]. QC metrics are calculated for the aligned reads using'
+    - '': 'Picard-tools [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-'
+    - '': 'Metrics and SAMtools flagstat.These QC metrics form the basis in this final QC report.'
     - '' : ''
     - references: ''
     - '' : ''
@@ -88,8 +88,6 @@ _EOF
 
 
 # generate multiqc QC rapport
-
-module list
 
 singularity exec --bind "${intermediateDir}:/intermediateDir,${projectResultsDir}:/projectResultsDir" "${sifDir}${multiqcVersion}" \
 multiqc -c "/intermediateDir/${project}_QC_config.yaml" \

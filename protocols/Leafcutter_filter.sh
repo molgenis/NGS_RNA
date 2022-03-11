@@ -7,7 +7,7 @@
 #string logsDir
 #string projectJobsDir
 #string projectResultsDir
-#string ngsversion
+#string ngsVersion
 #string sampleMergedBamExt
 #string leafcutterVersion
 #string python2Version
@@ -18,7 +18,7 @@ tmpintermediateDir=${MC_tmpFile}
 
 #Load module
 module load "${leafcutterVersion}"
-module load "${ngsversion}"
+module load "${ngsVersion}"
 module load "${python2Version}"
 module list
 

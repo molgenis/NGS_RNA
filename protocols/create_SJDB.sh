@@ -15,15 +15,15 @@
 #string groupname
 #string tmpName
 #string logsDir
-#string ngsversion
-#string Python2PlusVersion
+#string ngsVersion
+#string python2PlusVersion
 
 
 makeTmpDir "${intermediateDir}"
-tmpSampleMergedDedupBam="${MC_tmpFile}"
+tmpintermediateDir="${MC_tmpFile}"
 
-module load "${ngsversion}"
-module load "${Python2PlusVersion}"
+module load "${ngsVersion}"
+module load "${python2PlusVersion}"
 module list
 
 rm -f "${intermediateDir}/${project}.SJ.samples.list"
@@ -35,6 +35,7 @@ done
 
 "${EBROOTNGS_RNA}/scripts/create_batch_sjdb.py" \
 -l "${intermediateDir}/${project}.SJ.samples.list" \
--o "${intermediateDir}/${project}.SJ.batch.list"
+-o "${tmpintermediateDir}/${project}.SJ.batch.list"
 
+mv "${tmpintermediateDir}/${project}.SJ.batch.list" "${intermediateDir}/${project}.SJ.batch.list"
 echo "Created: ${intermediateDir}/${project}.SJ.batch.list"

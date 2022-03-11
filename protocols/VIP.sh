@@ -1,10 +1,8 @@
 #MOLGENIS walltime=05:59:00 mem=5gb ppn=1 nodes=1
 
-#string stage
-#string checkStage
 #string tmpTmpDataDir
 #string tmpDataDir
-#string HTSLibVersion
+#string htsLibVersion
 #string VIPVersion
 #string intermediateDir
 #string projectPrefix
@@ -22,7 +20,7 @@ makeTmpDir "${projectBatchGenotypedVIPPrefix}"
 tmpProjectBatchGenotypedVIPPrefix=${MC_tmpFile}
 
 #Load modules
-module load "${VIPVersion}"
+module load "${vipVersion}"
 #Check modules
 module list
 

@@ -1,19 +1,19 @@
 #MOLGENIS nodes=1 ppn=4 mem=4gb walltime=05:59:00
 
 #Parameter mapping
-#string RPlusVersion
+#string rPlusVersion
 #string intermediateDir
 #string project
 #list externalSampleID
 #string groupname
 #string tmpName
 #string logsDir
-#string ngsversion
+#string ngsVersion
 #string projectQcDir
 #string projectJobsDir
 
-module load "${RPlusVersion}"
-module load "${ngsversion}"
+module load "${rPlusVersion}"
+module load "${ngsVersion}"
 module list
 
 #Function to check if array contains value

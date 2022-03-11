@@ -6,8 +6,8 @@
 #string tempDir
 #string tmpDataDir
 #string project
-#string ngsversion
-#string Python2PlusVersion
+#string ngsVersion
+#string python2PlusVersion
 #string externalSampleID
 #string intermediateDir
 #string strandedness
@@ -22,8 +22,8 @@
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-module load "${ngsversion}"
-module load "${Python2PlusVersion}"
+module load "${ngsVersion}"
+module load "${python2PlusVersion}"
 module list
 
 ZSCORE=3
@@ -38,8 +38,8 @@ echo "reformatting format_rMATS.py"
 "${EBROOTNGS_RNA}/scripts/filter_rMATS.py" \
 -i "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv" \
 -o "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
--d $DELTAPSY \
--z $ZSCORE
+-d "${DELTAPSY}" \
+-z "{$ZSCORE}"
 
 # convert to bed
 "${EBROOTNGS_RNA}/scripts/convert_rMATS_to_bed.py" \

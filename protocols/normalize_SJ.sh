@@ -9,8 +9,8 @@
 #string externalSampleID
 #string intermediateDir
 #string strandedness
-#string ngsversion
-#string Python2PlusVersion
+#string ngsVersion
+#string python2PlusVersion
 #string annotationGtf
 #string projectJobsDir
 #string project
@@ -22,8 +22,8 @@
 makeTmpDir "${intermediateDir}"
 tmpIntermediateDir="${MC_tmpFile}"
 
-module load "${ngsversion}"
-module load "${Python2PlusVersion}"
+module load "${ngsVersion}"
+module load "${python2PlusVersion}"
 module list
 
 "${EBROOTNGS_RNA}/scripts/normalize_SJ.py" \

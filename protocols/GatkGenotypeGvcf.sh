@@ -1,13 +1,11 @@
 #MOLGENIS walltime=23:59:00 mem=17gb ppn=3 nodes=1
 
-#string stage
 #string gatkVersion
-#string checkStage
 #string tmpTmpDataDir
 #string tmpDataDir
 #string dbsnpVcf
 #string gatkVersion
-#string HTSLibVersion
+#string htsLibVersion
 #string indexFile
 #list externalSampleID,GatkHaplotypeCallerGvcf
 #string intermediateDir
@@ -42,7 +40,7 @@ tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}
 
 #Load modules
 module load "${gatkVersion}"
-module load "${HTSLibVersion}"
+module load "${htsLibVersion}"
 #Check modules
 module list
 

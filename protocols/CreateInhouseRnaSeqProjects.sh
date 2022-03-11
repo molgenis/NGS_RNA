@@ -10,8 +10,8 @@
 #string projectQcDir
 #string jdkVersion
 #string groupname
-#string NGSUtilsVersion
-#string ngsversion
+#string ngsUtilsVersion
+#string ngsVersion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -40,8 +40,8 @@
 umask 0007
 
 #FIX!
-module load "${ngsversion}"
-module load "${NGSUtilsVersion}"
+module load "${ngsVersion}"
+module load "${ngsUtilsVersion}"
 module list
 
 #
@@ -134,9 +134,9 @@ sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${parameters_species}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
---header "${EBROOTNGS_RNA}"/templates/slurm/header.ftl \
---footer "${EBROOTNGS_RNA}"/templates/slurm/footer.ftl \
---submit "${EBROOTNGS_RNA}"/templates/slurm/submit.ftl \
+--header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
+--footer "${EBROOTNGS_RNA}/templates/slurm/footer.ftl" \
+--submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
 -o "ngsversion=${ngsversion};groupname=${groupname};"

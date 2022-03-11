@@ -80,7 +80,7 @@ sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 --generate \
 -o "workflowpath=${workflow};outputdir=scripts/jobs;\
 groupname=${group};\
-ngsversion=$(module list | grep -o -P 'NGS_RNA(.+)');\
+ngsVersion=$(module list | grep -o -P 'NGS_RNA(.+)');\
 worksheet=${workDir}/${project}.csv;\
 parameters_build=${workDir}/parameters.${species}.${build}.csv;\
 parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${species}.csv;\

@@ -3,14 +3,14 @@
 #string intermediateDir
 #list externalSampleID
 #string projectHTseqExpressionTable
-#string ngsversion
+#string ngsVersion
 #string project
 #string tmpTmpDataDir
 #string groupname
 #string tmpName
 #string logsDir
 
-module load "${ngsversion}"
+module load "${ngsVersion}"
 
 #Function to check if array contains value
 array_contains () {
@@ -49,4 +49,3 @@ python "${EBROOTNGS_RNA}/scripts/create_counts_matrix.py" \
 
 echo "table create succesfull"
 mv "${tmpProjectHTseqExpressionTable}" "${projectHTseqExpressionTable}"
-

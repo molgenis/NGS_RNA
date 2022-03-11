@@ -6,7 +6,7 @@
 #string peEnd2BarcodeFqGz
 #string srBarcodeFqGz
 #string intermediateDir
-#string TrimGaloreVersion
+#string trimGaloreVersion
 #string project
 #string groupname
 #string tmpName
@@ -24,7 +24,7 @@ echo "srBarcodeFqGz: ${srBarcodeFqGz}"
 echo "intermediateDir: ${intermediateDir}"
 echo "outputDir: ${projectRawtmpDataDir}"
 
-module load "${TrimGaloreVersion}"
+module load "${trimGaloreVersion}"
 module list
 
 #If paired-end do cutadapt for both ends, else only for one, and fastQC calculations.
@@ -40,12 +40,12 @@ then
 	mv "${intermediateDir}/${fastQfileName1}_val_1_fastqc.html" "${projectQcDir}/"
 	mv "${intermediateDir}/${fastQfileName1}_val_1_fastqc.zip" "${projectQcDir}/"
 	mv "${intermediateDir}/${fastQfileName1}_val_1.fq.gz" "${projectRawtmpDataDir}/"
-	
+
 	mv "${intermediateDir}/${fastQfileName2}.fq.gz_trimming_report.txt" "${projectQcDir}/"
 	mv "${intermediateDir}/${fastQfileName2}_val_2_fastqc.html" "${projectQcDir}/"
 	mv "${intermediateDir}/${fastQfileName2}_val_2_fastqc.zip" "${projectQcDir}/"
 	mv "${intermediateDir}/${fastQfileName2}_val_2.fq.gz" "${projectRawtmpDataDir}/"
-	
+
 	echo -e "\nTrimGalore finished succesfull. Moving files to final.\n\n"
 
 elif [ ${seqType} == "SR" ]

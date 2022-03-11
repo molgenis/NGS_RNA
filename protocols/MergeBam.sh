@@ -1,9 +1,6 @@
-#!/bin/bash
 #MOLGENIS walltime=23:59:00 mem=8gb ppn=6
 
 #Parameter mapping
-#string stage
-#string checkStage
 #string picardVersion
 #string mergeSamFilesJar
 #string sampleMergedBam
@@ -17,8 +14,6 @@
 #string groupname
 #string tmpName
 #string logsDir
-
-sleep 5
 
 #Function to check if array contains value
 array_contains () {
@@ -66,11 +61,11 @@ then
 	ln -sf $(basename "${INPUTBAMS[0]}") "${sampleMergedBam}"
 	ln -sf $(basename "${UNIQUEBAIS[0]}") "${sampleMergedBai}"
 	echo "nothing to merge because there is only one sample"
-	
-	cd ${intermediateDir}
-	md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5sum
-	md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5sum
-	cd -	
+
+	cd "${intermediateDir}"
+	md5sum $(basename "${sampleMergedBam}")> $(basename "${sampleMergedBam}").md5sum
+	md5sum $(basename "${sampleMergedBai}")> $(basename "${sampleMergedBai}").md5sum
+	cd -
 
 else
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" "${mergeSamFilesJar}" \
@@ -87,9 +82,8 @@ else
 	mv "${tmpSampleMergedBam}" "${sampleMergedBam}"
 	mv "${tmpSampleMergedBai}" "${sampleMergedBai}"
 
-        cd ${intermediateDir}
-        md5sum $(basename ${sampleMergedBam})> $(basename ${sampleMergedBam}).md5sum
-        md5sum $(basename ${sampleMergedBai})> $(basename ${sampleMergedBai}).md5sum
+        cd "${intermediateDir}"
+        md5sum $(basename "${sampleMergedBam}")> $(basename "${sampleMergedBam}").md5sum
+        md5sum $(basename "${sampleMergedBai}")> $(basename "${sampleMergedBai}").md5sum
         cd -
 fi
-

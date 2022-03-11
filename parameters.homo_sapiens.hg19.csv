@@ -5,22 +5,22 @@ jobname,jobname
 
 ##### Tools and versions #####
 jdkVersion,Java/8-LTS
-NGSUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
-NGSRNAVersion,NGS_RNA/beta
+ngsUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
+ngsRNAVersion,NGS_RNA/beta
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-GCCcore-7.3.0
-BEDToolsVersion,BEDTools/2.28.0-GCCcore-7.3.0
+besToolsVersion,BEDTools/2.28.0-GCCcore-7.3.0
 sambambaVersion,sambamba/0.7.0
-RVersion,R/3.6.1-${toolchain}-bare
-RPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
+rVersion,R/3.6.1-${toolchain}-bare
+rPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
 picardVersion,picard/2.20.5-Java-11-LTS
 htseqVersion,HTSeq/0.11.0-GCCcore-7.3.0-Python-3.7.4
 hisatVersion,hisat2/2.1.0-${toolchain}
-HTSLibVersion,HTSlib/1.11-GCCcore-7.3.0
+htsLibVersion,HTSlib/1.11-GCCcore-7.3.0
 pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
 python2Version,Python/2.7.16-GCCcore-7.3.0-bare
 Python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
-PythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
+pythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
 wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
@@ -29,11 +29,12 @@ starVersion,STAR/2.7.3a-${toolchain}
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
-TrimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
+trimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
 cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
-RSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
+rSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
 leafcutterVersion,leafcutter/aa12b1e-foss-2018b
-VIPVersion,vip/v3.3.1-foss-2018b
+vipVersion,vip/v3.3.1-foss-2018b
+rMATsVersion,rmats_v4.1.2.sif
 sifDir,/groups/umcg-solve-rd/tmp01/resources/GAD/singularity/
 
 ##### GENERAL DIRECTORIES #####
@@ -90,8 +91,8 @@ tinDir,${intermediateDir}/TIN
 peEnd1BarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc.zip
 peEnd2BarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}_2.fq_fastqc.zip
 srBarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}.fq_fastqc.zip
-BarcodeFastQcFolder,${intermediateDir}/${filePrefix}_${barcode}.fq_fastqc
-BarcodeFastQcFolderPE,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc
+#barcodeFastQcFolder,${intermediateDir}/${filePrefix}_${barcode}.fq_fastqc
+#barcodeFastQcFolderPE,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc
 alignedSam,${intermediateDir}/${filePrefix}_${barcode}.sam
 alignedBam,${intermediateDir}/${filePrefix}_${barcode}.bam
 alignedFilteredBam,${intermediateDir}/${filePrefix}_${barcode}.bam
@@ -112,15 +113,15 @@ splitAndTrimBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitA
 splitAndTrimBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bai
 splitAndTrimShortBam,${externalSampleID}.sorted.merged.dedup.splitAndTrim.bam
 splitAndTrimShortBai,${externalSampleID}.sorted.merged.dedup.splitAndTrim.bai
-IndelRealignedBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bam
-IndelRealignedBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bai
+indelRealignedBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bam
+indelRealignedBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.realigned.bai
 bqsrBeforeGrp,${intermediateDir}${externalSampleID}.before.grp
 bqsrBam,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bam
 bqsrBai,${intermediateDir}${externalSampleID}.sorted.merged.dedup.splitAndTrim.bqsr.bai
-GatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz
-GatkHaplotypeCallerGvcftbi,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz.tbi
-GatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf
-GatkMergeGvcfidx,${intermediateDir}.MergeGvcf.g.vcf.idx
+gatkHaplotypeCallerGvcf,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz
+gatkHaplotypeCallerGvcftbi,${intermediateDir}${externalSampleID}.GatkHaplotypeCallerGvcf.g.vcf.gz.tbi
+gatkMergeGvcf,${intermediateDir}${externalSampleID}.MergeGvcf.g.vcf
+gatkMergeGvcfidx,${intermediateDir}.MergeGvcf.g.vcf.idx
 projectBatchGenotypedVariantCalls,${projectPrefix}.variant.calls.genotyped.vcf.gz
 projectBatchCombinedVariantCalls,${projectPrefix}.variant.calls.combined.g.vcf.gz
 projectBatchGenotypedVIPPrefix,${projectPrefix}.variant.calls.genotyped.vip

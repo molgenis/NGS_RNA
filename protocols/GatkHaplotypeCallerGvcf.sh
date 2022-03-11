@@ -1,8 +1,6 @@
 #MOLGENIS walltime=23:59:00 mem=12gb ppn=8 nodes=1
 
-#string stage
 #string gatkVersion
-#string checkStage
 #string tmpTmpDataDir
 #string tmpDataDir
 #string indexFile
@@ -11,17 +9,17 @@
 #string externalSampleID
 #string dbsnpVcf
 #string dbSNPFileID
-#string GatkHaplotypeCallerGvcf
-#string GatkHaplotypeCallerGvcftbi
+#string gatkHaplotypeCallerGvcf
+#string gatkHaplotypeCallerGvcftbi
 #string project
 #string groupname
 #string tmpName
 #string logsDir
 
-makeTmpDir "${GatkHaplotypeCallerGvcf}"
+makeTmpDir "${gatkHaplotypeCallerGvcf}"
 tmpGatkHaplotypeCallerGvcf=${MC_tmpFile}
 
-makeTmpDir "${GatkHaplotypeCallerGvcftbi}"
+makeTmpDir "${gatkHaplotypeCallerGvcftbi}"
 tmpGatkHaplotypeCallerGvcftbi=${MC_tmpFile}
 
 #Load modules
@@ -39,8 +37,8 @@ gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -
 -ERC GVCF \
 -O "${tmpGatkHaplotypeCallerGvcf}"
 
-  mv "${tmpGatkHaplotypeCallerGvcf}" "${GatkHaplotypeCallerGvcf}"
-  mv "${tmpGatkHaplotypeCallerGvcftbi}" "${GatkHaplotypeCallerGvcftbi}"
+  mv "${tmpGatkHaplotypeCallerGvcf}" "${gatkHaplotypeCallerGvcf}"
+  mv "${tmpGatkHaplotypeCallerGvcftbi}" "${gatkHaplotypeCallerGvcftbi}"
   echo "returncode: $?";
   echo "succes moving files";
 

@@ -1,13 +1,11 @@
 #MOLGENIS walltime=23:59:00 mem=40gb ppn=1
 
 #Parameter mapping
-#string stage
-#string checkStage
 #string sampleMergedBam
 #string sampleMergedBai
-#string RSeQCVersion
+#string rSeQCVersion
 #string samtoolsVersion
-#string BEDToolsVersion
+#string bedToolsVersion
 #string externalSampleID
 #string houseKeepingGenesBed
 #string tinDir
@@ -27,7 +25,7 @@ mkdir -p "${tinDir}"
 cd "${tinDir}"
 
 # Extract the alignment of housekeeping genes.
-module load "${BEDToolsVersion}"
+module load "${bedToolsVersion}"
 
 bedtools intersect \
 -a "${sampleMergedBam}" \
@@ -38,7 +36,7 @@ module load "${samtoolsVersion}"
 
 samtools index "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"  > "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam.bai"
 
-module load "${RSeQCVersion}"
+module load "${rSeQCVersion}"
 
 tin.py \
 -r "${houseKeepingGenesBed}" \

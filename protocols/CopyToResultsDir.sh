@@ -11,14 +11,13 @@
 #string projectJobsDir
 #string projectHTseqExpressionTable
 #string annotationGtf
-#string anacondaVersion
-#string VIPVersion
+#string vipVersion
 #string indexFileID
 #string seqType
 #string jdkVersion
 #string fastqcVersion
 #string samtoolsVersion
-#string RVersion
+#string rVersion
 #string wkhtmltopdfVersion
 #string picardVersion
 #string hisatVersion
@@ -28,6 +27,7 @@
 #string projectBatchGenotypedVIPPrefix
 #string projectBatchGenotypedVariantCalls
 #string ensembleReleaseVersion
+#string trimGaloreVersion
 #string groupname
 #string tmpName
 #string logsDir
@@ -126,7 +126,7 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Description of the different steps used in the RNA analysis pipeline
 
 Gene expression quantification
-The trimmed fastQ files using ${TrimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion}
+The trimmed fastQ files using ${trimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion}
 reference genome using ${starVersion} [1] with default settings. Before gene quantification
 ${samtoolsVersion} [2] was used to sort the aligned reads.
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union,
@@ -173,13 +173,13 @@ Used toolversions:
 ${multiqcVersion}
 ${fastqcVersion}
 ${samtoolsVersion}
-${RVersion}
-${TrimGaloreVersion}
+${rVersion}
+${trimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
 ${pythonVersion}
 ${gatkVersion}
-${RSeQCVersion}
+${rSeQCVersion}
 ${starVersion}
 ${leafcutterVersion}
 

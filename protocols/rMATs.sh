@@ -10,6 +10,7 @@
 #string intermediateDir
 #string strandedness
 #string sifDir
+#string rMATsVersion
 #string rMATsOutputDir
 #string annotationGtf
 #string projectJobsDir
@@ -46,7 +47,7 @@ done < "${intermediateDir}${externalSampleID}.SJ.design.tsv"
   # Get strandness.
   STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7'} | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7'} | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "fr-secondstrand"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "fr-firststrand"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "fr-unstranded"; fi)"
 
-  singularity exec --bind "${intermediateDir}":/intermediateDir,/apps:/apps,/groups:/groups "${sifDir}/rmats_v4.1.2.sif" python /rmats/rmats.py \
+  singularity exec --bind "${intermediateDir}":/intermediateDir,/apps:/apps,/groups:/groups "${sifDir}/${rMATsVersion}" python /rmats/rmats.py \
   --b1 "/intermediateDir/${externalSampleID}.B1.txt" --b2 "/intermediateDir/${externalSampleID}.B2.txt" \
   --gtf "${annotationGtf}" \
   -t paired \

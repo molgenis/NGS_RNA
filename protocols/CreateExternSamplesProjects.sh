@@ -8,9 +8,8 @@
 #string intermediateDir
 #string projectResultsDir
 #string projectQcDir
-#string jdkVersion
 #string groupname
-#string NGSUtilsVersion
+#string ngsUtilsVersion
 #string ngsversion
 #list sequencingStartDate
 #list sequencer
@@ -112,7 +111,7 @@ extract_samples_from_GAF_list.pl --i "${worksheet}" --o "${projectJobsDir}/${pro
 
 if [ -f .compute.properties ];
 then
-    	rm ../.compute.properties
+	rm ../.compute.properties
 fi
 
 echo "before run second rocket"
@@ -122,9 +121,9 @@ sh "${EBROOTMOLGENISMINCOMPUTE}"/molgenis_compute.sh \
 -p "${parameters_build}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
---header "${EBROOTNGS_RNA}"/templates/slurm/header.ftl \
---footer "${EBROOTNGS_RNA}"/templates/slurm/footer.ftl \
---submit "${EBROOTNGS_RNA}"/templates/slurm/submit.ftl \
+--header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
+--footer "${EBROOTNGS_RNA}/templates/slurm/footer.ftl" \
+--submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
 -o "ngsversion=${ngsversion};groupname=${groupname};"

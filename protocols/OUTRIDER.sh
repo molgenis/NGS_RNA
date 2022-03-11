@@ -3,7 +3,7 @@
 #string intermediateDir
 #string externalSampleID
 #string projectHTseqExpressionTable
-#string ngsversion
+#string ngsVersion
 #string project
 #string projectResultsDir
 #string annotationGtf
@@ -13,7 +13,8 @@
 #string logsDir
 #string sifDir
 
-module load "${ngsversion}"
+module load "${ngsVersion}"
+module list
 
 #make output dir
 mkdir -p "${projectResultsDir}/outrider/${externalSampleID}/QC"

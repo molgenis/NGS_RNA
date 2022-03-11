@@ -10,7 +10,7 @@
 #string gtexJunc
 #string annotationGtf
 #string omimList
-#string Python2PlusVersion
+#string python2PlusVersion
 #string ngsversion
 #string project
 #string groupname
@@ -22,7 +22,7 @@ makeTmpDir ${intermediateDir}
 tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsversion}"
-module load "${Python2PlusVersion}"
+module load "${python2PlusVersion}"
 module list
 
 echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_sjdb.py"

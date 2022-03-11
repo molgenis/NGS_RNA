@@ -37,7 +37,7 @@ tmpintermediateDir=${MC_tmpFile}
 makeTmpDir ${sortedBai}
 tmpsortedBai=${MC_tmpFile}
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 echo "ID (project-internalSampleID-lane): ${project}-${externalSampleID}-L${lane}"
 
 uniqueID="${project}-${externalSampleID}-L${lane}"
@@ -53,7 +53,7 @@ fi
 
 echo "STAR for RNA"
 
-	"${EBROOTSTAR}"/bin/STAR \
+	"${EBROOTSTAR}/bin/STAR" \
 	--genomeDir "${starIndex}" \
 	--sjdbGTFfile "${annotationGtf}" \
 	--runThreadN 8 \
@@ -76,4 +76,4 @@ echo "STAR for RNA"
 	mv -f "${tmpintermediateDir}/${externalSampleID}."* "${intermediateDir}"
 
 echo "succes moving files";
-echo "## "$(date)" ##  $0 Done "
+echo "## $(date) ##  $0 Done "

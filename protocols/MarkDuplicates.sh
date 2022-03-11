@@ -2,8 +2,6 @@
 #MOLGENIS walltime=23:59:00 mem=8gb ppn=6
 
 #Parameter mapping
-#string stage
-#string checkStage
 #string picardVersion
 #string sampleMergedBam
 #string sampleMergedBai
