@@ -73,7 +73,7 @@ then
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
 	REF_FLAT="${annotationRefFlat}" \
 	I="${sampleMergedDedupBam}" \
-	STRAND_SPECIFICITY=${STRANDED} \
+	STRAND_SPECIFICITY="${STRANDED}" \
 	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 	VALIDATION_STRINGENCY=LENIENT \
 	O="${rnaSeqMetrics}" \
@@ -102,7 +102,7 @@ then
 		PROGRAM=QualityScoreDistribution \
 		PROGRAM=MeanQualityByCycle \
 		PROGRAM=CollectInsertSizeMetrics \
-		TMP_DIR="${tempDir}"/processing
+		TMP_DIR="${tempDir}/processing"
 
 
 		#CollectRnaSeqMetrics.jar
@@ -114,5 +114,4 @@ then
 		VALIDATION_STRINGENCY=LENIENT \
 		O="${rnaSeqMetrics}" \
 		CHART_OUTPUT="${rnaSeqMetrics}.pdf"
-
 fi

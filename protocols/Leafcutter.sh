@@ -12,7 +12,7 @@
 #string python2Version
 #string annotationTxt
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 #Load module
@@ -62,13 +62,13 @@ then
 	"${tmpintermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
 	-f 0.05
 
-	mv "${tmpintermediateDir}"/"${project}"* "${intermediateDir}"
+	mv "${tmpintermediateDir}/${project}"* "${intermediateDir}"
 else
-       echo "Outlier Splicing, $conditionCount conditions found."
+       echo "Outlier Splicing, ${conditionCount} conditions found."
 	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
 	--num_threads 8 \
 	-o "${tmpintermediateDir}${project}" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
 
-	mv "${tmpintermediateDir}${project}"* "${intermediateDir}"
+	mv "${tmpintermediateDir}/${project}"* "${intermediateDir}"
 fi

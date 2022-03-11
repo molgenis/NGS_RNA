@@ -10,7 +10,7 @@
 #string BEDToolsVersion
 #string externalSampleID
 #string houseKeepingGenesBed
-#string TinDir
+#string tinDir
 #string tempDir
 #string project
 #string intermediateDir
@@ -18,13 +18,13 @@
 #string tmpName
 #string logsDir
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-mkdir -p "${TinDir}"
-cd "${TinDir}"
+mkdir -p "${tinDir}"
+cd "${tinDir}"
 
 # Extract the alignment of housekeeping genes.
 module load "${BEDToolsVersion}"
@@ -49,4 +49,4 @@ mv "${tmpintermediateDir}/${externalSampleID}"* "${intermediateDir}"
 cd -
 
 echo "succes moving files";
-echo "## "$(date)" ##  $0 Done "
+echo "## $(date) ##  $0 Done "

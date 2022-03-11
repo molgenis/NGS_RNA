@@ -31,7 +31,7 @@ module load "${starVersion}"
 module load "${sambambaVersion}"
 module list
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 makeTmpDir ${sortedBai}
@@ -66,14 +66,14 @@ echo "STAR for RNA"
         --limitBAMsortRAM 45000000000 \
         --outSAMstrandField intronMotif \
 	--outSAMunmapped Within \
-	--outFileNamePrefix "${tmpintermediateDir}"/"${externalSampleID}".
+	--outFileNamePrefix "${tmpintermediateDir}/${externalSampleID}".
 
 	#index bam
 	sambamba index \
-	"${tmpintermediateDir}"/"${externalSampleID}".Aligned.sortedByCoord.out.bam \
-	"${tmpintermediateDir}"/"${externalSampleID}".Aligned.sortedByCoord.out.bai
+	"${tmpintermediateDir}/${externalSampleID}".Aligned.sortedByCoord.out.bam \
+	"${tmpintermediateDir}/${externalSampleID}".Aligned.sortedByCoord.out.bai
 
-	mv -f "${tmpintermediateDir}"/"${externalSampleID}."* "${intermediateDir}"
+	mv -f "${tmpintermediateDir}/${externalSampleID}."* "${intermediateDir}"
 
 echo "succes moving files";
 echo "## "$(date)" ##  $0 Done "

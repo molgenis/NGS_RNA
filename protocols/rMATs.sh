@@ -25,30 +25,22 @@ tmpSampleMergedDedupBam="${MC_tmpFile}"
 mkdir -p "${rMATsOutputDir}/${externalSampleID}/tmp"
 
 # create list of bam files from design
-
-if [ -f "${intermediateDir}/${externalSampleID}.B1.txt" ]
-then
-  rm "${intermediateDir}/${externalSampleID}.B1.txt"
-fi
-if [ -f "${intermediateDir}/${externalSampleID}.B2.txt" ]
-then
-  rm "${intermediateDir}/${externalSampleID}.B2.txt"
-fi
+rm -f "${intermediateDir}/${externalSampleID}.B{1,2}.txt"
 
 while read line
 do
   # reading each line
-  status=$(echo $line | cut -d " " -f2)
-  name=$(echo $line | cut -d " " -f1)
-  if [ "$status" = "sample" ]
+  status=$(echo "${line}" | cut -d " " -f2)
+  name=$(echo "${line}" | cut -d " " -f1)
+  if [ "${status}" = "sample" ]
   then
-    echo "$name is a $status : in ${externalSampleID}.B1.txt"
+    echo "${name} is a ${status} : in ${externalSampleID}.B1.txt"
     echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B1.txt"
   else
-    echo "$name is a $status : in ${externalSampleID}.B2.txt"
+    echo "$Pname} is a $Pstatus} : in ${externalSampleID}.B2.txt"
     echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B2.txt"
   fi
-  echo $status
+  echo ${status}
 done < "${intermediateDir}${externalSampleID}.SJ.design.tsv"
 
   # Get strandness.

@@ -27,5 +27,5 @@ s10b_BQSR,protocols/BQSR.sh,s10a_SplitAndTrim
 s11a_GatkHaplotypeCallerGvcf,protocols/GatkHaplotypeCallerGvcf.sh,s10b_BQSR
 s11b_GatkGenotypeGvcf,protocols/GatkGenotypeGvcf.sh,s11a_GatkHaplotypeCallerGvcf
 s12_VIP,protocols/VIP.sh,s11b_GatkGenotypeGvcf
-s13_MultiQCReport,protocols/MultiQCReport.sh,s7c_MakeExpressionTable;s05_QCStats;s06b_TIN;s12_VIP
+s13_MultiQCReport,protocols/MultiQCReport.sh,s7c_MakeExpressionTable;s06a_QCStats;s06b_TIN;s12_VIP
 s14_CopyToResultsDir,protocols/CopyToResultsDir.sh,s13_MultiQCReport;s11b_GatkGenotypeGvcf

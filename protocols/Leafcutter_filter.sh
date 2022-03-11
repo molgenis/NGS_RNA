@@ -13,7 +13,7 @@
 #string python2Version
 #string omimList
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 #Load module
@@ -44,6 +44,6 @@ echo "filter and produce the final report"
 grep "^cluster" "${tmpintermediateDir}${externalSampleID}.leafcutter.format.omim.tsv" > "${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"
 awk -F "\t" '($6<0.05){print $0}' "${intermediateDir}${externalSampleID}.leafcutter.format.omim.tsv" >> "${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"
 
-mv "${tmpintermediateDir}${externalSampleID}.leafcutter."* "${intermediateDir}"
+mv "${tmpintermediateDir}/${externalSampleID}.leafcutter."* "${intermediateDir}"
 
 echo "created ${projectResultsDir}/leafcutter/${externalSampleID}.leafcutter.report.tsv"

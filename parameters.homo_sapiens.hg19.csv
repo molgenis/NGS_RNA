@@ -85,7 +85,7 @@ projectLogsDir,${projectDir}/logs/
 projectResultsDir,${projectDir}/results/
 projectQcDir,${projectDir}/qc/
 rMATsOutputDir,${projectResultsDir}/rmats
-TinDir,${intermediateDir}/TIN
+tinDir,${intermediateDir}/TIN
 
 ##### Protocols 0,1a,1b, (FastQC,HisatAlignment,MergeBam) #####
 peEnd1BarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc.zip
@@ -160,11 +160,10 @@ dbsnpVcf,${dbSNPDir}/dbsnp_138.${genome}.vcf
 starIndex,/groups/umcg-solve-rd/tmp01/resources/GAD/index/
 #### GENOME VARIABLES ####
 genome,hg19
-GR,hg19
 ensembleReleaseVersion,75
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
-annotationFileName,Homo_sapiens.${GR}
+annotationFileName,Homo_sapiens.${genome}
 speciesFileName,homo_sapiens
 indexFileID,hg19_essential.fa
 indexFolderName,human_g1k_v37

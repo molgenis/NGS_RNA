@@ -18,13 +18,13 @@
 #string spliceaiIndel
 #string spliceaiSnv
 
-makeTmpDir ${projectBatchGenotypedVIPPrefix}
+makeTmpDir "${projectBatchGenotypedVIPPrefix}"
 tmpProjectBatchGenotypedVIPPrefix=${MC_tmpFile}
 
 #Load modules
-${stage} "${VIPVersion}"
+module load "${VIPVersion}"
 #Check modules
-${checkStage}
+module list
 
 	cp "$EBROOTVIP/config/default.cfg" "${intermediateDir}/vip.config"
 	echo "annotate_vep_plugin_SpliceAI=${spliceaiSnv},${spliceaiIndel}" >> "${intermediateDir}/vip.config"
@@ -39,6 +39,6 @@ ${checkStage}
 	printf "VIP ..done\n"
 
 	cd "${intermediateDir}"
-	md5sum $(basename ${projectBatchGenotypedVIPPrefix}.vcf.gz)> $(basename ${projectBatchGenotypedVIPPrefix}.vcf.gz).md5
+	md5sum $(basename "${projectBatchGenotypedVIPPrefix}.vcf.gz")> $(basename "${projectBatchGenotypedVIPPrefix}.vcf.gz").md5
 	cd -
 	echo "succes moving files"

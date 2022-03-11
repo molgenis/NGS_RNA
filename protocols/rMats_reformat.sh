@@ -19,7 +19,7 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsversion}"
@@ -46,5 +46,5 @@ echo "reformatting format_rMATS.py"
 -i "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
 -o "${tmpintermediateDir}${externalSampleID}.rMATs.final.bed"
 
-mv "${tmpintermediateDir}${externalSampleID}."* "${rMATsOutputDir}/${externalSampleID}/"
+mv "${tmpintermediateDir}/${externalSampleID}."* "${rMATsOutputDir}/${externalSampleID}/"
 echo "Created ${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.final.bed"
