@@ -53,7 +53,7 @@ then
 		#cleanup old file if present
 		rm -f "${intermediateDir}/design.txt"
 
-		echo "creating design file for sample "${sample}"."
+		echo "creating design file for sample ${sample}."
 		Rscript "${EBROOTNGS_RNA}/scripts/design.R" "${intermediateDir}/${sample}.DE.design.csv"
 
 		echo "running: deseq2 analysis for sample ${sample}"

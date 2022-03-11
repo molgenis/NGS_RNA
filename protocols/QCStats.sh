@@ -44,10 +44,10 @@ makeTmpDir "${intermediateDir}"
 tmpIntermediateDir="${MC_tmpFile}"
 
 # Get strandness.
-STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7'} | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7'} | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "SECOND_READ_TRANSCRIPTION_STRAND"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "FIRST_READ_TRANSCRIPTION_STRAND"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "NONE"; fi)"
+STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "SECOND_READ_TRANSCRIPTION_STRAND"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "FIRST_READ_TRANSCRIPTION_STRAND"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "NONE"; fi)"
 
 #If paired-end do fastqc for both ends, else only for one
-if [ "${seqType}" == "PE" ]
+if [[ "${seqType}" == "PE" ]]
 then
 	echo -e "generate CollectMultipleMetrics"
 
@@ -82,7 +82,7 @@ then
 
 	# Collect QC data from several QC matricses, and write a tablular output file.
 
-elif [ "${seqType}" == "SR" ]
+elif [[ "${seqType}" == "SR" ]]
 then
 
 		#Flagstat for reads mapping to the genome.

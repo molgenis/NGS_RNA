@@ -120,7 +120,7 @@ extract_samples_from_GAF_list.pl --i "${worksheet}" --o "${projectJobsDir}/${pro
 #
 
 
-if [ -f ../.compute.properties ];
+if [[ -f ../.compute.properties ]];
 then
      rm ../.compute.properties
 fi

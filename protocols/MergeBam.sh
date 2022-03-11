@@ -56,7 +56,7 @@ do
 	array_contains UNIQUEBAIS "${baiFile}" || UNIQUEBAIS+=("${baiFile}")    # If baiFile does not exist in array add it
 done
 
-if [ "${#INPUTS[@]}" == 1 ]
+if [[ "${#INPUTS[@]}" == 1 ]]
 then
 	ln -sf $(basename "${INPUTBAMS[0]}") "${sampleMergedBam}"
 	ln -sf $(basename "${UNIQUEBAIS[0]}") "${sampleMergedBai}"

@@ -28,24 +28,24 @@ mkdir -p "${rMATsOutputDir}/${externalSampleID}/tmp"
 # create list of bam files from design
 rm -f "${intermediateDir}/${externalSampleID}.B{1,2}.txt"
 
-while read line
+while read -r line
 do
   # reading each line
   status=$(echo "${line}" | cut -d " " -f2)
   name=$(echo "${line}" | cut -d " " -f1)
-  if [ "${status}" = "sample" ]
+  if [[ "${status}" = "sample" ]]
   then
     echo "${name} is a ${status} : in ${externalSampleID}.B1.txt"
     echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B1.txt"
   else
-    echo "$Pname} is a $Pstatus} : in ${externalSampleID}.B2.txt"
+    echo "${name} is a ${status} : in ${externalSampleID}.B2.txt"
     echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B2.txt"
   fi
-  echo ${status}
+  echo "${status}"
 done < "${intermediateDir}${externalSampleID}.SJ.design.tsv"
 
   # Get strandness.
-  STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7'} | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7'} | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "fr-secondstrand"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "fr-firststrand"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "fr-unstranded"; fi)"
+  STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "fr-secondstrand"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "fr-firststrand"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "fr-unstranded"; fi)"
 
   singularity exec --bind "${intermediateDir}":/intermediateDir,/apps:/apps,/groups:/groups "${sifDir}/${rMATsVersion}" python /rmats/rmats.py \
   --b1 "/intermediateDir/${externalSampleID}.B1.txt" --b2 "/intermediateDir/${externalSampleID}.B2.txt" \
