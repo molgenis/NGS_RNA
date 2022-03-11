@@ -42,7 +42,7 @@ echo "ID (project-internalSampleID-lane): ${project}-${externalSampleID}-L${lane
 
 uniqueID="${project}-${externalSampleID}-L${lane}"
 
-if [ "${seqType}" == 'SR' ]
+if [[ "${seqType}" == 'SR' ]]
 then
 	echo "seqType = "${seqType}";FastQ: ${trimmedSingleBarcodeFqGz}"
 	inputs="--readFilesIn ${trimmedSingleBarcodeFqGz}"
