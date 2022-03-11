@@ -18,30 +18,17 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${GatkHaplotypeCallerGvcf}
+makeTmpDir "${GatkHaplotypeCallerGvcf}"
 tmpGatkHaplotypeCallerGvcf=${MC_tmpFile}
 
-makeTmpDir ${GatkHaplotypeCallerGvcftbi}
+makeTmpDir "${GatkHaplotypeCallerGvcftbi}"
 tmpGatkHaplotypeCallerGvcftbi=${MC_tmpFile}
 
-array_contains () { 
-    local array="$1[@]"
-    local seeking=$2
-    local in=1
-    for element in "${!array-}"; do
-        if [[ "$element" == "$seeking" ]]; then
-            in=0
-            break
-        fi
-    done
-    return $in
-}
-
 #Load modules
-${stage} ${gatkVersion}
+module load ${gatkVersion}
 
 #Check modules
-${checkStage}
+module list
 
 echo "## "$(date)" Start $0"
 

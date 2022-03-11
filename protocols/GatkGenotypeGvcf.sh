@@ -53,7 +53,7 @@ ALLGVCFs=()
 
 for external in "${externalSampleID[@]}"
 do
-	array_contains INPUTS "$external" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
+	array_contains INPUTS "${external}" || INPUTS+=("${external}")    # If vcfFile does not exist in array add it
 done
 
 SAMPLESIZE=${#INPUTS[@]}

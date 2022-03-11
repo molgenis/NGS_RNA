@@ -28,7 +28,7 @@ where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
 
 rm -f "${intermediateDir}${project}_juncfiles.txt"
 cd "${intermediateDir}"
-for bamfile in $(ls *.${sampleMergedBamExt}); do
+for bamfile in $(ls *."${sampleMergedBamExt}"); do
 
     echo Converting "${bamfile}" to "${bamfile}".junc
     samtools index "${bamfile}"

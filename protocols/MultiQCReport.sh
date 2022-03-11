@@ -35,21 +35,7 @@
 #string ensembleReleaseVersion
 #string logsDir
 
-#Function to check if array contains value
-array_contains () { 
-    local array="$1[@]"
-    local seeking=$2
-    local in=1
-    for element in "${!array-}"; do
-        if [[ "$element" == "$seeking" ]]; then
-            in=0
-            break
-        fi
-    done
-    return $in
-}
-
-cat > ${intermediateDir}/${project}_QC_config.yaml <<'_EOF'
+cat > "${intermediateDir}/${project}_QC_config.yaml" <<'_EOF'
 
 report_header_info:
     - Contact E-mail: '${contact}'
