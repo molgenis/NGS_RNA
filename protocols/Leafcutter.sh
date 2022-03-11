@@ -59,7 +59,7 @@ then
 	-o "${tmpintermediateDir}${project}_leafcutter_ds" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${project}_groups_file.txt" \
-	"${intermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
+	"${tmpintermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
 	-f 0.05
 
 	mv "${tmpintermediateDir}"/"${project}"* "${intermediateDir}"

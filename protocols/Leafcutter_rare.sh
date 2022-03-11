@@ -37,7 +37,7 @@ module list
 	-o "${tmpintermediateDir}${externalSampleID}_leafcutter_ds" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${externalSampleID}.SJ.design.tsv" \
-	"${intermediateDir}${externalSampleID}.leafcutter.outlier_cluster_significance.txt" \
+	"${tmpintermediateDir}${externalSampleID}.leafcutter.outlier_cluster_significance.txt" \
 	-f 0.05
 
 	mv "${tmpintermediateDir}"/"${externalSampleID}"* "${intermediateDir}"
