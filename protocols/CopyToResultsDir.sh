@@ -126,7 +126,7 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Description of the different steps used in the RNA analysis pipeline
 
 Gene expression quantification
-The trimmed fastQ files using ${TrimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
+The trimmed fastQ files using ${TrimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion}
 reference genome using ${starVersion} [1] with default settings. Before gene quantification
 ${samtoolsVersion} [2] was used to sort the aligned reads.
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union,
