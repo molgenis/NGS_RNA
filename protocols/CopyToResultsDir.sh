@@ -129,12 +129,14 @@ University of Groningen, University Medical Center Groningen, Department of Gene
 Description of the different steps used in the RNA analysis pipeline
 
 Gene expression quantification
-The trimmed fastQ files where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion}
-reference genome using ${hisatVersion} [1] with default settings. Before gene quantification
+The trimmed fastQ files using ${TrimGaloreVersion} where aligned to build ${indexFileID} ensembleRelease ${ensembleReleaseVersion} 
+reference genome using ${starVersion} [1] with default settings. Before gene quantification
 ${samtoolsVersion} [2] was used to sort the aligned reads.
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union,
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
-in folder expression/.
+in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
+For experimental group conditions the 'condition' column in the samplesheet was used the
+distinct groups within the samples.
 
 Calculate QC metrics on raw and aligned data
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using
@@ -142,8 +144,16 @@ the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned 
 Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and ${samtoolsVersion} flagstat.
 
-Splicing event calling
-...
+Splicing event are calling using LeafCutter.
+Leafcutter quantifies RNA splicing variation detection.
+
+GATK variant calling
+Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
+developed specially for RNAseq, which splits reads into exon segments (getting rid of Ns
+but maintaining grouping information) and hard-clip any sequences overhanging into the intronic regions.
+The variant calling it self was done using HaplotypeCaller in GVCF mode. All  samples are
+then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs
+on all of them together to create a set of raw SNP and indel calls. [6]
 
 Results archive
 The zipped archive contains the following data and subfolders:
@@ -151,8 +161,10 @@ The zipped archive contains the following data and subfolders:
 - alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out)
 - expression: textfiles with gene level quantification per sample and per project.
 - fastqc: FastQC output
-- images: QC images
-- qcmetrics: Multiple qcMetrics generated with Picard-tools or SAMTools Flagstat.
+- qcmetrics: Multiple qcMetrics and images generated with Picard-tools or SAMTools Flagstat.
+- leafcutter: Leafcutter and RegTools output files
+- expression/Deseq2: Deseq2 was used for differential expression analysis.
+- multiqc_data: Combined MultiQC tables used for multiqc report html.
 - variants: Variants calls using GATK. (optional)
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
 
@@ -168,12 +180,11 @@ ${RVersion}
 ${TrimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
-${PythonPlusVersion}
+${pythonVersion}
 ${gatkVersion}
 ${RSeQCVersion}
 ${starVersion}
 ${leafcutterVersion}
-${VIPVersion}
 
 1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski,
 Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
