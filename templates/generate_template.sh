@@ -54,28 +54,28 @@ build="hg19" # GRCh37, GRCh38 HG19
 species="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 pipeline="STAR" # hisat, lexogen
 
-workflow=${EBROOTNGS_RNA}/workflow_${pipeline}.csv
+workflow="${EBROOTNGS_RNA}/workflow_${pipeline}.csv"
 
 if [ -f .compute.properties ];
 then
      rm .compute.properties
 fi
 
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${species}.${build}.csv > \
-${workDir}/parameters.${species}.${build}.csv
+perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${species}.${build}.csv" > \
+"${workDir}/parameters.${species}.${build}.csv"
 
-perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl ${EBROOTNGS_RNA}/parameters.${host}.csv > \
+perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${host}.csv" > \
 ${workDir}/parameters.${host}.csv
 
 
-sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh \
--p ${workDir}/parameters.${host}.csv \
--p ${workDir}/parameters.${species}.${build}.csv \
--p ${workDir}/${project}.csv \
--p ${EBROOTNGS_RNA}/chromosomes.${species}.csv \
--w ${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv \
--rundir ${workDir}/scripts \
---runid ${runID} \
+sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
+-p "${workDir}/parameters.${host}.csv" \
+-p "${workDir}/parameters.${species}.${build}.csv" \
+-p "${workDir}/${project}.csv" \
+-p "${EBROOTNGS_RNA}/chromosomes.${species}.csv" \
+-w "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" \
+-rundir "${workDir}/scripts" \
+--runid "${runID}" \
 --weave \
 --generate \
 -o "workflowpath=${workflow};outputdir=scripts/jobs;\
