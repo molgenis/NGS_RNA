@@ -14,6 +14,9 @@
 #string leafcutterVersion
 #string python2Version
 
+makeTmpDir ${intermediateDir}
+tmpintermediateDir=${MC_tmpFile}
+
 #Load module
 module load "${leafcutterVersion}"
 module load "${python2Version}"
@@ -25,15 +28,16 @@ module list
 	-i 1 \
 	-g 1 \
 	-c 3 \
-	-o "${intermediateDir}${externalSampleID}.leafcutter.outlier" \
+	-o "${tmpintermediateDir}${externalSampleID}.leafcutter.outlier" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${externalSampleID}.SJ.design.tsv"
 
 	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
 	-e "${gencodeHg19AllExons}" \
-	-o "${intermediateDir}${externalSampleID}_leafcutter_ds" \
+	-o "${tmpintermediateDir}${externalSampleID}_leafcutter_ds" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${externalSampleID}.SJ.design.tsv" \
 	"${intermediateDir}${externalSampleID}.leafcutter.outlier_cluster_significance.txt" \
 	-f 0.05
 
+	mv "${tmpintermediateDir}"/"${externalSampleID}"* "${intermediateDir}"

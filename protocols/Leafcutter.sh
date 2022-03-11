@@ -12,6 +12,9 @@
 #string python2Version
 #string annotationTxt
 
+makeTmpDir ${intermediateDir}
+tmpintermediateDir=${MC_tmpFile}
+
 #Load module
 module load "${leafcutterVersion}"
 module load "${python2Version}"
@@ -47,21 +50,25 @@ then
         -g 1 \
         -c 3 \
 	-e "${annotationTxt}" \
-	-o "${intermediateDir}${project}_leafcutter_ds" \
+	-o "${tmpintermediateDir}${project}_leafcutter_ds" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${project}_groups_file.txt"
 
 	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
 	-e "${EBROOTLEAFCUTTER}/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz" \
-	-o "${intermediateDir}${project}_leafcutter_ds" \
+	-o "${tmpintermediateDir}${project}_leafcutter_ds" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${project}_groups_file.txt" \
 	"${intermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
 	-f 0.05
+
+	mv "${tmpintermediateDir}"/"${project}"* "${intermediateDir}"
 else
        echo "Outlier Splicing, $conditionCount conditions found."
 	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
 	--num_threads 8 \
-	-o "${intermediateDir}${project}" \
+	-o "${tmpintermediateDir}${project}" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
+
+	mv "${tmpintermediateDir}${project}"* "${intermediateDir}"
 fi

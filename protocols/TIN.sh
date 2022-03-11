@@ -20,19 +20,31 @@
 
 echo "## "$(date)" Start $0"
 
+makeTmpDir ${intermediateDir}
+tmpintermediateDir=${MC_tmpFile}
+
 mkdir -p "${TinDir}"
 cd "${TinDir}"
 
 # Extract the alignment of housekeeping genes.
 module load "${BEDToolsVersion}"
-bedtools intersect -a "${sampleMergedBam}"  -b "${houseKeepingGenesBed}" > "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
+
+bedtools intersect \
+-a "${sampleMergedBam}" \
+-b "${houseKeepingGenesBed}" > "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
 
 # index BAM
 module load "${samtoolsVersion}"
-samtools index "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"  > "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam.bai"
+
+samtools index "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"  > "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam.bai"
 
 module load "${RSeQCVersion}"
-tin.py -r "${houseKeepingGenesBed}" -i "${intermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
+
+tin.py \
+-r "${houseKeepingGenesBed}" \
+-i "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
+
+mv "${tmpintermediateDir}/${externalSampleID}"* "${intermediateDir}"
 
 cd -
 

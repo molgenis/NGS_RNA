@@ -18,8 +18,8 @@
 #string logsDir
 
 
-makeTmpDir "${intermediateDir}"
-tmpSampleMergedDedupBam="${MC_tmpFile}"
+makeTmpDir ${intermediateDir}
+tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsversion}"
 module load "${Python2PlusVersion}"
@@ -30,7 +30,7 @@ echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_sjdb.py"
 "${EBROOTNGS_RNA}/scripts/annotate_SJ_with_sjdb.py" \
 -i "${intermediateDir}/${externalSampleID}.SJ.out.norm.tab" \
 -j "${intermediateDir}/${externalSampleID}._STARgenome/sjdbList.fromGTF.out.tab" \
--o "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.tab"
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.tab"
 
 echo "created: ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.tab"
 
@@ -40,9 +40,9 @@ echo "created: ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.tab"
 echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_genes.py"
 
 "${EBROOTNGS_RNA}/scripts/annotate_SJ_with_genes.py" \
--i "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.tab" \
+-i "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.tab" \
 -g "${annotationGtf}" \
--o "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.tab"
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.tab"
 
 echo "Created: ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.tab"
 
@@ -51,9 +51,9 @@ echo "Created: ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.tab"
 echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_batch.py"
 
 "${EBROOTNGS_RNA}/scripts/annotate_SJ_with_batch.py" \
--i "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.tab" \
+-i "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.tab" \
 -b "${intermediateDir}/${project}.SJ.batch.list" \
--o "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.tab"
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.tab"
 
 echo "Created: ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.tab"
 
@@ -63,9 +63,9 @@ echo "Created: ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.ta
 echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_GTEx.py"
 
 "${EBROOTNGS_RNA}/scripts/annotate_SJ_with_GTEx.py" \
--i "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.tab" \
+-i "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.tab" \
 -g "${gtexJunc}" \
--o "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.gtex.tab"
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.gtex.tab"
 
 echo "Created ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.gtex.tab"
 
@@ -74,8 +74,8 @@ echo "Created ${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.gte
 echo "Running ${EBROOTNGS_RNA}/scripts/filter_SJ.py"
 
 "${EBROOTNGS_RNA}/scripts/filter_SJ.py" \
--i "${intermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.gtex.tab" \
--o "${intermediateDir}/${externalSampleID}.SJ.filtered.tsv"
+-i "${tmpintermediateDir}/${externalSampleID}.SJ.out.sjdb.genes.batch.gtex.tab" \
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.filtered.tsv"
 
 echo "Created ${intermediateDir}/${externalSampleID}.SJ.filtered.tsv"
 
@@ -84,8 +84,8 @@ echo "Created ${intermediateDir}/${externalSampleID}.SJ.filtered.tsv"
 echo "Running ${EBROOTNGS_RNA}/scripts/SJ_to_bed.py"
 
 "${EBROOTNGS_RNA}/scripts/SJ_to_bed.py" \
--i "${intermediateDir}/${externalSampleID}.SJ.filtered.tsv" \
--o "${intermediateDir}/${externalSampleID}.SJ.filtered.bed"
+-i "${tmpintermediateDir}/${externalSampleID}.SJ.filtered.tsv" \
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.filtered.bed"
 
 echo "${intermediateDir}/${externalSampleID}.SJ.filtered.bed"
 
@@ -95,8 +95,9 @@ echo "Running: ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_OMIM.py"
 
 "${EBROOTNGS_RNA}/scripts/annotate_SJ_with_OMIM.py" \
 -d "${omimList}" \
--i "${intermediateDir}/${externalSampleID}.SJ.filtered.tsv" \
--o "${intermediateDir}/${externalSampleID}.SJ.filtered.annotated.tsv"
+-i "${tmpintermediateDir}/${externalSampleID}.SJ.filtered.tsv" \
+-o "${tmpintermediateDir}/${externalSampleID}.SJ.filtered.annotated.tsv"
 
+mv "${tmpintermediateDir}/${externalSampleID}."* "${intermediateDir}"
 echo "Created: ${intermediateDir}/${externalSampleID}.SJ.filtered.annotated.tsv"
 

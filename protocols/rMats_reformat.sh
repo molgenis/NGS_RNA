@@ -19,9 +19,8 @@
 #string tmpName
 #string logsDir
 
-
-makeTmpDir "${intermediateDir}"
-tmpSampleMergedDedupBam="${MC_tmpFile}"
+makeTmpDir ${intermediateDir}
+tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsversion}"
 module load "${Python2PlusVersion}"
@@ -30,27 +29,22 @@ module list
 ZSCORE=3
 DELTAPSY=0.2
 
-FORMATTMPFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATS.format.tsv"
-FILTERTMPFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATS.filtered.tsv"
-OUTPUTFILE="${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.final.bed"
-
 echo "reformatting format_rMATS.py"
 "${EBROOTNGS_RNA}/scripts/format_rMATS.py" \
 -i "${rMATsOutputDir}/${externalSampleID}/" \
--o $FORMATTMPFILE
+-o "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv"
 
 # filter output
 "${EBROOTNGS_RNA}/scripts/filter_rMATS.py" \
--i $FORMATTMPFILE \
--o $FILTERTMPFILE \
+-i "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv" \
+-o "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
 -d $DELTAPSY \
 -z $ZSCORE
 
-echo "created $FILTERTMPFILE"
-
 # convert to bed
 "${EBROOTNGS_RNA}/scripts/convert_rMATS_to_bed.py" \
--i $FILTERTMPFILE \
--o $OUTPUTFILE
+-i "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
+-o "${tmpintermediateDir}${externalSampleID}.rMATs.final.bed"
 
-echo "Created $OUTPUTFILE"
+mv "${tmpintermediateDir}${externalSampleID}."* "${rMATsOutputDir}/${externalSampleID}/"
+echo "Created ${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.final.bed"
