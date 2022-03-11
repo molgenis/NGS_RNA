@@ -31,7 +31,7 @@ EOH
 #
 # Parse commandline options
 #
-while getopts ":hv" opt
+while getopts "hv" opt
 do
 	case "${opt}" in
 		h)

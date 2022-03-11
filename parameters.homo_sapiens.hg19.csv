@@ -9,7 +9,7 @@ ngsUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
 ngsRNAVersion,NGS_RNA/beta
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-GCCcore-7.3.0
-besToolsVersion,BEDTools/2.28.0-GCCcore-7.3.0
+bedToolsVersion,BEDTools/2.28.0-GCCcore-7.3.0
 sambambaVersion,sambamba/0.7.0
 rVersion,R/3.6.1-${toolchain}-bare
 rPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
