@@ -21,9 +21,9 @@
 #string logsDir
 
 #Function to check if array contains value
-array_contains () { 
+array_contains () {
     local array="$1[@]"
-    local seeking=$2
+    local seeking="${2}"
     local in=1
     for element in "${!array-}"; do
         if [[ "$element" == "$seeking" ]]; then
@@ -31,29 +31,29 @@ array_contains () {
             break
         fi
     done
-    return $in
+    return "${in}"
 }
 
-makeTmpDir ${projectBatchGenotypedVariantCalls}
+makeTmpDir "${projectBatchGenotypedVariantCalls}"
 tmpProjectBatchGenotypedVariantCalls=${MC_tmpFile}
 
-makeTmpDir ${projectBatchCombinedVariantCalls}
+makeTmpDir "${projectBatchCombinedVariantCalls}"
 tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}
 
 #Load modules
-${stage} "${gatkVersion}"
-${stage} "${HTSLibVersion}"
+module load "${gatkVersion}"
+module load "${HTSLibVersion}"
 #Check modules
-${checkStage}
+module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 INPUTS=()
 ALLGVCFs=()
 
 for external in "${externalSampleID[@]}"
 do
-  	array_contains INPUTS "$external" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
+	array_contains INPUTS "$external" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
 done
 
 SAMPLESIZE=${#INPUTS[@]}
@@ -84,7 +84,7 @@ else
             array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=$sampleGvcf")
         fi
     done
-fi 
+fi
 
 
 GvcfSize=${#ALLGVCFs[@]}
@@ -111,7 +111,7 @@ then
 	printf "${projectBatchGenotypedVariantCalls} ..done\n"
 
 	cd "${intermediateDir}"
-	md5sum $(basename ${projectBatchGenotypedVariantCalls})> $(basename ${projectBatchGenotypedVariantCalls}).md5
+	md5sum $(basename "${projectBatchGenotypedVariantCalls}")> $(basename "${projectBatchGenotypedVariantCalls}").md5
 	cd -
 	echo "succes moving files"
 
