@@ -1,21 +1,21 @@
 #MOLGENIS walltime=24:00:00 nodes=1 cores=1 mem=2gb
 
 #string intermediateDir
-#string processReadCountsJar
 #list externalSampleID
-#string geneAnnotationTxt
 #string projectHTseqExpressionTable
+#string ngsVersion
 #string project
-#string jdkVersion
 #string tmpTmpDataDir
 #string groupname
 #string tmpName
 #string logsDir
 
+module load "${ngsVersion}"
+
 #Function to check if array contains value
 array_contains () {
     local array="$1[@]"
-    local seeking=$2
+    local seeking="${2}"
     local in=1
     for element in "${!array-}"; do
         if [[ "$element" == "$seeking" ]]; then
@@ -23,35 +23,29 @@ array_contains () {
             break
         fi
     done
-    return $in
+    return "${in}"
 }
 
-makeTmpDir ${projectHTseqExpressionTable}
+makeTmpDir "${projectHTseqExpressionTable}"
 tmpProjectHTseqExpressionTable=${MC_tmpFile}
 
-rm -f ${intermediateDir}/fileList.txt
+rm -f "${intermediateDir}/fileList.txt"
 
 INPUTS=()
 for sample in "${externalSampleID[@]}"
 do
-	array_contains INPUTS "$sample" || INPUTS+=("$sample") 
+	array_contains INPUTS "${sample}" || INPUTS+=("${sample}")
 done
 
-for sampleID in "${INPUTS[@]}" 
+for sampleID in "${INPUTS[@]}"
 do
-	echo -e "${sampleID}\t$intermediateDir/${sampleID}.counts.txt" >> ${intermediateDir}/fileList.txt
-done 
+	echo -e "${intermediateDir}/${sampleID}.counts.txt" >> "${intermediateDir}/fileList.txt"
+done
 
-module load ${jdkVersion}
-module load ngs-utils
-module list
+python "${EBROOTNGS_RNA}/scripts/create_counts_matrix.py" \
+-i "${intermediateDir}/fileList.txt" \
+-o "${tmpProjectHTseqExpressionTable}" \
+-e "$intermediateDir/create_counts_matrix.log"
 
-	java -Xmx1g -XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTNGSMINUTILS}/${processReadCountsJar} \
-        --mode makeExpressionTable \
-        --fileList ${intermediateDir}/fileList.txt \
-        --annot ${geneAnnotationTxt} \
-        --out ${tmpProjectHTseqExpressionTable}
-
-        echo "table create succesfull"
-        mv ${tmpProjectHTseqExpressionTable} ${projectHTseqExpressionTable}
-
+echo "table create succesfull"
+mv "${tmpProjectHTseqExpressionTable}" "${projectHTseqExpressionTable}"

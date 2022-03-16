@@ -8,26 +8,21 @@
 #string intermediateDir
 #string projectResultsDir
 #string projectQcDir
-#string jdkVersion
 #string groupname
-#string NGSUtilsVersion
-#string ngsversion
+#string ngsUtilsVersion
+#string ngsVersion
 #list sequencingStartDate
 #list sequencer
 #list run
 #list flowcell
-#string mainParameters
 #string parameters_build
-#string parameters_species
 #string parameters_environment
 #string parameters_chromosomes
-#string ngsversion
 #string worksheet
 #string outputdir
 #string workflowpath
 #list internalSampleID
 #string project
-#string scriptDir
 #string logsDir
 #list barcode
 #list lane
@@ -36,7 +31,7 @@
 #list externalFastQ_2
 
 umask 0007
-module load "${NGSUtilsVersion}"
+module load "${ngsUtilsVersion}"
 
 module list
 #
@@ -96,7 +91,7 @@ cd $ROCKETPOINT
 
 echo "before splitting"
 echo `pwd`
-module load "${ngsversion}"
+module load "${ngsVersion}"
 
 #
 # TODO: array for each sample:
@@ -113,23 +108,21 @@ extract_samples_from_GAF_list.pl --i "${worksheet}" --o "${projectJobsDir}/${pro
 #
 
 
-if [ -f .compute.properties ];
+if [[ -f .compute.properties ]];
 then
-    	rm ../.compute.properties
+	rm ../.compute.properties
 fi
 
 echo "before run second rocket"
 echo pwd
 
 sh "${EBROOTMOLGENISMINCOMPUTE}"/molgenis_compute.sh \
--p "${mainParameters}" \
 -p "${parameters_build}" \
--p "${parameters_species}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
---header "${EBROOTNGS_RNA}"/templates/slurm/header.ftl \
---footer "${EBROOTNGS_RNA}"/templates/slurm/footer.ftl \
---submit "${EBROOTNGS_RNA}"/templates/slurm/submit.ftl \
+--header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
+--footer "${EBROOTNGS_RNA}/templates/slurm/footer.ftl" \
+--submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
--o "ngsversion=${ngsversion};groupname=${groupname};"
+-o "ngsVersion=${ngsVersion};groupname=${groupname};"

@@ -14,13 +14,13 @@
 #string tmpName
 #string logsDir
 
-module load ${htseqVersion}
-module load ${samtoolsVersion}
+module load "${htseqVersion}"
+module load "${samtoolsVersion}"
 module list
 
 set -o pipefail
 
-makeTmpDir ${sampleHTseqExpressionText}
+makeTmpDir "${sampleHTseqExpressionText}"
 tmpSampleHTseqExpressionText=${MC_tmpFile}
 
 
@@ -31,15 +31,15 @@ echo -e "\nQuantifying expression, with strandedness: ${STRANDED}"
 
   samtools \
         view -h \
-        ${sampleMergedBam} | \
+        "${sampleMergedBam}" | \
         htseq-count \
         -m union \
-        -s ${STRANDED} \
+        -s "${STRANDED}" \
         - \
-        ${annotationGtf} \
-        > ${tmpSampleHTseqExpressionText}
+        "${annotationGtf}" \
+        > "${tmpSampleHTseqExpressionText}"
 
         echo "Gene count succesfull"
-        mv ${tmpSampleHTseqExpressionText} ${sampleHTseqExpressionText}
+        mv "${tmpSampleHTseqExpressionText}" "${sampleHTseqExpressionText}"
 
 	echo "Finished!"

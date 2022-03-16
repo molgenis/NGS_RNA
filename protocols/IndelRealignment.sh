@@ -21,42 +21,42 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${IndelRealignedBam} 
+makeTmpDir "${IndelRealignedBam}"
 tmpIndelRealignedBam=${MC_tmpFile}
 
-makeTmpDir ${IndelRealignedBai}
+makeTmpDir "${IndelRealignedBai}"
 tmpIndelRealignedBai=${MC_tmpFile}
 
 #Load Modules
-${stage} ${gatkVersion}
+module load "${gatkVersion}"
 
 #check modules
-${checkStage}
+module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 echo
 echo
 echo "Running GATK IndelRealignment:"
 
 
-java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir=${tmpTmpDataDir} -jar $EBROOTGATK/GenomeAnalysisTK.jar \
+java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tmpTmpDataDir}" -jar "$EBROOTGATK/GenomeAnalysisTK.jar" \
  -T IndelRealigner \
- -R ${indexFile} \
- -I ${splitAndTrimBam} \
- -o ${tmpIndelRealignedBam} \
- -targetIntervals ${indelRealignmentTargets} \
- -known ${oneKgPhase1IndelsVcf} \
- -known ${goldStandardVcf} \
+ -R "${indexFile}" \
+ -I "${splitAndTrimBam}" \
+ -o "${tmpIndelRealignedBam}" \
+ -targetIntervals "${indelRealignmentTargets}" \
+ -known "${oneKgPhase1IndelsVcf}" \
+ -known "${goldStandardVcf}" \
  -U ALLOW_N_CIGAR_READS \
  --consensusDeterminationModel KNOWNS_ONLY \
  --LODThresholdForCleaning 0.4
 
 
-  mv ${tmpIndelRealignedBam} ${IndelRealignedBam}
-  mv ${tmpIndelRealignedBai} ${IndelRealignedBai}
+  mv "${tmpIndelRealignedBam}" "${IndelRealignedBam}"
+  mv "${tmpIndelRealignedBai}" "${IndelRealignedBai}"
 
   echo "returncode: $?";
   echo "succes moving files";
-  echo "## "$(date)" ##  $0 Done "
+  echo "## $(date) ##  $0 Done "
 

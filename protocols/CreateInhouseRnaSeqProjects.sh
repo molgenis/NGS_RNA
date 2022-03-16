@@ -10,8 +10,8 @@
 #string projectQcDir
 #string jdkVersion
 #string groupname
-#string NGSUtilsVersion
-#string ngsversion
+#string ngsUtilsVersion
+#string ngsVersion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -22,15 +22,12 @@
 #string parameters_species
 #string parameters_environment
 #string parameters_chromosomes
-#string ngsversion
-
-#string worksheet 
+#string worksheet
 #string outputdir
 #string workflowpath
 
 #list internalSampleID
 #string project
-#string scriptDir
 
 #list barcode
 #list lane
@@ -41,8 +38,8 @@
 umask 0007
 
 #FIX!
-module load "${ngsversion}"
-module load "${NGSUtilsVersion}"
+module load "${ngsVersion}"
+module load "${ngsUtilsVersion}"
 module list
 
 #
@@ -121,7 +118,7 @@ extract_samples_from_GAF_list.pl --i "${worksheet}" --o "${projectJobsDir}/${pro
 #
 
 
-if [ -f ../.compute.properties ];
+if [[ -f ../.compute.properties ]];
 then
      rm ../.compute.properties
 fi
@@ -135,9 +132,9 @@ sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${parameters_species}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
---header "${EBROOTNGS_RNA}"/templates/slurm/header.ftl \
---footer "${EBROOTNGS_RNA}"/templates/slurm/footer.ftl \
---submit "${EBROOTNGS_RNA}"/templates/slurm/submit.ftl \
+--header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
+--footer "${EBROOTNGS_RNA}/templates/slurm/footer.ftl" \
+--submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
--o "ngsversion=${ngsversion};groupname=${groupname};"
+-o "ngsVersion=${ngsVersion};groupname=${groupname};"

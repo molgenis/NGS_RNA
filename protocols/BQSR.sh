@@ -10,9 +10,6 @@
 #string bqsrBai
 #string splitAndTrimBam
 #string	splitAndTrimBai
-#string indelRealignmentTargets
-#string oneKgPhase1IndelsVcf
-#string goldStandardVcf
 #string bqsrBeforeGrp
 #string dbsnpVcf
 #string tmpDataDir
@@ -23,19 +20,19 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${bqsrBam} 
+makeTmpDir "${bqsrBam}"
 tmpBqsrBam=${MC_tmpFile}
 
-makeTmpDir ${bqsrBai}
+makeTmpDir "${bqsrBai}"
 tmpBqsrBai=${MC_tmpFile}
 
 #Load Modules
-${stage} ${gatkVersion}
+module load ${gatkVersion}
 
 #check modules
-${checkStage}
+module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 echo
 echo
@@ -70,5 +67,5 @@ cd -
 
   echo "returncode: $?";
   echo "succes moving files";
-  echo "## "$(date)" ##  $0 Done "
+  echo "## $(date) ##  $0 Done "
 

@@ -1,4 +1,4 @@
-#MOLGENIS nodes=1 ppn=1 mem=34gb walltime=05:00:00
+#MOLGENIS nodes=1 ppn=1 mem=40gb walltime=23:00:00
 
 #Parameter mapping
 #string intermediateDir
@@ -6,11 +6,11 @@
 #string project
 #string starIndex
 #string	starVersion
-#string sambambaTools
+#string sambambaVersion
 #string trimmedLeftBarcodeFqGz
 #string trimmedRightBarcodeFqGz
 #string trimmedSingleBarcodeFqGz
-#string alignedFilteredBam
+#string annotationGtf
 #string sortedBam
 #string sortedBai
 #string sequencer
@@ -28,51 +28,52 @@
 
 #Load module
 module load "${starVersion}"
-module load "${sambambaTools}"
+module load "${sambambaVersion}"
 module list
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-makeTmpDir ${sortedBai}
+makeTmpDir "${sortedBai}"
 tmpsortedBai=${MC_tmpFile}
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 echo "ID (project-internalSampleID-lane): ${project}-${externalSampleID}-L${lane}"
 
 uniqueID="${project}-${externalSampleID}-L${lane}"
 
-if [ "${seqType}" == 'SR' ]
+if [[ "${seqType}" == 'SR' ]]
 then
 	echo "seqType = "${seqType}";FastQ: ${trimmedSingleBarcodeFqGz}"
 	inputs="--readFilesIn ${trimmedSingleBarcodeFqGz}"
 else
 	echo "seqType = "${seqType}";FastQs: ${trimmedLeftBarcodeFqGz} ${trimmedRightBarcodeFqGz}"
-    	inputs="--readFilesIn ${trimmedLeftBarcodeFqGz} ${trimmedRightBarcodeFqGz}"
+	inputs="--readFilesIn ${trimmedLeftBarcodeFqGz} ${trimmedRightBarcodeFqGz}"
 fi
 
 echo "STAR for RNA"
 
-	"${EBROOTSTAR}"/bin/STAR \
+	"${EBROOTSTAR}/bin/STAR" \
 	--genomeDir "${starIndex}" \
+	--sjdbGTFfile "${annotationGtf}" \
 	--runThreadN 8 \
 	"${inputs}" \
 	--readFilesCommand zcat \
 	--twopassMode Basic \
- 	--genomeLoad NoSharedMemory \
- 	--quantMode GeneCounts \
+	--genomeLoad NoSharedMemory \
+	--quantMode GeneCounts \
         --outSAMtype BAM SortedByCoordinate \
         --limitBAMsortRAM 45000000000 \
         --outSAMstrandField intronMotif \
 	--outSAMunmapped Within \
-	--outFileNamePrefix "${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".
+	--outFileNamePrefix "${tmpintermediateDir}/${externalSampleID}".
 
 	#index bam
 	sambamba index \
-	"${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".Aligned.sortedByCoord.out.bam \
-	"${tmpintermediateDir}"/"${filePrefix}"_"${barcode}".Aligned.sortedByCoord.out.bai
+	"${tmpintermediateDir}/${externalSampleID}".Aligned.sortedByCoord.out.bam \
+	"${tmpintermediateDir}/${externalSampleID}".Aligned.sortedByCoord.out.bai
 
-	mv -f "${tmpintermediateDir}"/"${filePrefix}_${barcode}."* "${intermediateDir}"
+	mv -f "${tmpintermediateDir}/${externalSampleID}."* "${intermediateDir}"
 
 echo "succes moving files";
-echo "## "$(date)" ##  $0 Done "
+echo "## $(date) ##  $0 Done "

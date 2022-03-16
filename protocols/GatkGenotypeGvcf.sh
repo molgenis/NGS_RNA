@@ -1,14 +1,13 @@
 #MOLGENIS walltime=23:59:00 mem=17gb ppn=3 nodes=1
 
-#string stage
 #string gatkVersion
-#string checkStage
 #string tmpTmpDataDir
 #string tmpDataDir
 #string dbsnpVcf
 #string gatkVersion
+#string htsLibVersion
 #string indexFile
-#list externalSampleID,GatkHaplotypeCallerGvcf
+#list externalSampleID,gatkHaplotypeCallerGvcf
 #string intermediateDir
 #string projectPrefix
 #string projectBatchCombinedVariantCalls
@@ -20,9 +19,9 @@
 #string logsDir
 
 #Function to check if array contains value
-array_contains () { 
+array_contains () {
     local array="$1[@]"
-    local seeking=$2
+    local seeking="${2}"
     local in=1
     for element in "${!array-}"; do
         if [[ "$element" == "$seeking" ]]; then
@@ -30,29 +29,29 @@ array_contains () {
             break
         fi
     done
-    return $in
+    return "${in}"
 }
 
-makeTmpDir ${projectBatchGenotypedVariantCalls}
+makeTmpDir "${projectBatchGenotypedVariantCalls}"
 tmpProjectBatchGenotypedVariantCalls=${MC_tmpFile}
 
-makeTmpDir ${projectBatchCombinedVariantCalls}
+makeTmpDir "${projectBatchCombinedVariantCalls}"
 tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}
 
 #Load modules
-${stage} "${gatkVersion}"
-
+module load "${gatkVersion}"
+module load "${htsLibVersion}"
 #Check modules
-${checkStage}
+module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 INPUTS=()
 ALLGVCFs=()
 
 for external in "${externalSampleID[@]}"
 do
-  	array_contains INPUTS "$external" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
+	array_contains INPUTS "${external}" || INPUTS+=("${external}")    # If vcfFile does not exist in array add it
 done
 
 SAMPLESIZE=${#INPUTS[@]}
@@ -60,9 +59,9 @@ numberofbatches=$(($SAMPLESIZE / 200))
 
 for b in $(seq 0 $numberofbatches)
 do
-	if [ -f ${GatkHaplotypeCallerGvcf}.$b ]
+	if [ -f ${gatkHaplotypeCallerGvcf}.$b ]
 	then
-		ALLGVCFs+=("--variant GatkHaplotypeCallerGvcf}.$b")
+		ALLGVCFs+=("--variant gatkHaplotypeCallerGvcf}.$b")
 	fi
 done
 
@@ -76,14 +75,14 @@ then
         fi
     done
 else
-    for sampleGvcf in "${GatkHaplotypeCallerGvcf[@]}"
+    for sampleGvcf in "${gatkHaplotypeCallerGvcf[@]}"
         do
         if [ -f "${sampleGvcf}" ]
         then
             array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=$sampleGvcf")
         fi
     done
-fi 
+fi
 
 
 GvcfSize=${#ALLGVCFs[@]}
@@ -102,12 +101,16 @@ then
         --dbsnp="${dbsnpVcf}" \
         --output="${tmpProjectBatchGenotypedVariantCalls}"
 
-	mv ${tmpProjectBatchGenotypedVariantCalls} ${projectBatchGenotypedVariantCalls}
-	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls} "
-	
-	cd ${intermediateDir}
-	md5sum $(basename ${projectBatchGenotypedVariantCalls})> $(basename ${projectBatchGenotypedVariantCalls}).md5
- 	cd -
+	mv "${tmpProjectBatchGenotypedVariantCalls}" "${projectBatchGenotypedVariantCalls}"
+	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls}"
+
+	tabix -p vcf "${projectBatchGenotypedVariantCalls}"
+
+	printf "${projectBatchGenotypedVariantCalls} ..done\n"
+
+	cd "${intermediateDir}"
+	md5sum $(basename "${projectBatchGenotypedVariantCalls}")> $(basename "${projectBatchGenotypedVariantCalls}").md5
+	cd -
 	echo "succes moving files"
 
 else

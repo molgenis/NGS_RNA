@@ -34,18 +34,18 @@ tmpAddOrReplaceGroupsBai="${MC_tmpFile}"
 module load "${picardVersion}"
 
 #check modules
-${checkStage}
+module list
 
 echo "## $(date) Start $0"
 
-java -Xmx6g -XX:ParallelGCThreads=8 -jar "${EBROOTPICARD}"/"${picardJar}" AddOrReplaceReadGroups \
+java -Xmx6g -XX:ParallelGCThreads=8 -jar "${EBROOTPICARD}/${picardJar}" AddOrReplaceReadGroups \
 I="${sortedBam}" \
 O="${tmpAddOrReplaceGroupsBam}" \
 SORT_ORDER=coordinate \
 RGID="${externalSampleID}" \
-RGLB="${externalSampleID}"_"${barcode}" \
+RGLB="${externalSampleID}_${barcode}" \
 RGPL=ILLUMINA \
-RGPU="${sequencer}"_"${flowcell}"_"${run}"_"${lane}"_"${barcode}" \
+RGPU="${sequencer}_${flowcell}_${run}_${lane}_${barcode}" \
 RGSM="${externalSampleID}" \
 RGDT=$(date --rfc-3339=date) \
 CREATE_INDEX=true \
