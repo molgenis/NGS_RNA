@@ -7,8 +7,10 @@
 #  * SC2015: Note that A && B || C is not if-then-else. C may run when A is true.
 #            We know and use this construct regularly to create "transactions"
 #            where C is only executed when both A and B have succeeded.
+#  * SC2148  Tips depend on target shell and yours is unknown. Add a shebang or a 'shell' directive. Not needed for Molgenis Compute protocols.
+#  * SC2154  Not deeded, Molgenis Compute takes care of this.
 #
-export SHELLCHECK_OPTS="-e SC2004 -e SC2015"
+export SHELLCHECK_OPTS="-e SC2004 -e SC2015 -e SC2148 -e SC2154"
 
 function showHelp() {
 	#

@@ -38,7 +38,7 @@ done
 cd "${intermediateDir}"
 
 #cleanup old file if present
-rm -f "${intermediateDir}/*.design.tsv"
+rm -f "${intermediateDir}/"*".design.tsv"
 
 # manage a design file for each sample detected
 # the design is simple : 1 vs all other
@@ -56,7 +56,7 @@ do
         # all the other sample in the batch are controls
         for tmpSample in "${UNIQUESAMPLES[@]}"
         do
-                if [[ "$currentSample" != "$tmpSample" ]]
+                if [[ "${currentSample}" != "${tmpSample}" ]]
                 then
                         echo -e "${tmpSample}\tcontrol" >> "${intermediateDir}/$currentSample.outrider.design.tsv"
                         echo -e "${tmpSample},control" >> "${intermediateDir}/$currentSample.DE.design.csv"
