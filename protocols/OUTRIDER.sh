@@ -21,7 +21,7 @@ module list
 mkdir -p "${projectResultsDir}/outrider/${externalSampleID}/QC"
 
 #run outrider
-singularity exec --pwd $PWD --bind ${sifDir}:/sifDir,/apps:/apps,/groups:/groups \
+singularity exec --pwd $PWD --bind "${sifDir}:/sifDir,/apps:/apps,/groups:/groups" \
 "${sifDir}/${outriderVersion}" \
 Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
 "${projectHTseqExpressionTable}" \

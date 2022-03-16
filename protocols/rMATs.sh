@@ -20,9 +20,6 @@
 #string logsDir
 
 
-makeTmpDir "${intermediateDir}"
-tmpSampleMergedDedupBam="${MC_tmpFile}"
-
 mkdir -p "${rMATsOutputDir}/${externalSampleID}/tmp"
 
 # create list of bam files from design, and tmp.

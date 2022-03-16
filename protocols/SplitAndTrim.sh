@@ -29,13 +29,13 @@ makeTmpDir "${splitAndTrimBai}"
 tmpsplitAndTrimBai="${MC_tmpFile}"
 
 #Load Modules
-${stage} ${gatkVersion}
-${stage} ${samtoolsVersion}
+module load "${gatkVersion}"
+module load "${samtoolsVersion}"
 
 #check modules
 module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 echo
 echo
@@ -54,7 +54,7 @@ java -Dsamjdk.use_async_io_read_samtools=false \
   mv "${tmpsplitAndTrimBai}" "${splitAndTrimBai}"
 
   # Create md5sum for zip file
-	
+
   cd "${intermediateDir}"
   md5sum "${splitAndTrimShortBam}" > "${splitAndTrimShortBam}.md5"
   md5sum "${splitAndTrimShortBai}" > "${splitAndTrimShortBai}.md5"
@@ -62,5 +62,5 @@ java -Dsamjdk.use_async_io_read_samtools=false \
   echo "succes moving files";
   cd -
 
-  echo "## "$(date)" ##  $0 Done "
+  echo "## $(date) ##  $0 Done "
 

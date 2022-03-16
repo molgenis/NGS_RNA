@@ -34,7 +34,7 @@ module list
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-makeTmpDir ${sortedBai}
+makeTmpDir "${sortedBai}"
 tmpsortedBai=${MC_tmpFile}
 
 echo "## $(date) Start $0"

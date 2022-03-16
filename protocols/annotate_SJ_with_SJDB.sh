@@ -18,7 +18,7 @@
 #string logsDir
 
 
-makeTmpDir ${intermediateDir}
+makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsVersion}"

@@ -73,7 +73,7 @@ do
 			fi
 		fi
 		i=$((i+1))
- 	done
+	done
 	gvcfSize="${#ALLGVCFs[@]}"
 	echo "batchsize is ${gvcfSize}"
 

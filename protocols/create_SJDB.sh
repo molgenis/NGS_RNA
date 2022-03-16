@@ -30,7 +30,7 @@ rm -f "${intermediateDir}/${project}.SJ.samples.list"
 
 for sample in "${externalSampleID[@]}"
 do
-  echo "${intermediateDir}/$sample.SJ.out.norm.tab" >> "${intermediateDir}/${project}.SJ.samples.list"
+  echo "${intermediateDir}/${sample}.SJ.out.norm.tab" >> "${intermediateDir}/${project}.SJ.samples.list"
 done
 
 "${EBROOTNGS_RNA}/scripts/create_batch_sjdb.py" \

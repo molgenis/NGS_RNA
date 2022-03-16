@@ -39,7 +39,7 @@ echo "reformatting format_rMATS.py"
 -i "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv" \
 -o "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
 -d "${DELTAPSY}" \
--z "{$ZSCORE}"
+-z "${ZSCORE}"
 
 # convert to bed
 "${EBROOTNGS_RNA}/scripts/convert_rMATS_to_bed.py" \

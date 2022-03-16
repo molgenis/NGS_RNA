@@ -14,8 +14,8 @@
 #string tmpName
 #string logsDir
 
-module load ${htseqVersion}
-module load ${samtoolsVersion}
+module load "${htseqVersion}"
+module load "${samtoolsVersion}"
 module list
 
 set -o pipefail
