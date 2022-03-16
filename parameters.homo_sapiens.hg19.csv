@@ -19,7 +19,7 @@ hisatVersion,hisat2/2.1.0-${toolchain}
 htsLibVersion,HTSlib/1.11-GCCcore-7.3.0
 pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
 python2Version,Python/2.7.16-GCCcore-7.3.0-bare
-Python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
+python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
 pythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif

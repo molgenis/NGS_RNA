@@ -7,7 +7,7 @@
 #string gatkVersion
 #string htsLibVersion
 #string indexFile
-#list externalSampleID,GatkHaplotypeCallerGvcf
+#list externalSampleID,gatkHaplotypeCallerGvcf
 #string intermediateDir
 #string projectPrefix
 #string projectBatchCombinedVariantCalls
@@ -59,9 +59,9 @@ numberofbatches=$(($SAMPLESIZE / 200))
 
 for b in $(seq 0 $numberofbatches)
 do
-	if [ -f ${GatkHaplotypeCallerGvcf}.$b ]
+	if [ -f ${gatkHaplotypeCallerGvcf}.$b ]
 	then
-		ALLGVCFs+=("--variant GatkHaplotypeCallerGvcf}.$b")
+		ALLGVCFs+=("--variant gatkHaplotypeCallerGvcf}.$b")
 	fi
 done
 
@@ -75,7 +75,7 @@ then
         fi
     done
 else
-    for sampleGvcf in "${GatkHaplotypeCallerGvcf[@]}"
+    for sampleGvcf in "${gatkHaplotypeCallerGvcf[@]}"
         do
         if [ -f "${sampleGvcf}" ]
         then

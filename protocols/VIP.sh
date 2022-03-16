@@ -3,7 +3,7 @@
 #string tmpTmpDataDir
 #string tmpDataDir
 #string htsLibVersion
-#string VIPVersion
+#string vipVersion
 #string intermediateDir
 #string projectPrefix
 #string projectBatchGenotypedVariantCalls

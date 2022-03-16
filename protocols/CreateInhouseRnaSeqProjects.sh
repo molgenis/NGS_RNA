@@ -22,8 +22,6 @@
 #string parameters_species
 #string parameters_environment
 #string parameters_chromosomes
-#string ngsversion
-
 #string worksheet
 #string outputdir
 #string workflowpath
@@ -139,4 +137,4 @@ sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 --submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
--o "ngsversion=${ngsversion};groupname=${groupname};"
+-o "ngsVersion=${ngsVersion};groupname=${groupname};"

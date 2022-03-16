@@ -11,7 +11,7 @@
 #string annotationGtf
 #string omimList
 #string python2PlusVersion
-#string ngsversion
+#string ngsVersion
 #string project
 #string groupname
 #string tmpName
@@ -21,7 +21,7 @@
 makeTmpDir ${intermediateDir}
 tmpintermediateDir=${MC_tmpFile}
 
-module load "${ngsversion}"
+module load "${ngsVersion}"
 module load "${python2PlusVersion}"
 module list
 

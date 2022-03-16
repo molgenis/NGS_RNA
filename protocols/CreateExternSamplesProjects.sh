@@ -10,7 +10,7 @@
 #string projectQcDir
 #string groupname
 #string ngsUtilsVersion
-#string ngsversion
+#string ngsVersion
 #list sequencingStartDate
 #list sequencer
 #list run
@@ -18,7 +18,6 @@
 #string parameters_build
 #string parameters_environment
 #string parameters_chromosomes
-#string ngsversion
 #string worksheet
 #string outputdir
 #string workflowpath
@@ -32,7 +31,7 @@
 #list externalFastQ_2
 
 umask 0007
-module load "${NGSUtilsVersion}"
+module load "${ngsUtilsVersion}"
 
 module list
 #
@@ -92,7 +91,7 @@ cd $ROCKETPOINT
 
 echo "before splitting"
 echo `pwd`
-module load "${ngsversion}"
+module load "${ngsVersion}"
 
 #
 # TODO: array for each sample:
@@ -126,4 +125,4 @@ sh "${EBROOTMOLGENISMINCOMPUTE}"/molgenis_compute.sh \
 --submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
 -p "${projectJobsDir}/${project}.csv" -rundir "${projectJobsDir}" \
 -w "${workflowpath}" -b slurm -g -weave -runid "${runid}" \
--o "ngsversion=${ngsversion};groupname=${groupname};"
+-o "ngsVersion=${ngsVersion};groupname=${groupname};"
