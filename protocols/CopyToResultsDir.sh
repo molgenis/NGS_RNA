@@ -20,7 +20,7 @@
 #string rVersion
 #string wkhtmltopdfVersion
 #string picardVersion
-#string hisatVersion
+#string starVersion
 #string htseqVersion
 #string pythonVersion
 #string gatkVersion
@@ -28,6 +28,11 @@
 #string projectBatchGenotypedVariantCalls
 #string ensembleReleaseVersion
 #string trimGaloreVersion
+#string rSeQCVersion
+#string leafcutterVersion
+#string multiqcVersion
+#string rMATsVersion
+#string outriderVersion
 #string groupname
 #string tmpName
 #string logsDir
@@ -43,7 +48,7 @@ mkdir -p "${projectResultsDir}/expression"
 mkdir -p "${projectResultsDir}/expression/deseq2"
 mkdir -p "${projectResultsDir}/variants/vip"
 mkdir -p "${projectResultsDir}/leafcutter"
-mkdir -p "${projectResultsDir}/STAR_SJ"
+mkdir -p "${projectResultsDir}/star_sj"
 mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy project csv file to project results directory
@@ -59,7 +64,7 @@ cp "${projectJobsDir}/${project}.csv" "${projectResultsDir}"
 usedWorkflow=$(basename ${workflow})
 
 	cp "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment"
-        cp "${intermediateDir}"/*.sorted.merged.bam.{.md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment"
+        cp "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment"
 
 # copy qc metrics to qcmetrics folder
 
@@ -105,7 +110,7 @@ usedWorkflow=$(basename ${workflow})
 	cp "${intermediateDir}"*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
 
 # Copy STAR annotated SpliceJunctions
-	cp "${intermediateDir}/"*.SJ.* "${projectResultsDir}/STAR_SJ/"
+	cp "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
@@ -160,8 +165,11 @@ The zipped archive contains the following data and subfolders:
 - fastqc: FastQC output
 - qcmetrics: Multiple qcMetrics and images generated with Picard-tools or SAMTools Flagstat.
 - leafcutter: Leafcutter and RegTools output files
+- rmats: rMATs output files per sample.
 - expression/Deseq2: Deseq2 was used for differential expression analysis.
 - multiqc_data: Combined MultiQC tables used for multiqc report html.
+- star_sj: Annotated and filter STAR splice junctions per sample.
+- outrider: DROP Outrider abberant gene expression per sample.
 - variants: Variants calls using GATK. (optional)
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
 
@@ -182,6 +190,8 @@ ${gatkVersion}
 ${rSeQCVersion}
 ${starVersion}
 ${leafcutterVersion}
+${rMATsVersion}
+${outriderVersion}
 
 1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski,
 Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
@@ -209,6 +219,12 @@ zip -gr "${projectResultsDir}/${project}.zip" "fastqc"
 zip -g  "${projectResultsDir}/${project}.zip" "${project}.csv"
 zip -gr "${projectResultsDir}/${project}.zip" "qcmetrics"
 zip -gr "${projectResultsDir}/${project}.zip" "expression"
+zip -gr "${projectResultsDir}/${project}.zip" "leafcutter"
+zip -gr "${projectResultsDir}/${project}.zip" "multiqc_data"
+zip -gr "${projectResultsDir}/${project}.zip" "outrider"
+zip -gr "${projectResultsDir}/${project}.zip" "rmats"
+zip -gr "${projectResultsDir}/${project}.zip" "star_sj"
+zip -gr "${projectResultsDir}/${project}.zip" "variants"
 zip -g  "${projectResultsDir}/${project}.zip" "${project}_multiqc_report.html"
 zip -g  "${projectResultsDir}/${project}.zip" "README.txt"
 

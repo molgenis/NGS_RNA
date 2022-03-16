@@ -6,6 +6,7 @@
 #string ngsVersion
 #string project
 #string projectResultsDir
+#string outriderVersion
 #string annotationGtf
 #string tmpTmpDataDir
 #string groupname
@@ -21,7 +22,7 @@ mkdir -p "${projectResultsDir}/outrider/${externalSampleID}/QC"
 
 #run outrider
 singularity exec --pwd $PWD --bind ${sifDir}:/sifDir,/apps:/apps,/groups:/groups \
-"${sifDir}/outrider_latest.sif" \
+"${sifDir}/${outriderVersion}" \
 Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
 "${projectHTseqExpressionTable}" \
 "${intermediateDir}/${externalSampleID}.outrider.design.tsv" \

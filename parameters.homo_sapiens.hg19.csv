@@ -34,6 +34,7 @@ cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
 rSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
 leafcutterVersion,leafcutter/aa12b1e-foss-2018b
 vipVersion,vip/v3.3.1-foss-2018b
+outriderVersion,outrider_latest.sif
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/groups/umcg-solve-rd/tmp01/resources/GAD/singularity/
 

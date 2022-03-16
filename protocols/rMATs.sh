@@ -25,14 +25,14 @@ tmpSampleMergedDedupBam="${MC_tmpFile}"
 
 mkdir -p "${rMATsOutputDir}/${externalSampleID}/tmp"
 
-# create list of bam files from design
-rm -f "${intermediateDir}/${externalSampleID}.B{1,2}.txt"
+# create list of bam files from design, and tmp.
+rm -f "${intermediateDir}/${externalSampleID}.B"{1,2}".txt"
+rm -r "${rMATsOutputDir}/${externalSampleID}/tmp/"
 
 while read -r line
 do
   # reading each line
-  status=$(echo "${line}" | cut -d " " -f2)
-  name=$(echo "${line}" | cut -d " " -f1)
+  read name status <<< "${line}"
   if [[ "${status}" = "sample" ]]
   then
     echo "${name} is a ${status} : in ${externalSampleID}.B1.txt"
