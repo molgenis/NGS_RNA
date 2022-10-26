@@ -1,7 +1,6 @@
 step,protocol,dependencies
-s00a_TrimReads,protocols/TrimReads.sh,
-s00b_FastQC,protocols/FastQC.sh,s00a_TrimReads
-s01_HisatAlignment,protocols/HisatAlignment.sh,s00a_TrimReads
+s00_FastQC,protocols/FastQC.sh,
+s01_HisatAlignment,protocols/HisatAlignment.sh,
 s02_AddOrReplaceReadGroups,protocols/AddOrReplaceReadGroups.sh,s01_HisatAlignment
 s03_MergeBam,protocols/MergeBam.sh,s02_AddOrReplaceReadGroups
 s04_MarkDuplicates,protocols/MarkDuplicates.sh,s03_MergeBam

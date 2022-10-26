@@ -5,6 +5,7 @@
 #string tempDir
 #string annotationGtf
 #string sampleHTseqExpressionText
+#string strandedness
 #string htseqVersion
 #string samtoolsVersion
 #string project
@@ -13,57 +14,32 @@
 #string tmpName
 #string logsDir
 
-module load ${htseqVersion}
-module load ${samtoolsVersion}
+module load "${htseqVersion}"
+module load "${samtoolsVersion}"
 module list
 
 set -o pipefail
 
-makeTmpDir ${sampleHTseqExpressionText}
+makeTmpDir "${sampleHTseqExpressionText}"
 tmpSampleHTseqExpressionText=${MC_tmpFile}
 
 
-if [[ "${prepKit}" =~ "Reverse" ]]
-then
-	echo "Prepkit:${prepKit}, HTSeq-Count STRANDED=reverse is used"
-	STRANDED=reverse
+# detect strand for HTSeq
+STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "yes"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "reverse"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "no"; fi)"
 
-elif [[ "${prepKit}" =~ "Lexogen" ]]
-then
-	echo "Prepkit:${prepKit}, HTSeq-Count STRANDED=yes is used"
-	STRANDED=yes
-
-else
-	echo "Prepkit:${prepKit} is non stranded: HTSeq-Count STRANDED=no is used"
-        STRANDED=no
-fi
-
-echo "Sorting bam file by name"
-
-  samtools \
-      sort \
-      -n \
-      ${sampleMergedBam} \
-      ${sampleMergedBam}.nameSorted
- 
-      echo "bam file sorted"
-
-        
-echo -e "\nQuantifying expression"
+echo -e "\nQuantifying expression, with strandedness: ${STRANDED}"
 
   samtools \
         view -h \
-        ${sampleMergedBam}.nameSorted.bam | \
+        "${sampleMergedBam}" | \
         htseq-count \
         -m union \
-        -s ${STRANDED} \
+        -s "${STRANDED}" \
         - \
-        ${annotationGtf} | \
-        head -n -5 \
-        > ${tmpSampleHTseqExpressionText}
+        "${annotationGtf}" \
+        > "${tmpSampleHTseqExpressionText}"
 
         echo "Gene count succesfull"
-        mv ${tmpSampleHTseqExpressionText} ${sampleHTseqExpressionText}
-	rm ${sampleMergedBam}.nameSorted.bam
+        mv "${tmpSampleHTseqExpressionText}" "${sampleHTseqExpressionText}"
 
 	echo "Finished!"

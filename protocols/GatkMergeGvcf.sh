@@ -20,13 +20,13 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${projectBatchCombinedVariantCalls}
+makeTmpDir "${projectBatchCombinedVariantCalls}"
 tmpProjectBatchCombinedVariantCalls=${MC_tmpFile}
 
 #Function to check if array contains value
-array_contains () { 
+array_contains () {
     local array="$1[@]"
-    local seeking=$2
+    local seeking="${2}"
     local in=1
     for element in "${!array-}"; do
         if [[ "$element" == "$seeking" ]]; then
@@ -34,68 +34,68 @@ array_contains () {
             break
         fi
     done
-    return $in
+    return "${in}"
 }
 
 #Load modules
-${stage} ${gatkVersion}
+module load ${gatkVersion}
 
 #Check modules
-${checkStage}
+module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 INPUTS=()
 ALLGVCFs=()
 
 for external in "${externalSampleID[@]}"
 do
-	array_contains INPUTS "$external" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
-done	
+	array_contains INPUTS "${external}" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
+done
 
-SAMPLESIZE=${#INPUTS[@]}
+SAMPLESIZE="${#INPUTS[@]}"
 
-## number of batches (+1 is because bash is rounding down) 
-numberofbatches=$(($SAMPLESIZE / 200))
+## number of batches (+1 is because bash is rounding down)
+numberofbatches=$(("${SAMPLESIZE}" / 200))
 gvcfSize=0
-for b in $(seq 0 $numberofbatches)
+for b in $(seq 0 "${numberofbatches}")
 do
 	i=0
 	ALLGVCFs=()
-	for s in "${INPUTS[@]}" 
+	for s in "${INPUTS[@]}"
 	do
-		VAR=$(($i % ($numberofbatches + 1)))
-		if [ $VAR -eq $b ] 
+		VAR=$(("${i}" % ("${numberofbatches}" + 1)))
+		if [[ "${VAR}" -eq "${b}" ]]
 		then
-			if [ -f ${intermediateDir}/${s}.GatkHaplotypeCallerGvcf.g.vcf ] 
+			if [[ -f "${intermediateDir}/${s}.GatkHaplotypeCallerGvcf.g.vcf" ]]
 			then
 				ALLGVCFs+=("--variant ${intermediateDir}/${s}.GatkHaplotypeCallerGvcf.g.vcf")
 			fi
 		fi
 		i=$((i+1))
- 	done
-	gvcfSize=${#ALLGVCFs[@]}
+	done
+	gvcfSize="${#ALLGVCFs[@]}"
 	echo "batchsize is ${gvcfSize}"
-	
-	if [ $gvcfSize -ne 0 ]
+
+	if [[ "${gvcfSize}" -ne 0 ]]
 	then
-		java -Xmx30g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir} -jar \
-        	${EBROOTGATK}/GenomeAnalysisTK.jar \
-        	-T CombineGVCFs \
-        	-R ${indexFile} \
-		-L ${indexChrIntervalList} \
-        	-o ${tmpProjectBatchCombinedVariantCalls}.${b} \
-        	${ALLGVCFs[@]}
+		java -Xmx30g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" -jar \
+	"${EBROOTGATK}/GenomeAnalysisTK.jar" \
+		-T CombineGVCFs \
+		-R "${indexFile}" \
+		-L "${indexChrIntervalList}" \
+		-o "${tmpProjectBatchCombinedVariantCalls}.${b}" \
+		"${ALLGVCFs[@]}"
 	else
 		echo "There are no samples "
 	fi
 done
 
-if [ $gvcfSize -ne 0 ]
+if [[ "${gvcfSize}" -ne 0 ]]
 then
-	for i in $(ls ${tmpProjectBatchCombinedVariantCalls}.*)
+	for i in "${tmpProjectBatchCombinedVariantCalls}".*
 	do
-		mv $i ${intermediateDir}/$(basename $i)
+		mv "${i}" "${intermediateDir}"/$(basename "${i}")
 		echo "mv $i ${intermediateDir}/$(basename $i)"
 	done
 else

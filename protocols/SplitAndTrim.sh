@@ -5,12 +5,15 @@
 #string checkStage
 #string sampleMergedDedupBam
 #string sampleMergedDedupBai
+#string splitAndTrimShortBam
+#string splitAndTrimShortBai
 #string samtoolsVersion
 #string gatkVersion
 #string intermediateDir
 #string	externalSampleID
 #string splitAndTrimBam
 #string splitAndTrimBai
+#string gatkJar
 #string tmpDataDir
 #string indexFile
 #string tmpTmpDataDir
@@ -19,48 +22,45 @@
 #string tmpName
 #string logsDir
 
-makeTmpDir ${splitAndTrimBam} 
-tmpsplitAndTrimBam=${MC_tmpFile}
+makeTmpDir "${splitAndTrimBam}"
+tmpsplitAndTrimBam="${MC_tmpFile}"
 
-makeTmpDir ${splitAndTrimBai}
-tmpsplitAndTrimBai=${MC_tmpFile}
+makeTmpDir "${splitAndTrimBai}"
+tmpsplitAndTrimBai="${MC_tmpFile}"
 
 #Load Modules
-${stage} ${gatkVersion}
-${stage} ${samtoolsVersion}
+module load "${gatkVersion}"
+module load "${samtoolsVersion}"
 
 #check modules
-${checkStage}
+module list
 
-echo "## "$(date)" Start $0"
+echo "## $(date) Start $0"
 
 echo
 echo
 echo "Running split and trim:"
 
-  java -Xmx9g -XX:ParallelGCThreads=8 -Djava.io.tmpdir=${tmpTmpDataDir} -jar ${EBROOTGATK}/GenomeAnalysisTK.jar \
-  -T SplitNCigarReads \
-  -R ${indexFile} \
-  -I ${sampleMergedDedupBam} \
-  -o ${tmpsplitAndTrimBam} \
-  -rf ReassignOneMappingQuality \
-  -RMQF 255 \
-  -RMQT 60 \
-  -U ALLOW_N_CIGAR_READS
+java -Dsamjdk.use_async_io_read_samtools=false \
+-Dsamjdk.use_async_io_write_samtools=true \
+-Dsamjdk.use_async_io_write_tribble=false \
+-Dsamjdk.compression_level=2 \
+-jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads \
+-R "${indexFile}" \
+-I "${sampleMergedDedupBam}" \
+-O "${tmpsplitAndTrimBam}"
 
-
-  mv ${tmpsplitAndTrimBam} ${splitAndTrimBam}
-  mv ${tmpsplitAndTrimBai} ${splitAndTrimBai}
+  mv "${tmpsplitAndTrimBam}" "${splitAndTrimBam}"
+  mv "${tmpsplitAndTrimBai}" "${splitAndTrimBai}"
 
   # Create md5sum for zip file
-	
-  RUNDIR=${PWD}
-  cd ${intermediateDir}
-  md5sum ${splitAndTrimBam} > ${splitAndTrimBam}.md5
-  md5sum ${splitAndTrimBai} > ${splitAndTrimBai}.md5
+
+  cd "${intermediateDir}"
+  md5sum "${splitAndTrimShortBam}" > "${splitAndTrimShortBam}.md5"
+  md5sum "${splitAndTrimShortBai}" > "${splitAndTrimShortBai}.md5"
   echo "returncode: $?";
   echo "succes moving files";
-  cd ${RUNDIR}
+  cd -
 
-  echo "## "$(date)" ##  $0 Done "
+  echo "## $(date) ##  $0 Done "
 

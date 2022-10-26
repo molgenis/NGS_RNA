@@ -15,8 +15,6 @@
 #string srBarcodeFastQcZip
 #string fastqcVersion
 #string externalSampleID
-#string BarcodeFastQcFolderPE
-#string BarcodeFastQcFolder
 #string project
 #string groupname
 #string tmpName
