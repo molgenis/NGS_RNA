@@ -39,6 +39,6 @@ TMPOUTFILE="${intermediateDir}${externalSampleID}.leafcutter.format.omim.tsv"
 -o "${TMPOUTFILE}"
 
 # filter and produce the final report
-echo "Command : grep '^cluster' $TMPOUTFILE > $OUTPUTFILE && awk -F '\t' '($6<0.05){print $0}' $TMPOUTFILE >> $OUTPUTFILE"
-grep "^cluster" $TMPOUTFILE > $OUTPUTFILE
-awk -F "\t" '($6<0.05){print $0}' $TMPOUTFILE >> $OUTPUTFILE
+echo "Command : grep '^cluster' ${TMPOUTFILE} > ${OUTPUTFILE} && awk -F '\t' '($6<0.05){print $0}' ${TMPOUTFILE} >> ${OUTPUTFILE}"
+grep "^cluster" "${TMPOUTFILE}" > "${OUTPUTFILE}"
+awk -F "\t" '($6<0.05){print $0}' "${TMPOUTFILE}" >> "${OUTPUTFILE}"
