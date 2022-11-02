@@ -7,6 +7,8 @@ s04_MarkDuplicates,protocols/MarkDuplicates.sh,s03_MergeBam
 s05_Stranded,protocols/Stranded.sh,s04_MarkDuplicates
 s06a_QCStats,protocols/QCStats.sh,s05_Stranded
 s06b_TIN,protocols/TIN.sh,s05_Stranded
+s06c_RNASeQC,protocols/RNASeQC.sh,s05_Stranded
+s06d_RNASeQCPlots,protocols/RNASeQCPlots.sh,s06c_RNASeQC
 s07a_HTSeq_count,protocols/HTSeq_count.sh,s05_Stranded
 s07b_Design,protocols/Design.sh,s07a_HTSeq_count
 s07c_MakeExpressionTable,protocols/MakeExpressionTable.sh,s07b_Design

@@ -34,6 +34,8 @@ except getopt.GetoptError:
 genes_dict = {}
 stream = open(gtf, 'r')
 for line in stream:
+    if line.startswith('#'):
+        continue
     line = line.strip()
     tabs = line.split('\t')
     gene = line.split('"')[1]

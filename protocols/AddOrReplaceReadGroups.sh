@@ -13,13 +13,9 @@
 #string picardVersion
 #string picardJar
 #string sequencer
-#string library
 #string flowcell
 #string run
-#string barcode
-#string lane
 #string tempDir
-#string filePrefix
 #string groupname
 #string	tmpName
 #string logsDir
@@ -43,9 +39,9 @@ I="${sortedBam}" \
 O="${tmpAddOrReplaceGroupsBam}" \
 SORT_ORDER=coordinate \
 RGID="${externalSampleID}" \
-RGLB="${externalSampleID}_${barcode}" \
+RGLB="${externalSampleID}" \
 RGPL=ILLUMINA \
-RGPU="${sequencer}_${flowcell}_${run}_${lane}_${barcode}" \
+RGPU="${sequencer}_${flowcell}_${run}" \
 RGSM="${externalSampleID}" \
 RGDT=$(date --rfc-3339=date) \
 CREATE_INDEX=true \

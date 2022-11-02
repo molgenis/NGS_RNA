@@ -59,4 +59,16 @@ singularity exec --pwd $PWD --bind "${sifDir}:/sifDir,/apps:/apps,/groups:/group
 "${sifDir}/${outriderVersion}" \
 Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
 "${projectResultsDir}/outrider/"
+#"${geneOfInterest}"
 
+#run outrider with given sample and expexted effected gene
+
+#singularity exec --pwd $PWD \
+#--bind ${sifDir}:/sifDir,/apps:/apps,/groups:/groups \
+#"${sifDir}/outrider_latest.sif" \
+#Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
+#"${projectHTseqExpressionTable}" \
+#"${intermediateDir}/${externalSampleID}.outrider.design.tsv" \
+#${annotationGtf}" \
+#SID.10017.counts.txt \
+#AGRN

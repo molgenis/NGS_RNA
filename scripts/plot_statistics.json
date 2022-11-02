@@ -1,0 +1,34 @@
+{
+  "plots": [
+    {
+      "name" : "Total Reads",
+      "title": "Total Reads",
+      "xas": "Sample",
+      "yas": "Total Reads",
+      "xAsTitle": "Samples",
+      "yAsTitle": "Nr of reads per Million",
+      "plotType": "scatter",
+      "imageName": "total_reads"
+    },
+    {
+      "name": "Mapping Rate",
+      "title": "Mapping Rate",
+      "xas": "Sample",
+      "yas": "Mapping Rate",
+      "xAsTitle": "Samples",
+      "yAsTitle": "mapping rate",
+      "plotType": "scatter",
+      "imageName": "mapping_rate"
+    },
+    {
+      "name": "Duplicate Rate of Mapped",
+      "title": "Duplicate Rate of Mapped",
+      "xas": "Sample",
+      "yas": "Duplicate Rate of Mapped",
+      "xAsTitle": "Samples",
+      "yAsTitle": "Duplicate Rate of Mapped",
+      "plotType": "scatter",
+      "imageName": "duplicate_date"
+    }
+  ]
+}

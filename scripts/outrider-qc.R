@@ -48,6 +48,8 @@ head(ods)
 #mcols(ods)$basepairs <- 1
 #mcols(ods)$passedFilter <- rowMeans(counts(ods)) > 10
 
+
+
 # PLOT display the FPKM distribution of counts
 cat ("Ploting FPKM distribution")
 pdf(paste(outputdir, "/QC/plotFPKM.pdf", sep = ""))
@@ -58,6 +60,8 @@ dev.off()
 ods <- ods[mcols(ods)$passedFilter,]
 dim(ods)
 # TODO log dim(ods)
+
+
 
 # TODO q cutoff
 #ods <- findEncodingDim(ods)
