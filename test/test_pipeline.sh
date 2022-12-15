@@ -96,7 +96,7 @@ cd "${pipelinefolder}"
 
 #echo "pr number: ${1}"
 
-PULLREQUEST=35
+PULLREQUEST="${1}"
 
 git clone https://github.com/molgenis/NGS_RNA.git
 cd NGS_RNA
