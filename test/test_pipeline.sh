@@ -4,11 +4,12 @@ set -u
 function preparePipeline(){
 
 	local _projectName="PlatinumSubset_NGS_RNA"
+	local _generatedScriptsFolder="${workfolder}/generatedscripts/${_projectName}"
 
 	TMPHOME=/home/umcg-gvdvries/git/NGS_RNA
 	rm -f ${workfolder}/logs/${_projectName}/run01.pipeline.finished
-	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials ${TMPHOME}/test/rawdata/MY_TEST_BAM_PROJECT/SRR1552906[249]_[12].fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
-	#rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials ${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/SRR1552906[249]_[12].fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
+	#rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials ${TMPHOME}/test/rawdata/MY_TEST_BAM_PROJECT/SRR1552906[249]_[12].fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
+	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials ${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/SRR1552906[249]_[12].fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
 
 	rm -rf ${workfolder}/{tmp,generatedscripts,projects}/NGS_RNA/${_projectName}/
 	mkdir -p ${workfolder}/generatedscripts/${_projectName}/
@@ -30,33 +31,38 @@ function preparePipeline(){
 	#perl -pi -e "s|module load Molgenis-Compute/dummy|module load Molgenis-Compute/\$mcVersion|" ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
 
-	cp ${pipelinefolder}/test/${_projectName}.csv ${workfolder}/generatedscripts/${_projectName}/
+	cp "${pipelinefolder}/test/${_projectName}.csv" "${_generatedScriptsFolder}"
+	perl -p -e "s|/groups/umcg-atd/tmp01/|${workfolder}/|g" "${_generatedScriptsFolder}/${_projectName}.csv" > "${_generatedScriptsFolder}/${_projectName}.csv.tmp"
+	mv -v "${_generatedScriptsFolder}/${_projectName}.csv"{.tmp,}
+
 	#perl -pi -e "s|/groups/umcg-atd/tmp03/|${workfolder}/|g" ${workfolder}/generatedscripts/${_projectName}/${_projectName}.csv
+
 	cd ${workfolder}/generatedscripts/${_projectName}/
 
 	sh generate_template.sh
 	cd scripts
 
 	###### Load a version of molgenis compute
-#	perl -pi -e "s|module load test| module load ${NGS_RNA_VERSION}|" *.sh
+	perl -pi -e "s|workflow_STAR.csv|test_workflow_STAR.csv|" *.sh
 #	perl -pi -e "s|/apps/software/${NGS_RNA_VERSION}/|${workfolder}/tmp/NGS_RNA/|g" *.sh
 
-	perl -pi -e 's|slurm/header_tnt.ftl|slurm/header.ftl|' *.sh
-	perl -pi -e 's|slurm/footer_tnt.ftl|slurm/footer.ftl|' *.sh
+#	perl -pi -e 's|slurm/header_tnt.ftl|slurm/header.ftl|' *.sh
+#	perl -pi -e 's|slurm/footer_tnt.ftl|slurm/footer.ftl|' *.sh
 
 	sh submit.sh
 
 	cd ${workfolder}/projects/${_projectName}/run01/jobs/
 
+	pwd
+
 	perl -pi -e 's|--emitRefConfidence|-L 1:1-1200000 \\\n  --emitRefConfidence|' s*_GatkHaplotypeCallerGvcf_0.sh
 	perl -pi -e 's|-stand_emit_conf|-L 1:1-1200000 \\\n  -stand_emit_conf|' s*_GatkGenotypeGvcf_*.sh
 	perl -pi -e 's|cp |touch /groups/umcg-atd//tmp04/tmp//PlatinumSubset_NGS_RNA/run01//MY_TEST_BAM_PROJECT_L1_None_1.fq_fastqc/Images/per_sequence_gc_content.png\n\t cp |' s*_FastQC_*.sh
-	perl -pi -e 's|mem 32gb|mem 4gb|' s*_GatkMergeGvcf_*.sh
-	perl -pi -e 's|time=43:59:00|time=3:59:00|' s*_GatkMergeGvcf_*.sh
 	perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
+	perl -pi -e 's|--time=23:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
-	sh submit.sh --qos=dev
+	sh submit.sh
 }
 
 function checkIfFinished(){
@@ -127,7 +133,7 @@ rm -rf NGS_RNA/
 pwd
 
 cp workflow_STAR.csv test_workflow_STAR.csv
-tail -1 workflow_STAR.csv | perl -p -e 's|,|\t|g' | awk '{print "Autotest,test/protocols/Autotest.sh,"$1}' >> test_workflow_STAR.csv
+tail -1 workflow_STAR.csv | perl -p -e 's|,|\t|g' | awk '{print "s15_Autotest,test/protocols/Autotest.sh,"$1}' >> test_workflow_STAR.csv
 
 #exclude steps.
 perl -pi -e 's|s09_OUTRIDER|#s09_OUTRIDER|g' test_workflow_STAR.csv
