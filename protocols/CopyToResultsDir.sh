@@ -63,25 +63,25 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 usedWorkflow=$(basename ${workflow})
 
-	rsync -avL "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment"
-        rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment"
+	rsync -avL "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
+        rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
 # copy qc metrics to qcmetrics folder
 
-	rsync -av "${intermediateDir}"/*.quality_by_cycle_metrics "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.quality_by_cycle.pdf "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.quality_distribution.pdf "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.quality_distribution_metrics "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics"
-        rsync -av "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics"
-	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics"
+	rsync -av "${intermediateDir}"/*.quality_by_cycle_metrics "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.quality_by_cycle.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.quality_distribution.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.quality_distribution_metrics "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics/"
+        rsync -av "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics/"
 
 	if [ "${seqType}" == "PE" ]
         then
-		rsync -av "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics"
+		rsync -av "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics/"
 	else
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
