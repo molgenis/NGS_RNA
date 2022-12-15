@@ -74,10 +74,10 @@ then
 	REF_FLAT="${annotationRefFlat}" \
 	I="${sampleMergedDedupBam}" \
 	STRAND_SPECIFICITY="${STRANDED}" \
-	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 	VALIDATION_STRINGENCY=LENIENT \
 	O="${rnaSeqMetrics}" \
 	CHART_OUTPUT="${rnaSeqMetrics}.pdf"
+	#RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
 
 
 	# Collect QC data from several QC matricses, and write a tablular output file.

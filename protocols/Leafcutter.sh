@@ -11,6 +11,7 @@
 #string leafcutterVersion
 #string python2Version
 #string annotationTxt
+#string leafcutterAllExon
 
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
@@ -55,7 +56,7 @@ then
 	"${intermediateDir}${project}_groups_file.txt"
 
 	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
-	-e "${EBROOTLEAFCUTTER}/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz" \
+	-e "${leafcutterAllExon}" \
 	-o "${tmpintermediateDir}/${project}_leafcutter_ds.pdf" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${project}_groups_file.txt" \

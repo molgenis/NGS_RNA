@@ -1,3 +1,12 @@
+##### GENOME,INDEX,ANNOTATION FILES #####
+geneAnnotationTxt,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.annotation.geneIds.txt.gz
+annotationGtf,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.gtf
+annotationRefFlat,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.gtf.annotation.refFlat
+annotationIntervalList,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.rrna.interval_list
+indexFile,${indexSpecies}
+dbsnpVcf,${dbSNPDir}${dbSNPFileID}.vcf
+starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.3a-foss-2018b/
+
 #### GENOME VARIABLES ####
 genome,b37
 GR,GRCh37

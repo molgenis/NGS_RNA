@@ -50,7 +50,7 @@ if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "f
 if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
 if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
 
-build="hg19" # GRCh37, GRCh38 HG19
+build="GRCh37" # GRCh37, HG19
 species="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
 pipeline="STAR" # hisat, lexogen
 

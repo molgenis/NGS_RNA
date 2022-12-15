@@ -1,6 +1,7 @@
 step,protocol,dependencies
-s00_TrimReads_FastQC,protocols/TrimReads_TrimGalore.sh,
-s01_STAR,protocols/STAR.sh,s00_TrimReads_FastQC
+s00a_CombineFastq,protocols/CombineFastq.sh,
+s00b_TrimReads_FastQC,protocols/TrimReads_TrimGalore.sh,s00a_CombineFastq
+s01_STAR,protocols/STAR.sh,s00b_TrimReads_FastQC
 s02_AddOrReplaceReadGroups,protocols/AddOrReplaceReadGroups.sh,s01_STAR
 s03_MergeBam,protocols/MergeBam.sh,s02_AddOrReplaceReadGroups
 s04_MarkDuplicates,protocols/MarkDuplicates.sh,s03_MergeBam
@@ -29,5 +30,5 @@ s10b_BQSR,protocols/BQSR.sh,s10a_SplitAndTrim
 s11a_GatkHaplotypeCallerGvcf,protocols/GatkHaplotypeCallerGvcf.sh,s10b_BQSR
 s11b_GatkGenotypeGvcf,protocols/GatkGenotypeGvcf.sh,s11a_GatkHaplotypeCallerGvcf
 s12_VIP,protocols/VIP.sh,s11b_GatkGenotypeGvcf
-s13_MultiQCReport,protocols/MultiQCReport.sh,s7c_MakeExpressionTable;s06a_QCStats;s06b_TIN;s12_VIP
+s13_MultiQCReport,protocols/MultiQCReport.sh,s7c_MakeExpressionTable;s06a_QCStats;s06b_TIN;s06d_RNASeQCPlots
 s14_CopyToResultsDir,protocols/CopyToResultsDir.sh,s13_MultiQCReport;s11b_GatkGenotypeGvcf

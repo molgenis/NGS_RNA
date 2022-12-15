@@ -25,7 +25,28 @@ tmpSampleHTseqExpressionText=${MC_tmpFile}
 
 
 # detect strand for HTSeq
-STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "yes"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "reverse"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "no"; fi)"
+ROWNR=$(wc -l "${strandedness}" | awk '{ print $1 }')
+
+if [[ "${ROWNR}" == 6 ]]
+then
+        num1=$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)
+        num2=$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)
+	if [[ "${num1}" > 0.6 ]]
+	then
+		STRANDED="yes"
+	elif [[ "${num2}" > 0.6  ]]
+	then
+		STRANDED="reverse"
+	elif [[ "${num1}" < 0.6 && "${num2}" < 0.6 ]]
+	then
+		STRANDED="no"
+	else
+		STRANDED="no"
+	fi
+else
+	echo "strandedness detection failed"
+        STRANDED='no'
+fi
 
 echo -e "\nQuantifying expression, with strandedness: ${STRANDED}"
 
