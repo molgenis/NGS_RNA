@@ -10,7 +10,7 @@ function preparePipeline(){
 	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
 	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
-	rm -rf ${workfolder}/{tmp,generatedscripts,projects}/NGS_RNA/${_projectName}/
+	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
 	mkdir -p "${workfolder}/generatedscripts/${_projectName}/"
 
 	echo "copy generate template"
