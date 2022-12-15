@@ -8,7 +8,6 @@ function preparePipeline(){
 
 	TMPHOME=/home/umcg-gvdvries/git/NGS_RNA
 	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
-	#rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials ${TMPHOME}/test/rawdata/MY_TEST_BAM_PROJECT/SRR1552906[249]_[12].fq.gz ${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/
 	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
 	rm -rf ${workfolder}/{tmp,generatedscripts,projects}/NGS_RNA/${_projectName}/
@@ -34,10 +33,6 @@ function preparePipeline(){
 
 	###### Load a version of molgenis compute
 	perl -pi -e "s|workflow_STAR.csv|test_workflow_STAR.csv|" *.sh
-#	perl -pi -e "s|/apps/software/${NGS_RNA_VERSION}/|${workfolder}/tmp/NGS_RNA/|g" *.sh
-
-#	perl -pi -e 's|slurm/header_tnt.ftl|slurm/header.ftl|' *.sh
-#	perl -pi -e 's|slurm/footer_tnt.ftl|slurm/footer.ftl|' *.sh
 
 	sh submit.sh
 
@@ -122,11 +117,8 @@ tail -1 workflow_STAR.csv | perl -p -e 's|,|\t|g' | awk '{print "s15_Autotest,te
 #exclude steps.
 perl -pi -e 's|s09_OUTRIDER|#s09_OUTRIDER|g' test_workflow_STAR.csv
 perl -pi -e 's|s12_VIP|#s12_VIP|g' test_workflow_STAR.csv
-#cp ${workfolder}/tmp/NGS_RNA/test/results/PlatinumSubset_NGS_RNA.variant.calls.genotyped.chr1.true.vcf /home/umcg-molgenis/NGS_RNA/
-#cp ${workfolder}/tmp/NGS_RNA/test/results/PlatinumSubset_NGS_RNA.expression.true.table /home/umcg-molgenis/NGS_RNA/
 
-#cp test/results/* /groups/umcg-atd/tmp01/tmp/NGS_RNA/testdata_true/
-cp /home/umcg-gvdvries/git/NGS_RNA/test/results/* /groups/umcg-atd/tmp01/tmp/NGS_RNA/testdata_true/
+cp "${pipelinefolder}/test/results/"* "/groups/umcg-atd/tmp01/tmp/NGS_RNA/testdata_true/"
 
 preparePipeline
 
