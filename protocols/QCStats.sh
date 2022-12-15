@@ -1,4 +1,4 @@
-#MOLGENIS nodes=1 ppn=1 mem=8gb walltime=06:00:00
+#MOLGENIS nodes=1 ppn=1 mem=8gb walltime=05:59:00
 
 #Parameter mapping
 #string seqType
