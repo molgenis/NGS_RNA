@@ -107,7 +107,7 @@ usedWorkflow=$(basename ${workflow})
 	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 
 # Copy leafcutter
-	rsync -av "${intermediateDir}"*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
+	rsync -av "${intermediateDir}"/*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
 
 # Copy STAR annotated SpliceJunctions
 	rsync -av "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
