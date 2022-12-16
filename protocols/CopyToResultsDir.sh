@@ -53,68 +53,68 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy project csv file to project results directory
 
-cp "${projectJobsDir}/${project}.csv" "${projectResultsDir}"
+	rsync -av "${projectJobsDir}/${project}.csv" "${projectResultsDir}"
 
 # Copy fastQC output to results directory
 
-	cp "${projectQcDir}/"* "${projectResultsDir}/fastqc/"
+	rsync -av "${projectQcDir}/"* "${projectResultsDir}/fastqc/"
 
 # Copy BAM plus index plus md5 sum to results directory
 
 usedWorkflow=$(basename ${workflow})
 
-	cp "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment"
-        cp "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment"
+	rsync -avL "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
+        rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
 # copy qc metrics to qcmetrics folder
 
-	cp "${intermediateDir}"/*.quality_by_cycle_metrics "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.quality_by_cycle.pdf "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.quality_distribution.pdf "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.quality_distribution_metrics "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics"
-        cp "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics"
-	cp "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics"
+	rsync -av "${intermediateDir}"/*.quality_by_cycle_metrics "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.quality_by_cycle.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.quality_distribution.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.quality_distribution_metrics "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics/"
+        rsync -av "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics/"
 
 	if [ "${seqType}" == "PE" ]
         then
-		cp "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics"
+		rsync -av "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics/"
 	else
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
 # copy GeneCounts to results directory
 
-	cp "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/"
-	cp "${annotationGtf}" "${projectResultsDir}/expression/"
-	cp "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/"
+	rsync -av "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/"
+	rsync -av "${annotationGtf}" "${projectResultsDir}/expression/"
+	rsync -av "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/"
 
 # copy Deseq2 results to results directory
-	cp "${intermediateDir}"/*deseq2_* "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}"/*design.csv "${projectResultsDir}/expression/deseq2/"
-	cp "${intermediateDir}"/*.svg "${projectResultsDir}/expression/deseq2/"
+	rsync -av "${intermediateDir}"/*deseq2_* "${projectResultsDir}/expression/deseq2/"
+	rsync -av "${intermediateDir}"/*design.csv "${projectResultsDir}/expression/deseq2/"
+	rsync -av "${intermediateDir}"/*.svg "${projectResultsDir}/expression/deseq2/"
 
 # Copy QC images and report to results directory
 
-	cp "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}/qcmetrics/"
 
 # Copy variant vcfs.
 
-        cp "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
-	cp "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
+        rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
+	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 
 # Copy leafcutter
-	cp "${intermediateDir}"*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
+	rsync -av "${intermediateDir}"/*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
 
 # Copy STAR annotated SpliceJunctions
-	cp "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
+	rsync -av "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
 #only available with PE
 	if [ "${seqType}" == "PE" ]
 	then
-		cp "${intermediateDir}"/*.insert_size_* "${projectResultsDir}/qcmetrics/"
+		rsync -av "${intermediateDir}"/*.insert_size_* "${projectResultsDir}/qcmetrics/"
 	else
                 echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
@@ -137,8 +137,13 @@ ${samtoolsVersion} [2] was used to sort the aligned reads.
 The gene level quantification was performed by HTSeq-count ${htseqVersion} [3] using --mode=union,
 Ensembl version ${ensembleReleaseVersion} was used as gene annotation database which is included
 in folder expression/. Deseq2 was used for differential expression analysis on STAR bams.
-For experimental group conditions the 'condition' column in the samplesheet was used the
-distinct groups within the samples.
+For experimental group conditions the 'conditions' column in the samplesheet was used the
+distinct groups within the samples. and can be filtered using a 'geneOfIterest' column in the samplesheet.
+
+As an alternative Outrider ${outriderVersion} [8] is used for aberrant gene expression. Outliers genes are identified a
+read counts that significantly deviate. Furthermore, OUTRIDER provides useful plotting functions to
+analyze and visualize the results.Output can be filtered using a 'geneOfIterest' column in the samplesheet,
+alternatively the top 3 calles are visualized.
 
 Calculate QC metrics on raw and aligned data
 Quality control (QC) metrics are calculated for the raw sequencing data. This is done using
@@ -146,8 +151,10 @@ the tool FastQC ${fastqcVersion} [4]. QC metrics are calculated for the aligned 
 Picard-tools ${picardVersion} [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-
 Metrics and ${samtoolsVersion} flagstat.
 
-Splicing events are calling using LeafCutter.
-Leafcutter quantifies RNA splicing variation detection.
+Splicing events calling
+LeafCutter ${leafcutterVersion}, RMats ${rMATsVersion} [9] and STAR ${starVersion} are used
+to call splice variants.
+The output is annotated and filtered on significance.
 
 GATK variant calling
 Variant calling was done using GATK. First, we use a GATK tool called SplitNCigarReads
@@ -157,8 +164,8 @@ The variant calling it self was done using HaplotypeCaller in GVCF mode. All  sa
 then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs
 on all of them together to create a set of raw SNP and indel calls. [6]
 
-Results archive
-The zipped archive contains the following data and subfolders:
+Results directory
+This directory contains the following data and subfolders:
 
 - alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out)
 - expression: textfiles with gene level quantification per sample and per project.
@@ -170,7 +177,7 @@ The zipped archive contains the following data and subfolders:
 - multiqc_data: Combined MultiQC tables used for multiqc report html.
 - star_sj: Annotated and filter STAR splice junctions per sample.
 - outrider: DROP Outrider abberant gene expression per sample.
-- variants: Variants calls using GATK. (optional)
+- variants: Variants calls using GATK.
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
 
 The root of the results directory contains the final QC report, README.txt and the samplesheet which
@@ -194,42 +201,25 @@ ${rMATsVersion}
 ${outriderVersion}
 
 1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski,
-Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
-2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
+   Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
+   2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
 2. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R,
-Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
-Bioinforma 2009, 25 (16):2078–2079.
+   Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
+   Bioinforma 2009, 25 (16):2078–2079.
 3. Anders S, Pyl PT, Huber W: HTSeq – A Python framework to work with high-throughput sequencing data
-HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.
+   HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.
 4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online].
-Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
+   Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
 5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}
 6. The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data.
-McKenna A et al.2010 GENOME RESEARCH 20:1297-303, Version: ${gatkVersion}
+   McKenna A et al.2010 GENOME RESEARCH 20:1297-303, Version: ${gatkVersion}
 7. Li YI, Knowles DA, Humphrey J, et al. Annotation-free quantification of RNA splicing using LeafCutter.
-Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
-
+   Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
+8. Brechtmann F, Mertes C, Matusevičiūtė A, Yépez VA, Avsec Ž, Herzog M, Bader DM, Prokisch H, Gagneur J (2018).
+   OUTRIDER: A Statistical Method for Detecting Aberrantly Expressed Genes in RNA Sequencing Data.
+   The American Journal of Human Genetics, 103, 907 - 917. ISSN 0002-9297, doi: 10.1016/j.ajhg.2018.10.025.
+9. Shen S., Park JW., Lu ZX., Lin L., Henry MD., Wu YN., Zhou Q., Xing Y.
+   rMATS: Robust and Flexible Detection of Differential Alternative Splicing from Replicate RNA-Seq Data.
+   PNAS, 111(51):E5593-601. doi: 10.1073/pnas.1419161111
 endmsg
 
-# Create zip file for all "small text" files
-
-cd "${projectResultsDir}"
-
-zip -gr "${projectResultsDir}/${project}.zip" "fastqc"
-zip -g  "${projectResultsDir}/${project}.zip" "${project}.csv"
-zip -gr "${projectResultsDir}/${project}.zip" "qcmetrics"
-zip -gr "${projectResultsDir}/${project}.zip" "expression"
-zip -gr "${projectResultsDir}/${project}.zip" "leafcutter"
-zip -gr "${projectResultsDir}/${project}.zip" "multiqc_data"
-zip -gr "${projectResultsDir}/${project}.zip" "outrider"
-zip -gr "${projectResultsDir}/${project}.zip" "rmats"
-zip -gr "${projectResultsDir}/${project}.zip" "star_sj"
-zip -gr "${projectResultsDir}/${project}.zip" "variants"
-zip -g  "${projectResultsDir}/${project}.zip" "${project}_multiqc_report.html"
-zip -g  "${projectResultsDir}/${project}.zip" "README.txt"
-
-# Create md5sum for zip file
-
-cd "${projectResultsDir}"
-md5sum "${project}.zip" > "${projectResultsDir}${project}.zip.md5"
-cd "${projectJobsDir}"

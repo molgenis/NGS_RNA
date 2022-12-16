@@ -1,4 +1,4 @@
-#MOLGENIS nodes=1 ppn=1 mem=40gb walltime=23:00:00
+#MOLGENIS nodes=1 ppn=8 mem=40gb walltime=23:00:00
 
 #Parameter mapping
 #string intermediateDir
@@ -7,20 +7,11 @@
 #string starIndex
 #string	starVersion
 #string sambambaVersion
-#string trimmedLeftBarcodeFqGz
-#string trimmedRightBarcodeFqGz
-#string trimmedSingleBarcodeFqGz
+#string mergedLeftBarcodeFqGz
+#string mergedRightBarcodeFqGz
+#string mergedSingleBarcodeFqGz
 #string annotationGtf
-#string sortedBam
-#string sortedBai
-#string sequencer
-#string library
-#string flowcell
-#string run
-#string barcode
-#string lane
 #string tempDir
-#string filePrefix
 #string seqType
 #string groupname
 #string tmpName
@@ -34,21 +25,16 @@ module list
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-makeTmpDir "${sortedBai}"
-tmpsortedBai=${MC_tmpFile}
-
 echo "## $(date) Start $0"
-echo "ID (project-internalSampleID-lane): ${project}-${externalSampleID}-L${lane}"
-
-uniqueID="${project}-${externalSampleID}-L${lane}"
+echo "ID (internalSampleID-lane): ${externalSampleID}"
 
 if [[ "${seqType}" == 'SR' ]]
 then
-	echo "seqType = "${seqType}";FastQ: ${trimmedSingleBarcodeFqGz}"
-	inputs="--readFilesIn ${trimmedSingleBarcodeFqGz}"
+	echo "seqType = "${seqType}";FastQ: ${mergedSingleBarcodeFqGz}"
+	inputs="--readFilesIn ${mergedSingleBarcodeFqGz}"
 else
-	echo "seqType = "${seqType}";FastQs: ${trimmedLeftBarcodeFqGz} ${trimmedRightBarcodeFqGz}"
-	inputs="--readFilesIn ${trimmedLeftBarcodeFqGz} ${trimmedRightBarcodeFqGz}"
+	echo "seqType = "${seqType}";FastQs: ${mergedLeftBarcodeFqGz} ${mergedRightBarcodeFqGz}"
+	inputs="--readFilesIn ${mergedLeftBarcodeFqGz} ${mergedRightBarcodeFqGz}"
 fi
 
 echo "STAR for RNA"

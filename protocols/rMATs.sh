@@ -30,7 +30,7 @@ while read -r line
 do
   # reading each line
   read name status <<< "${line}"
-  if [[ "${status}" = "sample" ]]
+  if [[ "${status}" == "sample" ]]
   then
     echo "${name} is a ${status} : in ${externalSampleID}.B1.txt"
     echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B1.txt"

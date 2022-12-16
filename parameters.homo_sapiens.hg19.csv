@@ -155,6 +155,7 @@ annotationTxt,/groups/umcg-solve-rd/tmp01/resources/GAD/others/hg19.refseq.with_
 gencodeHg19AllExons,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/gencode_hg19_all_exons.txt.gz
 annotationRefFlat,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/Homo_sapiens.hg19.refFlat
 annotationIntervalList,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19_rRNA.interval_list
+leafcutterAllExon,"${EBROOTLEAFCUTTER}/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz"
 gtexJunc,/groups/umcg-solve-rd/tmp01/resources/GAD/others/GTEx_v7_bflb_junctions.gct
 omimList,/groups/umcg-solve-rd/tmp01/resources/GAD/others/OMIM2.list
 indexFile,${indexSpecies}
