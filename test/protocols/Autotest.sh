@@ -7,8 +7,8 @@
 #string logsDir
 
 
-testResults="/groups/umcg-atd/tmp01/tmp/NGS_RNA/betaAutotest/test/results/"
-mkir -p "${testResults}/output_NGS_RNA"
+testResults="/groups/umcg-atd/tmp01/tmp/NGS_RNA/testdata_true/"
+mkdir -p "${testResults}/output_NGS_RNA"
 
 module load ngs-utils
 
@@ -26,7 +26,7 @@ do
 done
 
 
-if [[ -f /home/umcg-molgenis/output_NGS_RNA/notInVcf1.txt || -f /home/umcg-molgenis/output_NGS_RNA/notInVcf2.txt || -f /home/umcg-molgenis/output_NGS_RNA/inconsistent.txt  ]]
+if [[ -f "${testResults}/output_NGS_RNA/notInVcf1.txt" || -f "${testResults}/output_NGS_RNA/notInVcf2.txt" || -f "${testResults}/output_NGS_RNA/inconsistent.txt" || "${testResults}/output_NGS_RNA/"*.fail ]]
 then
 	echo "there are differences between the test and the original output"
         echo "please fix the bug or update this test"
