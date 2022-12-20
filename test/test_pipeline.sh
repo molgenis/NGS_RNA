@@ -10,23 +10,24 @@ function preparePipeline(){
 	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
 	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
-	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
-	mkdir -p "${workfolder}/generatedscripts/${_projectName}/"
+	echo "rm -rf ${workfolder}/"{tmp,generatedscripts,projects}"/${_projectName}/"
+	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/${_projectName}/"
+	mkdir -p "${_generatedScriptsFolder}/"
 
 	echo "copy generate template"
-	cp "${pipelinefolder}/templates/generate_template.sh" "${workfolder}/generatedscripts/${_projectName}/generate_template.sh"
+	cp "${pipelinefolder}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
 
 
 	module load NGS_RNA/betaAutotest
 	module list
 
-	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
+	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' "${_generatedScriptsFolder}/generate_template.sh"
 
 	cp "${pipelinefolder}/test/${_projectName}.csv" "${_generatedScriptsFolder}"
 	perl -p -e "s|/groups/umcg-atd/tmp01/|${workfolder}/|g" "${_generatedScriptsFolder}/${_projectName}.csv" > "${_generatedScriptsFolder}/${_projectName}.csv.tmp"
 	mv -v "${_generatedScriptsFolder}/${_projectName}.csv"{.tmp,}
 
-	cd "${workfolder}/generatedscripts/${_projectName}/"
+	cd "${_generatedScriptsFolder}/"
 
 	sh generate_template.sh
 	cd scripts
