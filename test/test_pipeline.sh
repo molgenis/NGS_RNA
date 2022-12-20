@@ -41,8 +41,8 @@ function preparePipeline(){
 
 	pwd
 
-	perl -pi -e 's|-ERC GVCF|-L 1:1-1200000 \\\n  -ERC GVCF|' s*_GatkHaplotypeCallerGvcf_*.sh
-	perl -pi -e 's|-ERC GVCF|-L 1:1-1200000 \\\n  -ERC GVCF|' s*_GatkGenotypeGvcf_*.sh
+	perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkHaplotypeCallerGvcf_*.sh
+	perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkGenotypeGvcf_*.sh
 	perl -pi -e 's|rsync -av .*.vip|#rsync -av .*.vip|g' s*_CopyToResultsDir_*.sh
 	perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:00:00|--time=05:59:00|' *.sh
