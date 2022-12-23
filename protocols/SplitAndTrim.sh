@@ -41,7 +41,7 @@ echo
 echo
 echo "Running split and trim:"
 
-java -Xmx10g -XX:ParallelGCThreads=2
+java -Xmx10g -XX:ParallelGCThreads=2 \
 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 -jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads \
 --tmp-dir "${tmpTmpDataDir}" \
