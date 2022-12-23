@@ -44,6 +44,7 @@ function preparePipeline(){
 	perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkHaplotypeCallerGvcf_*.sh
 	perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkGenotypeGvcf_*.sh
 	perl -pi -e 's|rsync -av .*.vip|#rsync -av .*.vip|g' s*_CopyToResultsDir_*.sh
+	perl -pi -e 's|mem=40gb|mem=10gb|' *.sh
 	perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
@@ -88,14 +89,14 @@ NGS_RNA_VERSION="NGS_DNA/betaAutotest"
 workfolder="/groups/${groupName}/${tmpdirectory}"
 
 ##
-pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest/"
+pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
+
 workfolder="/groups/${groupName}/${tmpdirectory}/"
 
-rm -rf "${pipelinefolder}"
-mkdir -p "${pipelinefolder}"
+rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
+mkdir -p "${pipelinefolder}/"
+mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
 cd "${pipelinefolder}"
-
-#echo "pr number: ${1}"
 
 PULLREQUEST="${1}"
 

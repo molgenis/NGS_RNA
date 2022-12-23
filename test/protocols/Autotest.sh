@@ -25,7 +25,7 @@ do
 	cmp --silent "${testResults}/${sample}.SJ.filtered.annotated.tsv" "${projectResultsDir}/star_sj/${sample}.SJ.filtered.annotated.tsv" || echo "STAR failed" > "${testResults}/output_NGS_RNA/STAR.fail"
 done
 
-if [[ -f "${testResults}/output_NGS_RNA/notInVcf1.txt" || -f "${testResults}/output_NGS_RNA/notInVcf2.txt" || -f "${testResults}/output_NGS_RNA/inconsistent.txt" || "${testResults}/output_NGS_RNA/"*.fail ]]
+if [[ -f "${testResults}/output_NGS_RNA/notInVcf1.txt" || -f "${testResults}/output_NGS_RNA/notInVcf2.txt" || -f "${testResults}/output_NGS_RNA/inconsistent.txt" || -f "${testResults}/output_NGS_RNA/"*.fail ]]
 then
 	echo "there are differences between the test and the original output"
         echo "please fix the bug or update this test"
