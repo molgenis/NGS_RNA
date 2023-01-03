@@ -56,7 +56,7 @@ function checkIfFinished(){
 	local _projectName="PlatinumSubset_NGS_RNA"
 	count=0
 	minutes=0
-	while [ ! -f "${workfolder}/projects/${_projectName}/run01/jobs/Autotest_0.sh.finished" ]
+	while [ ! -f "${workfolder}/projects/${_projectName}/run01/jobs/s15_Autotestt_0.sh.finished" ]
 	do
 
 		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
