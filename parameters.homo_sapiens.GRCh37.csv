@@ -36,7 +36,7 @@ leafcutterVersion,leafcutter/aa12b1e-foss-2018b
 vipVersion,vip/v3.3.1-foss-2018b
 outriderVersion,outrider_latest.sif
 rMATsVersion,rmats_v4.1.2.sif
-sifDir,/groups/umcg-solve-rd/tmp01/resources/GAD/singularity/
+sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif
 
 ##### GENERAL DIRECTORIES #####
@@ -156,14 +156,14 @@ rnaSeQCDir,${projectResultsDir}/RNASeQC
 ##### GENOME,INDEX,ANNOTATION FILES #####
 geneAnnotationTxt,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.annotation.geneIds.txt.gz
 annotationGtf,/apps/data/Ensembl/GrCh37.75/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf
-houseKeepingGenesBed,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/GRCh37.HouseKeepingGenes.bed
-annotationTxt,/groups/umcg-solve-rd/tmp01/resources/GAD/others/GRCh37.refseq.with_genes.txt
+houseKeepingGenesBed,/apps/data/GAD/gtf/GRCh37.HouseKeepingGenes.bed
+annotationTxt,/apps/data/GAD/others/GRCh37.refseq.with_genes.txt
 gencodeHg19AllExons,/apps/data/Ensembl/GrCh37.75/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75_genid.txt
 annotationRefFlat,/apps/data/Ensembl/GrCh37.75/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.gtf.annotation.refFlat
 annotationIntervalList,/apps/data/Ensembl/GrCh37.75/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.rrna.interval_list
-leafcutterAllExon,"/groups/umcg-solve-rd/tmp01/resources/GAD/others/gencode_GRCh37_all_exons.txt.gz"
-gtexJunc,/groups/umcg-solve-rd/tmp01/resources/GAD/others/GTEx_v7_bflb_junctions.gct
-omimList,/groups/umcg-solve-rd/tmp01/resources/GAD/others/OMIM2.list
+leafcutterAllExon,"/apps/data/GAD/others/gencode_GRCh37_all_exons.txt.gz"
+gtexJunc,/apps/data/GAD/others/GTEx_v7_bflb_junctions.gct
+omimList,/apps/data/GAD/others/OMIM2.list
 indexFile,${indexSpecies}
 dbsnpVcf,/apps/data/dbSNP/dbsnp_137.b37.vcf
 starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.3a-foss-2018b/
@@ -178,7 +178,7 @@ indexFileID,Homo_sapiens.GRCh37.dna.primary_assembly.fa
 indexFolderName,human_g1k_v37
 dbSNPFileID,dbsnp_138.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
-dbSNPDir,/groups/umcg-solve-rd/tmp01/resources/GAD/dbnsp/
+dbSNPDir,/apps/data/GAD/dbnsp/
 indexFileFastaIndex,${indexSpecies}.fai
 indexSpecies,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/${indexFileID}
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list
