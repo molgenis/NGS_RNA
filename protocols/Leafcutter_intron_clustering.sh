@@ -52,6 +52,6 @@ python "${EBROOTLEAFCUTTER}/clustering/leafcutter_cluster_regtools.py" \
 -r "${intermediateDir}" \
 -o "${project}_leafcutter_cluster_regtools" \
 -l 500000 \
---checkchrom
+--nochromcheck=NOCHROMCHECK
 
 cd -
