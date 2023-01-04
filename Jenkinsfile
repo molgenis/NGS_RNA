@@ -12,7 +12,7 @@ node {
 	sh '''
             sudo ssh -tt airlock+gearshift 'exec bash -l << 'ENDSSH'
 	    	echo "Starting automated test"
-		sh /home/umcg-molgenis/test_pipeline_RNA.sh '''+env.CHANGE_ID+'''
+		bash /home/umcg-molgenis/test_pipeline_RNA.sh '''+env.CHANGE_ID+'''
 ENDSSH'
         '''	
 	}
