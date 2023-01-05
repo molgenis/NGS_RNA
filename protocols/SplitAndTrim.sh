@@ -39,10 +39,7 @@ echo "## $(date) Start $0"
 
 echo "Running split and trim:"
 
-java -Dsamjdk.use_async_io_read_samtools=false \
--Dsamjdk.use_async_io_write_samtools=true \
--Dsamjdk.use_async_io_write_tribble=false \
--Dsamjdk.compression_level=2 \
+java -Xmx10g -XX:ParallelGCThreads=2 \
 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 -jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads \
 --tmp-dir "${tmpTmpDataDir}" \
