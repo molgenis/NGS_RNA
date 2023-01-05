@@ -20,16 +20,16 @@
 
 #Function to check if array contains value
 array_contains () {
-    local array="$1[@]"
-    local seeking="${2}"
-    local in=1
-    for element in "${!array-}"; do
-        if [[ "$element" == "$seeking" ]]; then
-            in=0
-            break
-        fi
-    done
-    return "${in}"
+	local array="$1[@]"
+	local seeking="${2}"
+	local in=1
+	for element in "${!array-}"; do
+		if [[ "$element" == "$seeking" ]]; then
+			in=0
+			break
+		fi
+	done
+	return "${in}"
 }
 
 makeTmpDir "${projectBatchGenotypedVariantCalls}"
@@ -67,21 +67,21 @@ done
 
 if [ "${SAMPLESIZE}" -gt 200 ]
 then
-    for b in $(seq 0 "${numberofbatches}")
-    do
-        if [ -f "${projectBatchCombinedVariantCalls}.${b}" ]
-        then
-            ALLGVCFs+=("--variant=${projectBatchCombinedVariantCalls}.${b}")
-        fi
-    done
+	for b in $(seq 0 "${numberofbatches}")
+	do
+		if [ -f "${projectBatchCombinedVariantCalls}.${b}" ]
+		then
+			ALLGVCFs+=("--variant=${projectBatchCombinedVariantCalls}.${b}")
+		fi
+	done
 else
-    for sampleGvcf in "${gatkHaplotypeCallerGvcf[@]}"
-        do
-        if [ -f "${sampleGvcf}" ]
-        then
-            array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=$sampleGvcf")
-        fi
-    done
+	for sampleGvcf in "${gatkHaplotypeCallerGvcf[@]}"
+	do
+		if [ -f "${sampleGvcf}" ]
+		then
+			array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=$sampleGvcf")
+		fi
+	done
 fi
 
 
@@ -90,16 +90,16 @@ GvcfSize=${#ALLGVCFs[@]}
 if [ ${GvcfSize} -ne 0 ]
 then
 
-    gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tmpTmpDataDir}" CombineGVCFs \
-        --reference="${indexFile}" \
-        "${ALLGVCFs[@]}" \
-        --output="${tmpProjectBatchCombinedVariantCalls}"
+	gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tmpTmpDataDir}" CombineGVCFs \
+	--reference="${indexFile}" \
+	"${ALLGVCFs[@]}" \
+	--output="${tmpProjectBatchCombinedVariantCalls}"
 
-    gatk --java-options "-Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir}" GenotypeGVCFs \
-        --reference="${indexFile}" \
-        --variant="${tmpProjectBatchCombinedVariantCalls}" \
-        --dbsnp="${dbsnpVcf}" \
-        --output="${tmpProjectBatchGenotypedVariantCalls}"
+	gatk --java-options "-Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir}" GenotypeGVCFs \
+	--reference="${indexFile}" \
+	--variant="${tmpProjectBatchCombinedVariantCalls}" \
+	--dbsnp="${dbsnpVcf}" \
+	--output="${tmpProjectBatchGenotypedVariantCalls}"
 
 	mv "${tmpProjectBatchGenotypedVariantCalls}" "${projectBatchGenotypedVariantCalls}"
 	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls}"

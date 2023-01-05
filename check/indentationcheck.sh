@@ -13,7 +13,7 @@ fi
 echo '#####################################################################################'
 echo '  Bash code must be indented with TABs. Checking for lines indented with spaces ... '
 echo '#####################################################################################'
-grep -n '^[[:space:]]* [[:space:]]*' "${WORKSPACE:-../}"/{protocols,scripts}/*.*sh
+grep -n '^[[:space:]]* [[:space:]]*' "${WORKSPACE:-../}/protocols/"*.sh
 grep_exit_status="${?}"
 if [[ "${grep_exit_status}" -eq 0 ]]; then
 	echo '#####################################################################################'

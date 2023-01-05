@@ -37,9 +37,10 @@ gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -
 -ERC GVCF \
 -O "${tmpGatkHaplotypeCallerGvcf}"
 
-  mv "${tmpGatkHaplotypeCallerGvcf}" "${gatkHaplotypeCallerGvcf}"
-  mv "${tmpGatkHaplotypeCallerGvcftbi}" "${gatkHaplotypeCallerGvcftbi}"
-  echo "returncode: $?";
-  echo "succes moving files";
+mv "${tmpGatkHaplotypeCallerGvcf}" "${gatkHaplotypeCallerGvcf}"
+mv "${tmpGatkHaplotypeCallerGvcftbi}" "${gatkHaplotypeCallerGvcftbi}"
 
-  echo "## "$(date)" ##  $0 Done "
+echo "returncode: $?";
+echo "succes moving files";
+
+echo "## "$(date)" ##  $0 Done "

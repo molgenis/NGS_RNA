@@ -48,9 +48,9 @@ echo "STAR for RNA"
 	--twopassMode Basic \
 	--genomeLoad NoSharedMemory \
 	--quantMode GeneCounts \
-        --outSAMtype BAM SortedByCoordinate \
-        --limitBAMsortRAM 45000000000 \
-        --outSAMstrandField intronMotif \
+	--outSAMtype BAM SortedByCoordinate \
+	--limitBAMsortRAM 45000000000 \
+	--outSAMstrandField intronMotif \
 	--outSAMunmapped Within \
 	--outFileNamePrefix "${tmpintermediateDir}/${externalSampleID}".
 

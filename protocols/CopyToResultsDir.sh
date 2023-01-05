@@ -64,7 +64,7 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 usedWorkflow=$(basename ${workflow})
 
 	rsync -avL "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
-        rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
+	rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
 # copy qc metrics to qcmetrics folder
 
@@ -75,7 +75,7 @@ usedWorkflow=$(basename ${workflow})
 	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle.pdf "${projectResultsDir}/qcmetrics/"
 	rsync -av "${intermediateDir}"/*.base_distribution_by_cycle_metrics "${projectResultsDir}/qcmetrics/"
 	rsync -av "${intermediateDir}"/*.alignment_summary_metrics "${projectResultsDir}/qcmetrics/"
-        rsync -av "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics/"
+	rsync -av "${intermediateDir}"/*.flagstat "${projectResultsDir}/qcmetrics/"
 	rsync -av "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics/"
 	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics/"
 
@@ -116,7 +116,7 @@ usedWorkflow=$(basename ${workflow})
 	then
 		rsync -av "${intermediateDir}"/*.insert_size_* "${projectResultsDir}/qcmetrics/"
 	else
-                echo "Skip insertSizeMetrics. seqType is: ${seqType}"
+		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
 
@@ -201,25 +201,25 @@ ${rMATsVersion}
 ${outriderVersion}
 
 1. Alexander Dobin  1 , Carrie A Davis, Felix Schlesinger, Jorg Drenkow, Chris Zaleski,
-   Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
-   2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
+	Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast universal RNA-seq aligner
+	2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
 2. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R,
-   Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
-   Bioinforma 2009, 25 (16):2078–2079.
+	Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
+	Bioinforma 2009, 25 (16):2078–2079.
 3. Anders S, Pyl PT, Huber W: HTSeq – A Python framework to work with high-throughput sequencing data
-   HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.
+	HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.
 4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online].
-   Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
+	Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
 5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}
 6. The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data.
-   McKenna A et al.2010 GENOME RESEARCH 20:1297-303, Version: ${gatkVersion}
+	McKenna A et al.2010 GENOME RESEARCH 20:1297-303, Version: ${gatkVersion}
 7. Li YI, Knowles DA, Humphrey J, et al. Annotation-free quantification of RNA splicing using LeafCutter.
-   Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
+	Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
 8. Brechtmann F, Mertes C, Matusevičiūtė A, Yépez VA, Avsec Ž, Herzog M, Bader DM, Prokisch H, Gagneur J (2018).
-   OUTRIDER: A Statistical Method for Detecting Aberrantly Expressed Genes in RNA Sequencing Data.
-   The American Journal of Human Genetics, 103, 907 - 917. ISSN 0002-9297, doi: 10.1016/j.ajhg.2018.10.025.
+	OUTRIDER: A Statistical Method for Detecting Aberrantly Expressed Genes in RNA Sequencing Data.
+	The American Journal of Human Genetics, 103, 907 - 917. ISSN 0002-9297, doi: 10.1016/j.ajhg.2018.10.025.
 9. Shen S., Park JW., Lu ZX., Lin L., Henry MD., Wu YN., Zhou Q., Xing Y.
-   rMATS: Robust and Flexible Detection of Differential Alternative Splicing from Replicate RNA-Seq Data.
-   PNAS, 111(51):E5593-601. doi: 10.1073/pnas.1419161111
+	rMATS: Robust and Flexible Detection of Differential Alternative Splicing from Replicate RNA-Seq Data.
+	PNAS, 111(51):E5593-601. doi: 10.1073/pnas.1419161111
 endmsg
 
