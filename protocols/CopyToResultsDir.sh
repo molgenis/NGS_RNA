@@ -80,7 +80,7 @@ usedWorkflow=$(basename ${workflow})
 	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics/"
 
 	if [ "${seqType}" == "PE" ]
-        then
+	then
 		rsync -av "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics/"
 	else
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
@@ -103,7 +103,7 @@ usedWorkflow=$(basename ${workflow})
 
 # Copy variant vcfs.
 
-        rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
+	rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
 	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 
 # Copy leafcutter
