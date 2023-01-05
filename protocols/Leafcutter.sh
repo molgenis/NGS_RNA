@@ -47,9 +47,9 @@ then
 	echo "Differential Splicing with ${conditionCount} groups."
 	Rscript "${EBROOTLEAFCUTTER}/scripts/leafcutter_ds.R" \
 	--num_threads 4 \
-        -i 1 \
-        -g 1 \
-        -c 3 \
+	-i 1 \
+	-g 1 \
+	-c 3 \
 	-e "${annotationTxt}" \
 	-o "${tmpintermediateDir}/${project}_leafcutter_ds" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
@@ -57,7 +57,7 @@ then
 
 	mv "${tmpintermediateDir}/${project}"* "${intermediateDir}"
 else
-       echo "Outlier Splicing, ${conditionCount} conditions found."
+	echo "Outlier Splicing, ${conditionCount} conditions found."
 	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
 	--num_threads 8 \
 	-o "${tmpintermediateDir}${project}" \
