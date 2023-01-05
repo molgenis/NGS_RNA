@@ -6,7 +6,6 @@ function preparePipeline(){
 	local _projectName="PlatinumSubset_NGS_RNA"
 	local _generatedScriptsFolder="${workfolder}/generatedscripts/${_projectName}"
 
-	TMPHOME=/home/umcg-gvdvries/git/NGS_RNA
 	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
 	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
@@ -56,7 +55,7 @@ function checkIfFinished(){
 	local _projectName="PlatinumSubset_NGS_RNA"
 	count=0
 	minutes=0
-	while [ ! -f "${workfolder}/projects/${_projectName}/run01/jobs/s15_Autotestt_0.sh.finished" ]
+	while [ ! -f "${workfolder}/projects/${_projectName}/run01/jobs/s15_Autotest_0.sh.finished" ]
 	do
 
 		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
