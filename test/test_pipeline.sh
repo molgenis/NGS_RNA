@@ -10,23 +10,24 @@ function preparePipeline(){
 	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
 	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
-	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
-	mkdir -p "${workfolder}/generatedscripts/${_projectName}/"
+	echo "rm -rf ${workfolder}/"{tmp,generatedscripts,projects}"/${_projectName}/"
+	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/${_projectName}/"
+	mkdir -p "${_generatedScriptsFolder}/"
 
 	echo "copy generate template"
-	cp "${pipelinefolder}/templates/generate_template.sh" "${workfolder}/generatedscripts/${_projectName}/generate_template.sh"
+	cp "${pipelinefolder}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
 
 
 	module load NGS_RNA/betaAutotest
 	module list
 
-	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' ${workfolder}/generatedscripts/${_projectName}/generate_template.sh
+	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' "${_generatedScriptsFolder}/generate_template.sh"
 
 	cp "${pipelinefolder}/test/${_projectName}.csv" "${_generatedScriptsFolder}"
 	perl -p -e "s|/groups/umcg-atd/tmp01/|${workfolder}/|g" "${_generatedScriptsFolder}/${_projectName}.csv" > "${_generatedScriptsFolder}/${_projectName}.csv.tmp"
 	mv -v "${_generatedScriptsFolder}/${_projectName}.csv"{.tmp,}
 
-	cd "${workfolder}/generatedscripts/${_projectName}/"
+	cd "${_generatedScriptsFolder}/"
 
 	sh generate_template.sh
 	cd scripts
@@ -40,9 +41,10 @@ function preparePipeline(){
 
 	pwd
 
-	perl -pi -e 's|--emitRefConfidence|-L 1:1-1200000 \\\n  --emitRefConfidence|' s*_GatkHaplotypeCallerGvcf_0.sh
-	perl -pi -e 's|-stand_emit_conf|-L 1:1-1200000 \\\n  -stand_emit_conf|' s*_GatkGenotypeGvcf_*.sh
-	perl -pi -e 's|cp |touch /groups/umcg-atd//tmp04/tmp//PlatinumSubset_NGS_RNA/run01//MY_TEST_BAM_PROJECT_L1_None_1.fq_fastqc/Images/per_sequence_gc_content.png\n\t cp |' s*_FastQC_*.sh
+	perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkHaplotypeCallerGvcf_*.sh
+	perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkGenotypeGvcf_*.sh
+	perl -pi -e 's|rsync -av .*.vip|#rsync -av .*.vip|g' s*_CopyToResultsDir_*.sh
+	perl -pi -e 's|mem=40gb|mem=10gb|' *.sh
 	perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
@@ -54,7 +56,7 @@ function checkIfFinished(){
 	local _projectName="PlatinumSubset_NGS_RNA"
 	count=0
 	minutes=0
-	while [ ! -f "${workfolder}/projects/${_projectName}/run01/jobs/Autotest_0.sh.finished" ]
+	while [ ! -f "${workfolder}/projects/${_projectName}/run01/jobs/s15_Autotestt_0.sh.finished" ]
 	do
 
 		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
@@ -87,14 +89,14 @@ NGS_RNA_VERSION="NGS_DNA/betaAutotest"
 workfolder="/groups/${groupName}/${tmpdirectory}"
 
 ##
-pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest/"
+pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
+
 workfolder="/groups/${groupName}/${tmpdirectory}/"
 
-rm -rf "${pipelinefolder}"
-mkdir -p "${pipelinefolder}"
+rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
+mkdir -p "${pipelinefolder}/"
+mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
 cd "${pipelinefolder}"
-
-#echo "pr number: ${1}"
 
 PULLREQUEST="${1}"
 

@@ -55,14 +55,6 @@ then
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}${project}_groups_file.txt"
 
-	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
-	-e "${leafcutterAllExon}" \
-	-o "${tmpintermediateDir}/${project}_leafcutter_ds.pdf" \
-	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
-	"${intermediateDir}${project}_groups_file.txt" \
-	"${tmpintermediateDir}${project}_leafcutter_ds_cluster_significance.txt" \
-	-f 0.05
-
 	mv "${tmpintermediateDir}/${project}"* "${intermediateDir}"
 else
 	echo "Outlier Splicing, ${conditionCount} conditions found."
