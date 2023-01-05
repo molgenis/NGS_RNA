@@ -37,8 +37,6 @@ module list
 
 echo "## $(date) Start $0"
 
-echo
-echo
 echo "Running split and trim:"
 
 java -Dsamjdk.use_async_io_read_samtools=false \
@@ -52,17 +50,17 @@ java -Dsamjdk.use_async_io_read_samtools=false \
 -I "${sampleMergedDedupBam}" \
 -O "${tmpsplitAndTrimBam}"
 
-  mv "${tmpsplitAndTrimBam}" "${splitAndTrimBam}"
-  mv "${tmpsplitAndTrimBai}" "${splitAndTrimBai}"
+mv "${tmpsplitAndTrimBam}" "${splitAndTrimBam}"
+mv "${tmpsplitAndTrimBai}" "${splitAndTrimBai}"
 
-  # Create md5sum for zip file
+# Create md5sum for zip file
 
-  cd "${intermediateDir}"
-  md5sum "${splitAndTrimShortBam}" > "${splitAndTrimShortBam}.md5"
-  md5sum "${splitAndTrimShortBai}" > "${splitAndTrimShortBai}.md5"
-  echo "returncode: $?";
-  echo "succes moving files";
-  cd -
+cd "${intermediateDir}"
+md5sum "${splitAndTrimShortBam}" > "${splitAndTrimShortBam}.md5"
+md5sum "${splitAndTrimShortBai}" > "${splitAndTrimShortBai}.md5"
+echo "returncode: $?";
+echo "succes moving files";
+cd -
 
-  echo "## $(date) ##  $0 Done "
+echo "## $(date) ##  $0 Done "
 

@@ -45,10 +45,10 @@ java -Dsamjdk.use_async_io_read_samtools=false \
 -Dsamjdk.compression_level=2 \
 -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" BaseRecalibrator \
- -R "${indexFile}" \
- -I "${splitAndTrimBam}" \
- -O "${bqsrBeforeGrp}" \
- --known-sites "${dbsnpVcf}"
+-R "${indexFile}" \
+-I "${splitAndTrimBam}" \
+-O "${bqsrBeforeGrp}" \
+--known-sites "${dbsnpVcf}"
 
 java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" ApplyBQSR \
@@ -57,15 +57,15 @@ java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 -O "${tmpBqsrBam}" \
 --bqsr-recal-file "${bqsrBeforeGrp}"
 
-  mv "${tmpBqsrBam}" "${bqsrBam}"
-  mv "${tmpBqsrBai}" "${bqsrBai}"
+mv "${tmpBqsrBam}" "${bqsrBam}"
+mv "${tmpBqsrBai}" "${bqsrBai}"
 
 cd "${intermediateDir}"
- md5sum $(basename "${bqsrBam}")> $(basename "${bqsrBam}").md5
- md5sum $(basename "${bqsrBai}")> $(basename "${bqsrBai}").md5
+md5sum $(basename "${bqsrBam}")> $(basename "${bqsrBam}").md5
+md5sum $(basename "${bqsrBai}")> $(basename "${bqsrBai}").md5
 cd -
 
-  echo "returncode: $?";
-  echo "succes moving files";
-  echo "## $(date) ##  $0 Done "
+echo "returncode: $?";
+echo "succes moving files";
+echo "## $(date) ##  $0 Done "
 

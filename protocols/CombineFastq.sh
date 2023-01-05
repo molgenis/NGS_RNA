@@ -57,5 +57,6 @@ else
 	cat "${INPUTSLEFT[@]}" > "${tmpMergedLeftBarcodeFqGz}"
 	cat "${INPUTSRIGHT[@]}" > "${tmpMergedRightBarcodeFqGz}"
 fi
-	mv "${tmpMergedLeftBarcodeFqGz}" "${mergedLeftBarcodeFqGz}"
-	mv "${tmpMergedRightBarcodeFqGz}" "${mergedRightBarcodeFqGz}"
+
+mv "${tmpMergedLeftBarcodeFqGz}" "${mergedLeftBarcodeFqGz}"
+mv "${tmpMergedRightBarcodeFqGz}" "${mergedRightBarcodeFqGz}"

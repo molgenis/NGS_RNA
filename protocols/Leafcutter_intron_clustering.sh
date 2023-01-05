@@ -31,19 +31,19 @@ cd "${intermediateDir}"
 for bamfile in *."${sampleMergedBamExt}"
 do
 
-    echo Converting "${bamfile}" to "${bamfile}".junc
-    samtools index "${bamfile}"
+	echo Converting "${bamfile}" to "${bamfile}".junc
+	samtools index "${bamfile}"
 
-    #BUG: set to standed 0.
-    regtools junctions extract \
-    -a 8 \
-    -m 50 \
-    -M 500000 \
-    -s 0 \
-    "${bamfile}" \
-    -o "${bamfile}.junc"
+	#BUG: set to standed 0.
+	regtools junctions extract \
+	-a 8 \
+	-m 50 \
+	-M 500000 \
+	-s 0 \
+	"${bamfile}" \
+	-o "${bamfile}.junc"
 
-    echo "${intermediateDir}${bamfile}.junc" >> "${intermediateDir}${project}_juncfiles.txt"
+	echo "${intermediateDir}${bamfile}.junc" >> "${intermediateDir}${project}_juncfiles.txt"
 done
 
 python "${EBROOTLEAFCUTTER}/clustering/leafcutter_cluster_regtools.py" \

@@ -29,8 +29,8 @@ ROWNR=$(wc -l "${strandedness}" | awk '{ print $1 }')
 
 if [[ "${ROWNR}" == 6 ]]
 then
-        num1=$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)
-        num2=$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)
+	num1=$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)
+	num2=$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)
 	if [[ "${num1}" > 0.6 ]]
 	then
 		STRANDED="yes"
@@ -45,22 +45,21 @@ then
 	fi
 else
 	echo "strandedness detection failed"
-        STRANDED='no'
+	STRANDED='no'
 fi
 
 echo -e "\nQuantifying expression, with strandedness: ${STRANDED}"
 
-  samtools \
-        view -h \
-        "${sampleMergedBam}" | \
-        htseq-count \
-        -m union \
-        -s "${STRANDED}" \
-        - \
-        "${annotationGtf}" \
-        > "${tmpSampleHTseqExpressionText}"
+samtools \
+	view -h \
+	"${sampleMergedBam}" | \
+	htseq-count \
+	-m union \
+	-s "${STRANDED}" \
+	- \
+	"${annotationGtf}" \
+	> "${tmpSampleHTseqExpressionText}"
 
-        echo "Gene count succesfull"
-        mv "${tmpSampleHTseqExpressionText}" "${sampleHTseqExpressionText}"
-
-	echo "Finished!"
+echo "Gene count succesfull"
+mv "${tmpSampleHTseqExpressionText}" "${sampleHTseqExpressionText}"
+echo "Finished!"
