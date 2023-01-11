@@ -18,7 +18,7 @@ array_contains () {
 	local seeking="${2}"
 	local in=1
 	for element in "${!array-}"; do
-		if [[ "$element" == "$seeking" ]]; then
+		if [[ "${element}" == "${seeking}" ]]; then
 			in=0
 			break
 		fi
@@ -45,7 +45,7 @@ done
 python "${EBROOTNGS_RNA}/scripts/create_counts_matrix.py" \
 -i "${intermediateDir}/fileList.txt" \
 -o "${tmpProjectHTseqExpressionTable}" \
--e "$intermediateDir/create_counts_matrix.log"
+-e "${intermediateDir}/create_counts_matrix.log"
 
 echo "table create succesfull"
 mv "${tmpProjectHTseqExpressionTable}" "${projectHTseqExpressionTable}"

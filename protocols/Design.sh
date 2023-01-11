@@ -35,7 +35,7 @@ do
 	array_contains UNIQUESAMPLES "${sample}" || UNIQUESAMPLES+=("${sample}")    # If bamFile does not exist in array add it
 done
 
-cd "${intermediateDir}"
+cd "${intermediateDir}" || exit
 
 #cleanup old file if present
 rm -f "${intermediateDir}/"*".design.tsv"
@@ -66,4 +66,4 @@ done
 
 echo "files written to: ${intermediateDir}/ *.design.tsv"
 
-cd -
+cd - || exit

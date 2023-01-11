@@ -32,12 +32,6 @@
 #list barcode
 #list lane
 
-#
-# Change permissions.
-#
-umask 0007
-
-#FIX!
 module load "${ngsVersion}"
 module load "${ngsUtilsVersion}"
 module list
@@ -53,9 +47,9 @@ mkdir -p "${intermediateDir}"
 mkdir -p "${projectResultsDir}"
 mkdir -p "${projectQcDir}"
 
-ROCKETPOINT=`pwd`
+ROCKETPOINT="${pwd}"
 
-cd "${projectRawtmpDataDir}"
+cd "${projectRawtmpDataDir}" || exit
 
 #
 # Create symlinks to the raw data required to analyse this project
@@ -63,7 +57,6 @@ cd "${projectRawtmpDataDir}"
 # For each sequence file (could be multiple per sample):
 #
 
-n_elements="${internalSampleID[@]}"
 max_index="${#internalSampleID[@]}-1"
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
 do
@@ -97,14 +90,8 @@ do
 done
 
 
-cd $ROCKETPOINT
+cd "${ROCKETPOINT}" || exit
 
-echo "before splitting"
-echo pwd
-
-#
-# TODO: array for each sample:
-#
 
 #
 # Create subset of samples for this project.
@@ -122,9 +109,6 @@ if [[ -f ../.compute.properties ]];
 then
 	rm ../.compute.properties
 fi
-
-echo "before run second rocket"
-echo pwd
 
 sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${mainParameters}" \

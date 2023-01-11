@@ -50,8 +50,8 @@ done
 
 if [[ "${#INPUTSLEFT[@]}" == 1 ]]
 then
-	ln -sf $(basename "${INPUTSLEFT[0]}") "${mergedLeftBarcodeFqGz}"
-	ln -sf $(basename "${INPUTSRIGHT[0]}") "${mergedRightBarcodeFqGz}"
+	ln -sf "$(basename "${INPUTSLEFT[0]}")" "${mergedLeftBarcodeFqGz}"
+	ln -sf "$(basename "${INPUTSRIGHT[0]}")" "${mergedRightBarcodeFqGz}"
 	echo "nothing to merge because there is only one sample"
 else
 	cat "${INPUTSLEFT[@]}" > "${tmpMergedLeftBarcodeFqGz}"

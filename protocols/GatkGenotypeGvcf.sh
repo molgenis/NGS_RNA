@@ -24,7 +24,7 @@ array_contains () {
 	local seeking="${2}"
 	local in=1
 	for element in "${!array-}"; do
-		if [[ "$element" == "$seeking" ]]; then
+		if [[ "${element}" == "${seeking}" ]]; then
 			in=0
 			break
 		fi
@@ -44,8 +44,6 @@ module load "${htsLibVersion}"
 #Check modules
 module list
 
-echo "## $(date) Start $0"
-
 INPUTS=()
 ALLGVCFs=()
 
@@ -55,21 +53,21 @@ do
 done
 
 SAMPLESIZE=${#INPUTS[@]}
-numberofbatches=$(($SAMPLESIZE / 200))
+numberofbatches=$(("${SAMPLESIZE}" / 200))
 
-for b in $(seq 0 $numberofbatches)
+for b in $(seq 0 "${numberofbatches}")
 do
-	if [ -f ${gatkHaplotypeCallerGvcf}.$b ]
+	if [[ -f "${gatkHaplotypeCallerGvcf}.${b}" ]]
 	then
-		ALLGVCFs+=("--variant gatkHaplotypeCallerGvcf}.$b")
+		ALLGVCFs+=("--variant ${gatkHaplotypeCallerGvcf}.${b}")
 	fi
 done
 
-if [ "${SAMPLESIZE}" -gt 200 ]
+if [[ "${SAMPLESIZE}" -gt 200 ]]
 then
 	for b in $(seq 0 "${numberofbatches}")
 	do
-		if [ -f "${projectBatchCombinedVariantCalls}.${b}" ]
+		if [[ -f "${projectBatchCombinedVariantCalls}.${b}" ]]
 		then
 			ALLGVCFs+=("--variant=${projectBatchCombinedVariantCalls}.${b}")
 		fi
@@ -77,9 +75,9 @@ then
 else
 	for sampleGvcf in "${gatkHaplotypeCallerGvcf[@]}"
 	do
-		if [ -f "${sampleGvcf}" ]
+		if [[ -f "${sampleGvcf}" ]]
 		then
-			array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=$sampleGvcf")
+			array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=${sampleGvcf}")
 		fi
 	done
 fi
@@ -87,7 +85,7 @@ fi
 
 GvcfSize=${#ALLGVCFs[@]}
 
-if [ ${GvcfSize} -ne 0 ]
+if [[ ${GvcfSize} -ne 0 ]]
 then
 
 	gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tmpTmpDataDir}" CombineGVCFs \
@@ -106,11 +104,11 @@ then
 
 	tabix -p vcf "${projectBatchGenotypedVariantCalls}"
 
-	printf "${projectBatchGenotypedVariantCalls} ..done\n"
+	echo "${projectBatchGenotypedVariantCalls} ..done"
 
-	cd "${intermediateDir}"
-	md5sum $(basename "${projectBatchGenotypedVariantCalls}")> $(basename "${projectBatchGenotypedVariantCalls}").md5
-	cd -
+	cd "${intermediateDir}" || exit
+	md5sum "$(basename "${projectBatchGenotypedVariantCalls}")" > "$(basename "${projectBatchGenotypedVariantCalls}").md5"
+	cd - || exit 
 	echo "succes moving files"
 
 else

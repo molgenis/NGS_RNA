@@ -23,12 +23,10 @@ makeTmpDir "${gatkHaplotypeCallerGvcftbi}"
 tmpGatkHaplotypeCallerGvcftbi=${MC_tmpFile}
 
 #Load modules
-module load ${gatkVersion}
+module load "${gatkVersion}"
 
 #Check modules
 module list
-
-echo "## "$(date)" Start $0"
 
 gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -Xmx12g" HaplotypeCaller \
 -R "${indexFile}" \
@@ -39,8 +37,3 @@ gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -
 
 mv "${tmpGatkHaplotypeCallerGvcf}" "${gatkHaplotypeCallerGvcf}"
 mv "${tmpGatkHaplotypeCallerGvcftbi}" "${gatkHaplotypeCallerGvcftbi}"
-
-echo "returncode: $?";
-echo "succes moving files";
-
-echo "## "$(date)" ##  $0 Done "

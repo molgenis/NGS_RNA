@@ -84,14 +84,11 @@ do
 
 done
 
-cd "${TMPDATADIR}"
-if md5sum -c *.md5 > "${RUNNAME}.md5.log" 2>&1
+cd "${TMPDATADIR}" || exit
+if md5sum -c ./*.md5 > "${RUNNAME}.md5.log" 2>&1
 then
 	echo 'PASS'
 else
 	echo 'FAILED'
 fi
-cd -
-
-
-
+cd - || exit

@@ -29,7 +29,7 @@ rm -r "${rMATsOutputDir}/${externalSampleID}/tmp/"
 while read -r line
 do
 	# reading each line
-	read name status <<< "${line}"
+	read -r name status <<< "${line}"
 	if [[ "${status}" == "sample" ]]
 	then
 		echo "${name} is a ${status} : in ${externalSampleID}.B1.txt"
