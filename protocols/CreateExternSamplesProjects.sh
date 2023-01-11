@@ -30,10 +30,9 @@
 #list externalFastQ_1
 #list externalFastQ_2
 
-umask 0007
 module load "${ngsUtilsVersion}"
-
 module list
+
 #
 # Create project dirs.
 #
@@ -45,9 +44,9 @@ mkdir -p "${intermediateDir}"
 mkdir -p "${projectResultsDir}"
 mkdir -p "${projectQcDir}"
 
-ROCKETPOINT=`pwd`
+ROCKETPOINT="${PWD}"
 
-cd "${projectRawtmpDataDir}"
+cd "${projectRawtmpDataDir}" || exit
 
 #
 # Create symlinks to the raw data required to analyse this project
@@ -56,7 +55,6 @@ cd "${projectRawtmpDataDir}"
 #
 
 
-#n_elements="${internalSampleID[@]}"
 max_index="${#internalSampleID[@]}"-1
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
 do
@@ -87,15 +85,9 @@ do
 	fi
 done
 
-cd $ROCKETPOINT
+cd "${ROCKETPOINT}" || exit
 
-echo "before splitting"
-echo `pwd`
 module load "${ngsVersion}"
-
-#
-# TODO: array for each sample:
-#
 
 #
 # Create subset of samples for this project.

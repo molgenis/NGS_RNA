@@ -35,10 +35,6 @@ module load "${samtoolsVersion}"
 #check modules
 module list
 
-echo "## $(date) Start $0"
-
-echo "Running split and trim:"
-
 java -Xmx10g -XX:ParallelGCThreads=2 \
 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 -jar "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" SplitNCigarReads \
@@ -52,12 +48,8 @@ mv "${tmpsplitAndTrimBai}" "${splitAndTrimBai}"
 
 # Create md5sum for zip file
 
-cd "${intermediateDir}"
+cd "${intermediateDir}" || exit
 md5sum "${splitAndTrimShortBam}" > "${splitAndTrimShortBam}.md5"
 md5sum "${splitAndTrimShortBai}" > "${splitAndTrimShortBai}.md5"
-echo "returncode: $?";
-echo "succes moving files";
-cd -
-
-echo "## $(date) ##  $0 Done "
+cd - || exit
 

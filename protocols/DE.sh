@@ -37,10 +37,10 @@ do
 	array_contains UNIQUESAMPLES "${sampleId}" || UNIQUESAMPLES+=("${sampleId}")    # If sampleId does not exist in array add it
 done
 
-cd "${intermediateDir}"
+cd "${intermediateDir}" || exit
 
 #detect number of conditions
-col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n $col)
+col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n "${col}")
 colArray=(${col//:/ })
 conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "${colArray[0]}" | sort | uniq | wc -l)
 
@@ -69,4 +69,4 @@ else
 	echo "running: deseq2 analysis"
 	Rscript "${EBROOTNGS_RNA}/scripts/deseq2_analysis.R" "${projectJobsDir}/${project}.csv" "${project}"
 fi
-cd -
+cd - || exit

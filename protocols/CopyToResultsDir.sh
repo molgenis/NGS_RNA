@@ -61,8 +61,6 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy BAM plus index plus md5 sum to results directory
 
-usedWorkflow=$(basename ${workflow})
-
 	rsync -avL "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
 	rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
@@ -79,7 +77,7 @@ usedWorkflow=$(basename ${workflow})
 	rsync -av "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics/"
 	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics/"
 
-	if [ "${seqType}" == "PE" ]
+	if [[ "${seqType}" == "PE" ]]
 	then
 		rsync -av "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics/"
 	else
@@ -112,7 +110,7 @@ usedWorkflow=$(basename ${workflow})
 # Copy STAR annotated SpliceJunctions
 	rsync -av "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
 #only available with PE
-	if [ "${seqType}" == "PE" ]
+	if [[ "${seqType}" == "PE" ]]
 	then
 		rsync -av "${intermediateDir}"/*.insert_size_* "${projectResultsDir}/qcmetrics/"
 	else

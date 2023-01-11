@@ -1,3 +1,4 @@
+
 #MOLGENIS nodes=1 ppn=1 mem=34gb walltime=05:00:00
 
 #Parameter mapping
@@ -18,8 +19,6 @@ module load "${python2Version}"
 module list
 
 
-
-INPUTFILE="${intermediateDir}${externalSampleID}.leafcutter.outlier_cluster_significance.txt"
 OUTPUTFILE="${intermediateDir}${externalSampleID}.leafcutter.report.tsv"
 
 # adding coordinates to leafcutter results

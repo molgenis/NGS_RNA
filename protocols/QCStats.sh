@@ -40,9 +40,6 @@ module load "${pythonVersion}"
 module load "${ngsVersion}"
 module list
 
-makeTmpDir "${intermediateDir}"
-tmpIntermediateDir="${MC_tmpFile}"
-
 # Get strandness.
 STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "SECOND_READ_TRANSCRIPTION_STRAND"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "FIRST_READ_TRANSCRIPTION_STRAND"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "NONE"; fi)"
 
@@ -52,15 +49,15 @@ then
 	echo -e "generate CollectMultipleMetrics"
 
 	# Picard CollectMultipleMetrics
-		java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
-		I="${sampleMergedDedupBam}" \
-		O="${collectMultipleMetricsPrefix}" \
-		R="${indexSpecies}" \
-		PROGRAM=CollectAlignmentSummaryMetrics \
-		PROGRAM=QualityScoreDistribution \
-		PROGRAM=MeanQualityByCycle \
-		PROGRAM=CollectInsertSizeMetrics \
-		TMP_DIR="${tempDir}/processing"
+	java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
+	I="${sampleMergedDedupBam}" \
+	O="${collectMultipleMetricsPrefix}" \
+	R="${indexSpecies}" \
+	PROGRAM=CollectAlignmentSummaryMetrics \
+	PROGRAM=QualityScoreDistribution \
+	PROGRAM=MeanQualityByCycle \
+	PROGRAM=CollectInsertSizeMetrics \
+	TMP_DIR="${tempDir}/processing"
 
 
 	#Flagstat for reads mapping to the genome.
@@ -85,32 +82,32 @@ then
 elif [[ "${seqType}" == "SR" ]]
 then
 
-		#Flagstat for reads mapping to the genome.
-		samtools flagstat "${sampleMergedDedupBam}" > "${flagstatMetrics}"
+	#Flagstat for reads mapping to the genome.
+	samtools flagstat "${sampleMergedDedupBam}" > "${flagstatMetrics}"
 
 	# Fagstats idxstats, reads per chr.
-		samtools idxstats "${sampleMergedDedupBam}" > "${idxstatsMetrics}"
+	samtools idxstats "${sampleMergedDedupBam}" > "${idxstatsMetrics}"
 
 	echo -e "generate CollectMultipleMetrics"
 
-		# Picard CollectMultipleMetrics
-		java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
-		I="${sampleMergedDedupBam}" \
-		O="${collectMultipleMetricsPrefix}" \
-		R="${indexSpecies}" \
-		PROGRAM=CollectAlignmentSummaryMetrics \
-		PROGRAM=QualityScoreDistribution \
-		PROGRAM=MeanQualityByCycle \
-		PROGRAM=CollectInsertSizeMetrics \
-		TMP_DIR="${tempDir}/processing"
+	# Picard CollectMultipleMetrics
+	java -jar -Xmx6g -XX:ParallelGCThreads=4 "${EBROOTPICARD}/${picardJar}" CollectMultipleMetrics \
+	I="${sampleMergedDedupBam}" \
+	O="${collectMultipleMetricsPrefix}" \
+	R="${indexSpecies}" \
+	PROGRAM=CollectAlignmentSummaryMetrics \
+	PROGRAM=QualityScoreDistribution \
+	PROGRAM=MeanQualityByCycle \
+	PROGRAM=CollectInsertSizeMetrics \
+	TMP_DIR="${tempDir}/processing"
 
-		#CollectRnaSeqMetrics.jar
-		java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
-		REF_FLAT="${annotationRefFlat}" \
-		I="${sampleMergedDedupBam}" \
-		STRAND_SPECIFICITY="${STRANDED}" \
-		RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
-		VALIDATION_STRINGENCY=LENIENT \
-		O="${rnaSeqMetrics}" \
-		CHART_OUTPUT="${rnaSeqMetrics}.pdf"
+	#CollectRnaSeqMetrics.jar
+	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \
+	REF_FLAT="${annotationRefFlat}" \
+	I="${sampleMergedDedupBam}" \
+	STRAND_SPECIFICITY="${STRANDED}" \
+	RIBOSOMAL_INTERVALS="${annotationIntervalList}" \
+	VALIDATION_STRINGENCY=LENIENT \
+	O="${rnaSeqMetrics}" \
+	CHART_OUTPUT="${rnaSeqMetrics}.pdf"
 fi

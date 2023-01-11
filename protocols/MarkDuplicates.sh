@@ -57,7 +57,7 @@ sambamba markdup \
 mv "${tmpSampleMergedDedupBam}" "${sampleMergedDedupBam}"
 mv "${tmpSampleMergedDedupBai}" "${sampleMergedDedupBai}"
 
-cd "${intermediateDir}"
-md5sum "${sampleMergedDedupBam}" > $(basename "${sampleMergedDedupBam}").md5
-md5sum "${sampleMergedDedupBai}" > $(basename "${sampleMergedDedupBai}").md5
-cd -
+cd "${intermediateDir}" || exit
+md5sum "${sampleMergedDedupBam}" > "$(basename "${sampleMergedDedupBam}").md5"
+md5sum "${sampleMergedDedupBai}" > "$(basename "${sampleMergedDedupBai}").md5"
+cd - || exit

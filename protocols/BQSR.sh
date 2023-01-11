@@ -52,10 +52,10 @@ java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 mv "${tmpBqsrBam}" "${bqsrBam}"
 mv "${tmpBqsrBai}" "${bqsrBai}"
 
-cd "${intermediateDir}"
-md5sum $(basename "${bqsrBam}")> $(basename "${bqsrBam}").md5
-md5sum $(basename "${bqsrBai}")> $(basename "${bqsrBai}").md5
-cd -
+cd "${intermediateDir}" || exit
+md5sum "$(basename "${bqsrBam}")" > "$(basename "${bqsrBam}").md5"
+md5sum "$(basename "${bqsrBai}")" > "$(basename "${bqsrBai}").md5"
+cd - || exit
 
 echo "returncode: $?";
 echo "succes moving files";

@@ -34,7 +34,7 @@ then
 	if [[ "${num1}" > 0.6 ]]
 	then
 		STRANDED="yes"
-	elif [[ "${num2}" > 0.6  ]]
+	elif [[ "${num2}" > 0.6 ]]
 	then
 		STRANDED="reverse"
 	elif [[ "${num1}" < 0.6 && "${num2}" < 0.6 ]]

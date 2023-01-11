@@ -94,4 +94,4 @@ multiqc -c "/intermediateDir/${project}_QC_config.yaml" \
 -f "/intermediateDir/" \
 -o "/projectResultsDir/"
 
-mv ${projectResultsDir}/multiqc_report.html ${projectResultsDir}/${project}_multiqc_report.html
+mv "${projectResultsDir}/multiqc_report.html" "${projectResultsDir}/${project}_multiqc_report.html"

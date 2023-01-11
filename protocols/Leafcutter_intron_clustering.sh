@@ -27,7 +27,7 @@ echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
 
 rm -f "${intermediateDir}${project}_juncfiles.txt"
-cd "${intermediateDir}"
+cd "${intermediateDir}" || exit
 for bamfile in *."${sampleMergedBamExt}"
 do
 
@@ -54,4 +54,4 @@ python "${EBROOTLEAFCUTTER}/clustering/leafcutter_cluster_regtools.py" \
 -l 500000 \
 --nochromcheck=NOCHROMCHECK
 
-cd -
+cd - || exit
