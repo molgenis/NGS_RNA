@@ -21,7 +21,6 @@
 #list barcode
 #list lane
 
-n_elements="${internalSampleID[@]}"
 max_index="${#internalSampleID[@]}"-1
 
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))

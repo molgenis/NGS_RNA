@@ -40,12 +40,12 @@ INPUTSRIGHT=()
 
 for FqFileLeft in "${trimmedLeftBarcodeFqGz[@]}"
 do
-	array_contains INPUTSLEFT "${FqFileLeft}" || INPUTSLEFT+=("${FqFileLeft}")    # If bamFile does not exist in array add it
+	array_contains INPUTSLEFT "${FqFileLeft}" || INPUTSLEFT+=("${FqFileLeft}")
 done
 
 for FqFileRight in "${trimmedRightBarcodeFqGz[@]}"
 do
-	array_contains INPUTSRIGHT "${FqFileRight}" || INPUTSRIGHT+=("${FqFileRight}")    # If baiFile does not exist in array add it
+	array_contains INPUTSRIGHT "${FqFileRight}" || INPUTSRIGHT+=("${FqFileRight}")
 done
 
 if [[ "${#INPUTSLEFT[@]}" == 1 ]]
