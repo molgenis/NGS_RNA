@@ -27,23 +27,15 @@ makeTmpDir "${bqsrBai}"
 tmpBqsrBai=${MC_tmpFile}
 
 #Load Modules
-module load ${gatkVersion}
+module load "${gatkVersion}"
 
 #check modules
 module list
 
-echo "## $(date) Start $0"
-
-echo
-echo
 echo "Running GATK BQSR:"
 
 
-java -Dsamjdk.use_async_io_read_samtools=false \
--Dsamjdk.use_async_io_write_samtools=true \
--Dsamjdk.use_async_io_write_tribble=false \
--Dsamjdk.compression_level=2 \
--jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
+jan -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" BaseRecalibrator \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
@@ -67,5 +59,4 @@ cd -
 
 echo "returncode: $?";
 echo "succes moving files";
-echo "## $(date) ##  $0 Done "
 
