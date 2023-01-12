@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=17gb ppn=3 nodes=1
 
 #string gatkVersion

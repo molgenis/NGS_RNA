@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=4 mem=4gb walltime=23:59:00
 
 #Parameter mapping

@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=4 mem=4gb walltime=05:59:00
 
 #Parameter mapping
@@ -41,6 +42,7 @@ cd "${intermediateDir}" || exit
 
 #detect number of conditions
 col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n "${col}")
+# shellcheck disable=SC2206
 colArray=(${col//:/ })
 conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "${colArray[0]}" | sort | uniq | wc -l)
 
