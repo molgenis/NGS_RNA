@@ -41,7 +41,7 @@ echo "create group_list"
 col=$(col="externalSampleID"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n "${col}")
 # shellcheck disable=SC2206
 colID=(${col//:/ })
-awk -F',' -v id="${colID[0]}" -v con="${colArray[0]}" '{print ${id}".sorted.merged.bam\t"${con}}' "${projectJobsDir}/${project}.csv" \
+awk -F',' -v id="${colID[0]}" -v con="${colArray[0]}" '{print ${id}".sorted.merged.bam\t"$con}' "${projectJobsDir}/${project}.csv" \
 > "${intermediateDir}${project}_groups_file.txt"
 
 sed 1d "${intermediateDir}${project}_groups_file.txt" > "${intermediateDir}${project}"_groups_file.txt.tmp
