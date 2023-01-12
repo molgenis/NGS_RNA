@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=5:00:00 nodes=1 cores=1 mem=50gb
 
 #string intermediateDir

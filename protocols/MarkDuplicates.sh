@@ -1,3 +1,4 @@
+set -o pipefail
 #!/bin/bash
 #MOLGENIS walltime=23:59:00 mem=8gb ppn=6
 

@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=8 mem=11gb walltime=23:59:00
 
 #string project
