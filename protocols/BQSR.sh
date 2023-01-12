@@ -36,7 +36,7 @@ module list
 echo "Running GATK BQSR:"
 
 
-jan -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
+java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 "${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" BaseRecalibrator \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
