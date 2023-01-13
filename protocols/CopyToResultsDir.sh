@@ -19,7 +19,6 @@ set -o pipefail
 #string fastqcVersion
 #string samtoolsVersion
 #string rVersion
-#string wkhtmltopdfVersion
 #string picardVersion
 #string starVersion
 #string htseqVersion
@@ -37,10 +36,6 @@ set -o pipefail
 #string groupname
 #string tmpName
 #string logsDir
-
-# Change permissions
-
-umask 0007
 
 # Make result directories
 mkdir -p "${projectResultsDir}/alignment"
