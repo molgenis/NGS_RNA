@@ -38,9 +38,12 @@ for line in stream:
         continue
     line = line.strip()
     tabs = line.split('\t')
+    arr_genetotal = line.split('"')
     gene = line.split('"')[1]
     chrm, start, end = tabs[0], int(tabs[3]), int(tabs[4])
-    gene = line.split('"')[1]
+    # get col number of 'gene_name' in arr_genetotal, add 1 to it \ 
+    # to get the actual 'gene_name value' from the next array value.
+    gene = line.split('"')[arr_genetotal.index("; gene_name ")+1]
     if gene not in genes_dict:
         genes_dict[gene] = [chrm, start, end]
     elif chrm == genes_dict[gene][0]:
