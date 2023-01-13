@@ -14,12 +14,10 @@ set -o pipefail
 #string gcPlotList
 #string seqType
 #string rVersion
-#string wkhtmltopdfVersion
 #string fastqcVersion
 #string samtoolsVersion
 #string picardVersion
 #string multiqcVersion
-#string anacondaVersion
 #string starVersion
 #string indexFileID
 #string ensembleReleaseVersion
@@ -51,7 +49,6 @@ report_header_info:
 - '' : ${starVersion}
 - '' : ${samtoolsVersion}
 - '' : ${rVersion}
-- '' : ${wkhtmltopdfVersion}
 - '' : ${picardVersion}
 - '' : ${htseqVersion}
 - '' : ${pythonVersion}

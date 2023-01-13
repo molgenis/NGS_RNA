@@ -23,7 +23,6 @@ set -o pipefail
 #string alignmentMetrics
 #string externalSampleID
 #string picardVersion
-#string anacondaVersion
 #string samtoolsVersion
 #string ngsVersion
 #string pythonVersion

@@ -5,6 +5,6 @@ dataDir,${root}/data/
 tmpName,tmp01
 root,/apps/
 tempDir,${workDir}/${tmpName}/tmp/
-permanentDir,${workDir}/prm03
-toolchain,foss-2018b
-GCCcoreVersion,GCCcore-7.3.0
+permanentDir,${workDir}/prm08
+toolchain,foss-2022a
+GCCcoreVersion,GCCcore-11.3.0
