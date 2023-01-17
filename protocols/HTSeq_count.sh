@@ -48,7 +48,7 @@ samtools \
 	htseq-count \
 	-m union \
 	-s "${STRANDED}" \
-	-i gene_name
+	-i gene_name \
 	- \
 	"${annotationGtf}" \
 	> "${tmpSampleHTseqExpressionText}"
