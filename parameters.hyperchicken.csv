@@ -34,7 +34,7 @@ picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
 trimGaloreVersion,TrimGalore/0.4.5-${GCCcoreVersion}-Python-3.10.4-bare
-cutadaptVersion,cutadapt/2.6-${GCCcoreVersion}-Python-3.10.4-bare
+cutadaptVersion,cutadapt/4.2-${GCCcoreVersion}-Python-3.10.4-bare
 rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.10.4
 leafcutterVersion,leafcutter/aa12b1e-${toolchain}
 vipVersion,vip/v3.3.1-${toolchain}
