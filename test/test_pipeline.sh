@@ -81,7 +81,7 @@ function checkIfFinished(){
 	echo "${_projectName} test succeeded!"
 	echo ""
 }
-tmpdirectory="tmp01"
+tmpdirectory="tmp09"
 groupName="umcg-atd"
 NGS_RNA_VERSION="NGS_DNA/betaAutotest"
 
