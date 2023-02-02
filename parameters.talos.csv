@@ -11,7 +11,7 @@ GCCcoreVersion,GCCcore-11.3.0
 
 ##### Tools and versions #####
 jdkVersion,Java/11-LTS
-ngsUtilsVersion,ngs-utils/19.03.3-${GCCcoreVersion}
+ngsUtilsVersion,ngs-utils/22.10.1
 ngsRNAVersion,NGS_RNA/beta
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-${GCCcoreVersion}
