@@ -7,7 +7,7 @@ root,/apps/
 tempDir,${workDir}/${tmpName}/tmp/
 permanentDir,${workDir}/prm03
 toolchain,foss-2018b
-GCCcoreVersion,GCCcore-7.3.0
+GCCcoreVersion,GCCcore-11.3.0
 
 ##### Tools and versions #####
 jdkVersion,Java/11-LTS
