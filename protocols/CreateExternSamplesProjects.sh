@@ -90,11 +90,7 @@ cd "${ROCKETPOINT}" || exit
 
 module load "${ngsVersion}"
 
-#
-# Create subset of samples for this project.
-#
-
-extract_samples_from_GAF_list.pl --i "${worksheet}" --o "${projectJobsDir}/${project}.csv" --c project --q "${project}"
+cp "${worksheet}" "${projectJobsDir}/${project}.csv"
 
 #
 # Execute MOLGENIS/compute to create job scripts to analyse this project.
