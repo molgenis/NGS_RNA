@@ -4,13 +4,13 @@ node {
 	}
         stage ('Automated test') {
         
-        echo "Copy test from repo to molgenis home on Gearshift"
-        sh "sudo scp test/test_pipeline.sh airlock+gearshift:/home/umcg-molgenis/test_pipeline_RNA.sh"
+        echo "Copy test from repo to molgenis home on HC-DAI"
+        sh "sudo scp test/test_pipeline.sh portal+hc-dai:/home/umcg-molgenis/test_pipeline_RNA.sh"
         
-        echo "Login to Gearshift"
+        echo "Login to HC-DAI"
 	    
 	sh '''
-            sudo ssh -tt airlock+gearshift 'exec bash -l << 'ENDSSH'
+            sudo ssh -tt portal+hc-dai 'exec bash -l << 'ENDSSH'
 	    	echo "Starting automated test"
 		bash /home/umcg-molgenis/test_pipeline_RNA.sh '''+env.CHANGE_ID+'''
 ENDSSH'
