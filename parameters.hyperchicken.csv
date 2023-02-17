@@ -2,7 +2,7 @@
 queue,atd
 workDir,/groups/${groupname}/
 dataDir,${root}/data/
-tmpName,tmp01
+tmpName,tmp09
 root,/apps/
 tempDir,${workDir}/${tmpName}/tmp/
 permanentDir,${workDir}/prm03

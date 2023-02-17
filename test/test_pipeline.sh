@@ -81,7 +81,7 @@ function checkIfFinished(){
 	echo "${_projectName} test succeeded!"
 	echo ""
 }
-tmpdirectory="tmp01"
+tmpdirectory="tmp09"
 groupName="umcg-atd"
 NGS_RNA_VERSION="NGS_DNA/betaAutotest"
 
@@ -119,7 +119,7 @@ tail -1 workflow_STAR.csv | perl -p -e 's|,|\t|g' | awk '{print "s15_Autotest,te
 perl -pi -e 's|s09_OUTRIDER|#s09_OUTRIDER|g' test_workflow_STAR.csv
 perl -pi -e 's|s12_VIP|#s12_VIP|g' test_workflow_STAR.csv
 
-cp "${pipelinefolder}/test/results/"* "/groups/umcg-atd/tmp01/tmp/NGS_RNA/testdata_true/"
+cp "${pipelinefolder}/test/results/"* "${workfolder}/tmp/NGS_RNA/testdata_true/"
 
 preparePipeline
 
