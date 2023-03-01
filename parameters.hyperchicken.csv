@@ -8,6 +8,7 @@ tempDir,${workDir}/${tmpName}/tmp/
 permanentDir,${workDir}/prm03
 toolchain,foss-2022a
 GCCcoreVersion,GCCcore-11.3.0
+GCCVersion,GCC-11.3.0
 
 ##### Tools and versions #####
 jdkVersion,Java/11-LTS
@@ -29,7 +30,7 @@ python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
 pythonPlusVersion,PythonPlus/3.10.4-${toolchain}-v22.11.3
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
-starVersion,STAR/2.7.9a-${GCCcoreVersion}
+starVersion,STAR/2.7.9a-GCC-11.3.0
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
