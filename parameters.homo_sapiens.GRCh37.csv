@@ -130,7 +130,7 @@ gtexJunc,/apps/data/GAD/others/GTEx_v7_bflb_junctions.gct
 omimList,/apps/data/GAD/others/OMIM2.list
 indexFile,${indexSpecies}
 dbsnpVcf,/apps/data/dbSNP/dbsnp_137.b37.vcf
-starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.9a-${GCCVersion}/
+starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.3a-foss-2018b/
 #### GENOME VARIABLES ####
 genome,GRCh37
 ensembleReleaseVersion,75
