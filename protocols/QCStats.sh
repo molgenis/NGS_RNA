@@ -44,7 +44,7 @@ module list
 num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
 num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
 
-STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "SECOND_READ_TRANSCRIPTION_STRAND"}else if($2 > 0.6){print "FIRST_READ_TRANSCRIPTION_STRAND"}else if($1 < 0.6 && $2 < 0.6){print "NONE"} }')
+STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "FIRST_READ_TRANSCRIPTION_STRAND"}else if($2 > 0.6){print "SECOND_READ_TRANSCRIPTION_STRAND"}else if($1 < 0.6 && $2 < 0.6){print "NONE"} }')
 
 #If paired-end do fastqc for both ends, else only for one
 if [[ "${seqType}" == "PE" ]]

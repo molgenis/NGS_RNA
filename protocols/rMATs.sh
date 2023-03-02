@@ -48,7 +48,7 @@ done < "${intermediateDir}${externalSampleID}.SJ.design.tsv"
 num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
 num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
 
-STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "fr-secondstrand"}else if($2 > 0.6){print "fr-firststrand"}else if($1 < 0.6 && $2 < 0.6){print "fr-unstranded"} }')
+STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "fr-firststrand"}else if($2 > 0.6){print "fr-secondstrand"}else if($1 < 0.6 && $2 < 0.6){print "fr-unstranded"} }')
 
 singularity exec --bind "${intermediateDir}":/intermediateDir,/apps:/apps,/groups:/groups "${sifDir}/${rMATsVersion}" python /rmats/rmats.py \
 --b1 "/intermediateDir/${externalSampleID}.B1.txt" --b2 "/intermediateDir/${externalSampleID}.B2.txt" \

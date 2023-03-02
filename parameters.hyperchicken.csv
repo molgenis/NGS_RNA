@@ -30,7 +30,7 @@ python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
 pythonPlusVersion,PythonPlus/3.10.4-${toolchain}-v22.11.3
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
-starVersion,2.7.3a-GCC-11.3.0
+starVersion,STAR/2.7.3a-GCC-11.3.0
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
