@@ -23,6 +23,8 @@ module load "${leafcutterVersion}"
 module load "${python2Version}"
 module list
 
+export R_LIBS_USER="${EBROOTLEAFCUTTER}/R_LIBS/"
+
 	"${EBROOTLEAFCUTTER}/scripts/leafcutter_ds.R" \
 	-e "${annotationTxt}" \
 	--num_threads 4 \
@@ -32,13 +34,5 @@ module list
 	-o "${tmpintermediateDir}/${externalSampleID}.leafcutter.outlier" \
 	"${intermediateDir}/${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
 	"${intermediateDir}/${externalSampleID}.SJ.design.tsv"
-
-	Rscript "${EBROOTLEAFCUTTER}/scripts/ds_plots.R" \
-	-e "${gencodeHg19AllExons}" \
-	-o "${tmpintermediateDir}/${externalSampleID}_leafcutter_ds" \
-	"${intermediateDir}/${project}_leafcutter_cluster_regtools_perind_numers.counts.gz" \
-	"${intermediateDir}/${externalSampleID}.SJ.design.tsv" \
-	"${tmpintermediateDir}/${externalSampleID}.leafcutter.outlier_cluster_significance.txt" \
-	-f 0.05
 
 	mv "${tmpintermediateDir}/${externalSampleID}"* "${intermediateDir}"

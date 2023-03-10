@@ -47,6 +47,8 @@ awk -F',' -v id="${colID[0]}" -v con="${colArray[0]}" '{print $id".sorted.merged
 sed 1d "${intermediateDir}${project}_groups_file.txt" > "${intermediateDir}${project}"_groups_file.txt.tmp
 mv "${intermediateDir}${project}_groups_file.txt.tmp" "${intermediateDir}${project}_groups_file.txt"
 
+export R_LIBS_USER="${EBROOTLEAFCUTTER}/R_LIBS/"
+
 echo "conditionCount = ${conditionCount}"
 if [[ "${conditionCount}" -gt 1 ]]
 then

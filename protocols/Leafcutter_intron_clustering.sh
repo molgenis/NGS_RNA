@@ -20,7 +20,7 @@ module list
 num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
 num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
 
-STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "1"}else if($2 > 0.6){print "2"}else if($1 < 0.6 && $2 < 0.6){print "0"} }')
+STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "RF"}else if($2 > 0.6){print "FR"}else if($1 < 0.6 && $2 < 0.6){print "XS"} }')
 
 echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
@@ -38,7 +38,7 @@ do
 	-a 8 \
 	-m 50 \
 	-M 500000 \
-	-s 0 \
+	-s "${STRANDED}" \
 	"${bamfile}" \
 	-o "${bamfile}.junc"
 
