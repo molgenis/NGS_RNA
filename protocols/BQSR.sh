@@ -37,14 +37,14 @@ echo "Running GATK BQSR:"
 
 
 java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
-"${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" BaseRecalibrator \
+"${EBROOTGATK}/gatk-package-4.2.4.1-local.jar" BaseRecalibrator \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
 -O "${bqsrBeforeGrp}" \
 --known-sites "${dbsnpVcf}"
 
 java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
-"${EBROOTGATK}/gatk-package-4.1.4.1-local.jar" ApplyBQSR \
+"${EBROOTGATK}/gatk-package-4.2.4.1-local.jar" ApplyBQSR \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
 -O "${tmpBqsrBam}" \
