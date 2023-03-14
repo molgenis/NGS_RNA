@@ -5,6 +5,7 @@ set -o pipefail
 #string stage
 #string checkStage
 #string gatkVersion
+#string gatkJar
 #string intermediateDir
 #string	externalSampleID
 #string bqsrBam
@@ -37,7 +38,7 @@ echo "Running GATK BQSR:"
 
 
 java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
-"${EBROOTGATK}/gatk-package-4.2.4.1-local.jar" BaseRecalibrator \
+"${EBROOTGATK}/${gatkJar}" BaseRecalibrator \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
 -O "${bqsrBeforeGrp}" \
