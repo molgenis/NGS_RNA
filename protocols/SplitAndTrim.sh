@@ -38,7 +38,7 @@ module list
 
 java -Xmx10g -XX:ParallelGCThreads=2 \
 -Djava.io.tmpdir="${tmpTmpDataDir}" \
--jar "${EBROOTGATK}/gatk-package-4.2.4.1-local.jar" SplitNCigarReads \
+-jar "${EBROOTGATK}/${gatkJar}" SplitNCigarReads \
 --tmp-dir "${tmpTmpDataDir}" \
 -R "${indexFile}" \
 -I "${sampleMergedDedupBam}" \
