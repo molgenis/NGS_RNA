@@ -45,7 +45,7 @@ java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
 --known-sites "${dbsnpVcf}"
 
 java -jar -Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tmpTmpDataDir}" \
-"${EBROOTGATK}/gatk-package-4.2.4.1-local.jar" ApplyBQSR \
+"${EBROOTGATK}/${gatkJar}" ApplyBQSR \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
 -O "${tmpBqsrBam}" \

@@ -9,7 +9,7 @@
 #tmp fix
 export TERM='xterm'
 
-testResults="/groups/umcg-atd/tmp01/tmp/NGS_RNA/testdata_true/"
+testResults="/groups/umcg-atd/${tmpName}/tmp/NGS_RNA/testdata_true/"
 mkdir -p "${testResults}/output_NGS_RNA"
 
 module load ngs-utils
