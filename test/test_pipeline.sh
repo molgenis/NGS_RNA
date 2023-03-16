@@ -63,9 +63,9 @@ function checkIfFinished(){
 		minutes=$((minutes+2))
 
 		count=$((count+2))
-		if [ $count -eq 30 ]
+		if [ $count -eq 35 ]
 		then
-			echo "the test was not finished within 30 minutes, let's kill it"
+			echo "the test was not finished within 35 minutes, let's kill it"
 			echo -e "\n"
 			for i in ${workfolder}/projects/${_projectName}/run01/jobs/*.sh
 			do
