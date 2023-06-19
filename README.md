@@ -99,3 +99,4 @@ Navigate to jobs folder. The location of the jobs folder will be outputted at th
 ```BASH
 bash submit.sh
 ```
+
