@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=1 mem=1gb walltime=05:00:00
 
 
@@ -21,26 +22,26 @@
 #string logsDir
 
 #Load module
-module load ${fastqcVersion}
+module load "${fastqcVersion}"
 module list
 
-makeTmpDir ${intermediateDir}
-tmpIntermediateDir=${MC_tmpFile}
+makeTmpDir "${intermediateDir}"
+tmpIntermediateDir="${MC_tmpFile}"
 
 #If paired-end do fastqc for both ends, else only for one
-if [ ${seqType} == "PE" ]
+if [[ "${seqType}" == "PE" ]]
 then
 	# end1 & end2
-	fastqc ${peEnd1BarcodeFqGz} \
-	${peEnd2BarcodeFqGz} \
-	-o ${tmpIntermediateDir}
+	fastqc "${peEnd1BarcodeFqGz}" \
+	"${peEnd2BarcodeFqGz}" \
+	-o "${tmpIntermediateDir}"
 
 	echo -e "\nFastQC finished succesfull. Moving temp files to final.\n\n"
-	mv -f ${tmpIntermediateDir}/* ${intermediateDir}
+	mv -f "${tmpIntermediateDir}/"* "${intermediateDir}"
 else
-	fastqc ${srBarcodeFqGz} \
-	-o ${tmpIntermediateDir}
+	fastqc "${srBarcodeFqGz}" \
+	-o "${tmpIntermediateDir}"
 	
 	echo -e "\nFastQC finished succesfull. Moving temp files to final.\n\n"
-	mv -f ${tmpIntermediateDir}/* ${intermediateDir}
+	mv -f "${tmpIntermediateDir}/"* "${intermediateDir}"
 fi

@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=24:00:00 nodes=1 cores=1 mem=6gb
 
 #Parameter mapping
@@ -29,23 +30,14 @@ ROWNR=$(wc -l "${strandedness}" | awk '{ print $1 }')
 
 if [[ "${ROWNR}" == 6 ]]
 then
-	num1=$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)
-	num2=$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)
-	if [[ "${num1}" > 0.6 ]]
-	then
-		STRANDED="yes"
-	elif [[ "${num2}" > 0.6  ]]
-	then
-		STRANDED="reverse"
-	elif [[ "${num1}" < 0.6 && "${num2}" < 0.6 ]]
-	then
-		STRANDED="no"
-	else
-		STRANDED="no"
-	fi
+	num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
+	num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
+
+	STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "yes"}else if($2 > 0.6){print "reverse"}else if($1 < 0.6 && $2 < 0.6){print "no"} }')
+
 else
-	echo "strandedness detection failed"
-	STRANDED='no'
+	echo "strandedness detection failed, STRANDED='yes'"
+	STRANDED='yes'
 fi
 
 echo -e "\nQuantifying expression, with strandedness: ${STRANDED}"
@@ -56,6 +48,7 @@ samtools \
 	htseq-count \
 	-m union \
 	-s "${STRANDED}" \
+	-i gene_name \
 	- \
 	"${annotationGtf}" \
 	> "${tmpSampleHTseqExpressionText}"

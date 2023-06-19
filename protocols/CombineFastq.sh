@@ -1,4 +1,5 @@
-#MOLGENIS walltime=23:59:00 mem=8gb ppn=6
+set -o pipefail
+#MOLGENIS walltime=23:59:00 mem=8gb ppn=1
 
 #Parameter mapping
 #string tempDir
@@ -40,18 +41,18 @@ INPUTSRIGHT=()
 
 for FqFileLeft in "${trimmedLeftBarcodeFqGz[@]}"
 do
-	array_contains INPUTSLEFT "${FqFileLeft}" || INPUTSLEFT+=("${FqFileLeft}")    # If bamFile does not exist in array add it
+	array_contains INPUTSLEFT "${FqFileLeft}" || INPUTSLEFT+=("${FqFileLeft}")
 done
 
 for FqFileRight in "${trimmedRightBarcodeFqGz[@]}"
 do
-	array_contains INPUTSRIGHT "${FqFileRight}" || INPUTSRIGHT+=("${FqFileRight}")    # If baiFile does not exist in array add it
+	array_contains INPUTSRIGHT "${FqFileRight}" || INPUTSRIGHT+=("${FqFileRight}")
 done
 
 if [[ "${#INPUTSLEFT[@]}" == 1 ]]
 then
-	ln -sf $(basename "${INPUTSLEFT[0]}") "${mergedLeftBarcodeFqGz}"
-	ln -sf $(basename "${INPUTSRIGHT[0]}") "${mergedRightBarcodeFqGz}"
+	ln -sf "$(basename "${INPUTSLEFT[0]}")" "${mergedLeftBarcodeFqGz}"
+	ln -sf "$(basename "${INPUTSRIGHT[0]}")" "${mergedRightBarcodeFqGz}"
 	echo "nothing to merge because there is only one sample"
 else
 	cat "${INPUTSLEFT[@]}" > "${tmpMergedLeftBarcodeFqGz}"

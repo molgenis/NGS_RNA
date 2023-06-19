@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=40gb ppn=1
 
 #Parameter mapping
@@ -16,13 +17,11 @@
 #string tmpName
 #string logsDir
 
-echo "## $(date) Start $0"
-
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 mkdir -p "${tinDir}"
-cd "${tinDir}"
+cd "${tinDir}" || exit
 
 # Extract the alignment of housekeeping genes.
 module load "${bedToolsVersion}"
@@ -44,7 +43,5 @@ tin.py \
 
 mv "${tmpintermediateDir}/${externalSampleID}"* "${intermediateDir}"
 
-cd -
+cd - || exit
 
-echo "succes moving files";
-echo "## $(date) ##  $0 Done "

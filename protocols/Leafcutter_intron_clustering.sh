@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=1 mem=34gb walltime=05:00:00
 
 #Parameter mapping
@@ -16,18 +17,16 @@ module load "${python2Version}"
 module list
 
 # detect strand for RegTools
-STRANDED="$(num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"; num2="$(tail -n 2 "${strandedness}" | awk '{print $7}' | tail -n 1)"; if (( $(echo "$num1 > 0.6" | bc -l) )); then echo "1"; fi; if (( $(echo "$num2 > 0.6" | bc -l) )); then echo "2"; fi; if (( $(echo "$num1 < 0.6 && $num2 < 0.6" | bc -l) )); then echo "0"; fi)"
+num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
+num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
 
-#detect number of conditions
-col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n $col)
-colArray=(${col//:/ })
-conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "${colArray[0]}" | sort | uniq | wc -l)
+STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "RF"}else if($2 > 0.6){print "FR"}else if($1 < 0.6 && $2 < 0.6){print "XS"} }')
 
 echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
 
 rm -f "${intermediateDir}${project}_juncfiles.txt"
-cd "${intermediateDir}"
+cd "${intermediateDir}" || exit
 for bamfile in *."${sampleMergedBamExt}"
 do
 
@@ -39,7 +38,7 @@ do
 	-a 8 \
 	-m 50 \
 	-M 500000 \
-	-s 0 \
+	-s "${STRANDED}" \
 	"${bamfile}" \
 	-o "${bamfile}.junc"
 
@@ -54,4 +53,4 @@ python "${EBROOTLEAFCUTTER}/clustering/leafcutter_cluster_regtools.py" \
 -l 500000 \
 --nochromcheck=NOCHROMCHECK
 
-cd -
+cd - || exit

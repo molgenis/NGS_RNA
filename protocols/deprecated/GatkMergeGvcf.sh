@@ -29,7 +29,7 @@ array_contains () {
 	local seeking="${2}"
 	local in=1
 	for element in "${!array-}"; do
-		if [[ "$element" == "$seeking" ]]; then
+		if [[ "${element}" == "${seeking}" ]]; then
 			in=0
 			break
 		fi
@@ -38,19 +38,17 @@ array_contains () {
 }
 
 #Load modules
-module load ${gatkVersion}
+module load "${gatkVersion}"
 
 #Check modules
 module list
-
-echo "## $(date) Start $0"
 
 INPUTS=()
 ALLGVCFs=()
 
 for external in "${externalSampleID[@]}"
 do
-	array_contains INPUTS "${external}" || INPUTS+=("$external")    # If vcfFile does not exist in array add it
+	array_contains INPUTS "${external}" || INPUTS+=("${external}")    # If vcfFile does not exist in array add it
 done
 
 SAMPLESIZE="${#INPUTS[@]}"
@@ -95,8 +93,8 @@ if [[ "${gvcfSize}" -ne 0 ]]
 then
 	for i in "${tmpProjectBatchCombinedVariantCalls}".*
 	do
-		mv "${i}" "${intermediateDir}"/$(basename "${i}")
-		echo "mv $i ${intermediateDir}/$(basename $i)"
+		mv "${i}" "${intermediateDir}/$(basename "${i}")"
+		echo "mv ${i} ${intermediateDir}/$(basename "${i}")"
 	done
 else
 	echo "nothing to move! There are no samples, maybe there is something going wrong, or maybe chrX or chrY are not in the bed file"

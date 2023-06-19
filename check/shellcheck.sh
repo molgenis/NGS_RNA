@@ -7,10 +7,12 @@
 #  * SC2015: Note that A && B || C is not if-then-else. C may run when A is true.
 #            We know and use this construct regularly to create "transactions"
 #            where C is only executed when both A and B have succeeded.
-#  * SC2148  Tips depend on target shell and yours is unknown. Add a shebang or a 'shell' directive. Not needed for Molgenis Compute protocols.
-#  * SC2154  Not deeded, Molgenis Compute takes care of this.
+#  * SC2154: Due to Molgenis Compute string initialization the warning is not valid 
 #
-export SHELLCHECK_OPTS="-e SC2004 -e SC2015 -e SC2148 -e SC2154"
+#  * SC2148: the shebang is declared in the header.ftl not in the protocols
+#
+
+export SHELLCHECK_OPTS="-e SC2004 -e SC2015 -e SC2154 -e SC2148"
 
 function showHelp() {
 	#
@@ -33,7 +35,7 @@ EOH
 #
 # Parse commandline options
 #
-while getopts "hv" opt
+while getopts ":hv" opt
 do
 	case "${opt}" in
 		h)
@@ -89,7 +91,8 @@ then
 	#	https://github.com/koalaman/shellcheck/wiki/SC${ISSUENUMBER}
 	# explaining what is wrong with the code / style and how to improve it.
 	#
-	perl -pi -e "s|message='([^']+)'\s+source='ShellCheck.(SC[0-9]+)'|message='&lt;a href=&quot;https://github.com/koalaman/shellcheck/wiki/\$2&quot;&gt;\$2: \$1&lt;/a&gt;' source='ShellCheck.\$2'|" checkstyle-result.xml
+	perl -pi -e "s|message='([^']+)'\s+source='ShellCheck.(SC[0-9]+)'|message='&lt;a href=&quot;https://github.com/koalaman/shellcheck/wiki/\$2&quot;&gt;\$2: 
+\$1&lt;/a&gt;' source='ShellCheck.\$2'|" checkstyle-result.xml
 else
 	#
 	# ShellCheck for regular user on the commandline.

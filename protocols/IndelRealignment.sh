@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=8 mem=11gb walltime=23:59:00
 
 #string project
@@ -33,14 +34,9 @@ module load "${gatkVersion}"
 #check modules
 module list
 
-echo "## $(date) Start $0"
-
-echo
-echo
 echo "Running GATK IndelRealignment:"
 
-
-java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tmpTmpDataDir}" -jar "$EBROOTGATK/GenomeAnalysisTK.jar" \
+java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tmpTmpDataDir}" -jar "${EBROOTGATK}/GenomeAnalysisTK.jar" \
 -T IndelRealigner \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
@@ -55,7 +51,5 @@ java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tmpTmpDataDir}" -jar "$
 mv "${tmpIndelRealignedBam}" "${IndelRealignedBam}"
 mv "${tmpIndelRealignedBai}" "${IndelRealignedBai}"
 
-echo "returncode: $?";
 echo "succes moving files";
-echo "## $(date) ##  $0 Done "
 

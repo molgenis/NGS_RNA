@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS nodes=1 ppn=8 mem=40gb walltime=23:00:00
 
 #Parameter mapping
@@ -25,15 +26,12 @@ module list
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-echo "## $(date) Start $0"
-echo "ID (internalSampleID-lane): ${externalSampleID}"
-
 if [[ "${seqType}" == 'SR' ]]
 then
-	echo "seqType = "${seqType}";FastQ: ${mergedSingleBarcodeFqGz}"
+	echo "seqType = ${seqType}; FastQ: ${mergedSingleBarcodeFqGz}"
 	inputs="--readFilesIn ${mergedSingleBarcodeFqGz}"
 else
-	echo "seqType = "${seqType}";FastQs: ${mergedLeftBarcodeFqGz} ${mergedRightBarcodeFqGz}"
+	echo "seqType = ${seqType}; FastQs: ${mergedLeftBarcodeFqGz} ${mergedRightBarcodeFqGz}"
 	inputs="--readFilesIn ${mergedLeftBarcodeFqGz} ${mergedRightBarcodeFqGz}"
 fi
 
@@ -62,4 +60,3 @@ echo "STAR for RNA"
 	mv -f "${tmpintermediateDir}/${externalSampleID}."* "${intermediateDir}"
 
 echo "succes moving files";
-echo "## $(date) ##  $0 Done "

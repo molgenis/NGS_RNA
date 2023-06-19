@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=8gb ppn=6
 
 #Parameter mapping
@@ -58,14 +59,14 @@ done
 
 if [[ "${#INPUTS[@]}" == 1 ]]
 then
-	ln -sf $(basename "${INPUTBAMS[0]}") "${sampleMergedBam}"
-	ln -sf $(basename "${UNIQUEBAIS[0]}") "${sampleMergedBai}"
+	ln -sf "$(basename "${INPUTBAMS[0]}")" "${sampleMergedBam}"
+	ln -sf "$(basename "${UNIQUEBAIS[0]}")" "${sampleMergedBai}"
 	echo "nothing to merge because there is only one sample"
 
-	cd "${intermediateDir}"
-	md5sum $(basename "${sampleMergedBam}")> $(basename "${sampleMergedBam}").md5sum
-	md5sum $(basename "${sampleMergedBai}")> $(basename "${sampleMergedBai}").md5sum
-	cd -
+	cd "${intermediateDir}" || exit
+	md5sum "$(basename "${sampleMergedBam}")" > "$(basename "${sampleMergedBam}").md5sum"
+	md5sum "$(basename "${sampleMergedBai}")" > "$(basename "${sampleMergedBai}").md5sum"
+	cd - || exit
 
 else
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" "${mergeSamFilesJar}" \
@@ -82,8 +83,8 @@ else
 	mv "${tmpSampleMergedBam}" "${sampleMergedBam}"
 	mv "${tmpSampleMergedBai}" "${sampleMergedBai}"
 
-	cd "${intermediateDir}"
-	md5sum $(basename "${sampleMergedBam}")> $(basename "${sampleMergedBam}").md5sum
-	md5sum $(basename "${sampleMergedBai}")> $(basename "${sampleMergedBai}").md5sum
-	cd -
+	cd "${intermediateDir}" || exit
+	md5sum "$(basename "${sampleMergedBam}")" > "$(basename "${sampleMergedBam}").md5sum"
+	md5sum "$(basename "${sampleMergedBai}")" > "$(basename "${sampleMergedBai}").md5sum"
+	cd - || exit
 fi

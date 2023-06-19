@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=01:59:00 mem=4gb
 
 #string allRawNgstmpDataDir
@@ -21,7 +22,6 @@
 #list barcode
 #list lane
 
-n_elements="${internalSampleID[@]}"
 max_index="${#internalSampleID[@]}"-1
 
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
@@ -85,14 +85,11 @@ do
 
 done
 
-cd "${TMPDATADIR}"
-if md5sum -c *.md5 > "${RUNNAME}.md5.log" 2>&1
+cd "${TMPDATADIR}" || exit
+if md5sum -c ./*.md5 > "${RUNNAME}.md5.log" 2>&1
 then
 	echo 'PASS'
 else
 	echo 'FAILED'
 fi
-cd -
-
-
-
+cd - || exit

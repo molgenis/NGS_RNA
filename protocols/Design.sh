@@ -1,4 +1,5 @@
-#MOLGENIS nodes=1 ppn=4 mem=4gb walltime=05:59:00
+set -o pipefail
+#MOLGENIS nodes=1 ppn=1 mem=4gb walltime=05:59:00
 
 #Parameter mapping
 #string rPlusVersion
@@ -8,9 +9,6 @@
 #string groupname
 #string tmpName
 #string logsDir
-
-module load "${rPlusVersion}"
-module list
 
 #Function to check if array contains value
 array_contains () {
@@ -35,7 +33,7 @@ do
 	array_contains UNIQUESAMPLES "${sample}" || UNIQUESAMPLES+=("${sample}")    # If bamFile does not exist in array add it
 done
 
-cd "${intermediateDir}"
+cd "${intermediateDir}" || exit
 
 #cleanup old file if present
 rm -f "${intermediateDir}/"*".design.tsv"
@@ -66,4 +64,4 @@ done
 
 echo "files written to: ${intermediateDir}/ *.design.tsv"
 
-cd -
+cd - || exit

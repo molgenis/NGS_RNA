@@ -1,3 +1,4 @@
+set -o pipefail
 #MOLGENIS walltime=5:00:00 nodes=1 cores=1 mem=50gb
 
 #string intermediateDir
@@ -25,7 +26,7 @@ do
 	mkdir -p "${projectResultsDir}/outrider/${sample}/QC"
 done
 #run outrider QC part
-singularity exec --pwd $PWD --bind "${sifDir}:/sifDir,/apps:/apps,/groups:/groups" \
+singularity exec --pwd "${PWD}" --bind "${sifDir}:/sifDir,/apps:/apps,/groups:/groups" \
 "${sifDir}/${outriderVersion}" \
 Rscript "${EBROOTNGS_RNA}/scripts/outrider-qc.R" \
 "${projectHTseqExpressionTable}" \
@@ -45,7 +46,7 @@ do
 		#get geneOfInterest from samplessheet of provided,
 		#or else get top 3 most significate genes from outrider output.
 		GENE="${geneOfInterest[samplenumber]}"
-		if [[ ! -z "${GENE}" ]]
+		if [[ -n "${GENE}" ]]
 		then
 			echo "${GENE}" > "${projectResultsDir}/outrider/${sample}/${sample}.genesOfInterest.tsv"
 		else
@@ -55,7 +56,7 @@ do
 done
 
 #Run outrider to genarate plots per sample, and top 3 significant gene.
-singularity exec --pwd $PWD --bind "${sifDir}:/sifDir,/apps:/apps,/groups:/groups" \
+singularity exec --pwd "${PWD}" --bind "${sifDir}:/sifDir,/apps:/apps,/groups:/groups" \
 "${sifDir}/${outriderVersion}" \
 Rscript "${EBROOTNGS_RNA}/scripts/outrider.R" \
 "${projectResultsDir}/outrider/"
