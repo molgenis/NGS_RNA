@@ -5,7 +5,7 @@ then
 	echo "RNA pipeline loaded, proceeding"
 else
 	echo "No RNA pipeline loaded, exiting"
-        exit 1
+	exit 1
 fi
 
 module list
@@ -58,7 +58,7 @@ workflow="${EBROOTNGS_RNA}/workflow_${pipeline}.csv"
 
 if [ -f .compute.properties ];
 then
-     rm .compute.properties
+	rm .compute.properties
 fi
 
 perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${species}.${build}.csv" > \
