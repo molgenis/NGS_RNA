@@ -20,12 +20,12 @@ PIPELINE="hisat" # hisat, lexogen
 
 WORKFLOW=${EBROOTNGS_RNA}/test_workflow_${PIPELINE}.csv
 
-if [ -f .compute.properties ];
+if [[ -f .compute.properties ]]
 then
-     rm .compute.properties
+	rm .compute.properties
 fi
 
-if [ -f ${GAF}/generatedscripts/${PROJECT}/out.csv  ];
+if [[ -f ${GAF}/generatedscripts/${PROJECT}/out.csv ]]
 then
 	rm -rf ${GAF}/generatedscripts/${PROJECT}/out.csv
 fi

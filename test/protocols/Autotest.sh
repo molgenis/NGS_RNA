@@ -29,11 +29,11 @@ done
 
 if [[ -f "${testResults}/output_NGS_RNA/notInVcf1.txt" || -f "${testResults}/output_NGS_RNA/notInVcf2.txt" || -f "${testResults}/output_NGS_RNA/inconsistent.txt" || -f "${testResults}/output_NGS_RNA/"*.fail ]]
 then
-	echo "there are differences between the test and the original output"
-        echo "please fix the bug or update this test"
-        echo "the stats can be found here: ${testResults}/output_NGS_RNA/vcfStats.txt"
-        exit 1
+	echo "There are differences between the test and the original output."
+	echo "Please fix the bug or update this test."
+	echo "The stats can be found here: ${testResults}/output_NGS_RNA/vcfStats.txt"
+	exit 1
 else
-	echo "test succeeded"
+	echo "Test succeeded."
 	head -2 "${testResults}/output_NGS_RNA/vcfStats.txt"
 fi
