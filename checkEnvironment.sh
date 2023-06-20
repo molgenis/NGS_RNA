@@ -16,12 +16,8 @@ elif [ "${HOST}" == "leucine-zipper.gcc.rug.nl" ]
 then
 	ENVIRONMENT_PARAMETERS="leucine-zipper"
 	TMPDIR="tmp06"
-elif [ "${HOST}" == "calculon" ]
-then
-	ENVIRONMENT_PARAMETERS="calculon"
-	TMPDIR="tmp04"
 else
-	echo "Unknown host: running is only possible on calculon, zinc-finger or leucine-zipper."
+	echo "Unknown host: running is only possible on zinc-finger or leucine-zipper."
 fi
 
 THISDIR=$(pwd)
