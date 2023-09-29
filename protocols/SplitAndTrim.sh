@@ -1,5 +1,5 @@
 set -o pipefail
-#MOLGENIS nodes=1 ppn=2 mem=10gb walltime=23:59:00
+#MOLGENIS nodes=1 ppn=2 mem=15gb walltime=23:59:00
 
 #string project
 #string stage
@@ -17,7 +17,7 @@ set -o pipefail
 #string gatkJar
 #string tmpDataDir
 #string indexFile
-#string tmpTmpDataDir
+#string tempDir
 #string project
 #string groupname
 #string tmpName
@@ -36,10 +36,10 @@ module load "${samtoolsVersion}"
 #check modules
 module list
 
-java -Xmx10g -XX:ParallelGCThreads=2 \
--Djava.io.tmpdir="${tmpTmpDataDir}" \
+java -Xmx14g -XX:ParallelGCThreads=2 \
+-Djava.io.tmpdir="${tempDir}" \
 -jar "${EBROOTGATK}/${gatkJar}" SplitNCigarReads \
---tmp-dir "${tmpTmpDataDir}" \
+--tmp-dir "${tempDir}" \
 -R "${indexFile}" \
 -I "${sampleMergedDedupBam}" \
 -O "${tmpsplitAndTrimBam}"

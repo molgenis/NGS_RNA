@@ -3,12 +3,8 @@ stage,module load
 checkStage,module list
 jobname,jobname
 
-##### GENERAL DIRECTORIES #####
-tmpDataDir,${workDir}/${tmpName}/
-tmpTmpDataDir,${tmpDataDir}/tmp/
-
 ##### RAW DATA FILES/DIRS #####
-allRawNgsPrmDataDir,${permanentDir}/rawdata/ngs
+allRawNgsPrmDataDir,${permanentDir}/rawdata/ngs/
 allRawtmpDataDir,${tmpDataDir}/rawdata/
 allRawNgstmpDataDir,${allRawtmpDataDir}/ngs/
 rawtmpDataDir,${allRawNgstmpDataDir}/${runPrefix}
@@ -44,17 +40,17 @@ library,${filePrefix}
 
 ##### Projects #####
 generalProjectDir,${tmpDataDir}/projects/
-projectDir,${generalProjectDir}/${project}/${runid}
+projectDir,${generalProjectDir}/${project}/${runid}/
 projectRawtmpDataDir,${projectDir}/rawdata/ngs/
 projectRawArraytmpDataDir,${projectDir}/rawdata/array/
 intermediateDir,${tempDir}/${project}/${runid}/
-projectPrefix,${intermediateDir}/${project}
+projectPrefix,${intermediateDir}/${project}/
 projectJobsDir,${projectDir}/jobs/
 projectLogsDir,${projectDir}/logs/
 projectResultsDir,${projectDir}/results/
 projectQcDir,${projectDir}/qc/
-rMATsOutputDir,${projectResultsDir}/rmats
-tinDir,${intermediateDir}/TIN
+rMATsOutputDir,${projectResultsDir}/rmats/
+tinDir,${intermediateDir}/TIN/
 
 ##### Protocols 0,1a,1b, (FastQC,HisatAlignment,MergeBam) #####
 peEnd1BarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc.zip
@@ -110,6 +106,7 @@ qcMatricsList,${intermediateDir}/${project}_qcMatricsList.txt
 gcPlotList,${intermediateDir}/${project}_gcPlotList.txt
 recreateinsertsizepdfR,createInsertSizePlot.R
 qcMatrics,${intermediateDir}/${externalSampleID}.total.qc.metrics.table
+sampleConcordanceVcf,${intermediateDir}/${externalSampleID}.concordance.vcf
 
 ##### Protocols 3,6  (HTSeq count, MakeExpressionTable) #####
 sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.counts.txt
@@ -144,7 +141,7 @@ dbSNPFileID,dbsnp_138.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
 dbSNPDir,/apps/data/GAD/dbnsp/
 indexFileFastaIndex,${indexSpecies}.fai
-indexSpecies,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/${indexFileID}
+indexSpecies,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/${indexFileID}/
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list
 indexFileDictionary,${indexSpecies}.dict
 bed12,${dataDir}/Ensembl/GrCh37.75/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.bed12
@@ -153,3 +150,4 @@ annotationFile,${dataDir}Ensembl/GrCh37.75/pub/release-75/gtf/${speciesFileName}
 ensembleDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/gtf/${speciesFileName}/
 spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
 spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
+comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_woChr_added.bed

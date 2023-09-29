@@ -2,7 +2,7 @@ set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=12gb ppn=8 nodes=1
 
 #string gatkVersion
-#string tmpTmpDataDir
+#string tempDir
 #string tmpDataDir
 #string indexFile
 #string bqsrBam
@@ -29,7 +29,7 @@ module load "${gatkVersion}"
 #Check modules
 module list
 
-gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tmpTmpDataDir} -Xmx12g" HaplotypeCaller \
+gatk --java-options "-XX:ParallelGCThreads=1 -Djava.io.tmpdir=${tempDir} -Xmx12g" HaplotypeCaller \
 -R "${indexFile}" \
 -I "${bqsrBam}" \
 --dbsnp "${dbsnpVcf}" \

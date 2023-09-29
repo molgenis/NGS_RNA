@@ -1,4 +1,4 @@
-set -o pipefail
+\set -o pipefail
 #MOLGENIS nodes=1 ppn=1 mem=34gb walltime=05:00:00
 
 #Parameter mapping
@@ -8,11 +8,12 @@ set -o pipefail
 #string projectJobsDir
 #string strandedness
 #string sampleMergedBamExt
-#string leafcutterVersion
+#string regToolsVersion
 #string python2Version
+#string sifDir
 
 #Load module
-module load "${leafcutterVersion}"
+module load "${regToolsVersion}"
 module load "${python2Version}"
 module list
 
@@ -45,7 +46,8 @@ do
 	echo "${intermediateDir}${bamfile}.junc" >> "${intermediateDir}${project}_juncfiles.txt"
 done
 
-python "${EBROOTLEAFCUTTER}/clustering/leafcutter_cluster_regtools.py" \
+singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
+python "/app/leafcutter/clustering/leafcutter_cluster_regtools.py" \
 -j "${intermediateDir}/${project}_juncfiles.txt" \
 -m 50 \
 -r "${intermediateDir}" \
