@@ -141,7 +141,7 @@ dbSNPFileID,dbsnp_138.${genome}
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
 dbSNPDir,/apps/data/GAD/dbnsp/
 indexFileFastaIndex,${indexSpecies}.fai
-indexSpecies,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/${indexFileID}/
+indexSpecies,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/${indexFileID}
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list
 indexFileDictionary,${indexSpecies}.dict
 bed12,${dataDir}/Ensembl/GrCh37.75/pub/release-75/gtf/homo_sapiens/Homo_sapiens.GRCh37.75.bed12

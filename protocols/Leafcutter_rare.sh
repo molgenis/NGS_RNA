@@ -19,10 +19,7 @@ set -o pipefail
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
-#Load module
-
-
-        singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
+	singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
 	/app/leafcutter/scripts/leafcutter_ds.R \
 	-e "${annotationTxt}" \
 	--num_threads 4 \

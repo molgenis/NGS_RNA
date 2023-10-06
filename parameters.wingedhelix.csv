@@ -22,7 +22,7 @@ bedToolsVersion,BEDTools/2.30.0-${GCCcoreVersion}
 BCFtoolsVersion,BCFtools/1.16-${GCCcoreVersion}
 sambambaVersion,sambamba/0.7.0
 rVersion,R/4.2.2-${toolchain}-bare
-rPlusVersion,RPlus/RPlus/3.6.1-foss-2018b-v20.10.1
+rPlusVersion,RPlus/3.6.1-foss-2018b-v20.10.1
 picardVersion,picard/2.26.10-Java-8-LTS
 htseqVersion,HTSeq/0.11.0-foss-2018b-Python-2.7.16
 hisatVersion,hisat2/2.1.0-${toolchain}
@@ -31,7 +31,7 @@ pythonVersion,Python/3.10.4-${GCCcoreVersion}-bare
 python2Version,Python/2.7.16-${GCCcoreVersion}-bare
 python2PlusVersion,PythonPlus/2.7.16-foss-2018b-v21.08.1
 pythonPlusVersion,PythonPlus/3.10.4-${GCCcoreVersion}-v23.01.1
-gatkVersion,GATK/4.2.4.1-Java-8-LTS
+gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
 starVersion,STAR/2.7.3a-GCC-11.3.0
 picardJar,picard.jar

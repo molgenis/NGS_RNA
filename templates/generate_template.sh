@@ -5,7 +5,7 @@ then
 	echo "RNA pipeline loaded, proceeding"
 else
 	echo "No RNA pipeline loaded, exiting"
-        exit 1
+	exit 1
 fi
 
 module list
@@ -52,8 +52,8 @@ if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${
 
 if [ ! -d "/groups/${group}" ] 
 then
-    echo "Group directory /groups/${group} DOES NOT exists. use -g GROUP to set the group manually" 
-    exit 1
+	echo "Group directory /groups/${group} DOES NOT exists. use -g GROUP to set the group manually" 
+	exit 1
 fi
 
 build="GRCh37" # GRCh37, HG19
@@ -64,7 +64,7 @@ customParameters="${EBROOTNGS_RNA}/parameters.${host}.csv"
 
 if [ -f .compute.properties ];
 then
-     rm .compute.properties
+	rm .compute.properties
 fi
 
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${EBROOTNGS_RNA}/parameters.${species}.${build}.csv" > \

@@ -1,7 +1,7 @@
 set -o pipefail
 #MOLGENIS walltime=05:59:00 mem=5gb ppn=1 nodes=1
 
-#string tmpTmpDataDir
+#string tempDir
 #string tmpDataDir
 #string htsLibVersion
 #string vipVersion

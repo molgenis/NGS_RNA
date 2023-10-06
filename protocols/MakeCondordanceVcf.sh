@@ -25,10 +25,10 @@ makeTmpDir "${sampleConcordanceVcf}"
 tmpSampleConcordanceVcf=${MC_tmpFile}
 
 
-        bcftools mpileup \
+	bcftools mpileup \
 	-Ou -f "${indexSpecies}" \
 	"${sampleMergedBam}" \
-        -R "${comonSnpsBed}" \
+	-R "${comonSnpsBed}" \
 	| bcftools call \
 	-mv -Ob -o "${tmpSampleConcordanceVcf}"
 

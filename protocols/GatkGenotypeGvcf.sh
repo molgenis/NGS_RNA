@@ -54,7 +54,7 @@ do
 done
 
 SAMPLESIZE=${#INPUTS[@]}
-numberofbatches=$(("${SAMPLESIZE}" / 200))
+numberofbatches=$((${SAMPLESIZE} / 200))
 
 for b in $(seq 0 "${numberofbatches}")
 do

@@ -45,7 +45,7 @@ echo "conditionCount = ${conditionCount}"
 if [[ "${conditionCount}" -gt 1 ]]
 then
 	echo "Differential Splicing with ${conditionCount} groups."
-        singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
+	singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
 	"/app/leafcutter/scripts/leafcutter_ds.R" \
 	--num_threads 4 \
 	-i 1 \
@@ -60,7 +60,7 @@ then
 else
 	echo "Outlier Splicing, ${conditionCount} conditions found."
 	singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
-        "/app/leafcutter/scripts/leafcutterMD.R" \
+	"/app/leafcutter/scripts/leafcutterMD.R" \
 	--num_threads 8 \
 	-o "${tmpintermediateDir}${project}" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
