@@ -10,6 +10,7 @@ set -o pipefail
 #string BCFtoolsVersion
 #string project
 #string indexSpecies
+#string comonSnpsBed
 #string groupname
 #string tmpName
 #string logsDir
