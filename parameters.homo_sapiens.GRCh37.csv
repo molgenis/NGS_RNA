@@ -44,7 +44,7 @@ projectDir,${generalProjectDir}/${project}/${runid}/
 projectRawtmpDataDir,${projectDir}/rawdata/ngs/
 projectRawArraytmpDataDir,${projectDir}/rawdata/array/
 intermediateDir,${tempDir}/${project}/${runid}/
-projectPrefix,${intermediateDir}/${project}/
+projectPrefix,${intermediateDir}/${project}
 projectJobsDir,${projectDir}/jobs/
 projectLogsDir,${projectDir}/logs/
 projectResultsDir,${projectDir}/results/
@@ -150,4 +150,4 @@ annotationFile,${dataDir}Ensembl/GrCh37.75/pub/release-75/gtf/${speciesFileName}
 ensembleDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/gtf/${speciesFileName}/
 spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
 spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
-comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_woChr_added.bed
+comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_woChr.bed
