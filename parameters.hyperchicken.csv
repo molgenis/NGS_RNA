@@ -31,7 +31,7 @@ htsLibVersion,HTSlib/1.16-${GCCcoreVersion}
 pythonVersion,Python/3.10.4-${GCCcoreVersion}-bare
 python2Version,Python/2.7.16-${GCCcoreVersion}-bare
 python2PlusVersion,PythonPlus/2.7.16-foss-2018b-v21.08.1
-pythonPlusVersion,PythonPlus/3.10.4-${toolchain}-v22.11.3
+pythonPlusVersion,PythonPlus/3.10.4-${GCCcoreVersion}-v23.01.1
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
 starVersion,STAR/2.7.3a-GCC-11.3.0
