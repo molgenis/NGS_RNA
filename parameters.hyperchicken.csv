@@ -44,7 +44,7 @@ rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.10.4
 leafcutterVersion,leafcutter/aa12b1e-${GCCcoreVersion}
 vipVersion,vip/v3.3.1-${toolchain}
 outriderVersion,outrider_latest.sif
-regToolsVersion,RegTools/0.5.2-${toolchain}
+regToolsVersion,RegTools/1.0.0-${toolchain}
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif
