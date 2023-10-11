@@ -2,7 +2,7 @@ set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=17gb ppn=3 nodes=1
 
 #string gatkVersion
-#string tmpTmpDataDir
+#string tempDir
 #string tmpDataDir
 #string dbsnpVcf
 #string gatkVersion
@@ -54,7 +54,7 @@ do
 done
 
 SAMPLESIZE=${#INPUTS[@]}
-numberofbatches=$(("${SAMPLESIZE}" / 200))
+numberofbatches=$((${SAMPLESIZE} / 200))
 
 for b in $(seq 0 "${numberofbatches}")
 do
@@ -89,12 +89,12 @@ GvcfSize=${#ALLGVCFs[@]}
 if [[ ${GvcfSize} -ne 0 ]]
 then
 
-	gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tmpTmpDataDir}" CombineGVCFs \
+	gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tempDir}" CombineGVCFs \
 	--reference="${indexFile}" \
 	"${ALLGVCFs[@]}" \
 	--output="${tmpProjectBatchCombinedVariantCalls}"
 
-	gatk --java-options "-Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tmpTmpDataDir}" GenotypeGVCFs \
+	gatk --java-options "-Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tempDir}" GenotypeGVCFs \
 	--reference="${indexFile}" \
 	--variant="${tmpProjectBatchCombinedVariantCalls}" \
 	--dbsnp="${dbsnpVcf}" \

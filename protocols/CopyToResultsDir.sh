@@ -43,6 +43,7 @@ mkdir -p "${projectResultsDir}/fastqc"
 mkdir -p "${projectResultsDir}/expression"
 mkdir -p "${projectResultsDir}/expression/deseq2"
 mkdir -p "${projectResultsDir}/variants/vip"
+mkdir -p "${projectResultsDir}/variants/concordance"
 mkdir -p "${projectResultsDir}/leafcutter"
 mkdir -p "${projectResultsDir}/star_sj"
 mkdir -p "${projectResultsDir}/qcmetrics"
@@ -99,6 +100,7 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 	rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
 	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
+	rsync -av "${intermediateDir}/"*".concordance.vcf" "${projectResultsDir}/variants/concordance/"
 
 # Copy leafcutter
 	rsync -av "${intermediateDir}"/*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"

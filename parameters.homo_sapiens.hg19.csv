@@ -3,49 +3,10 @@ stage,module load
 checkStage,module list
 jobname,jobname
 
-##### Tools and versions #####
-jdkVersion,Java/8-LTS
-ngsUtilsVersion,ngs-utils/19.03.3-GCCcore-7.3.0
-ngsRNAVersion,NGS_RNA/beta
-fastqcVersion,FastQC/0.11.8-Java-11-LTS
-samtoolsVersion,SAMtools/1.9-GCCcore-7.3.0
-bedToolsVersion,BEDTools/2.28.0-GCCcore-7.3.0
-sambambaVersion,sambamba/0.7.0
-rVersion,R/3.6.1-${toolchain}-bare
-rPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
-picardVersion,picard/2.20.5-Java-11-LTS
-htseqVersion,HTSeq/0.11.0-GCCcore-7.3.0-Python-3.7.4
-hisatVersion,hisat2/2.1.0-${toolchain}
-htsLibVersion,HTSlib/1.11-GCCcore-7.3.0
-pythonVersion,Python/3.7.4-GCCcore-7.3.0-bare
-python2Version,Python/2.7.16-GCCcore-7.3.0-bare
-python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
-pythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
-gatkVersion,GATK/4.1.4.1-Java-8-LTS
-multiqcVersion,multiqc_v1.12.sif
-wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
-anacondaVersion,Anaconda/1.8.0-Linux-x86_64
-starVersion,STAR/2.7.3a-${toolchain}
-picardJar,picard.jar
-gatkJar,gatk-package-4.1.4.1-local.jar
-mergeSamFilesJar,MergeSamFiles
-trimGaloreVersion,TrimGalore/0.4.5-GCCcore-7.3.0-Python-3.7.4-bare
-cutadaptVersion,cutadapt/2.6-GCCcore-7.3.0-Python-3.7.4-bare
-rSeQCVersion,RSeQC/3.0.1-GCCcore-7.3.0-Python-3.7.4
-leafcutterVersion,leafcutter/aa12b1e-foss-2018b
-vipVersion,vip/v3.3.1-foss-2018b
-outriderVersion,outrider_latest.sif
-rMATsVersion,rmats_v4.1.2.sif
-sifDir,/groups/umcg-solve-rd/tmp01/resources/GAD/singularity/
-
-##### GENERAL DIRECTORIES #####
-tmpDataDir,${workDir}/${tmpName}/
-tmpTmpDataDir,${tmpDataDir}/tmp/
-
 ##### RAW DATA FILES/DIRS #####
 allRawNgsPrmDataDir,${permanentDir}/rawdata/ngs
 allRawtmpDataDir,${tmpDataDir}/rawdata/
-allRawNgstmpDataDir,${allRawtmpDataDir}/ngs/
+allRawNgstmpDataDir,${allRawtmpDataDir}/ngs
 rawtmpDataDir,${allRawNgstmpDataDir}/${runPrefix}
 logsDir,${tmpDataDir}/logs
 srInputFile,${rawtmpDataDir}/${filePrefix}.fq.gz
@@ -65,6 +26,9 @@ rightbarcodefqgz,${rightbarcodefq}.gz
 trimmedLeftBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_1_val_1.fq.gz
 trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_2_val_2.fq.gz
 trimmedSingleBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_trimmed.fq.gz
+mergedLeftBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}_val_1.fq.gz
+mergedRightBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}_val_2.fq.gz
+mergedSingleBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}}_trimmed.fq.gz
 workflowFile,$MC_HOME/NGS_RNA_seq_pipeline/workflow.csv
 
 ##### PREFIXES,POSTFIXES #####
@@ -76,7 +40,7 @@ library,${filePrefix}
 
 ##### Projects #####
 generalProjectDir,${tmpDataDir}/projects/
-projectDir,${generalProjectDir}/${project}/${runid}
+projectDir,${generalProjectDir}/${project}/${runid}/
 projectRawtmpDataDir,${projectDir}/rawdata/ngs/
 projectRawArraytmpDataDir,${projectDir}/rawdata/array/
 intermediateDir,${tempDir}/${project}/${runid}/
@@ -85,8 +49,8 @@ projectJobsDir,${projectDir}/jobs/
 projectLogsDir,${projectDir}/logs/
 projectResultsDir,${projectDir}/results/
 projectQcDir,${projectDir}/qc/
-rMATsOutputDir,${projectResultsDir}/rmats
-tinDir,${intermediateDir}/TIN
+rMATsOutputDir,${projectResultsDir}/rmats/
+tinDir,${intermediateDir}/TIN/
 
 ##### Protocols 0,1a,1b, (FastQC,HisatAlignment,MergeBam) #####
 peEnd1BarcodeFastQcZip,${intermediateDir}/${filePrefix}_${barcode}_1.fq_fastqc.zip
@@ -142,25 +106,28 @@ qcMatricsList,${intermediateDir}/${project}_qcMatricsList.txt
 gcPlotList,${intermediateDir}/${project}_gcPlotList.txt
 recreateinsertsizepdfR,createInsertSizePlot.R
 qcMatrics,${intermediateDir}/${externalSampleID}.total.qc.metrics.table
+sampleConcordanceVcf,${intermediateDir}/${externalSampleID}.concordance.vcf
 
 ##### Protocols 3,6  (HTSeq count, MakeExpressionTable) #####
 sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.counts.txt
 projectHTseqExpressionTable,${intermediateDir}/${project}.expression.counts.table
+rnaSeQCGTF,/apps/data/GAD/gtf/gencode.v19.annotation.patched_contigs.genes.gtf
+rnaSeQCDir,${projectResultsDir}/RNASeQC
 
 ##### GENOME,INDEX,ANNOTATION FILES #####
 geneAnnotationTxt,${ensembleDir}/${annotationFileName}.${ensembleReleaseVersion}.annotation.geneIds.txt.gz
-annotationGtf,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19.refseq.with_genes.gtf
-houseKeepingGenesBed,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19.HouseKeepingGenes.bed
-annotationTxt,/groups/umcg-solve-rd/tmp01/resources/GAD/others/hg19.refseq.with_genes.txt
-gencodeHg19AllExons,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/gencode_hg19_all_exons.txt.gz
-annotationRefFlat,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/Homo_sapiens.hg19.refFlat
-annotationIntervalList,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19_rRNA.interval_list
+annotationGtf,/apps/data/GAD/gtf/hg19.refseq.with_genes.gtf
+houseKeepingGenesBed,/apps/data/GAD/gtf/hg19.HouseKeepingGenes.bed
+annotationTxt,/apps/data/GAD/others/hg19.refseq.with_genes.txt
+gencodeHg19AllExons,/apps/data/GAD/gtf/gencode_hg19_all_exons.txt.gz
+annotationRefFlat,/apps/data/GAD/gtf/Homo_sapiens.hg19.refFlat
+annotationIntervalList,/apps/data/GAD/gtf/hg19_rRNA.interval_list
 leafcutterAllExon,"${EBROOTLEAFCUTTER}/annotation_codes/gencode_hg19/gencode_hg19_all_exons.txt.gz"
-gtexJunc,/groups/umcg-solve-rd/tmp01/resources/GAD/others/GTEx_v7_bflb_junctions.gct
-omimList,/groups/umcg-solve-rd/tmp01/resources/GAD/others/OMIM2.list
+gtexJunc,/apps/data/GAD/others/GTEx_v7_bflb_junctions.gct
+omimList,/apps/data/GAD/others/OMIM2.list
 indexFile,${indexSpecies}
 dbsnpVcf,${dbSNPDir}/dbsnp_138.${genome}.vcf
-starIndex,/groups/umcg-solve-rd/tmp01/resources/GAD/index/
+starIndex,/apps/data/GAD/index
 #### GENOME VARIABLES ####
 genome,hg19
 ensembleReleaseVersion,75
@@ -171,15 +138,16 @@ speciesFileName,homo_sapiens
 indexFileID,hg19_essential.fa
 indexFolderName,human_g1k_v37
 dbSNPFileID,dbsnp_138.${genome}
-indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
-dbSNPDir,/groups/umcg-solve-rd/tmp01/resources/GAD/dbnsp/
+indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}
+dbSNPDir,/apps/data/GAD/dbnsp
 indexFileFastaIndex,${indexSpecies}.fai
-indexSpecies,/groups/umcg-solve-rd/tmp01/resources/GAD/index/${indexFileID}
+indexSpecies,/apps/data/GAD/index/${indexFileID}
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list
 indexFileDictionary,${indexSpecies}.dict
-bed12,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/hg19.refGene.bed12
+bed12,/apps/data/GAD/gtf/hg19.refGene.bed12
 MillsAnd1000GGoldGtandard,/apps/data/1000G/phase1/Mills_and_1000G_gold_standard
 annotationFile,${dataDir}Ensembl/GrCh37.75/pub/release-75/gtf/${speciesFileName}/${annotationFileName}.75_nodupes_genid.txt
-ensembleDir,/groups/umcg-solve-rd/tmp01/resources/GAD/gtf/${speciesFileName}/
+ensembleDir,/apps/data/GAD/gtf/${speciesFileName}
 spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
 spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
+comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_wChr.openArrayAdded.bed

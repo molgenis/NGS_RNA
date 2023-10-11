@@ -50,22 +50,28 @@ if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "f
 if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
 if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
 
-build="GRCh37" # GRCh37, HG19
-species="homo_sapiens" # callithrix_jacchus, mus_musculus, homo_sapiens
-pipeline="STAR" # hisat, lexogen
+if [ ! -d "/groups/${group}" ] 
+then
+	echo "Group directory /groups/${group} DOES NOT exists. use -g GROUP to set the group manually" 
+	exit 1
+fi
 
+build="GRCh37" # GRCh37, HG19
+species="homo_sapiens"
+pipeline="STAR"
 workflow="${EBROOTNGS_RNA}/workflow_${pipeline}.csv"
+customParameters="${EBROOTNGS_RNA}/parameters.${host}.csv"
 
 if [ -f .compute.properties ];
 then
 	rm .compute.properties
 fi
 
-perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${species}.${build}.csv" > \
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${EBROOTNGS_RNA}/parameters.${species}.${build}.csv" > \
 "${workDir}/parameters.${species}.${build}.csv"
 
-perl "${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl" "${EBROOTNGS_RNA}/parameters.${host}.csv" > \
-${workDir}/parameters.${host}.csv
+perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${customParameters}" > \
+"${workDir}/parameters.${host}.csv"
 
 
 sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
@@ -85,5 +91,3 @@ worksheet=${workDir}/${project}.csv;\
 parameters_build=${workDir}/parameters.${species}.${build}.csv;\
 parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${species}.csv;\
 parameters_environment=${workDir}/parameters.${host}.csv"
-
-

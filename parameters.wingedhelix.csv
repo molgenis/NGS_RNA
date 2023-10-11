@@ -3,7 +3,7 @@ queue,atd
 workDir,/groups/${groupname}
 dataDir,${root}/data
 permanentDir,${workDir}/prm03
-tmpName,tmp09
+tmpName,tmp07
 root,/apps
 
 ## change the tmpDataDir to match your environment
@@ -13,19 +13,18 @@ tempDir,${tmpDataDir}/tmp
 ##### Tools and versions #####
 toolchain,foss-2022a
 GCCcoreVersion,GCCcore-11.3.0
-GCCVersion,GCC-11.3.0
 jdkVersion,Java/11-LTS
 ngsUtilsVersion,ngs-utils/22.10.1
 ngsRNAVersion,NGS_RNA/beta
-fastqcVersion,FastQC/0.11.8-Java-11-LTS
+fastqcVersion,FastQC/0.11.9-Java-11-LTS
 samtoolsVersion,SAMtools/1.16.1-${GCCcoreVersion}
 bedToolsVersion,BEDTools/2.30.0-${GCCcoreVersion}
 BCFtoolsVersion,BCFtools/1.16-${GCCcoreVersion}
 sambambaVersion,sambamba/0.7.0
-rVersion,R/4.2.1-${toolchain}-bare
-rPlusVersion,RPlus/4.2.1-${toolchain}-v23.01.1
+rVersion,R/4.2.2-${toolchain}-bare
+rPlusVersion,RPlus/3.6.1-foss-2018b-v20.10.1
 picardVersion,picard/2.26.10-Java-8-LTS
-htseqVersion,HTSeq/0.11.0-${GCCcoreVersion}-Python-3.10.4
+htseqVersion,HTSeq/0.11.0-foss-2018b-Python-2.7.16
 hisatVersion,hisat2/2.1.0-${toolchain}
 htsLibVersion,HTSlib/1.16-${GCCcoreVersion}
 pythonVersion,Python/3.10.4-${GCCcoreVersion}-bare
@@ -36,15 +35,15 @@ gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
 starVersion,STAR/2.7.3a-GCC-11.3.0
 picardJar,picard.jar
-gatkJar,gatk-package-4.1.4.1-local.jar
+gatkJar,gatk-package-4.2.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
 trimGaloreVersion,TrimGalore/0.6.7-${GCCcoreVersion}
-cutadaptVersion,cutadapt/4.2-${GCCcoreVersion}-Python-3.10.4-bare
+cutadaptVersion,cutadapt/2.6-${GCCcoreVersion}-Python-3.7.4-bare
 rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.10.4
-leafcutterVersion,leafcutter/aa12b1e-${GCCcoreVersion}
+leafcutterVersion,leafcutter/aa12b1e-${toolchain}
 vipVersion,vip/v3.3.1-${toolchain}
 outriderVersion,outrider_latest.sif
-regToolsVersion,RegTools/1.0.0-${toolchain}
+regToolsVersion,RegTools/0.5.2-${toolchain}
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif

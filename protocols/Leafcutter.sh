@@ -9,18 +9,12 @@ set -o pipefail
 #string projectJobsDir
 #string strandedness
 #string sampleMergedBamExt
-#string leafcutterVersion
-#string python2Version
 #string annotationTxt
 #string leafcutterAllExon
+#string sifDir
 
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
-
-#Load module
-module load "${leafcutterVersion}"
-module load "${python2Version}"
-module list
 
 # detect strand for RegTools
 num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
@@ -47,13 +41,12 @@ awk -F',' -v id="${colID[0]}" -v con="${colArray[0]}" '{print $id".sorted.merged
 sed 1d "${intermediateDir}${project}_groups_file.txt" > "${intermediateDir}${project}"_groups_file.txt.tmp
 mv "${intermediateDir}${project}_groups_file.txt.tmp" "${intermediateDir}${project}_groups_file.txt"
 
-export R_LIBS_USER="${EBROOTLEAFCUTTER}/R_LIBS/"
-
 echo "conditionCount = ${conditionCount}"
 if [[ "${conditionCount}" -gt 1 ]]
 then
 	echo "Differential Splicing with ${conditionCount} groups."
-	Rscript "${EBROOTLEAFCUTTER}/scripts/leafcutter_ds.R" \
+	singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
+	"/app/leafcutter/scripts/leafcutter_ds.R" \
 	--num_threads 4 \
 	-i 1 \
 	-g 1 \
@@ -66,7 +59,8 @@ then
 	mv "${tmpintermediateDir}/${project}"* "${intermediateDir}"
 else
 	echo "Outlier Splicing, ${conditionCount} conditions found."
-	Rscript	"${EBROOTLEAFCUTTER}/scripts/leafcutterMD.R" \
+	singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
+	"/app/leafcutter/scripts/leafcutterMD.R" \
 	--num_threads 8 \
 	-o "${tmpintermediateDir}${project}" \
 	"${intermediateDir}${project}_leafcutter_cluster_regtools_perind_numers.counts.gz"
