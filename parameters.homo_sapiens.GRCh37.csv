@@ -150,4 +150,4 @@ annotationFile,${dataDir}Ensembl/GrCh37.75/pub/release-75/gtf/${speciesFileName}
 ensembleDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/gtf/${speciesFileName}/
 spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
 spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
-comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_woChr.bed
+comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_woChr.openArrayAdded.bed
