@@ -33,5 +33,11 @@ tmpSampleConcordanceVcf=${MC_tmpFile}
 	| bcftools call \
 	-mv -Ob -o "${tmpSampleConcordanceVcf}"
 
-	mv "${tmpSampleConcordanceVcf}" "${sampleConcordanceVcf}"
+	
+	echo "Sorting and tabixing ${sampleConcordanceVcf}"
+	bcftools sort "${tmpSampleConcordanceVcf}" -o "${tmpSampleConcordanceVcf}.sorted"
+	mv "${tmpSampleConcordanceVcf}.sorted" "${sampleConcordanceVcf}"
+        bgzip -c "${sampleConcordanceVcf}" > "${sampleConcordanceVcf}.gz"
+        tabix -p  vcf "${sampleConcordanceVcf}.gz"
+
 	echo "Finished!"

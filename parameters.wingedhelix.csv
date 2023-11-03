@@ -35,7 +35,7 @@ gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
 starVersion,STAR/2.7.3a-GCC-11.3.0
 picardJar,picard.jar
-gatkJar,gatk-package-4.2.4.1-local.jar
+gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
 trimGaloreVersion,TrimGalore/0.6.7-${GCCcoreVersion}
 cutadaptVersion,cutadapt/2.6-${GCCcoreVersion}-Python-3.7.4-bare

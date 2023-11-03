@@ -47,6 +47,8 @@ MAX_RECORDS_IN_RAM=4000000 \
 TMP_DIR="${tempDir}"
 
 echo "returncode: $?";
+
+rm "${sortedBam}"
 mv "${tmpAddOrReplaceGroupsBam}" "${addOrReplaceGroupsBam}"
 mv "${tmpAddOrReplaceGroupsBai}" "${addOrReplaceGroupsBai}"
 echo "succes moving files";

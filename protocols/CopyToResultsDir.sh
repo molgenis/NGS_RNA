@@ -100,11 +100,17 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 	rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
 	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
-	rsync -av "${intermediateDir}/"*".concordance.vcf" "${projectResultsDir}/variants/concordance/"
+	rsync -av "${intermediateDir}/"*".concordance.vcf"* "${projectResultsDir}/variants/concordance/"
 
 # Copy leafcutter
-	rsync -av "${intermediateDir}"/*.leafcutter.outlier* "${projectResultsDir}/leafcutter/"
+	source "${intermediateDir}/conditionCount.txt"
 
+	if [[ "${conditionCount}" == 2 ]]
+	then
+		rsync -av "${intermediateDir}"/*leafcutter_ds* "${projectResultsDir}/leafcutter/"
+	else
+		rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
+	fi
 # Copy STAR annotated SpliceJunctions
 	rsync -av "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
 #only available with PE

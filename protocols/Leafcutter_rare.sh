@@ -16,8 +16,14 @@ set -o pipefail
 #string python2Version
 #string sifDir
 
-makeTmpDir "${intermediateDir}"
-tmpintermediateDir=${MC_tmpFile}
+#read number of conditions
+source "${intermediateDir}/conditionCount.txt"
+
+echo "conditionCount = ${conditionCount}"
+if [[ "${conditionCount}" == 1 ]]
+then
+	makeTmpDir "${intermediateDir}"
+	tmpintermediateDir=${MC_tmpFile}
 
 	singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
 	/app/leafcutter/scripts/leafcutter_ds.R \
@@ -31,3 +37,7 @@ tmpintermediateDir=${MC_tmpFile}
 	"${intermediateDir}/${externalSampleID}.SJ.design.tsv"
 
 	mv "${tmpintermediateDir}/${externalSampleID}"* "${intermediateDir}"
+
+else
+	echo "Done, no one vs all analysis needed."
+fi

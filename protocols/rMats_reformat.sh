@@ -20,32 +20,42 @@ set -o pipefail
 #string tmpName
 #string logsDir
 
-makeTmpDir "${intermediateDir}"
-tmpintermediateDir=${MC_tmpFile}
+#read number of conditions
+source "${intermediateDir}/conditionCount.txt"
 
-module load "${ngsVersion}"
-module load "${python2PlusVersion}"
-module list
+echo "conditionCount = ${conditionCount}"
+if [[ "${conditionCount}" != 1 ]]
+then
+    	echo "Nothing to do here"
+else
 
-ZSCORE=3
-DELTAPSY=0.2
+	makeTmpDir "${intermediateDir}"
+	tmpintermediateDir=${MC_tmpFile}
 
-echo "reformatting format_rMATS.py"
-"${EBROOTNGS_RNA}/scripts/format_rMATS.py" \
--i "${rMATsOutputDir}/${externalSampleID}/" \
--o "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv"
+	module load "${ngsVersion}"
+	module load "${python2PlusVersion}"
+	module list
 
-# filter output
-"${EBROOTNGS_RNA}/scripts/filter_rMATS.py" \
--i "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv" \
--o "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
--d "${DELTAPSY}" \
--z "${ZSCORE}"
+	ZSCORE=3
+	DELTAPSY=0.2
 
-# convert to bed
-"${EBROOTNGS_RNA}/scripts/convert_rMATS_to_bed.py" \
--i "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
--o "${tmpintermediateDir}${externalSampleID}.rMATs.final.bed"
+	echo "reformatting format_rMATS.py"
+	"${EBROOTNGS_RNA}/scripts/format_rMATS.py" \
+	-i "${rMATsOutputDir}/${externalSampleID}/" \
+	-o "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv"
 
-mv "${tmpintermediateDir}/${externalSampleID}."* "${rMATsOutputDir}/${externalSampleID}/"
-echo "Created ${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.final.bed"
+	# filter output
+	"${EBROOTNGS_RNA}/scripts/filter_rMATS.py" \
+	-i "${tmpintermediateDir}${externalSampleID}.rMATS.format.tsv" \
+	-o "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
+	-d "${DELTAPSY}" \
+	-z "${ZSCORE}"
+
+	# convert to bed
+	"${EBROOTNGS_RNA}/scripts/convert_rMATS_to_bed.py" \
+	-i "${tmpintermediateDir}${externalSampleID}.rMATS.filtered.tsv" \
+	-o "${tmpintermediateDir}${externalSampleID}.rMATs.final.bed"
+
+	mv "${tmpintermediateDir}/${externalSampleID}."* "${rMATsOutputDir}/${externalSampleID}/"
+	echo "Created ${rMATsOutputDir}/${externalSampleID}/${externalSampleID}.rMATs.final.bed"
+fi
