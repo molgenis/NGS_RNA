@@ -1,5 +1,5 @@
 set -o pipefail
-#MOLGENIS walltime=10-23:59:00 mem=2gb ppn=2
+#MOLGENIS walltime=2:59:00 mem=2gb ppn=1
 
 #list seqType
 #string projectRawArraytmpDataDir
@@ -9,7 +9,6 @@ set -o pipefail
 #string intermediateDir
 #string projectResultsDir
 #string projectQcDir
-#string jdkVersion
 #string groupname
 #string ngsUtilsVersion
 #string ngsVersion
@@ -18,9 +17,7 @@ set -o pipefail
 #list run
 #list flowcell
 #string logsDir
-#string mainParameters
 #string parameters_build
-#string parameters_species
 #string parameters_environment
 #string parameters_chromosomes
 #string worksheet
@@ -48,7 +45,7 @@ mkdir -p "${intermediateDir}"
 mkdir -p "${projectResultsDir}"
 mkdir -p "${projectQcDir}"
 
-ROCKETPOINT="${pwd}"
+ROCKETPOINT="${PWD}"
 
 cd "${projectRawtmpDataDir}" || exit
 
@@ -107,9 +104,7 @@ then
 fi
 
 sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
--p "${mainParameters}" \
 -p "${parameters_build}" \
--p "${parameters_species}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
 --header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
