@@ -26,7 +26,7 @@ source "${intermediateDir}/conditionCount.txt"
 echo "conditionCount = ${conditionCount}"
 if [[ "${conditionCount}" != 1 ]]
 then
-    	echo "Nothing to do here"
+	echo "Nothing to do here"
 else
 
 	makeTmpDir "${intermediateDir}"

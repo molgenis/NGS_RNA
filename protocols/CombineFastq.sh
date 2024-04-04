@@ -57,7 +57,7 @@ done
 
 for FqFileSingle in "${trimmedSingleBarcodeFqGz[@]}"
 do
-  	array_contains INPUTSINGLE "${FqFileSingle}" || INPUTSINGLE+=("${FqFileSingle}")
+	array_contains INPUTSINGLE "${FqFileSingle}" || INPUTSINGLE+=("${FqFileSingle}")
 done
 
 if [[ "${#INPUTSLEFT[@]}" == 1 ]]
@@ -76,8 +76,8 @@ else
 
 	elif [[ "${seqType}" == "SR" ]]
 	then
-                cat "${INPUTSINGLE[@]}" > "${tmpMergedSingleBarcodeFqGz}"
-                mv "${tmpMergedSingleBarcodeFqGz}" "${mergedSingleBarcodeFqGz}"
+		cat "${INPUTSINGLE[@]}" > "${tmpMergedSingleBarcodeFqGz}"
+		mv "${tmpMergedSingleBarcodeFqGz}" "${mergedSingleBarcodeFqGz}"
 	else
 		echo "Unkown seqType: ${seqType}"
 	fi
