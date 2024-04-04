@@ -24,6 +24,7 @@ module load "${python2Version}"
 module list
 
 #read number of conditions
+# shellcheck source=/dev/null
 source "${intermediateDir}/conditionCount.txt"
 
 echo "conditionCount = ${conditionCount}"

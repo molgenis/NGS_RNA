@@ -23,6 +23,7 @@ num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
 STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "1"}else if($2 > 0.6){print "2"}else if($1 < 0.6 && $2 < 0.6){print "0"} }')
 
 #read number of conditions
+# shellcheck source=/dev/null
 source "${intermediateDir}/conditionCount.txt"
 
 echo -e "\nWith strandedness type: ${STRANDED},

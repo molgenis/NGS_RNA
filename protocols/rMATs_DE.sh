@@ -18,6 +18,7 @@ set -o pipefail
 #string logsDir
 
 #read number of conditions
+# shellcheck source=/dev/null
 source "${intermediateDir}/conditionCount.txt"
 
 echo "conditionCount = ${conditionCount}"
