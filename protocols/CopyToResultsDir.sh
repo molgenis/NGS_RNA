@@ -103,6 +103,7 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 	rsync -av "${intermediateDir}/"*".concordance.vcf"* "${projectResultsDir}/variants/concordance/"
 
 # Copy leafcutter
+	# shellcheck source="${intermediateDir}/conditionCount.txt"
 	source "${intermediateDir}/conditionCount.txt"
 
 	if [[ "${conditionCount}" == 2 ]]
