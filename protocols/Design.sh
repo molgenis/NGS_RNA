@@ -65,7 +65,7 @@ done
 
 echo "files written to: ${intermediateDir}/ *.design.tsv"
 
-#detect number of conditions
+#detect number of conditions, for the conditionCOunt.txt file
 col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n "${col}")
 # shellcheck disable=SC2206
 colArray=(${col//:/ })
