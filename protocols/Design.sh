@@ -69,7 +69,7 @@ echo "files written to: ${intermediateDir}/ *.design.tsv"
 col=$(col="condition"; head -n1 "${projectJobsDir}/${project}.csv" | tr "," "\n" | grep -n "${col}")
 # shellcheck disable=SC2206
 colArray=(${col//:/ })
-conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "${colArray}" | sort | uniq | wc -l)
+conditionCount=$(tail -n +2 "${projectJobsDir}/${project}.csv" | cut -d "," -f "${colArray[0]}" | sort | uniq | wc -l)
 echo "conditionCount=${conditionCount}" > "${intermediateDir}/conditionCount.txt"
-echo "colArray=${colArray}" >> "${intermediateDir}/conditionCount.txt"
+echo "colArray=${colArray[0]}" >> "${intermediateDir}/conditionCount.txt"
 cd - || exit
