@@ -3,9 +3,11 @@ set -o pipefail
 
 #Parameter mapping
 #string tempDir
-#list trimmedLeftBarcodeFqGz,trimmedRightBarcodeFqGz
+#list trimmedLeftBarcodeFqGz,trimmedRightBarcodeFqGz,trimmedSingleBarcodeFqGz
 #string mergedLeftBarcodeFqGz
 #string mergedRightBarcodeFqGz
+#string mergedSingleBarcodeFqGz
+#string seqType
 #string tmpDataDir
 #string project
 #string intermediateDir
@@ -34,10 +36,14 @@ tmpMergedLeftBarcodeFqGz="${MC_tmpFile}"
 makeTmpDir "${mergedRightBarcodeFqGz}"
 tmpMergedRightBarcodeFqGz="${MC_tmpFile}"
 
+makeTmpDir "${mergedSingleBarcodeFqGz}"
+tmpMergedSingleBarcodeFqGz="${MC_tmpFile}"
+
 #Create string with input BAM files for Picard
 #This check needs to be performed because Compute generates duplicate values in array
 INPUTSLEFT=()
 INPUTSRIGHT=()
+INPUTSINGLE=()
 
 for FqFileLeft in "${trimmedLeftBarcodeFqGz[@]}"
 do
@@ -49,14 +55,30 @@ do
 	array_contains INPUTSRIGHT "${FqFileRight}" || INPUTSRIGHT+=("${FqFileRight}")
 done
 
+for FqFileSingle in "${trimmedSingleBarcodeFqGz[@]}"
+do
+	array_contains INPUTSINGLE "${FqFileSingle}" || INPUTSINGLE+=("${FqFileSingle}")
+done
+
 if [[ "${#INPUTSLEFT[@]}" == 1 ]]
 then
 	ln -sf "$(basename "${INPUTSLEFT[0]}")" "${mergedLeftBarcodeFqGz}"
 	ln -sf "$(basename "${INPUTSRIGHT[0]}")" "${mergedRightBarcodeFqGz}"
 	echo "nothing to merge because there is only one sample"
 else
-	cat "${INPUTSLEFT[@]}" > "${tmpMergedLeftBarcodeFqGz}"
-	cat "${INPUTSRIGHT[@]}" > "${tmpMergedRightBarcodeFqGz}"
-	mv "${tmpMergedLeftBarcodeFqGz}" "${mergedLeftBarcodeFqGz}"
-	mv "${tmpMergedRightBarcodeFqGz}" "${mergedRightBarcodeFqGz}"
+
+	if [[ "${seqType}" == "PE" ]]
+	then
+		cat "${INPUTSLEFT[@]}" > "${tmpMergedLeftBarcodeFqGz}"
+		cat "${INPUTSRIGHT[@]}" > "${tmpMergedRightBarcodeFqGz}"
+		mv "${tmpMergedLeftBarcodeFqGz}" "${mergedLeftBarcodeFqGz}"
+		mv "${tmpMergedRightBarcodeFqGz}" "${mergedRightBarcodeFqGz}"
+
+	elif [[ "${seqType}" == "SR" ]]
+	then
+		cat "${INPUTSINGLE[@]}" > "${tmpMergedSingleBarcodeFqGz}"
+		mv "${tmpMergedSingleBarcodeFqGz}" "${mergedSingleBarcodeFqGz}"
+	else
+		echo "Unkown seqType: ${seqType}"
+	fi
 fi

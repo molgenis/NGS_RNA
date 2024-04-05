@@ -41,7 +41,8 @@ tin.py \
 -r "${houseKeepingGenesBed}" \
 -i "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
 
-mv "${tmpintermediateDir}/${externalSampleID}"* "${intermediateDir}"
+rm "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam"
+rm "${tmpintermediateDir}/${externalSampleID}.sorted.merged.housekeeping.bam.bai"
 
 cd - || exit
 

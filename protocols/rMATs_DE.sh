@@ -2,12 +2,9 @@ set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=4gb ppn=4
 
 #Parameter mapping
-#list sampleMergedBam
-#string sampleMergedBamExt
 #string tempDir
 #string tmpDataDir
 #string project
-#string externalSampleID
 #string intermediateDir
 #string strandedness
 #string sifDir
@@ -25,16 +22,13 @@ set -o pipefail
 source "${intermediateDir}/conditionCount.txt"
 
 echo "conditionCount = ${conditionCount}"
-if [[ "${conditionCount}" != 1 ]]
+if [[ "${conditionCount}" -gt 1 ]]
 then
-	echo "Done, no one vs all analysis needed."
-else
 
-	mkdir -p "${rMATsOutputDir}/${externalSampleID}/tmp"
-
+	mkdir -p "${rMATsOutputDir}/${project}/tmp"
 	# create list of bam files from design, and tmp.
-	rm -f "${intermediateDir}/${externalSampleID}.B"{1,2}".txt"
-	rm -r "${rMATsOutputDir}/${externalSampleID}/tmp/"
+	rm -f "${intermediateDir}/${project}.B"{1,2}".txt"
+	rm -r "${rMATsOutputDir}/${project}/tmp/"
 
 	while read -r line
 	do
@@ -42,14 +36,14 @@ else
 		read -r name status <<< "${line}"
 		if [[ "${status}" == "sample" ]]
 		then
-			echo "${name} is a ${status} : in ${externalSampleID}.B1.txt"
-			echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B1.txt"
+			echo "${name} is a ${status} : in ${project}.B1.txt"
+			echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${project}.B1.txt"
 		else
-			echo "${name} is a ${status} : in ${externalSampleID}.B2.txt"
-			echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${externalSampleID}.B2.txt"
+			echo "${name} is a ${status} : in ${project}.B2.txt"
+			echo -n "${intermediateDir}/${name}," >> "${intermediateDir}/${project}.B2.txt"
 		fi
 		echo "${status}"
-	done < "${intermediateDir}${externalSampleID}.SJ.design.tsv"
+	done < "${intermediateDir}${project}_groups_file.txt"
 
 
 	# Get strandness.
@@ -60,7 +54,7 @@ else
 	STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "fr-firststrand"}else if($2 > 0.6){print "fr-secondstrand"}else if($1 < 0.6 && $2 < 0.6){print "fr-unstranded"} }')
 
 	singularity exec --bind "${intermediateDir}":/intermediateDir,/apps:/apps,/groups:/groups "${sifDir}/${rMATsVersion}" python /rmats/rmats.py \
-	--b1 "/intermediateDir/${externalSampleID}.B1.txt" --b2 "/intermediateDir/${externalSampleID}.B2.txt" \
+	--b1 "/intermediateDir/${project}.B1.txt" --b2 "/intermediateDir/${project}.B2.txt" \
 	--gtf "${annotationGtf}" \
 	-t paired \
 	--readLength 150 \
@@ -68,9 +62,11 @@ else
 	--cstat 0.05 \
 	--nthread 4 \
 	--libType "${STRANDED}" \
-	--od "${rMATsOutputDir}/${externalSampleID}/" \
-	--tmp "${rMATsOutputDir}/${externalSampleID}/tmp/"
+	--od "${rMATsOutputDir}/${project}/" \
+	--tmp "${rMATsOutputDir}/${project}/tmp/"
 
 	#cleanup tmpdir
-	rm -r "${rMATsOutputDir}/${externalSampleID}/tmp/"
+	rm -r "${rMATsOutputDir}/${project}/tmp/"
+else
+	echo "Group number is ${conditionCount}, no DE analysis."
 fi
