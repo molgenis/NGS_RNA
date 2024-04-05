@@ -49,7 +49,7 @@ Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast un
 Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
 Bioinforma 2009, 25 (16):2078-2079.
 3. Anders S, Pyl PT, Huber W: HTSeq - A Python framework to work with high-throughput sequencing data
-HTSeq - A Python framework to work with high-throughput sequencing data. 2014:0???5.
+HTSeq - A Python framework to work with high-throughput sequencing data. 2014:0-5.
 4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online]. 
 Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
 5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}
