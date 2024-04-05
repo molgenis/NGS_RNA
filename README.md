@@ -1,6 +1,6 @@
 <h1>NGS_RNA pipeline</h1>
 
-<h2>Description of the different steps used in the RNA analysis pipeline </h2>
+<h2>Description of the different steps used in the RNA analysis pipeline. </h2>
 
 <h3>Gene expression quantification </h3>
 The trimmed fastQ files were aligned to a reference genome using Star [1] with default settings. Before gene quantification 
@@ -47,9 +47,9 @@ Sonali Jha, Philippe Batut, Mark Chaisson, Thomas R Gingeras: STAR: ultrafast un
 2013 Jan 1;29(1):15-21.  doi: 10.1093/bioinformatics/bts635.  Epub 2012 Oct 25.
 2. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R,
 Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.
-Bioinforma 2009, 25 (16):2078–2079.
-3. Anders S, Pyl PT, Huber W: HTSeq – A Python framework to work with high-throughput sequencing data
-HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.
+Bioinforma 2009, 25 (16):2078???2079.
+3. Anders S, Pyl PT, Huber W: HTSeq ??? A Python framework to work with high-throughput sequencing data
+HTSeq ??? A Python framework to work with high-throughput sequencing data. 2014:0???5.
 4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online]. 
 Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ ${samtoolsVersion}
 5. Picard Sourceforge Web site. http://picard.sourceforge.net/ ${picardVersion}
@@ -64,7 +64,7 @@ Nat Genet. 2018;50(1):151-158. doi:10.1038/s41588-017-0004-9
 <h3>1) Copy rawdata to raw data ngs folder </h3>
 
 ```BASH
-scp –r SEQSTARTDATE_SEQ_RUNTEST_FLOWCELLXX username@yourcluster:${root}/groups/$groupname/${tmpDir}/rawdata/ngs/YOURDIR
+scp ???r SEQSTARTDATE_SEQ_RUNTEST_FLOWCELLXX username@yourcluster:${root}/groups/$groupname/${tmpDir}/rawdata/ngs/YOURDIR
 ```
 <h3>2) Create a folder in the generatedscripts folder </h3>
 
@@ -74,7 +74,7 @@ mkdir ${root}/groups/$groupname/${tmpDir}/generatedscripts/TestRun
 <h3>3) Copy samplesheet to generatedscripts folder </h3>
 
 ```BASH
-scp –r TestRun.csv username@yourcluster:/groups/$groupname/${tmpDir}/generatedscripts/
+scp ???r TestRun.csv username@yourcluster:/groups/$groupname/${tmpDir}/generatedscripts/
 ```
 Note: the name of the folder should be the same as samplesheet (.csv) file.
 Note2: Example samplesheet can be found in $EBROOTNGS_RNA/templates/externalSamplesheet.csv
@@ -88,7 +88,7 @@ cp $EBROOTNGS_RNA/generate_template.sh .
 bash generate_template.sh
 cd scripts
 ```
-Note: If you want to run the pipeline locally, you should change the backend in the CreateInhouseProjects.sh script (this can be done almost at the end of the script where you have something like: sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh search for –b slurm and change it into –b localhost
+Note: If you want to run the pipeline locally, you should change the backend in the CreateInhouseProjects.sh script (this can be done almost at the end of the script where you have something like: sh ${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh search for ???b slurm and change it into ???b localhost
 
 ```BASH
 bash submit.sh
