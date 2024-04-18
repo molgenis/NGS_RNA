@@ -9,7 +9,6 @@ set -o pipefail
 #string projectLogsDir
 #string projectQcDir
 #list externalSampleID
-#string contact
 #string qcMatricsList
 #string gcPlotList
 #string seqType
@@ -36,7 +35,6 @@ set -o pipefail
 cat > "${intermediateDir}/${project}_QC_config.yaml" <<'_EOF'
 
 report_header_info:
-- 'Contact E-mail' : '${contact}'
 - 'Pipeline Version' : '${ngsVersion}'
 - 'Project' : '${project}'
 - 'prepKit' : '${prepKit}'
