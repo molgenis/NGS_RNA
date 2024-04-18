@@ -79,7 +79,7 @@ sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${workDir}/parameters.${species}.${build}.csv" \
 -p "${workDir}/${project}.csv" \
 -p "${EBROOTNGS_RNA}/chromosomes.${species}.csv" \
--w "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" \
+-w "${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv" \
 -rundir "${workDir}/scripts" \
 --runid "${runID}" \
 --weave \

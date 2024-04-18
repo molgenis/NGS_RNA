@@ -24,7 +24,7 @@ set -o pipefail
 #string outputdir
 #string workflowpath
 
-#list internalSampleID
+#list externalSampleID
 #string project
 
 #list barcode
@@ -55,7 +55,7 @@ cd "${projectRawtmpDataDir}" || exit
 # For each sequence file (could be multiple per sample):
 #
 
-max_index="${#internalSampleID[@]}-1"
+max_index="${#externalSampleID[@]}-1"
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
 do
 	if [[ "${seqType[samplenumber]}" == "SR" ]]
