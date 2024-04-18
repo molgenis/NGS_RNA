@@ -38,3 +38,4 @@ outriderVersion,outrider_latest.sif
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif
+RVersion,R/4.2.2-${toolchain}-bare
