@@ -12,7 +12,6 @@ set -o pipefail
 #string projectJobsDir
 #string projectHTseqExpressionTable
 #string annotationGtf
-#string vipVersion
 #string indexFileID
 #string seqType
 #string jdkVersion
