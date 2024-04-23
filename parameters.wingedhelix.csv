@@ -35,6 +35,7 @@ mergeSamFilesJar,MergeSamFiles
 trimGaloreVersion,TrimGalore/0.6.7-${GCCcoreVersion}
 rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.10.4
 outriderVersion,outrider_latest.sif
+leafcutterVersion,leafcutter_latest.sif
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif
