@@ -84,7 +84,7 @@ filePrefix,${runPrefix}_L${lane}
 library,${filePrefix}
 
 ##### Projects #####
-generalProjectDir,${tmpDataDir}/projects/
+generalProjectDir,${tmpDataDir}/projects/NGS_RNA/
 projectDir,${generalProjectDir}/${project}/${runid}
 projectRawtmpDataDir,${projectDir}/rawdata/ngs/
 projectRawArraytmpDataDir,${projectDir}/rawdata/array/
