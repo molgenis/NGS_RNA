@@ -23,7 +23,7 @@ ghostscriptVersion,Ghostscript/9.27-GCCcore-7.3.0
 multiqcVersion,multiqc/1.7-GCCcore-7.3.0-Python-3.7.4-bare
 wkhtmltopdfVersion,wkhtmltopdf/0.11.0_rc1-static-amd64
 anacondaVersion,Anaconda/1.8.0-Linux-x86_64
-starVersion,STAR/2.7.3a-${toolchain}
+starVersion,STAR/2.7.9a-${toolchain}
 kallistoVersion,Kallisto/0.43.0-${toolchain}
 BBMapVersion,BBMap/35.69-Java-1.7.0_80
 picardJar,picard.jar
