@@ -26,11 +26,11 @@ htseqVersion,HTSeq/0.11.0-foss-2018b-Python-2.7.16
 htsLibVersion,HTSlib/1.16-${GCCcoreVersion}
 pythonVersion,Python/3.10.4-${GCCcoreVersion}-bare
 pythonPlusVersion,PythonPlus/3.10.4-${GCCcoreVersion}-v23.01.1
-gatkVersion,GATK/4.1.4.1-Java-8-LTS
+gatkVersion,GATK/4.2.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
 starVersion,STAR/2.7.9a-GCC-11.3.0
 picardJar,picard.jar
-gatkJar,gatk-package-4.1.4.1-local.jar
+gatkJar,gatk-package-4.2.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
 trimGaloreVersion,TrimGalore/0.6.7-${GCCcoreVersion}
 rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.10.4
