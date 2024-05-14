@@ -1,11 +1,6 @@
 pipeline {
 	agent any
 	stages {
-#		stage ('Checkout') {
-#			steps {
-#				checkout scm
-#			}
-#		}
         	stage ('Automated test') {
 			steps {        
         		echo "Copy test from repo to molgenis home on Hyperchicken"
