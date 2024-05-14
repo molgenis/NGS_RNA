@@ -1,4 +1,5 @@
 pipeline {
+	agent any
 	stages {
 		stage ('Checkout') {
 			checkout scm
@@ -14,7 +15,7 @@ pipeline {
             	sudo ssh -tt portal+hyperchicken 'exec bash -l << 'ENDSSH'
 	    		echo "Starting automated test"
 			bash /home/umcg-molgenis/test_pipeline_RNA.sh '''+env.CHANGE_ID+'''
-ENDSSH'
+   ENDSSH'
         	'''	
 		}
 	}
