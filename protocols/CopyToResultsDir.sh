@@ -95,13 +95,6 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
-DE.sh
-Leafcutter.sh
-OUTRIDER.sh
-rMats_DE.sh
-VIP.sh
-
-
 	DESeq2data=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*DE*")
 	LeafcutterData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*Leafcutter*")
 	VIPData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*VIP*")
@@ -110,7 +103,6 @@ VIP.sh
 	OutriderData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*OUTRIDER*")
 	rMatsData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*rMats*")
 
-	
 	if [[ "${DESeq2data}" -eq '0' ]]
 	then
 		echo "no DESeq2 data available"
