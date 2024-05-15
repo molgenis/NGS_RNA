@@ -144,7 +144,8 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		# Copy VIP vcf
 		mkdir -p "${projectResultsDir}/variants/vip"
 		rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
-	done
+	fi
+
 
 # write README.txt file
 
