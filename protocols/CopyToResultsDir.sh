@@ -115,7 +115,9 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		rsync -av "${intermediateDir}"/*deseq2_* "${projectResultsDir}/expression/deseq2/"
 		rsync -av "${intermediateDir}"/*design.csv "${projectResultsDir}/expression/deseq2/"
 		rsync -av "${intermediateDir}"/*.svg "${projectResultsDir}/expression/deseq2/"
-	elif [[ "${LeafcutterData}" -eq '0' ]]
+	fi
+
+	if [[ "${LeafcutterData}" -eq '0' ]]
 	then
 		echo "no Leafcutter Data data available"
 	else
@@ -129,7 +131,9 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		else
 			rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
 		fi
-	elif [[ "${HTSeqData}" -eq '0' ]]
+	fi
+
+	if [[ "${HTSeqData}" -eq '0' ]]
 	then
 		echo "no HTSeq Data data available"
 	else
@@ -137,7 +141,9 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		rsync -av "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/"
 		rsync -av "${annotationGtf}" "${projectResultsDir}/expression/"
 		rsync -av "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/"
-	elif [[ "${VIPData}" -eq '0' ]]
+	fi
+
+	if [[ "${VIPData}" -eq '0' ]]
 	then
 		echo "no VIP Data data available"
 	else
