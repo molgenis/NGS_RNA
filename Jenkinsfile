@@ -9,7 +9,7 @@ pipeline {
         	stage ('Automated test') {
 			steps {        
         			echo "Copy test from repo to molgenis home on Hyperchicken"
-        			sh "scp test/test_pipeline.sh portal+hyperchicken:/home/umcg-molgenis/test_pipeline_RNA.sh"
+        			sh "sudo scp test/test_pipeline.sh portal+hyperchicken:/home/umcg-molgenis/test_pipeline_RNA.sh"
         
         			echo "Login to Hyperchicken"
 	    
