@@ -2,7 +2,7 @@ set -o pipefail
 #MOLGENIS nodes=1 ppn=1 mem=4gb walltime=05:59:00
 
 #Parameter mapping
-#string rPlusVersion
+#string RDepBundle
 #string intermediateDir
 #string project
 #list externalSampleID
@@ -13,7 +13,7 @@ set -o pipefail
 #string projectQcDir
 #string projectJobsDir
 
-module load "${rPlusVersion}"
+module load "${RDepBundle}"
 module load "${ngsVersion}"
 module list
 
