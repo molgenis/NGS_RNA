@@ -8,7 +8,7 @@ set -o pipefail
 #string tmpDataDir
 #string project
 #string ngsVersion
-#string python2PlusVersion
+#string pythonPlusVersion
 #string externalSampleID
 #string intermediateDir
 #string strandedness

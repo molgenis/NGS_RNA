@@ -17,14 +17,14 @@ set -o pipefail
 #string tmpName
 #string logsDir
 #string ngsVersion
-#string python2PlusVersion
+#string pythonPlusVersion
 
 
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir="${MC_tmpFile}"
 
 module load "${ngsVersion}"
-module load "${python2PlusVersion}"
+module load "${pythonPlusVersion}"
 module list
 
 rm -f "${intermediateDir}/${project}.SJ.samples.list"

@@ -17,6 +17,10 @@ set -o pipefail
 #string projectRawtmpDataDir
 #string projectQcDir
 
+
+runNumber=$(basename "$(dirname "${projectResultsDir}")")
+touch "${logsDir}/${project}/${runNumber}.pipeline.started"
+
 #Echo parameter values
 echo "seqType: ${seqType}"
 echo "peEnd1BarcodeFqGz: ${peEnd1BarcodeFqGz}"

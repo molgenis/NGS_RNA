@@ -11,7 +11,7 @@ set -o pipefail
 #string intermediateDir
 #string strandedness
 #string ngsVersion
-#string python2PlusVersion
+#string pythonPlusVersion
 #string annotationGtf
 #string projectJobsDir
 #string project
@@ -24,7 +24,7 @@ makeTmpDir "${intermediateDir}"
 tmpIntermediateDir="${MC_tmpFile}"
 
 module load "${ngsVersion}"
-module load "${python2PlusVersion}"
+module load "${pythonPlusVersion}"
 module list
 
 "${EBROOTNGS_RNA}/scripts/normalize_SJ.py" \

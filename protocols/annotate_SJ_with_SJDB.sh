@@ -11,7 +11,7 @@ set -o pipefail
 #string gtexJunc
 #string annotationGtf
 #string omimList
-#string python2PlusVersion
+#string pythonPlusVersion
 #string ngsVersion
 #string project
 #string groupname
@@ -23,7 +23,7 @@ makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsVersion}"
-module load "${python2PlusVersion}"
+module load "${pythonPlusVersion}"
 module list
 
 echo "Running ${EBROOTNGS_RNA}/scripts/annotate_SJ_with_sjdb.py"
