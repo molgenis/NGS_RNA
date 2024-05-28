@@ -152,6 +152,23 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
 	fi
 
+echo "pipeline is finished"
+
+runNumber=$(basename "$(dirname "${projectResultsDir}")")
+
+if [[ -f "${logsDir}/${project}/${runNumber}.pipeline.started" ]]
+then
+	mv "${logsDir}/${project}/${runNumber}.pipeline".{started,finished}
+fi
+
+touch "${logsDir}/${project}/${runNumber}.pipeline.finished"
+
+echo "finished: $(date +%FT%T%z)" >> "${logsDir}/${project}/${runNumber}.pipeline.totalRuntime"
+rm -f "${logsDir}/${project}/${runNumber}.pipeline.failed"
+echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
+
+
+touch pipeline.finished
 
 # write README.txt file
 

@@ -9,14 +9,13 @@ set -o pipefail
 #string strandedness
 #string sampleMergedBamExt
 #string regToolsVersion
-#string python2Version
 #string samtoolsVersion
 #string sifDir
 
 #Load module
 module load "${regToolsVersion}"
 module load "${samtoolsVersion}"
-module load "${python2Version}"
+#module load "${python2Version}"
 module list
 
 # detect strand for RegTools
