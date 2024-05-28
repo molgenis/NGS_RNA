@@ -16,7 +16,7 @@ set -o pipefail
 #string logsDir
 #string projectRawtmpDataDir
 #string projectQcDir
-
+#string projectResultsDir
 
 runNumber=$(basename "$(dirname "${projectResultsDir}")")
 touch "${logsDir}/${project}/${runNumber}.pipeline.started"
