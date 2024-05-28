@@ -11,11 +11,12 @@ set -o pipefail
 #string regToolsVersion
 #string samtoolsVersion
 #string sifDir
+#string pythonVersion
 
 #Load module
 module load "${regToolsVersion}"
 module load "${samtoolsVersion}"
-#module load "${python2Version}"
+module load "${pythonVersion}"
 module list
 
 # detect strand for RegTools

@@ -11,8 +11,8 @@ set -o pipefail
 #string ngsVersion
 #string sampleMergedBamExt
 #string leafcutterVersion
-#string python2Version
 #string omimList
+#string pythonVersion
 
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
@@ -20,7 +20,7 @@ tmpintermediateDir=${MC_tmpFile}
 #Load module
 module load "${leafcutterVersion}"
 module load "${ngsVersion}"
-module load "${python2Version}"
+module load "${pythonVersion}"
 module list
 
 #read number of conditions
