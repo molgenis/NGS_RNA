@@ -22,7 +22,7 @@ bedToolsVersion,BEDTools/2.30.0-${GCCcoreVersion}
 BCFtoolsVersion,BCFtools/1.16-${GCCcoreVersion}
 sambambaVersion,sambamba/0.7.0
 picardVersion,picard/2.26.10-Java-8-LTS
-htseqVersion,HTSeq/0.11.0-foss-2018b-Python-2.7.16
+htseqVersion,HTSeq/0.12.3-${GCCcoreVersion}-Python-3.10.4
 htsLibVersion,HTSlib/1.16-${GCCcoreVersion}
 pythonVersion,Python/3.10.4-${GCCcoreVersion}-bare
 pythonPlusVersion,PythonPlus/3.10.4-${GCCcoreVersion}-v23.01.1
