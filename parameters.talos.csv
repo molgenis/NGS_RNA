@@ -9,6 +9,10 @@ permanentDir,${workDir}/prm08
 toolchain,foss-2022a
 GCCcoreVersion,GCCcore-11.3.0
 
+## change the tmpDataDir to match your environment
+tmpDataDir,${workDir}/${tmpName}
+tempDir,${tmpDataDir}/tmp
+
 ##### Tools and versions #####
 jdkVersion,Java/11-LTS
 ngsUtilsVersion,ngs-utils/22.10.1
