@@ -57,6 +57,7 @@ function preparePipeline(){
  	perl -pi -e 's|--cpus-per-task 8|--cpus-per-task 2|' *.sh
    	perl -pi -e 's|--cpus-per-task 6|--cpus-per-task 2|' *.sh
     	perl -pi -e 's|--cpus-per-task 4|--cpus-per-task 2|' *.sh
+     	perl -pi -e 's|--cpus-per-task 3|--cpus-per-task 2|' *.sh
   
 
 	sh submit.sh
