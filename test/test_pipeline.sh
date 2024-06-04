@@ -48,6 +48,7 @@ function preparePipeline(){
   	perl -pi -e 's|--mem 10gb|--mem 5gb|' *.sh
    	perl -pi -e 's|--mem 12gb|--mem 5gb|' *.sh
      	perl -pi -e 's|--mem 15gb|--mem 5gb|' *.sh
+	perl -pi -e 's|--mem 17gb|--mem 5gb|' *.sh
    	perl -pi -e 's|--mem 34gb|--mem 6gb|' *.sh
     	perl -pi -e 's|--mem 50gb|--mem 6gb|' *.sh
 	perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
