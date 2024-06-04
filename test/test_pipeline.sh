@@ -49,8 +49,9 @@ function preparePipeline(){
 	perl -pi -e 's|--time=16:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:00:00|--time=05:59:00|' *.sh
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
- 	perl -pi -e 's|--cpus-per-task 8|--cpus-per-task 4|' *.sh
-   	perl -pi -e 's|--cpus-per-task 6|--cpus-per-task 4|' *.sh
+ 	perl -pi -e 's|--cpus-per-task 8|--cpus-per-task 2|' *.sh
+   	perl -pi -e 's|--cpus-per-task 6|--cpus-per-task 2|' *.sh
+    	perl -pi -e 's|--cpus-per-task 4|--cpus-per-task 2|' *.sh
   
 
 	sh submit.sh
