@@ -2,12 +2,16 @@
 queue,atd
 workDir,/groups/${groupname}/
 dataDir,${root}/data/
-tmpName,tmp01
+tmpName,tmp08
 root,/apps/
 tempDir,${workDir}/${tmpName}/tmp/
 permanentDir,${workDir}/prm08
 toolchain,foss-2022a
 GCCcoreVersion,GCCcore-11.3.0
+
+## change the tmpDataDir to match your environment
+tmpDataDir,${workDir}/${tmpName}
+tempDir,${tmpDataDir}/tmp
 
 ##### Tools and versions #####
 jdkVersion,Java/11-LTS
@@ -16,6 +20,7 @@ ngsRNAVersion,NGS_RNA/beta
 fastqcVersion,FastQC/0.11.8-Java-11-LTS
 samtoolsVersion,SAMtools/1.9-${GCCcoreVersion}
 bedToolsVersion,BEDTools/2.28.0-${GCCcoreVersion}
+BCFtoolsVersion,BCFtools/1.16-${GCCcoreVersion}
 sambambaVersion,sambamba/0.7.0
 rVersion,R/3.6.1-${toolchain}-bare
 rPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
@@ -39,6 +44,7 @@ rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.7.4
 leafcutterVersion,leafcutter/aa12b1e-${toolchain}
 vipVersion,vip/v3.3.1-${toolchain}
 outriderVersion,outrider_latest.sif
+regToolsVersion,RegTools/1.0.0-${toolchain}
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif
