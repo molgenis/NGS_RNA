@@ -19,7 +19,7 @@ function showHelp() {
 	#
 	cat <<EOH
 ===============================================================================================================
-Script to copy (sync) data from a succesfully finished analysis project from tmp to prm storage.
+Script to start the generation of the RNA pipeline, to analyse Diagnostic and research RNA data.
 Usage:
 	$(basename $0) OPTIONS
 Options:
@@ -39,25 +39,25 @@ EOH
 }
 
 
-while getopts "t:g:w:f:r:p:h:c:o" opt;
+while getopts "t:g:w:f:p:r:c:o:h" opt;
 do
-	case $opt in 
+	case $opt in
 		h)
-			showHelp;; 
+			showHelp;;
 		t)
-			tmpDirectory="${OPTARG}";; 
+			tmpDirectory="${OPTARG}";;
 		g)
-			group="${OPTARG}";; 
+			group="${OPTARG}";;
 		w)
-			workDir="${OPTARG}";; 
+			workDir="${OPTARG}";;
 		f)
-			filePrefix="${OPTARG}";; 
+			filePrefix="${OPTARG}";;
 		p)
-			project="${OPTARG}";; 
+			project="${OPTARG}";;
 		r)
-			runID="${OPTARG}";; 
+			runID="${OPTARG}";;
 		c)
-			createWorkflow="${OPTARG}";; 
+			createWorkflow="${OPTARG}";;
 		o)
 			pipeline="${OPTARG}";;
 	esac
