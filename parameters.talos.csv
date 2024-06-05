@@ -38,7 +38,7 @@ starVersion,STAR/2.7.3a-${toolchain}
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
-trimGaloreVersion,TrimGalore/0.4.5-${GCCcoreVersion}-Python-3.10.4-bare
+trimGaloreVersion,TrimGalore/0.6.7-${GCCcoreVersion}
 cutadaptVersion,cutadapt/2.6-${GCCcoreVersion}-Python-3.7.4-bare
 rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.7.4
 leafcutterVersion,leafcutter/aa12b1e-${toolchain}
