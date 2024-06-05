@@ -26,7 +26,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 
@@ -35,5 +35,5 @@ for line in instream:
     line = line.strip()
     tabs = line.split('\t')
     if not line.startswith('#'):
-        print tabs[0].split(":")[0]+"\t"+tabs[0].split(":")[1].split("-")[0]+"\t"+tabs[0].split(":")[1].split("-")[1]+"\t"+tabs[0]+":"+tabs[1]
+        print(tabs[0].split(":")[0]+"\t"+tabs[0].split(":")[1].split("-")[0]+"\t"+tabs[0].split(":")[1].split("-")[1]+"\t"+tabs[0]+":"+tabs[1])
 instream.close()

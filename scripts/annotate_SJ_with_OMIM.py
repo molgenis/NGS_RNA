@@ -27,7 +27,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 omim_dict = {}
@@ -54,9 +54,9 @@ for line in streamin:
             else:
                 genelist.append(".")
         if tag > 0:
-            print line+"\t"+",".join(genelist)
+            print(line+"\t"+",".join(genelist))
         else:
-            print line+"\t"+"."
+            print(line+"\t"+".")
     else:
-        print line+"\tOMIM"
+        print(line+"\tOMIM")
 streamin.close()

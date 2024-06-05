@@ -34,7 +34,7 @@ else
 	tmpintermediateDir=${MC_tmpFile}
 
 	module load "${ngsVersion}"
-	module load "${python2PlusVersion}"
+	module load "${pythonPlusVersion}"
 	module list
 
 	ZSCORE=3

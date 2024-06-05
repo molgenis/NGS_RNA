@@ -28,7 +28,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 
@@ -61,4 +61,4 @@ stream.close()
 
 print "cluster\tstatus\tloglr\tdf\tp\tp.adjust\tgenes\tcoordinates"
 for i in clu_dict:
-    print clu_dict[i]+"\t"+clu_dict[i].split(":")[0]+":"+str(min(effect_dict[i]))+"-"+str(max(effect_dict[i]))
+    print(clu_dict[i]+"\t"+clu_dict[i].split(":")[0]+":"+str(min(effect_dict[i]))+"-"+str(max(effect_dict[i])))

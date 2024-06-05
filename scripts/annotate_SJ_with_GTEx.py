@@ -28,7 +28,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 juncdict = {}
@@ -54,8 +54,8 @@ for line in instream:
             if int(j) > 3:
                 c = c+1
         #print line+"\t"+str(c)+"\t"+juncdict[junc]
-        print line+"\t"+str(c)
+        print(line+"\t"+str(c))
     else:
         #print line+"\t0\t."
-        print line+"\t0"
+        print(line+"\t0")
 instream.close()

@@ -26,17 +26,17 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
-print "#sjdb"+"\t"+"#Reads"+"\t"+"Norm"+"\t"+"Annotation"+"\t"+"Genes"+"\t"+"#Batch"+"\t"+"Zscore"+"\t"+"#GTEx"
+print("#sjdb"+"\t"+"#Reads"+"\t"+"Norm"+"\t"+"Annotation"+"\t"+"Genes"+"\t"+"#Batch"+"\t"+"Zscore"+"\t"+"#GTEx")
 # Uniquely mapped reads
 instream = open(infile, 'r')
 for line in instream:
     line = line.strip()
     tabs = line.split('\t')
     if int(tabs[6]) >= 5 and float(tabs[9]) >= 0.05 and tabs[10] != "Annotated" and tabs[11] != "." and int(tabs[12]) <= 5 and int(tabs[14]) <= 5:
-        print tabs[0]+":"+tabs[1]+"-"+tabs[2]+"\t"+tabs[6]+"\t"+"\t".join(tabs[9:])
+        print(tabs[0]+":"+tabs[1]+"-"+tabs[2]+"\t"+tabs[6]+"\t"+"\t".join(tabs[9:]))
 instream.close()
 
 

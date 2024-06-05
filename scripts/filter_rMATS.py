@@ -31,7 +31,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 
@@ -41,7 +41,7 @@ for line in instream:
     tabs = line.split('\t')
     if not line.startswith('Type'):
         if ((float(tabs[15]) >= float(deltapsy)) or  (float(tabs[15]) <= -float(deltapsy))) and ((float(tabs[16]) >= float(zscore)) or  (float(tabs[16]) <= -float(zscore))):
-            print line
+            print(line)
     else:
-        print line
+        print(line)
 instream.close()
