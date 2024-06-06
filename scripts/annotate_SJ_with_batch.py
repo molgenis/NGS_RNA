@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 ### GAD PIPELINE ###
 ## annotate_SJ_with_batch.py
 ## Description : annotate a SJ file with batch coubts

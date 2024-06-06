@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## convert_rMATS_to_bed.py

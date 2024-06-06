@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## annotate_SJ_with_OMIM.py

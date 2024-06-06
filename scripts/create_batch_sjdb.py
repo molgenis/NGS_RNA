@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## create_batch_sjdb.py
