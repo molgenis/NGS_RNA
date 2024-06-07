@@ -59,6 +59,6 @@ for line in stream:
             effect_dict[clu].append(int(tabs[0].split(":")[2]))
 stream.close()
 
-print "cluster\tstatus\tloglr\tdf\tp\tp.adjust\tgenes\tcoordinates"
+print("cluster\tstatus\tloglr\tdf\tp\tp.adjust\tgenes\tcoordinates")
 for i in clu_dict:
     print(clu_dict[i]+"\t"+clu_dict[i].split(":")[0]+":"+str(min(effect_dict[i]))+"-"+str(max(effect_dict[i])))

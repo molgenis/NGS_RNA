@@ -18,7 +18,6 @@ makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 #Load module
-module load "${leafcutterVersion}"
 module load "${ngsVersion}"
 module load "${pythonVersion}"
 module list
