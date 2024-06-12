@@ -12,10 +12,10 @@ set -o pipefail
 #string rMATsOutputDir
 #string annotationGtf
 #string projectJobsDir
-#string project
 #string groupname
 #string tmpName
 #string logsDir
+#string externalSampleID
 
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
