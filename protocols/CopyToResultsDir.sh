@@ -30,7 +30,6 @@ set -o pipefail
 #string rSeQCVersion
 #string leafcutterVersion
 #string multiqcVersion
-#string rMATsVersion
 #string outriderVersion
 #string groupname
 #string tmpName
@@ -99,9 +98,6 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 	LeafcutterData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*Leafcutter*")
 	VIPData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*VIP*")
 	HTSeqData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*HTSeq*")
-	
-	OutriderData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*OUTRIDER*")
-	rMatsData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*rMats*")
 
 	if [[ "${DESeq2data}" -eq '0' ]]
 	then
