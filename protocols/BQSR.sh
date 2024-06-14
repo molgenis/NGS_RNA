@@ -1,5 +1,5 @@
 set -o pipefail
-#MOLGENIS nodes=1 ppn=8 mem=15gb walltime=23:59:00
+#MOLGENIS nodes=1 ppn=8 mem=30gb walltime=23:59:00
 
 #string project
 #string stage
@@ -37,14 +37,14 @@ module list
 echo "Running GATK BQSR:"
 
 
-java -jar -Xmx14g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempDir}" \
+java -jar -Xmx25g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempDir}" \
 "${EBROOTGATK}/${gatkJar}" BaseRecalibrator \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
 -O "${bqsrBeforeGrp}" \
 --known-sites "${dbsnpVcf}"
 
-java -jar -Xmx14g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempDir}" \
+java -jar -Xmx25g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempDir}" \
 "${EBROOTGATK}/${gatkJar}" ApplyBQSR \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
