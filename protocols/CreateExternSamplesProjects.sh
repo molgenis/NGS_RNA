@@ -22,7 +22,7 @@ set -o pipefail
 #string worksheet
 #string outputdir
 #string workflowpath
-#list internalSampleID
+#list externalSampleID
 #string project
 #string logsDir
 #list barcode
@@ -56,7 +56,7 @@ cd "${projectRawtmpDataDir}" || exit
 #
 
 
-max_index="${#internalSampleID[@]}"-1
+max_index="${#externalSampleID[@]}"-1
 for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
 do
 	if [[ "${seqType[samplenumber]}" == "SR" ]]

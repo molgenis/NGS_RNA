@@ -8,7 +8,7 @@ set -o pipefail
 #string tmpDataDir
 #string project
 #string ngsVersion
-#string python2PlusVersion
+#string pythonPlusVersion
 #string externalSampleID
 #string intermediateDir
 #string strandedness
@@ -34,7 +34,7 @@ else
 	tmpintermediateDir=${MC_tmpFile}
 
 	module load "${ngsVersion}"
-	module load "${python2PlusVersion}"
+	module load "${pythonPlusVersion}"
 	module list
 
 	ZSCORE=3

@@ -70,7 +70,7 @@ then
 	do
 		if [[ -f "${projectBatchCombinedVariantCalls}.${b}" ]]
 		then
-			ALLGVCFs+=("--variant=${projectBatchCombinedVariantCalls}.${b}")
+			ALLGVCFs+=("--variant ${projectBatchCombinedVariantCalls}.${b}")
 		fi
 	done
 else
@@ -78,7 +78,7 @@ else
 	do
 		if [[ -f "${sampleGvcf}" ]]
 		then
-			array_contains ALLGVCFs "--variant=${sampleGvcf}" || ALLGVCFs+=("--variant=${sampleGvcf}")
+			array_contains ALLGVCFs "--variant ${sampleGvcf}" || ALLGVCFs+=("--variant ${sampleGvcf}")
 		fi
 	done
 fi
@@ -88,17 +88,17 @@ GvcfSize=${#ALLGVCFs[@]}
 
 if [[ ${GvcfSize} -ne 0 ]]
 then
-
+	#shellcheck disable=SC2068
 	gatk --java-options "-Xmx5g -Djava.io.tmpdir=${tempDir}" CombineGVCFs \
-	--reference="${indexFile}" \
-	"${ALLGVCFs[@]}" \
-	--output="${tmpProjectBatchCombinedVariantCalls}"
+	--reference "${indexFile}" \
+	${ALLGVCFs[@]} \
+	--output "${tmpProjectBatchCombinedVariantCalls}"
 
 	gatk --java-options "-Xmx7g -XX:ParallelGCThreads=2 -Djava.io.tmpdir=${tempDir}" GenotypeGVCFs \
-	--reference="${indexFile}" \
-	--variant="${tmpProjectBatchCombinedVariantCalls}" \
-	--dbsnp="${dbsnpVcf}" \
-	--output="${tmpProjectBatchGenotypedVariantCalls}"
+	--reference "${indexFile}" \
+	--variant "${tmpProjectBatchCombinedVariantCalls}" \
+	--dbsnp "${dbsnpVcf}" \
+	--output "${tmpProjectBatchGenotypedVariantCalls}"
 
 	mv "${tmpProjectBatchGenotypedVariantCalls}" "${projectBatchGenotypedVariantCalls}"
 	echo "moved ${tmpProjectBatchGenotypedVariantCalls} to ${projectBatchGenotypedVariantCalls}"

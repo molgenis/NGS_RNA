@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## annotate_SJ_with_genes.py
@@ -28,7 +28,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 genes_dict = {}
@@ -71,7 +71,7 @@ for line in instream:
         if genes_dict[g][0] == chrm and int(genes_dict[g][1]) <= end and int(genes_dict[g][2]) >= end:
             genes_list.append(g)
     if len(genes_list) > 0:
-        print line+"\t"+",".join(list(set(genes_list)))
+        print(line+"\t"+",".join(list(set(genes_list))))
     else:
-        print line+"\t"+"."
+        print(line+"\t"+".")
 instream.close()

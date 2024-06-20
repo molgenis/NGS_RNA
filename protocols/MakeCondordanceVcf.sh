@@ -6,7 +6,7 @@ set -o pipefail
 #string tempDir
 #string sampleConcordanceVcf
 #string samtoolsVersion
-#string python2Version
+#string pythonVersion
 #string BCFtoolsVersion
 #string project
 #string indexSpecies
@@ -16,7 +16,7 @@ set -o pipefail
 #string logsDir
 
 module load  "${BCFtoolsVersion}"
-module load "${python2Version}"
+module load "${pythonVersion}"
 module load "${samtoolsVersion}"
 module list
 

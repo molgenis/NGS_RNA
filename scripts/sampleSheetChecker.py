@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 import csv
 import os
@@ -32,12 +33,12 @@ for row in reader:
 	if count == 0:		
 		if not "species" in row:
                         out=open(sys.argv[1]+'.temp',"w")
-                        print "no species found"
+                        print("no species found")
 			os.remove("species.txt.tmp")
                         out.write(','.join(row.keys())+",species"+'\n')
                         out.write(','.join(row.values())+","+'\n')
                         count+=1
                         species="no"
 	elif species == "no":
-                print "no species found."
+                print("no species found.")
                 out.write(','.join(row.values())+","+'\n')

@@ -39,7 +39,7 @@ filePrefix,${runPrefix}_L${lane}
 library,${filePrefix}
 
 ##### Projects #####
-generalProjectDir,${tmpDataDir}/projects/
+generalProjectDir,${tmpDataDir}/projects/NGS_RNA/
 projectDir,${generalProjectDir}/${project}/${runid}/
 projectRawtmpDataDir,${projectDir}/rawdata/ngs/
 projectRawArraytmpDataDir,${projectDir}/rawdata/array/
@@ -127,7 +127,7 @@ gtexJunc,/apps/data/GAD/others/GTEx_v7_bflb_junctions.gct
 omimList,/apps/data/GAD/others/OMIM2.list
 indexFile,${indexSpecies}
 dbsnpVcf,/apps/data/dbSNP/dbsnp_137.b37.vcf
-starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.3a-foss-2018b/
+starIndex,/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/STAR-2.7.9a-GCC-11.3.0/
 #### GENOME VARIABLES ####
 genome,GRCh37
 ensembleReleaseVersion,75
@@ -150,4 +150,4 @@ annotationFile,${dataDir}Ensembl/GrCh37.75/pub/release-75/gtf/${speciesFileName}
 ensembleDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/gtf/${speciesFileName}/
 spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
 spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
-comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_woChr.openArrayAdded.bed
+comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_concordanceCheckSnps_GRCh37_woChr.bed
