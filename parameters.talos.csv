@@ -34,11 +34,11 @@ python2PlusVersion,PythonPlus/2.7.16-${toolchain}-v20.12.1
 pythonPlusVersion,PythonPlus/3.7.4-${toolchain}-v20.02.1
 gatkVersion,GATK/4.1.4.1-Java-8-LTS
 multiqcVersion,multiqc_v1.12.sif
-starVersion,STAR/2.7.3a-${toolchain}
+starVersion,STAR/2.7.3a-GCC-11.3.0
 picardJar,picard.jar
 gatkJar,gatk-package-4.1.4.1-local.jar
 mergeSamFilesJar,MergeSamFiles
-trimGaloreVersion,TrimGalore/0.4.5-${GCCcoreVersion}-Python-3.7.4-bare
+trimGaloreVersion,TrimGalore/0.6.7-${GCCcoreVersion}
 cutadaptVersion,cutadapt/2.6-${GCCcoreVersion}-Python-3.7.4-bare
 rSeQCVersion,RSeQC/3.0.1-${GCCcoreVersion}-Python-3.7.4
 leafcutterVersion,leafcutter/aa12b1e-${toolchain}
