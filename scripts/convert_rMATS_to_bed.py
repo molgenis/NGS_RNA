@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## convert_rMATS_to_bed.py
@@ -28,7 +28,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 
@@ -38,5 +38,5 @@ for line in instream:
     tabs = line.split('\t')
     if not line.startswith('Type'):
         for i in tabs[6].split(";"):
-            print i.split(":")[1]+"\t"+i.split(":")[2].split("-")[0]+"\t"+i.split(":")[2].split("-")[1]+"\t"+tabs[1]+"_"+tabs[0]+"_"+i.split(":")[0]
+            print(i.split(":")[1]+"\t"+i.split(":")[2].split("-")[0]+"\t"+i.split(":")[2].split("-")[1]+"\t"+tabs[1]+"_"+tabs[0]+"_"+i.split(":")[0])
 instream.close()

@@ -18,7 +18,7 @@ samtoolsVersion,SAMtools/1.9-${GCCcoreVersion}
 bedToolsVersion,BEDTools/2.28.0-${GCCcoreVersion}
 sambambaVersion,sambamba/0.7.0
 rVersion,R/3.6.1-${toolchain}-bare
-rPlusVersion,RPlus/3.6.1-${toolchain}-v21.10.1
+RDepBundle,RPlus/3.6.1-${toolchain}-v21.10.1
 picardVersion,picard/2.20.5-Java-11-LTS
 htseqVersion,HTSeq/0.11.0-${GCCcoreVersion}-Python-3.7.4
 hisatVersion,hisat2/2.1.0-${toolchain}

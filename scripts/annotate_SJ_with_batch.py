@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 ### GAD PIPELINE ###
 ## annotate_SJ_with_batch.py
 ## Description : annotate a SJ file with batch coubts
@@ -29,7 +29,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 
@@ -70,5 +70,5 @@ for line in instream:
         norm_list = list(map(float,juncbatchdict[junc][2]))
         norm_list = norm_list + [0. for i in range((len(nbsamples)-len(norm_list)))]
         zscore = (float(tabs[9])-mean(norm_list))/std(norm_list)
-        print line+"\t"+str(len(juncbatchdict[junc][1])-1)+"\t"+str(zscore)
+        print(line+"\t"+str(len(juncbatchdict[junc][1])-1)+"\t"+str(zscore))
 instream.close()

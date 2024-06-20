@@ -13,7 +13,6 @@ set -o pipefail
 #string gencodeHg19AllExons
 #string sampleMergedBamExt
 #string leafcutterVersion
-#string python2Version
 #string sifDir
 
 #read number of conditions

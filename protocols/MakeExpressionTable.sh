@@ -10,8 +10,10 @@ set -o pipefail
 #string groupname
 #string tmpName
 #string logsDir
+#string pythonVersion
 
 module load "${ngsVersion}"
+module load "${pythonVersion}"
 
 #Function to check if array contains value
 array_contains () {

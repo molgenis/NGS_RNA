@@ -6,22 +6,22 @@ set -o pipefail
 #string tmpDataDir
 #string project
 #string ngsVersion
-#string python2PlusVersion
+#string pythonPlusVersion
 #string intermediateDir
 #string strandedness
 #string rMATsOutputDir
 #string annotationGtf
 #string projectJobsDir
-#string project
 #string groupname
 #string tmpName
 #string logsDir
+#string externalSampleID
 
 makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsVersion}"
-module load "${python2PlusVersion}"
+module load "${pythonPlusVersion}"
 module list
 
 ZSCORE=3

@@ -19,7 +19,7 @@ function showHelp() {
 	#
 	cat <<EOH
 ===============================================================================================================
-Script to copy (sync) data from a succesfully finished analysis project from tmp to prm storage.
+Script to start the generation of the RNA pipeline, to analyse Diagnostic and research RNA data.
 Usage:
 	$(basename $0) OPTIONS
 Options:
@@ -30,6 +30,8 @@ Options:
 	-r   runID (default=run01)
 	-t   tmpDirectory (default=basename of ../../ )
 	-w   workdir (default= current dir, ${pwd)
+	-c   createWorkflow (default=create_in-house_ngs_projects_workflow.csv, option "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv")
+	-o   pipeline (default=GD, options: "STAR", "hisat", "lexogen")
 ===============================================================================================================
 EOH
 	trap - EXIT
@@ -37,9 +39,27 @@ EOH
 }
 
 
-while getopts "t:g:w:f:r:p:h" opt;
+while getopts "t:g:w:f:p:r:c:o:h" opt;
 do
-	case $opt in h)showHelp;; t)tmpDirectory="${OPTARG}";; g)group="${OPTARG}";; w)workDir="${OPTARG}";; f)filePrefix="${OPTARG}";; p)project="${OPTARG}";; r)runID="${OPTARG}";;
+	case $opt in
+		h)
+			showHelp;;
+		t)
+			tmpDirectory="${OPTARG}";;
+		g)
+			group="${OPTARG}";;
+		w)
+			workDir="${OPTARG}";;
+		f)
+			filePrefix="${OPTARG}";;
+		p)
+			project="${OPTARG}";;
+		r)
+			runID="${OPTARG}";;
+		c)
+			createWorkflow="${OPTARG}";;
+		o)
+			pipeline="${OPTARG}";;
 	esac
 done
 
@@ -49,6 +69,8 @@ if [[ -z "${workDir:-}" ]]; then workDir=$( pwd ) ; fi ; echo "workDir=${workDir
 if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "filePrefix=${filePrefix}"
 if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
 if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
+if [[ -z "${createWorkflow:-}" ]]; then createWorkflow="${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv" ; fi ; echo createWorkflow="${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv"
+if [[ -z "${pipeline:-}" ]]; then pipeline="GD" ; fi ; echo "pipeline=GD"
 
 if [ ! -d "/groups/${group}" ] 
 then
@@ -58,7 +80,6 @@ fi
 
 build="GRCh37" # GRCh37, HG19
 species="homo_sapiens"
-pipeline="STAR"
 workflow="${EBROOTNGS_RNA}/workflow_${pipeline}.csv"
 customParameters="${EBROOTNGS_RNA}/parameters.${host}.csv"
 
@@ -79,7 +100,7 @@ sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${workDir}/parameters.${species}.${build}.csv" \
 -p "${workDir}/${project}.csv" \
 -p "${EBROOTNGS_RNA}/chromosomes.${species}.csv" \
--w "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" \
+-w "${createWorkflow}" \
 -rundir "${workDir}/scripts" \
 --runid "${runID}" \
 --weave \

@@ -25,7 +25,7 @@ set -o pipefail
 #string picardVersion
 #string samtoolsVersion
 #string ngsVersion
-#string rVersion
+#string RVersion
 #string pythonVersion
 #string picardJar
 #string project
@@ -39,7 +39,7 @@ module load "${picardVersion}"
 module load "${samtoolsVersion}"
 module load "${pythonVersion}"
 module load "${ngsVersion}"
-module load "${rVersion}"
+module load "${RVersion}"
 module list
 
 # Get strandness.

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -16,7 +16,7 @@ try:
         elif opt in ("-e"):
             logfile = arg
 except getopt.GetoptError:
-    print ("Usage : python create_counts_matrix.py -i <fileslist/file> -o <output/matrix/file> -e <log/file>")
+    print("Usage : python create_counts_matrix.py -i <fileslist/file> -o <output/matrix/file> -e <log/file>")
     sys.exit(1)
 
 # Create list for files
@@ -47,8 +47,8 @@ for f in files_list:
     i += 1
 
 # Print matrix
-print ("Genes"+"\t"+"\t".join(samplelist))
+print("Genes"+"\t"+"\t".join(samplelist))
 for gene in genelist:
-    print (gene+"\t"+"\t".join(matrixdict[gene]))
+    print(gene+"\t"+"\t".join(matrixdict[gene]))
 
 logging.info('end')

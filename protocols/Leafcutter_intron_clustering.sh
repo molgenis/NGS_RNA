@@ -9,14 +9,15 @@ set -o pipefail
 #string strandedness
 #string sampleMergedBamExt
 #string regToolsVersion
-#string python2Version
 #string samtoolsVersion
 #string sifDir
+#string pythonVersion
+#string leafcutterVersion
 
 #Load module
 module load "${regToolsVersion}"
 module load "${samtoolsVersion}"
-module load "${python2Version}"
+module load "${pythonVersion}"
 module list
 
 # detect strand for RegTools
@@ -48,7 +49,7 @@ do
 	echo "${intermediateDir}${bamfile}.junc" >> "${intermediateDir}${project}_juncfiles.txt"
 done
 
-singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/leafcutter_0.2.10.sif" \
+singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/${leafcutterVersion}" \
 python "/app/leafcutter/clustering/leafcutter_cluster_regtools.py" \
 -j "${intermediateDir}/${project}_juncfiles.txt" \
 -m 50 \

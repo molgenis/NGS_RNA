@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## annotate_SJ_with_sjdb.py
@@ -28,7 +28,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 junclist, juncslist, juncelist = [], [], []
@@ -52,11 +52,11 @@ for line in instream:
     start = int(tabs[1])
     end = int(tabs[2])
     if chrm+":"+str(start)+"-"+str(end) in junclist:
-        print line+"\tAnnotated"
+        print(line+"\tAnnotated")
     elif chrm+":"+str(start) in juncslist and chrm+":"+str(end) in juncelist:
-        print line+"\tBoth"
+        print(line+"\tBoth")
     elif chrm+":"+str(start) in juncslist or chrm+":"+str(end) in juncelist:
-        print line+"\tOne"
+        print(line+"\tOne")
     else:
-        print line+"\tNeither"
+        print(line+"\tNeither")
 instream.close()

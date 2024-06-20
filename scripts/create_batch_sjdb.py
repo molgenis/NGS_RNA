@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## create_batch_sjdb.py
@@ -28,7 +28,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 # Create list for files
@@ -46,5 +46,5 @@ for f in files_list:
     for line in stream:
         line = line.strip()
         tabs = line.split("\t")
-        print tabs[0]+":"+tabs[1]+"-"+tabs[2]+"\t"+sample+"\t"+tabs[6]+"\t"+tabs[9]
+        print(tabs[0]+":"+tabs[1]+"-"+tabs[2]+"\t"+sample+"\t"+tabs[6]+"\t"+tabs[9])
     stream.close()

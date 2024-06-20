@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 ### GAD PIPELINE ###
 ## normalize_SJ.py
@@ -26,7 +26,7 @@ try:
         elif opt in ("-o"):
             sys.stdout = open(arg, 'w')
 except getopt.GetoptError:
-    print 'usage : '
+    print('usage : ')
     sys.exit(1)
 
 
@@ -55,7 +55,7 @@ for j in junclist:
     if total > 0:
         norm = reads/float(total-reads)
         #print juncdict[j]+"\t"+str(norm)+"\t"+str(len(startdict[start]))+"\t"+str(len(enddict[end]))
-        print juncdict[j]+"\t"+str(norm)
+        print(juncdict[j]+"\t"+str(norm))
     else:
         #print juncdict[j]+"\t0\t.\t."
-        print juncdict[j]+"\t0"
+        print(juncdict[j]+"\t0")

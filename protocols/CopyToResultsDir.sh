@@ -12,13 +12,12 @@ set -o pipefail
 #string projectJobsDir
 #string projectHTseqExpressionTable
 #string annotationGtf
-#string vipVersion
 #string indexFileID
 #string seqType
 #string jdkVersion
 #string fastqcVersion
 #string samtoolsVersion
-#string rVersion
+#string RVersion
 #string picardVersion
 #string starVersion
 #string htseqVersion
@@ -31,7 +30,6 @@ set -o pipefail
 #string rSeQCVersion
 #string leafcutterVersion
 #string multiqcVersion
-#string rMATsVersion
 #string outriderVersion
 #string groupname
 #string tmpName
@@ -40,11 +38,7 @@ set -o pipefail
 # Make result directories
 mkdir -p "${projectResultsDir}/alignment"
 mkdir -p "${projectResultsDir}/fastqc"
-mkdir -p "${projectResultsDir}/expression"
-mkdir -p "${projectResultsDir}/expression/deseq2"
-mkdir -p "${projectResultsDir}/variants/vip"
 mkdir -p "${projectResultsDir}/variants/concordance"
-mkdir -p "${projectResultsDir}/leafcutter"
 mkdir -p "${projectResultsDir}/star_sj"
 mkdir -p "${projectResultsDir}/qcmetrics"
 
@@ -81,37 +75,15 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
-# copy GeneCounts to results directory
-
-	rsync -av "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/"
-	rsync -av "${annotationGtf}" "${projectResultsDir}/expression/"
-	rsync -av "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/"
-
-# copy Deseq2 results to results directory
-	rsync -av "${intermediateDir}"/*deseq2_* "${projectResultsDir}/expression/deseq2/"
-	rsync -av "${intermediateDir}"/*design.csv "${projectResultsDir}/expression/deseq2/"
-	rsync -av "${intermediateDir}"/*.svg "${projectResultsDir}/expression/deseq2/"
-
 # Copy QC images and report to results directory
 
 	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics.pdf "${projectResultsDir}/qcmetrics/"
 
 # Copy variant vcfs.
 
-	rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
 	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 	rsync -av "${intermediateDir}/"*".concordance.vcf"* "${projectResultsDir}/variants/concordance/"
 
-# Copy leafcutter
-	# shellcheck source=/dev/null
-	source "${intermediateDir}/conditionCount.txt"
-
-	if [[ "${conditionCount}" == 2 ]]
-	then
-		rsync -av "${intermediateDir}"/*leafcutter_ds* "${projectResultsDir}/leafcutter/"
-	else
-		rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
-	fi
 # Copy STAR annotated SpliceJunctions
 	rsync -av "${intermediateDir}/"*.SJ.* "${projectResultsDir}/star_sj/"
 #only available with PE
@@ -122,6 +94,77 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
+	DESeq2data=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*DE*")
+	LeafcutterData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*Leafcutter*")
+	VIPData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*VIP*")
+	HTSeqData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*HTSeq*")
+
+	if [[ "${DESeq2data}" -eq '0' ]]
+	then
+		echo "no DESeq2 data available"
+	else
+		# Make research results directories
+		mkdir -p "${projectResultsDir}/expression"
+		mkdir -p "${projectResultsDir}/expression/deseq2"
+		# copy Deseq2 results to results directory
+		mkdir -p "${projectResultsDir}/expression"
+		rsync -av "${intermediateDir}"/*deseq2_* "${projectResultsDir}/expression/deseq2/"
+		rsync -av "${intermediateDir}"/*design.csv "${projectResultsDir}/expression/deseq2/"
+		rsync -av "${intermediateDir}"/*.svg "${projectResultsDir}/expression/deseq2/"
+	fi
+
+	if [[ "${LeafcutterData}" -eq '0' ]]
+	then
+		echo "no Leafcutter Data data available"
+	else
+		# Copy leafcutter
+		mkdir -p "${projectResultsDir}/leafcutter"
+		# shellcheck source=/dev/null
+		source "${intermediateDir}/conditionCount.txt"
+		if [[ "${conditionCount}" == 2 ]]
+		then
+			rsync -av "${intermediateDir}"/*leafcutter_ds* "${projectResultsDir}/leafcutter/"
+		else
+			rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
+		fi
+	fi
+
+	if [[ "${HTSeqData}" -eq '0' ]]
+	then
+		echo "no HTSeq Data data available"
+	else
+		# copy GeneCounts to results directory
+		rsync -av "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/"
+		rsync -av "${annotationGtf}" "${projectResultsDir}/expression/"
+		rsync -av "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/"
+	fi
+
+	if [[ "${VIPData}" -eq '0' ]]
+	then
+		echo "no VIP Data data available"
+	else
+		# Copy VIP vcf
+		mkdir -p "${projectResultsDir}/variants/vip"
+		rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
+	fi
+
+echo "pipeline is finished"
+
+runNumber=$(basename "$(dirname "${projectResultsDir}")")
+
+if [[ -f "${logsDir}/${project}/${runNumber}.pipeline.started" ]]
+then
+	mv "${logsDir}/${project}/${runNumber}.pipeline".{started,finished}
+fi
+
+touch "${logsDir}/${project}/${runNumber}.pipeline.finished"
+
+echo "finished: $(date +%FT%T%z)" >> "${logsDir}/${project}/${runNumber}.pipeline.totalRuntime"
+rm -f "${logsDir}/${project}/${runNumber}.pipeline.failed"
+echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
+
+
+touch pipeline.finished
 
 # write README.txt file
 
@@ -191,7 +234,7 @@ Used toolversions:
 ${multiqcVersion}
 ${fastqcVersion}
 ${samtoolsVersion}
-${rVersion}
+${RVersion}
 ${trimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
