@@ -63,8 +63,8 @@ do
 	esac
 done
 
-if [[ -z "${tmpDirectory:-}" ]]; then tmpDirectory=$(basename $(cd ../../ && pwd )) ; fi ; echo "tmpDirectory=${tmpDirectory}"
-if [[ -z "${group:-}" ]]; then group=$(basename $(cd ../../../ && pwd )) ; fi ; echo "group=${group}"
+if [[ -z "${tmpDirectory:-}" ]]; then tmpDirectory=$(basename $(cd ../../../ && pwd )) ; fi ; echo "tmpDirectory=${tmpDirectory}"
+if [[ -z "${group:-}" ]]; then group=$(basename $(cd ../../../../ && pwd )) ; fi ; echo "group=${group}"
 if [[ -z "${workDir:-}" ]]; then workDir=$( pwd ) ; fi ; echo "workDir=${workDir}"
 if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "filePrefix=${filePrefix}"
 if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
@@ -72,9 +72,9 @@ if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${
 if [[ -z "${createWorkflow:-}" ]]; then createWorkflow="${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv" ; fi ; echo createWorkflow="${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv"
 if [[ -z "${pipeline:-}" ]]; then pipeline="GD" ; fi ; echo "pipeline=GD"
 
-if [ ! -d "/groups/${group}" ] 
+if [ ! -d "/groups/${group}" ]
 then
-	echo "Group directory /groups/${group} DOES NOT exists. use -g GROUP to set the group manually" 
+	echo "Group directory /groups/${group} DOES NOT exists. use -g GROUP to set the group manually"
 	exit 1
 fi
 
