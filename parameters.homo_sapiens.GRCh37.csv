@@ -43,7 +43,7 @@ generalProjectDir,${tmpDataDir}/projects/NGS_RNA/
 projectDir,${generalProjectDir}/${project}/${runid}/
 projectRawtmpDataDir,${projectDir}/rawdata/ngs/
 projectRawArraytmpDataDir,${projectDir}/rawdata/array/
-intermediateDir,${tempDir}/${project}/${runid}/
+intermediateDir,${tempDir}/NGS_RNA/${project}/${runid}/
 projectPrefix,${intermediateDir}/${project}
 projectJobsDir,${projectDir}/jobs/
 projectLogsDir,${projectDir}/logs/

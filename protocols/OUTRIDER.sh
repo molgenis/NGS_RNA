@@ -10,7 +10,7 @@ set -o pipefail
 #string projectResultsDir
 #string outriderVersion
 #string annotationGtf
-#string tempDir
+#string tempTmpDir
 #string groupname
 #string tmpName
 #string logsDir

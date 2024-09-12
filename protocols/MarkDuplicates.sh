@@ -9,7 +9,7 @@ set -o pipefail
 #string sampleMergedDedupBam
 #string sampleMergedDedupBai
 #string dupStatMetrics
-#string tempDir
+#string tempTmpDir
 #string tmpDataDir
 #string project
 #string intermediateDir
@@ -52,7 +52,7 @@ sambamba markdup \
 --overflow-list-size 1000000 \
 --hash-table-size 1000000 \
 -p \
---tmpdir="${tempDir}" \
+--tmpdir="${tempTmpDir}" \
 "${sampleMergedBam}" "${tmpSampleMergedDedupBam}"
 
 mv "${tmpSampleMergedDedupBam}" "${sampleMergedDedupBam}"

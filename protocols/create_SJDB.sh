@@ -4,7 +4,7 @@ set -o pipefail
 #Parameter mapping
 #list sampleMergedBam
 #string sampleMergedBamExt
-#string tempDir
+#string tempTmpDir
 #string tmpDataDir
 #string project
 #list externalSampleID

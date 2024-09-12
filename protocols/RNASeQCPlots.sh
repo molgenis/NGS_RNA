@@ -6,7 +6,7 @@ set -o pipefail
 #string project
 #string ngsVersion
 #string rnaSeQCDir
-#string tempDir
+#string tempTmpDir
 #string logsDir
 #string intermediateDir
 

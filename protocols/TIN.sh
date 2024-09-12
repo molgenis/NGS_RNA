@@ -10,7 +10,7 @@ set -o pipefail
 #string externalSampleID
 #string houseKeepingGenesBed
 #string tinDir
-#string tempDir
+#string tempTmpDir
 #string project
 #string intermediateDir
 #string groupname

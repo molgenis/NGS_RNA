@@ -12,7 +12,7 @@ set -o pipefail
 #string externalSampleID
 #string picardVersion
 #string picardJar
-#string tempDir
+#string tempTmpDir
 #string groupname
 #string	tmpName
 #string logsDir
@@ -41,7 +41,7 @@ RGPU="${externalSampleID}" \
 RGSM="${externalSampleID}" \
 CREATE_INDEX=true \
 MAX_RECORDS_IN_RAM=4000000 \
-TMP_DIR="${tempDir}"
+TMP_DIR="${tempTmpDir}"
 
 echo "returncode: $?";
 

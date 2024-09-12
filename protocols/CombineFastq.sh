@@ -2,7 +2,7 @@ set -o pipefail
 #MOLGENIS walltime=23:59:00 mem=8gb ppn=1
 
 #Parameter mapping
-#string tempDir
+#string tempTmpDir
 #list trimmedLeftBarcodeFqGz,trimmedRightBarcodeFqGz,trimmedSingleBarcodeFqGz
 #string mergedLeftBarcodeFqGz
 #string mergedRightBarcodeFqGz
