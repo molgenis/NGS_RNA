@@ -12,7 +12,6 @@ set -o pipefail
 #string mergedRightBarcodeFqGz
 #string mergedSingleBarcodeFqGz
 #string annotationGtf
-#string tempDir
 #string seqType
 #string groupname
 #string tmpName

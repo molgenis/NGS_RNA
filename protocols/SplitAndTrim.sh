@@ -17,7 +17,7 @@ set -o pipefail
 #string gatkJar
 #string tmpDataDir
 #string indexFile
-#string tempDir
+#string tempTmpDir
 #string project
 #string groupname
 #string tmpName
@@ -37,9 +37,9 @@ module load "${samtoolsVersion}"
 module list
 
 java -Xmx14g -XX:ParallelGCThreads=2 \
--Djava.io.tmpdir="${tempDir}" \
+-Djava.io.tmpdir="${tempTmpDir}" \
 -jar "${EBROOTGATK}/${gatkJar}" SplitNCigarReads \
---tmp-dir "${tempDir}" \
+--tmp-dir "${tempTmpDir}" \
 -R "${indexFile}" \
 -I "${sampleMergedDedupBam}" \
 -O "${tmpsplitAndTrimBam}"

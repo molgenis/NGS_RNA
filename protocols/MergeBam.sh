@@ -6,7 +6,7 @@ set -o pipefail
 #string mergeSamFilesJar
 #string sampleMergedBam
 #string sampleMergedBai
-#string tempDir
+#string tempTmpDir
 #list addOrReplaceGroupsBam,addOrReplaceGroupsBai
 #string tmpDataDir
 #string project
@@ -74,7 +74,7 @@ else
 	SORT_ORDER=coordinate \
 	CREATE_INDEX=true \
 	USE_THREADING=true \
-	TMP_DIR="${tempDir}" \
+	TMP_DIR="${tempTmpDir}" \
 	MAX_RECORDS_IN_RAM=6000000 \
 	VALIDATION_STRINGENCY=LENIENT \
 	OUTPUT="${tmpSampleMergedBam}"

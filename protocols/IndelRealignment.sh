@@ -16,7 +16,7 @@ set -o pipefail
 #string goldStandardVcf
 #string tmpDataDir
 #string indexFile
-#string tempDir
+#string tempTmpDir
 #string project
 #string groupname
 #string tmpName
@@ -36,7 +36,7 @@ module list
 
 echo "Running GATK IndelRealignment:"
 
-java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tempDir}" -jar "${EBROOTGATK}/GenomeAnalysisTK.jar" \
+java -Xmx10g -XX:ParallelGCThreads=8 -Djava.io.tmpdir="${tempTmpDir}" -jar "${EBROOTGATK}/GenomeAnalysisTK.jar" \
 -T IndelRealigner \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \

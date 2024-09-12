@@ -12,7 +12,7 @@ set -o pipefail
 #string insertsizeMetrics
 #string insertsizeMetricspdf
 #string insertsizeMetricspng
-#string tempDir
+#string tempTmpDir
 #string flagstatMetrics
 #string recreateinsertsizepdfR
 #string qcMatrics
@@ -62,7 +62,7 @@ then
 	PROGRAM=QualityScoreDistribution \
 	PROGRAM=MeanQualityByCycle \
 	PROGRAM=CollectInsertSizeMetrics \
-	TMP_DIR="${tempDir}/processing"
+	TMP_DIR="${tempTmpDir}"
 
 
 	#Flagstat for reads mapping to the genome.
@@ -104,7 +104,7 @@ then
 	PROGRAM=QualityScoreDistribution \
 	PROGRAM=MeanQualityByCycle \
 	PROGRAM=CollectInsertSizeMetrics \
-	TMP_DIR="${tempDir}/processing"
+	TMP_DIR="${tempTmpDir}"
 
 	#CollectRnaSeqMetrics.jar
 	java -XX:ParallelGCThreads=4 -jar -Xmx6g "${EBROOTPICARD}/${picardJar}" CollectRnaSeqMetrics \

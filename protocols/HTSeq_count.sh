@@ -3,7 +3,6 @@ set -o pipefail
 
 #Parameter mapping
 #string sampleMergedBam
-#string tempDir
 #string annotationGtf
 #string sampleHTseqExpressionText
 #string strandedness

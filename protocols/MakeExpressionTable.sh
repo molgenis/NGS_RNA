@@ -6,7 +6,6 @@ set -o pipefail
 #string projectHTseqExpressionTable
 #string ngsVersion
 #string project
-#string tempDir
 #string groupname
 #string tmpName
 #string logsDir

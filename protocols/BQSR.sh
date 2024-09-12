@@ -16,7 +16,7 @@ set -o pipefail
 #string dbsnpVcf
 #string tmpDataDir
 #string indexFile
-#string tempDir
+#string tempTmpDir
 #string project
 #string groupname
 #string tmpName
@@ -37,14 +37,14 @@ module list
 echo "Running GATK BQSR:"
 
 
-java -jar -Xmx25g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempDir}" \
+java -jar -Xmx25g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempTmpDir}" \
 "${EBROOTGATK}/${gatkJar}" BaseRecalibrator \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
 -O "${bqsrBeforeGrp}" \
 --known-sites "${dbsnpVcf}"
 
-java -jar -Xmx25g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempDir}" \
+java -jar -Xmx25g -XX:ParallelGCThreads=2 -Djava.io.tmpdir="${tempTmpDir}" \
 "${EBROOTGATK}/${gatkJar}" ApplyBQSR \
 -R "${indexFile}" \
 -I "${splitAndTrimBam}" \
