@@ -6,7 +6,6 @@ set -o pipefail
 #string project
 #string strandedness
 #string bed12
-#string tempTmpDir
 #string logsDir
 #string intermediateDir
 

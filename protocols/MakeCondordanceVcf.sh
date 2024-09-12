@@ -3,7 +3,6 @@ set -o pipefail
 
 #Parameter mapping
 #string sampleMergedBam
-#string tempTmpDir
 #string sampleConcordanceVcf
 #string samtoolsVersion
 #string pythonVersion
