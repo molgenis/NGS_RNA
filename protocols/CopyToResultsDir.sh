@@ -10,6 +10,7 @@ set -o pipefail
 #string projectLogsDir
 #string projectQcDir
 #string projectJobsDir
+#string projectRawtmpDataDir
 #string projectHTseqExpressionTable
 #string annotationGtf
 #string indexFileID
@@ -163,6 +164,8 @@ echo "finished: $(date +%FT%T%z)" >> "${logsDir}/${project}/${runNumber}.pipelin
 rm -f "${logsDir}/${project}/${runNumber}.pipeline.failed"
 echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
 
+#cleanup trimmed reads
+rm -f "${projectRawtmpDataDir}/"*"_val_"*".fq.gz"
 
 touch pipeline.finished
 
