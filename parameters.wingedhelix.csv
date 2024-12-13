@@ -35,6 +35,6 @@ leafcutterVersion,leafcutter_0.2.10.sif
 rMATsVersion,rmats_v4.1.2.sif
 sifDir,/apps/data/GAD/singularity/
 rnaseqcVersion,${sifDir}/rnaseqc_2.4.2.sif
-RVersion,R/4.4.0-${toolchain}-bare
-RDepBundle,NGS_RNA_RDepBundle/v24.05.1-${toolchain}
+rVersion,R/4.4.0-${toolchain}-bare
+rDepBundle,NGS_RNA_RDepBundle/v24.05.1-${toolchain}
 regToolsVersion,RegTools/0.5.2-${toolchain}

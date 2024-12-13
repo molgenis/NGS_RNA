@@ -17,7 +17,7 @@ set -o pipefail
 #string jdkVersion
 #string fastqcVersion
 #string samtoolsVersion
-#string RVersion
+#string rVersion
 #string picardVersion
 #string starVersion
 #string htseqVersion
@@ -234,7 +234,7 @@ Used toolversions:
 ${multiqcVersion}
 ${fastqcVersion}
 ${samtoolsVersion}
-${RVersion}
+${rVersion}
 ${trimGaloreVersion}
 ${picardVersion}
 ${htseqVersion}
