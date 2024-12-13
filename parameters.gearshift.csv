@@ -6,10 +6,6 @@ permanentDir,${workDir}/prm03
 tmpName,tmp01
 root,/apps/
 
-## change the tmpDataDir to match your environment
-tmpDataDir,${workDir}/${tmpName}
-tempDir,${tmpDataDir}/tmp
-
 ##### Tools and versions #####
 toolchain,foss-2018b
 GCCcoreVersion,GCCcore-11.3.0
