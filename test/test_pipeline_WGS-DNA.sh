@@ -7,7 +7,7 @@ function preparePipeline(){
 	local _generatedScriptsFolder="${workfolder}/generatedscripts/NGS_RNA/${_projectName}"
 
 	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
-	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/250000_LH00287_0005_222GW3LT4/HG001_"[12]".fq.gz "${workfolder}/rawdata/ngs/250000_LH00287_0005_222GW3LT4/"
+	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/250000_LH00287_0005_222GW3LT4/HG001_"[12]".fq.gz" "${workfolder}/rawdata/ngs/250000_LH00287_0005_222GW3LT4/"
 
 	echo "rm -rf ${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
 	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"

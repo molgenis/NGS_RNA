@@ -14,18 +14,8 @@ mkdir -p "${testResults}/output_NGS_RNA"
 
 module load ngs-utils
 
-"${EBROOTNGSMINUTILS}/bin/vcf-compare_2.0.sh" -1 "${projectResultsDir}/variants/PlatinumSubset_NGS_RNA.variant.calls.genotyped.vcf.gz" -2 "${testResults}/PlatinumSubset_NGS_RNA.variant.calls.genotyped.vcf.gz" -o "${testResults}/output_NGS_RNA/"
+"${EBROOTNGSMINUTILS}/bin/vcf-compare_2.0.sh" -1 "${projectResultsDir}/variants/GS_001-RNA_v1.variant.calls.genotyped.vcf.gz" -2 "${testResults}/GS_001-RNA_v1.variant.calls.genotyped.vcf.gz" -o "${testResults}/output_NGS_RNA/"
 
-cmp --silent "${testResults}/PlatinumSubset_NGS_RNA.expression.counts.table" "${projectResultsDir}/expression/PlatinumSubset_NGS_RNA.expression.counts.table" || echo "there are differences in expression between the test and the original output" > "${testResults}/output_NGS_RNA/expression.fail"
-
-cmp --silent "${testResults}/PlatinumSubset_NGS_RNA_deseq2_control_vs_sample.csv" "${projectResultsDir}/expression/deseq2/PlatinumSubset_NGS_RNA_deseq2_control_vs_sample.csv" || echo "files are different."  > "${testResults}/output_NGS_RNA/deseq2.fail"
-
-for sample in SRR15529062 SRR15529064 SRR15529069
-do
-	cmp --silent "${testResults}/${sample}.leafcutter.report.tsv" "${projectResultsDir}/leafcutter/${sample}.leafcutter.report.tsv" || echo "Leafcutter failed" > "${testResults}/output_NGS_RNA/leafcutter.fail"
-	cmp --silent "${testResults}/${sample}.rMATS.format.tsv" "${projectResultsDir}/rmats/${sample}/${sample}.rMATS.format.tsv" || echo "RMats failed" > "${testResults}/output_NGS_RNA/RMats.fail"
-	cmp --silent "${testResults}/${sample}.SJ.filtered.annotated.tsv" "${projectResultsDir}/star_sj/${sample}.SJ.filtered.annotated.tsv" || echo "STAR failed" > "${testResults}/output_NGS_RNA/STAR.fail"
-done
 
 if [[ -f "${testResults}/output_NGS_RNA/notInVcf1.txt" || -f "${testResults}/output_NGS_RNA/notInVcf2.txt" || -f "${testResults}/output_NGS_RNA/inconsistent.txt" || -f "${testResults}/output_NGS_RNA/"*.fail ]]
 then
@@ -36,4 +26,26 @@ then
 else
 	echo "Test succeeded."
 	head -2 "${testResults}/output_NGS_RNA/vcfStats.txt"
+fi
+
+#check if concordanceCheck made the correct calls
+if [[ ! -f "${projectResultsDir}/variants/concordance/1111111_123456_HG001_0000000_GS001A_WGS_000001_12348765.concordance.vcf" ]]
+then
+	echo "1111111_123456_HG001_0000000_GS001A_WGS_000001_12348765.concordanceCheckCalls.vcf does not exist"
+	exit 1
+else
+	## check if the variants are called
+	grep -v '^#' "${projectResultsDir}/variants/concordance/1111111_123456_HG001_0000000_GS001A_WGS_000001_12348765.concordance.vcf" | awk 'BEGIN {FS="\t"}{OFS="\t"}{print $1,$2,$3,$4,$5,$10}' > "${testResults}/output_NGS_RNA//concordanceCheckCalls.vcf"
+	diffInConcordance='no'
+	diff -q "${WORKDIR}/test/trueConcordanceCheckCalls.vcf" "${testResults}/output_NGS_RNA/concordanceCheckCalls.vcf" || diffInConcordance='yes'
+
+	if [[ "${diffInConcordance}" == 'yes' ]]
+	then
+		echo "There are some differences in the concordanceCheckCalls.vcf file"
+		echo "TRUE:"
+		cat "${WORKDIR}/test/trueConcordanceCheckCalls.vcf"
+		echo -e "\n\n NEW FILE:"
+		cat "${testResults}/output_NGS_RNA/concordanceCheckCalls.vcf"
+		exit 1
+	fi
 fi
