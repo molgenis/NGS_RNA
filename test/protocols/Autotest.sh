@@ -37,13 +37,13 @@ else
 	## check if the variants are called
 	grep -v '^#' "${projectResultsDir}/variants/concordance/1111111_123456_HG001_0000000_GS001A_WGS_000001_12348765.concordance.vcf" | awk 'BEGIN {FS="\t"}{OFS="\t"}{print $1,$2,$3,$4,$5,$10}' > "${testResults}/output_NGS_RNA//concordanceCheckCalls.vcf"
 	diffInConcordance='no'
-	diff -q "${testResults}/test/trueConcordanceCheckCalls.vcf" "${testResults}/output_NGS_RNA/concordanceCheckCalls.vcf" || diffInConcordance='yes'
+	diff -q "${testResults}/trueConcordanceCheckCalls.vcf" "${testResults}/output_NGS_RNA/concordanceCheckCalls.vcf" || diffInConcordance='yes'
 
 	if [[ "${diffInConcordance}" == 'yes' ]]
 	then
 		echo "There are some differences in the concordanceCheckCalls.vcf file"
 		echo "TRUE:"
-		cat "${testResults}/test/trueConcordanceCheckCalls.vcf"
+		cat "${testResults}/trueConcordanceCheckCalls.vcf"
 		echo -e "\n\n NEW FILE:"
 		cat "${testResults}/output_NGS_RNA/concordanceCheckCalls.vcf"
 		exit 1
