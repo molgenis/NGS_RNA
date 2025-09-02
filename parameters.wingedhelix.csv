@@ -16,7 +16,6 @@ toolchain,foss-2022a
 GCCcoreVersion,GCCcore-11.3.0
 jdkVersion,Java/11-LTS
 ngsUtilsVersion,ngs-utils/22.10.1
-ngsRNAVersion,NGS_RNA/beta
 fastqcVersion,FastQC/0.11.9-Java-11-LTS
 samtoolsVersion,SAMtools/1.16.1-${GCCcoreVersion}
 bedToolsVersion,BEDTools/2.30.0-${GCCcoreVersion}
