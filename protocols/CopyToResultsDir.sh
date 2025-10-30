@@ -166,7 +166,7 @@ echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
 
 #cleanup trimmed reads
 rm -f "${projectRawtmpDataDir}/"*"_val_"*".fq.gz"
-rm -f "${intermediateDir}/"*".bam"
+echo "rm -f ${intermediateDir}/*.bam" >> "${logsDir}/${project}/${runNumber}.pipeline.totalRuntime"
 
 touch pipeline.finished
 
