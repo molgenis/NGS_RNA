@@ -59,8 +59,8 @@ done
 
 if [[ "${#INPUTS[@]}" == 1 ]]
 then
-	ln -sf "$(basename "${INPUTBAMS[0]}")" "${sampleMergedBam}"
-	ln -sf "$(basename "${UNIQUEBAIS[0]}")" "${sampleMergedBai}"
+	mv -v "${INPUTBAMS[0]}" "${sampleMergedBam}"
+	mv -v "${UNIQUEBAIS[0]}" "${sampleMergedBai}"
 	echo "nothing to merge because there is only one sample"
 
 	cd "${intermediateDir}" || exit
