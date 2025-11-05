@@ -17,7 +17,7 @@ makeTmpDir "${strandedness}"
 tmpStrandedness=${MC_tmpFile}
 
 
-i=$(find "${intermediateDir}" -name "*.Aligned.sortedByCoord.out.bam" | shuf -n 1)
+i=$(find "${intermediateDir}" -name "*.sorted.merged.bam" | shuf -n 1)
 
 infer_experiment.py -r "${bed12}" -i "${i}" > "${tmpStrandedness}"
 
