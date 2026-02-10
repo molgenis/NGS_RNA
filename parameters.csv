@@ -151,3 +151,6 @@ qcMatrics,${intermediateDir}/${externalSampleID}.total.qc.metrics.table
 ##### Protocols 3,6  (HTSeq count, MakeExpressionTable) #####
 sampleHTseqExpressionText,${intermediateDir}/${externalSampleID}.counts.txt
 projectHTseqExpressionTable,${intermediateDir}/${project}.expression.genelevel.v${ensembleReleaseVersion}.counts.table
+
+
+tempTmpDir,${tmpDataDir}/tmp/processing

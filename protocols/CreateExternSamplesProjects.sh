@@ -40,6 +40,7 @@ module list
 mkdir -p "${projectRawArraytmpDataDir}"
 mkdir -p "${projectRawtmpDataDir}"
 mkdir -p "${projectJobsDir}"
+mkdir -p "${logsDir}/${project}/"
 mkdir -p "${projectLogsDir}"
 mkdir -p "${intermediateDir}"
 mkdir -p "${projectResultsDir}"

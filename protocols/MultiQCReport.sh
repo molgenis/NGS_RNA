@@ -13,7 +13,7 @@ set -o pipefail
 #string qcMatricsList
 #string gcPlotList
 #string seqType
-#string RVersion
+#string rVersion
 #string fastqcVersion
 #string samtoolsVersion
 #string picardVersion
@@ -46,7 +46,7 @@ report_header_info:
 - '' : ${fastqcVersion}
 - '' : ${starVersion}
 - '' : ${samtoolsVersion}
-- '' : ${RVersion}
+- '' : ${rVersion}
 - '' : ${picardVersion}
 - '' : ${htseqVersion}
 - '' : ${pythonVersion}
