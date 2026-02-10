@@ -1,7 +1,7 @@
 
 <h1>NGS_RNA pipeline</h1>
 
-<h2>Description of the different steps used in the RNA analysis pipeline. </h2>
+<h2>Description of the different steps used in the RNA analysis pipeline.</h2>
 
 <h3>Gene expression quantification </h3>
 The trimmed fastQ files were aligned to a reference genome using Star [1] with default settings. Before gene quantification 
