@@ -9,6 +9,7 @@ set -o pipefail
 #string projectLogsDir
 #string projectQcDir
 #list externalSampleID
+#list sequencingStartDate
 #string qcMatricsList
 #string gcPlotList
 #string seqType
@@ -89,3 +90,12 @@ multiqc -c "/intermediateDir/${project}_QC_config.yaml" \
 -o "/projectResultsDir/"
 
 mv "${projectResultsDir}/multiqc_report.html" "${projectResultsDir}/${project}_multiqc_report.html"
+
+#create ChronQC samplesheet
+echo -e "Sample,Run,Date" > "${projectResultsDir}/multiqc_data/${project}.run_date_info.csv"
+max_index=${#externalSampleID[@]}-1
+
+for ((samplenumber = 0; samplenumber <= max_index; samplenumber++))
+do
+	echo -e "${externalSampleID[samplenumber]},${project},${sequencingStartDate[samplenumber]}" >> "${projectResultsDir}/multiqc_data/${project}.run_date_info.csv"
+done

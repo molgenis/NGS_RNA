@@ -10,6 +10,7 @@ set -o pipefail
 #string projectLogsDir
 #string projectQcDir
 #string projectJobsDir
+#string projectRawtmpDataDir
 #string projectHTseqExpressionTable
 #string annotationGtf
 #string indexFileID
@@ -52,8 +53,8 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy BAM plus index plus md5 sum to results directory
 
-	rsync -avL "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
-	rsync -avL "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
+	mv -v "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
+	mv -v "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
 # copy qc metrics to qcmetrics folder
 
@@ -163,6 +164,9 @@ echo "finished: $(date +%FT%T%z)" >> "${logsDir}/${project}/${runNumber}.pipelin
 rm -f "${logsDir}/${project}/${runNumber}.pipeline.failed"
 echo "${logsDir}/${project}/${runNumber}.pipeline.finished is created"
 
+#cleanup trimmed reads
+rm -f "${projectRawtmpDataDir}/"*"_val_"*".fq.gz"
+rm -f "${intermediateDir}/"*".bam"
 
 touch pipeline.finished
 
