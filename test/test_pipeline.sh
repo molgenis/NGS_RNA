@@ -106,7 +106,7 @@ COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
 echo "checkout commit: ${COMMIT}"
 git checkout -f ${COMMIT}
 
-mv * ../
+mv ./* ../
 cd ..
 rm -rf 'NGS_RNA/'
 
