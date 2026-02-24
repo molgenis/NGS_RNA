@@ -80,30 +80,29 @@ function checkIfFinished(){
 	echo "${_projectName} test succeeded!"
 	echo ""
 }
-tmpdirectory="tmp08"
-groupName="umcg-atd"
-NGS_RNA_VERSION="NGS_RNA/betaAutotest"
 
-workfolder="/groups/${groupName}/${tmpdirectory}"
+pipeline='NGS_RNA'
+TMPDIR='tmp08'
 
-##
-pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
+TMPDIRECTORY="/groups/umcg-atd/${TMPDIR}"
+WORKDIR="${TMPDIRECTORY}/tmp/${pipeline}/betaAutotest"
+TEMP="${WORKDIR}/temp"
 
-workfolder="/groups/${groupName}/${tmpdirectory}/"
+## cleanup data to get new data
+echo "cleaning up.."
+rm -rvf "${WORKDIR}
+rm -rf "/tmp/${pipeline}"
 
-rm -rf "${pipelinefolder}"
-mkdir -p "${pipelinefolder}/"
-mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
+echo "Create workdirs"
+mkdir -p "${WORKDIR}
+mkdir -p "${WORKDIR}
+mkdir -p "${WORKDIR}/tmp/NGS_RNA/testdata_true/"
 
 PULLREQUEST="${1}"
-# EXTRA STEP TO GET THE DATA ON THE MACHINE
 cd /tmp
-git clone https://github.com/molgenis/NGS_RNA.git
-cd "NGS_RNA" || exit
-# COPY DATA TO PIPELINEFOLDER
-#mv NGS_RNA "${pipelinefolder}/"
-#cd "${pipelinefolder}/NGS_RNA"
-##BACK TO NORMAL FROM NOW ON
+git clone "https://github.com/molgenis/${pipeline}.git"
+
+cd "${pipeline}" || exit
 git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
 COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
 echo "checkout commit: COMMIT"
