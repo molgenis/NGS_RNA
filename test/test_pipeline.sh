@@ -87,6 +87,7 @@ workfolder="/groups/${groupName}/${tmpdirectory}"
 pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
 
 rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
+rm -rf "${pipelinefolder}"
 rm -rf "/tmp/NGS_RNA/"
 mkdir -p "${pipelinefolder}/"
 mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
