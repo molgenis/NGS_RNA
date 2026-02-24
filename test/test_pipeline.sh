@@ -106,9 +106,9 @@ COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
 echo "checkout commit: ${COMMIT}"
 git checkout -f ${COMMIT}
 
-mv * ../
-cd ..
-rm -rf 'NGS_RNA/'
+mv * ${pipelinefolder}/
+#cd ..
+#rm -rf 'NGS_RNA/'
 
 
 cp 'workflow_GD.csv' 'test_workflow_GD.csv'
