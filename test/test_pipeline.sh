@@ -86,7 +86,9 @@ NGS_RNA_VERSION="NGS_RNA/betaAutotest"
 workfolder="/groups/${groupName}/${tmpdirectory}"
 pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
 
-rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
+rm -rf "${workfolder}/tmp/NGS_RNA/testdata_true/"
+rm -rf "${workfolder}/tmp/NGS_RNA/tbetaAutotest/"
+rm -rf "${workfolder}/tmp/NGS_RNA/"
 rm -rf "${pipelinefolder}"
 rm -rf "/tmp/NGS_RNA/"
 mkdir -p "${pipelinefolder}/"
@@ -99,7 +101,7 @@ PULLREQUEST="${1}"
 git clone https://github.com/molgenis/NGS_RNA.git
 #cd "NGS_RNA" || exit
 # COPY DATA TO PIPELINEFOLDER
-mv "NGS_RNA" "${pipelinefolder}/"
+#mv "NGS_RNA" "${pipelinefolder}/"
 cd "${pipelinefolder}/NGS_RNA"
 ##BACK TO NORMAL FROM NOW ON
 git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
