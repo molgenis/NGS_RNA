@@ -90,12 +90,11 @@ TEMP="${WORKDIR}/temp"
 
 ## cleanup data to get new data
 echo "cleaning up.."
-rm -rvf "${WORKDIR}
+rm -rvf "${WORKDIR}"
 rm -rf "/tmp/${pipeline}"
 
 echo "Create workdirs"
-mkdir -p "${WORKDIR}
-mkdir -p "${WORKDIR}
+mkdir -p "${WORKDIR}"
 mkdir -p "${WORKDIR}/tmp/NGS_RNA/testdata_true/"
 
 PULLREQUEST="${1}"
