@@ -4,17 +4,17 @@ set -u
 function preparePipeline(){
 
 	local _projectName="PlatinumSubset_NGS_RNA"
-	local _generatedScriptsFolder="${workfolder}/generatedscripts/NGS_RNA/${_projectName}"
+	local _generatedScriptsFolder="${WORKDIR}/generatedscripts/NGS_RNA/${_projectName}"
 
-	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
-	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
+	rm -f "${WORKDIR}/logs/${_projectName}/run01.pipeline.finished"
+	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${WORKDIR}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
-	echo "rm -rf ${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
-	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
+	echo "rm -rf ${WORKDIR}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
+	rm -rf "${WORKDIR}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
 	mkdir -p "${_generatedScriptsFolder}/"
 
 	echo "copy generate template"
-	cp "${pipelinefolder}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
+	cp "${WORKDIR}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
 
 
 	module load NGS_RNA/betaAutotest
@@ -22,7 +22,7 @@ function preparePipeline(){
 
 	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' "${_generatedScriptsFolder}/generate_template.sh"
 
-	cp "${pipelinefolder}/test/${_projectName}.csv" "${_generatedScriptsFolder}"
+	cp "${WORKDIR}/test/${_projectName}.csv" "${_generatedScriptsFolder}"
 	perl -p -e "s|/groups/umcg-atd/tmp01/|${workfolder}/|g" "${_generatedScriptsFolder}/${_projectName}.csv" > "${_generatedScriptsFolder}/${_projectName}.csv.tmp"
 	mv -v "${_generatedScriptsFolder}/${_projectName}.csv"{.tmp,}
 
@@ -35,7 +35,7 @@ function preparePipeline(){
 
 	bash submit.sh
 
-	cd "${workfolder}/projects/NGS_RNA/${_projectName}/run01/jobs/"
+	cd "${WORKDIR}/projects/NGS_RNA/${_projectName}/run01/jobs/"
 
 	pwd
 
@@ -54,7 +54,7 @@ function checkIfFinished(){
 	local _projectName="PlatinumSubset_NGS_RNA"
 	count=0
 	minutes=0
-	while [ ! -f "${workfolder}/projects/NGS_RNA/${_projectName}/run01/jobs/s15_Autotest_0.sh.finished" ]
+	while [ ! -f "${WORKDIR}/projects/NGS_RNA/${_projectName}/run01/jobs/s15_Autotest_0.sh.finished" ]
 	do
 
 		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
@@ -66,7 +66,7 @@ function checkIfFinished(){
 		then
 			echo "the test was not finished within 35 minutes, let's kill it"
 			echo -e "\n"
-			for i in "${workfolder}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
+			for i in "${WORKDIR}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
 			do
 				if [[ ! -f "${i}.finished" ]]
 				then
