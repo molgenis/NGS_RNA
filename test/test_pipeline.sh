@@ -86,24 +86,17 @@ NGS_RNA_VERSION="NGS_RNA/betaAutotest"
 workfolder="/groups/${groupName}/${tmpdirectory}"
 pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
 
-rm -rf "${workfolder}/tmp/NGS_RNA/testdata_true/"
-rm -rf "${workfolder}/tmp/NGS_RNA/betaAutotest/"
-rm -rf "${workfolder}/tmp/NGS_RNA/"
-rm -rf "${pipelinefolder}"
-rm -rf "/tmp/NGS_RNA/"
+##
+rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
 mkdir -p "${pipelinefolder}/"
 mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
 cd "${pipelinefolder}"
 
 PULLREQUEST="${1}"
-# EXTRA STEP TO GET THE DATA ON THE MACHINE
-#cd /tmp
+
 git clone https://github.com/molgenis/NGS_RNA.git
-#cd "NGS_RNA" || exit
-# COPY DATA TO PIPELINEFOLDER
-#mv "NGS_RNA" "${pipelinefolder}/"
-cd "NGS_RNA"
-##BACK TO NORMAL FROM NOW ON
+cd NGS_RNA
+
 git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
 COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
 echo "checkout commit: ${COMMIT}"
@@ -111,7 +104,7 @@ git checkout -f ${COMMIT}
 
 mv * ../
 cd ..
-rm -rf 'NGS_RNA/'
+rm -rf NGS_RNA/
 
 cp 'workflow_GD.csv' 'test_workflow_GD.csv'
 tail -1 'workflow_GD.csv' | perl -p -e 's|,|\t|g' | awk '{print "s17_Autotest,test/protocols/Autotest.sh,"$1}' >> 'test_workflow_GD.csv'
