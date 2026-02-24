@@ -82,7 +82,7 @@ function checkIfFinished(){
 }
 tmpdirectory="tmp08"
 groupName="umcg-atd"
-NGS_RNA_VERSION="NGS_DNA/betaAutotest"
+NGS_RNA_VERSION="NGS_RNA/betaAutotest"
 
 workfolder="/groups/${groupName}/${tmpdirectory}"
 
@@ -94,7 +94,7 @@ workfolder="/groups/${groupName}/${tmpdirectory}/"
 rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
 mkdir -p "${pipelinefolder}/"
 mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
-cd "${pipelinefolder}"
+#cd "${pipelinefolder}"
 
 PULLREQUEST="${1}"
 # EXTRA STEP TO GET THE DATA ON THE MACHINE
