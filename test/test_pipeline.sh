@@ -98,7 +98,7 @@ PULLREQUEST="${1}"
 git clone https://github.com/molgenis/NGS_RNA.git
 #cd "NGS_RNA" || exit
 # COPY DATA TO PIPELINEFOLDER
-mv NGS_RNA "${pipelinefolder}/"
+mv "NGS_RNA" "${pipelinefolder}/"
 cd "${pipelinefolder}/NGS_RNA"
 ##BACK TO NORMAL FROM NOW ON
 git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
@@ -106,10 +106,9 @@ COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
 echo "checkout commit: ${COMMIT}"
 git checkout -f ${COMMIT}
 
-mv ./* ../
+mv * ../
 cd ..
 rm -rf 'NGS_RNA/'
-
 
 cp 'workflow_GD.csv' 'test_workflow_GD.csv'
 tail -1 'workflow_GD.csv' | perl -p -e 's|,|\t|g' | awk '{print "s17_Autotest,test/protocols/Autotest.sh,"$1}' >> 'test_workflow_GD.csv'
