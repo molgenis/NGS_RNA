@@ -90,11 +90,11 @@ rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
 rm -rf "/tmp/NGS_RNA/"
 mkdir -p "${pipelinefolder}/"
 mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
-#cd "${pipelinefolder}"
+cd "${pipelinefolder}"
 
 PULLREQUEST="${1}"
 # EXTRA STEP TO GET THE DATA ON THE MACHINE
-cd /tmp
+#cd /tmp
 git clone https://github.com/molgenis/NGS_RNA.git
 #cd "NGS_RNA" || exit
 # COPY DATA TO PIPELINEFOLDER
