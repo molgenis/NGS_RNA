@@ -115,7 +115,7 @@ cd "${WORKDIR}/${pipeline}"
 cp 'workflow_GD.csv' 'test_workflow_GD.csv'
 tail -1 'workflow_GD.csv' | perl -p -e 's|,|\t|g' | awk '{print "s17_Autotest,test/protocols/Autotest.sh,"$1}' >> 'test_workflow_GD.csv'
 
-cp "${pipelinefolder}/test/results/"* "${workfolder}/tmp/NGS_RNA/testdata_true/"
+cp "${WORKDIR}/test/results/"* "${TMPDIRECTORY}/tmp/NGS_RNA/testdata_true/"
 
 preparePipeline
 
