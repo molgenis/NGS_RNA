@@ -153,5 +153,5 @@ spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
 comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_concordanceCheckSnps_GRCh37_woChr.bed
 
 tmpDataDir,${workDir}/${tmpName}
-tempDir,${tmpDataDir}/tmp
+#tempDir,${tmpDataDir}/tmp
 tempTmpDir,${tmpDataDir}/tmp/processing
