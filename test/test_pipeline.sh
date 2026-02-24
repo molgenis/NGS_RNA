@@ -86,7 +86,6 @@ TMPDIR='tmp08'
 
 TMPDIRECTORY="/groups/umcg-atd/${TMPDIR}"
 WORKDIR="${TMPDIRECTORY}/tmp/${pipeline}/betaAutotest"
-TEMP="${WORKDIR}/temp"
 
 ## cleanup data to get new data
 echo "cleaning up.."
@@ -95,7 +94,7 @@ rm -rf "/tmp/${pipeline}"
 
 echo "Create workdirs"
 mkdir -p "${WORKDIR}"
-mkdir -p "${WORKDIR}/tmp/NGS_RNA/testdata_true/"
+mkdir -p "${WORKDIR}/testdata_true/"
 
 PULLREQUEST="${1}"
 cd /tmp
