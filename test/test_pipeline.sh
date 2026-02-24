@@ -101,8 +101,8 @@ PULLREQUEST="${1}"
 git clone https://github.com/molgenis/NGS_RNA.git
 #cd "NGS_RNA" || exit
 # COPY DATA TO PIPELINEFOLDER
-mv "NGS_RNA" "${pipelinefolder}/"
-cd "${pipelinefolder}/NGS_RNA"
+#mv "NGS_RNA" "${pipelinefolder}/"
+cd "NGS_RNA"
 ##BACK TO NORMAL FROM NOW ON
 git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
 COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
