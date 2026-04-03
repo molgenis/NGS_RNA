@@ -59,7 +59,7 @@ do
 	array_contains INPUTSINGLE "${FqFileSingle}" || INPUTSINGLE+=("${FqFileSingle}")
 done
 
-if [[ "${#INPUTSLEFT[@]}" == 1 ]]
+if [[ "${#INPUTSLEFT[@]}" -eq 1 && "${seqType}" == "PE" ]]
 then
 	ln -sf "$(basename "${INPUTSLEFT[0]}")" "${mergedLeftBarcodeFqGz}"
 	ln -sf "$(basename "${INPUTSRIGHT[0]}")" "${mergedRightBarcodeFqGz}"
