@@ -28,7 +28,7 @@ trimmedRightBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_2_val_2
 trimmedSingleBarcodeFqGz,${projectRawtmpDataDir}/${filePrefix}_${barcode}_trimmed.fq.gz
 mergedLeftBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}_val_1.fq.gz
 mergedRightBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}_val_2.fq.gz
-mergedSingleBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}}_trimmed.fq.gz
+mergedSingleBarcodeFqGz,${projectRawtmpDataDir}/${externalSampleID}_trimmed.fq.gz
 workflowFile,$MC_HOME/NGS_RNA_seq_pipeline/workflow.csv
 
 ##### PREFIXES,POSTFIXES #####
