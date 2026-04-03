@@ -31,7 +31,7 @@ Options:
 	-t   tmpDirectory (default=basename of ../../ )
 	-w   workdir (default= current dir, ${pwd)
 	-c   createWorkflow (default=create_in-house_ngs_projects_workflow.csv, option "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv")
-	-o   pipeline (default=GD, options: "STAR", "hisat", "lexogen")
+	-o   pipeline (default=GD, options: "STAR", "GD", "")
 ===============================================================================================================
 EOH
 	trap - EXIT
