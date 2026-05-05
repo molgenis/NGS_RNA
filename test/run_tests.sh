@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG="config.tsv"
-LAST_LINES=0
-PULLREQUEST="${1}"
 tmpdirectory="tmp08" # "${2}"
 groupName="umcg-atd" # "${3}"
 
@@ -12,6 +9,8 @@ pipelineDir="${workDir}/NGS_RNA"
 TruthSetDir="${pipelineDir}/test/results"
 runDir="${workDir}/runs"
 NGS_RNA_VERSION="NGS_DNA/betaAutotest"
+CONFIG="${pipelineDir}/test/config.tsv"
+LAST_LINES=0
 
 # ------------------------
 # DEFAULTS
@@ -42,6 +41,7 @@ Options:
                     example: PlatinumSubset_GRCh37_PE
   -w, --workflow    Filter by workflow
                     example: STAR, GD
+	-p, --pullrequestid NR
   -h, --help        Show this help message
 
 Examples:
@@ -80,10 +80,14 @@ while [[ $# -gt 0 ]]; do
       FILTER_SAMPLE="${2}"
       shift 2
       ;;
-    -w|--workflow)
-      FILTER_WORKFLOW="${2}"
-      shift 2
-      ;;
+		-w|--workflow)
+			FILTER_WORKFLOW="${2}"
+			shift 2
+			;;
+		-p|--pullrequestid)
+			PULLREQUEST="${2}"
+			shift 2
+			;;
     -h|--help)
       print_help
       exit 0
@@ -150,17 +154,17 @@ function should_run_test() {
 
 function prepareEnv (){
   #cleanup
-  rm -rf "${workfolder}"
-  mkdir -p "${pipelinefolder}"
+  rm -rf "${workDir}"
+  #mkdir -p "${pipelineDir}"
   mkdir -p "${runDir}"
 
   # EXTRA STEP TO GET THE DATA ON THE MACHINE
-  cd "${pipelinefolder}"
+  cd "${workDir}"
   git clone https://github.com/molgenis/NGS_RNA.git
   
   # COPY DATA TO PIPELINEFOLDER
 # mv NGS_RNA "${pipelinefolder}/"
-  cd "${pipelinefolder}/NGS_RNA"
+  cd "${pipelineDir}"
   
   ##BACK TO NORMAL FROM NOW ON
   git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
@@ -168,9 +172,11 @@ function prepareEnv (){
   echo "checkout commit: COMMIT"
   git checkout -f "${COMMIT}"
 }
+echo "=== PREPARE ENVIRONMENT ==="
+prepareEnv
 
 echo "=== SUBMITTING TESTS ==="
-
+pwd
 while read -r name sheet truth; do
   [[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
 
@@ -187,11 +193,13 @@ while read -r name sheet truth; do
     mkdir -p "${outdir}"
 
     echo "Submitting ${test_name}"
+		echo "sbatch --parsable --job-name=${sheet%.*} --output=${outdir}/%x-%j.out --error=${outdir}/%x-%j.err ${pipelineDir}/test/test_pipeline.sh --samplesheet ${sheet} --workflow ${wf} --workdir ${outdir} --pipeline ${pipelineDir}"
 
-    jobid=$(sbatch --parsable --job-name="${sheet%.*}" --output="${outdir}/%x-%j.out" --error="${outdir}/%x-%j.err" test_pipeline_v3.sh \
+    jobid=$(sbatch --parsable --job-name="${sheet%.*}" --output="${outdir}/%x-%j.out" --error="${outdir}/%x-%j.err" ${pipelineDir}/test/test_pipeline.sh \
     --samplesheet "${sheet}" \
     --workflow "${wf}" \
-    --outdir "${outdir}")
+    --workdir "${outdir}" \
+		--pipeline ${pipelineDir})
 
     JOBID_TO_TEST["${jobid}"]="${test_name}"
     
@@ -242,7 +250,7 @@ while true; do
       running=1
     fi
   done
-  clear
+  #clear
   print_live_status
   [[ "${running}" -eq 0 ]] && break
   sleep 3
@@ -264,7 +272,7 @@ while read -r name sheet truth; do
     fi
 
     test_name="${name}_${wf_name}"
-    outdir="${RUN_DIR}/${test_name}"
+    outdir="${runDir}/${test_name}"
 
     echo "Comparing ${test_name}"
 
@@ -285,7 +293,7 @@ done < "${CONFIG}"
 echo ""
 echo "=== TEST SUMMARY ==="
 
-for dir in "${RUN_DIR}"/*; do
+for dir in "${runDir}"/*; do
   name=$(basename "${dir}")
 
   if [[ -f "${dir}/status" ]]; then

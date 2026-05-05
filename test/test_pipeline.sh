@@ -6,6 +6,8 @@
 #SBATCH --export=NONE
 #SBATCH --get-user-env=60L
 
+set -euo pipefail
+
 # ========================
 # DEFAULTS
 # ========================
@@ -62,12 +64,16 @@ while [[ $# -gt 0 ]]; do
       SAMPLESHEET="${2:-}"
       shift 2
       ;;
-    -w|--workflow)
+    -f|--workflow)
       WORKFLOW="${2:-}"
       shift 2
       ;;
-    -o|--workdir)
-      OUTDIR="${2:-}"
+    -p|--pipeline)
+      PIPELINE="${2:-}"
+      shift 2
+      ;;
+    -w|--workdir)
+      WORKDIR="${2:-}"
       shift 2
       ;;
     -h|--help)
@@ -85,9 +91,10 @@ done
 # ========================
 [[ -z "${SAMPLESHEET}" ]] && die "Missing --samplesheet"
 [[ -z "${WORKFLOW}" ]] && die "Missing --workflow"
-[[ -z "${OUTDIR}" ]] && die "Missing --outdir"
+[[ -z "${WORKDIR}" ]] && die "Missing --workdir"
+[[ -z "${PIPELINE}" ]] && die "Missing --pipeline"
 
-[[ -f "${SAMPLESHEET}" ]] || die "Samplesheet not found: ${SAMPLESHEET}"
+[[ -f "${PIPELINE}" ]] || die "Pipeline not found: ${PIPELINE}"
 [[ -f "${WORKFLOW}" ]] || die "Workflow not found: ${WORKFLOW}"
 
 # ========================
@@ -96,7 +103,8 @@ done
 log "Starting pipeline"
 log "Samplesheet : ${SAMPLESHEET}"
 log "Workflow    : ${WORKFLOW}"
-log "Output dir  : ${OUTDIR}"
+log "workDir     : ${WORKDIR}"
+log "pipeline    : ${PIPELINE}"
 log "SLURM job   : ${SLURM_JOB_ID:-local}"
 
 START_TIME=$(date +%s)
@@ -105,39 +113,41 @@ START_TIME=$(date +%s)
 # RUN PIPELINE
 # ========================
 
-	local _projectName="PlatinumSubset_NGS_RNA"
-	local _generatedScriptsFolder="${workfolder}/generatedscripts/NGS_RNA/${_projectName}"
+	_projectName=$(basename "${WORKDIR}")
+	_generatedScriptsFolder="${WORKDIR}/generatedscripts"
 
-	rm -f "${workfolder}/logs/${_projectName}/run01.pipeline.finished"
-	rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${pipelinefolder}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${workfolder}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
+	
+	mkdir -p  "${WORKDIR}"/{tmp,generatedscripts,projects}
+  mkdir -p  "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
 
-	echo "rm -rf ${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
-	rm -rf "${workfolder}/"{tmp,generatedscripts,projects}"/NGS_RNA/${_projectName}/"
-	mkdir -p "${_generatedScriptsFolder}/"
+  rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${PIPELINE}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
+
 
 	echo "copy generate template"
-	cp "${pipelinefolder}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
+	cp "${PIPELINE}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
 
 
 	module load NGS_RNA/betaAutotest
 	module list
 
-	perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' "${_generatedScriptsFolder}/generate_template.sh"
+	#perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' "${_generatedScriptsFolder}/generate_template.sh"
 
-	cp "${pipelinefolder}/test/${_projectName}.csv" "${_generatedScriptsFolder}"
-	perl -p -e "s|/groups/umcg-atd/tmp01/|${workfolder}/|g" "${_generatedScriptsFolder}/${_projectName}.csv" > "${_generatedScriptsFolder}/${_projectName}.csv.tmp"
-	mv -v "${_generatedScriptsFolder}/${_projectName}.csv"{.tmp,}
+	cp "${PIPELINE}/test/samplesheets/${SAMPLESHEET}" "${_generatedScriptsFolder}"
+	perl -p -e "s|/groups/umcg-atd/tmp01/|${WORKDIR}/|g" "${_generatedScriptsFolder}/${SAMPLESHEET}" > "${_generatedScriptsFolder}/${SAMPLESHEET}.tmp"
+	mv -v "${_generatedScriptsFolder}/${SAMPLESHEET}"{.tmp,}
 
 	cd "${_generatedScriptsFolder}/"
 
-	bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv"
+  bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t tmp08
+
+#	bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv"
 	cd scripts
 
-	perl -pi -e "s|workflow_GD.csv|test_workflow_GD.csv|" *.sh
+	#perl -pi -e "s|workflow_GD.csv|test_workflow_GD.csv|" *.sh
 
 	bash submit.sh
 
-	cd "${workfolder}/projects/NGS_RNA/${_projectName}/run01/jobs/"
+	cd "${WORKDIR}/projects/NGS_RNA/${_projectName}/run01/jobs/"
 
 	pwd
 
