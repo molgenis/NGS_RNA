@@ -12,7 +12,7 @@ node {
 	sh '''
             sudo ssh -tt reception+talos 'exec bash -l << 'ENDSSH'
 	    	echo "Starting automated test"
-		bash /home/umcg-molgenis/test_pipeline_RNA.sh '''+env.CHANGE_ID+'''
+		bash /home/umcg-molgenis/test_pipeline_RNA.sh -p '''+env.CHANGE_ID+'''
 ENDSSH'
         '''	
 	}

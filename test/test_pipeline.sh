@@ -134,10 +134,13 @@ START_TIME=$(date +%s)
 
 	cp "${PIPELINE}/test/samplesheets/${SAMPLESHEET}" "${_generatedScriptsFolder}"
 	perl -p -e "s|/groups/umcg-atd/tmp01/|${WORKDIR}/|g" "${_generatedScriptsFolder}/${SAMPLESHEET}" > "${_generatedScriptsFolder}/${SAMPLESHEET}.tmp"
+  
 	mv -v "${_generatedScriptsFolder}/${SAMPLESHEET}"{.tmp,}
 
 	cd "${_generatedScriptsFolder}/"
 
+  perl -p -e 's|parameters.\${host}|parameters.talos|g' generate_template.sh
+  
   bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t tmp08
 
 #	bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv"
