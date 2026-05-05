@@ -1,7 +1,109 @@
-set -e
-set -u
+#!/bin/bash
+#SBATCH --time=05:59:00
+#SBATCH --cpus-per-task 1
+#SBATCH --mem 1gb
+#SBATCH --open-mode=append
+#SBATCH --export=NONE
+#SBATCH --get-user-env=60L
 
-function preparePipeline(){
+# ========================
+# DEFAULTS
+# ========================
+SAMPLESHEET=""
+WORKFLOW=""
+OUTDIR=""
+LOG_PREFIX="[TEST_PIPELINE]"
+ERROR_PREFIX="[ERROR]"
+
+# ========================
+# HELP
+# ========================
+print_help() {
+cat <<EOF
+Usage:
+  test_pipeline.sh --samplesheet <file> --workflow <file> --outdir <dir>
+
+Required arguments:
+  -s, --samplesheet   Path to samplesheet CSV
+  -w, --workflow      Path to workflow CSV
+  -o, --outdir        Output directory
+
+Optional:
+  -h, --help          Show this help
+
+Example:
+  test_pipeline.sh \\
+    --samplesheet samplesheets/sr_hg38.csv \\
+    --workflow workflows/workflow_STAR.csv \\
+    --outdir runs/sr_hg38__STAR
+EOF
+}
+
+# ========================
+# LOGGING
+# ========================
+log() {
+  echo -e "$(date '+%F %T') ${LOG_PREFIX} $*"
+}
+die() {
+  echo -e "$(date '+%F %T') ${ERROR_PREFIX} $*"
+}
+# ========================
+# ARG PARSING
+# ========================
+if [[ $# -eq 0 ]]; then
+  print_help
+  exit 1
+fi
+
+while [[ $# -gt 0 ]]; do
+  case "${1}" in
+    -s|--samplesheet)
+      SAMPLESHEET="${2:-}"
+      shift 2
+      ;;
+    -w|--workflow)
+      WORKFLOW="${2:-}"
+      shift 2
+      ;;
+    -o|--workdir)
+      OUTDIR="${2:-}"
+      shift 2
+      ;;
+    -h|--help)
+      print_help
+      exit 0
+      ;;
+    *)
+      exit 1
+      ;;
+  esac
+done
+
+# ========================
+# VALIDATION
+# ========================
+[[ -z "${SAMPLESHEET}" ]] && die "Missing --samplesheet"
+[[ -z "${WORKFLOW}" ]] && die "Missing --workflow"
+[[ -z "${OUTDIR}" ]] && die "Missing --outdir"
+
+[[ -f "${SAMPLESHEET}" ]] || die "Samplesheet not found: ${SAMPLESHEET}"
+[[ -f "${WORKFLOW}" ]] || die "Workflow not found: ${WORKFLOW}"
+
+# ========================
+# CONTEXT INFO
+# ========================
+log "Starting pipeline"
+log "Samplesheet : ${SAMPLESHEET}"
+log "Workflow    : ${WORKFLOW}"
+log "Output dir  : ${OUTDIR}"
+log "SLURM job   : ${SLURM_JOB_ID:-local}"
+
+START_TIME=$(date +%s)
+
+# ========================
+# RUN PIPELINE
+# ========================
 
 	local _projectName="PlatinumSubset_NGS_RNA"
 	local _generatedScriptsFolder="${workfolder}/generatedscripts/NGS_RNA/${_projectName}"
@@ -48,77 +150,19 @@ function preparePipeline(){
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
 	sh submit.sh
-}
-
-function checkIfFinished(){
-	local _projectName="PlatinumSubset_NGS_RNA"
-	count=0
-	minutes=0
-	while [ ! -f "${workfolder}/projects/NGS_RNA/${_projectName}/run01/jobs/s17_Autotest_0.sh.finished" ]
-	do
-
-		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
-		sleep 120
-		minutes=$((minutes+2))
-
-		count=$((count+2))
-		if [[ "${count}" -eq 35 ]]
-		then
-			echo "the test was not finished within 35 minutes, let's kill it"
-			echo -e "\n"
-			for i in "${workfolder}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
-			do
-				if [[ ! -f "${i}.finished" ]]
-				then
-					echo "$(basename $i) is not finished"
-				fi
-			done
-			exit 1
-		fi
-	done
-	echo ""
-	echo "${_projectName} test succeeded!"
-	echo ""
-}
-tmpdirectory="tmp08"
-groupName="umcg-atd"
-NGS_RNA_VERSION="NGS_DNA/betaAutotest"
-
-workfolder="/groups/${groupName}/${tmpdirectory}"
-
-##
-pipelinefolder="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
-
-workfolder="/groups/${groupName}/${tmpdirectory}/"
-
-rm -rf "/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/"
-mkdir -p "${pipelinefolder}/"
-mkdir -p "${workfolder}/tmp/NGS_RNA/testdata_true/"
-#cd "${pipelinefolder}"
-
-PULLREQUEST="${1}"
-# EXTRA STEP TO GET THE DATA ON THE MACHINE
-cd /tmp
-git clone https://github.com/molgenis/NGS_RNA.git
-# COPY DATA TO PIPELINEFOLDER
-mv NGS_RNA "${pipelinefolder}/"
-cd "${pipelinefolder}/NGS_RNA"
-##BACK TO NORMAL FROM NOW ON
-git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
-COMMIT=$(git rev-parse refs/remotes/origin/pr/$PULLREQUEST/merge^{commit})
-echo "checkout commit: COMMIT"
-git checkout -f ${COMMIT}
-
-mv * ../
-cd ..
-rm -rf 'NGS_RNA/'
 
 
-cp 'workflow_GD.csv' 'test_workflow_GD.csv'
-tail -1 'workflow_GD.csv' | perl -p -e 's|,|\t|g' | awk '{print "s17_Autotest,test/protocols/Autotest.sh,"$1}' >> 'test_workflow_GD.csv'
 
-cp "${pipelinefolder}/test/results/"* "${workfolder}/tmp/NGS_RNA/testdata_true/"
+# ========================
+# TIMING
+# ========================
 
-preparePipeline
+sleep 20
 
-checkIfFinished
+END_TIME=$(date +%s)
+DURATION=$(( (END_TIME - START_TIME) / 60 ))
+
+log "Pipeline finished successfully"
+log "Duration: ${DURATION} min"
+
+exit 0
