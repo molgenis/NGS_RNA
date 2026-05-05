@@ -154,7 +154,7 @@ function should_run_test() {
 
 function prepareEnv (){
   #cleanup
-  rm -rf "${workDir}"
+  rm -rf "${workDir}/*"
   #mkdir -p "${pipelineDir}"
   mkdir -p "${runDir}"
 
