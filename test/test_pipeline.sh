@@ -111,6 +111,40 @@ log "SLURM job   : ${SLURM_JOB_ID:-local}"
 START_TIME=$(date +%s)
 
 # ========================
+# WAIT until FINISHED
+# ========================
+function checkIfFinished(){
+	local _projectName="${1}"
+	count=0
+	minutes=0
+	while [ ! -f "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}/run01/jobs/*CopyToResultsDir_0.sh.sh.finished" ]
+	do
+
+		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
+		sleep 120
+		minutes=$((minutes+2))
+
+		count=$((count+2))
+		if [[ "${count}" -eq 35 ]]
+		then
+			echo "the test was not finished within 35 minutes, let's kill it"
+			echo -e "\n"
+			for i in "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
+			do
+				if [[ ! -f "${i}.finished" ]]
+				then
+					echo "$(basename $i) is not finished"
+				fi
+			done
+			exit 1
+		fi
+	done
+	echo ""
+	echo "${_projectName} test succeeded!"
+	echo ""
+}
+
+# ========================
 # RUN PIPELINE
 # ========================
 
@@ -153,7 +187,7 @@ START_TIME=$(date +%s)
 
 	#perl -pi -e "s|workflow_GD.csv|test_workflow_GD.csv|" *.sh
 
-	bash submit.sh
+	bash CreateExternSamplesProjects_0.sh
 
 	cd "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}/run01/jobs/"
 
@@ -168,5 +202,7 @@ START_TIME=$(date +%s)
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
 	sh submit.sh
+
+  checkIfFinished "${_projectName}"
 
 exit 0
