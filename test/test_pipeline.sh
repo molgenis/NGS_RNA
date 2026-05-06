@@ -16,6 +16,7 @@ WORKFLOW=""
 OUTDIR=""
 LOG_PREFIX="[TEST_PIPELINE]"
 ERROR_PREFIX="[ERROR]"
+TMP='tmp08'
 
 # ========================
 # HELP
@@ -114,6 +115,7 @@ START_TIME=$(date +%s)
 # ========================
 
 	_projectName=$(basename "${WORKDIR}")
+  _sheetName=$(basename "${SAMPLESHEET%.csv}")
 	_generatedScriptsFolder="${WORKDIR}/generatedscripts"
 
 	
@@ -133,7 +135,9 @@ START_TIME=$(date +%s)
 	#perl -pi -e 's|WORKFLOW=\${EBROOTNGS_RNA}/workflow_\${PIPELINE}.csv|WORKFLOW=\${EBROOTNGS_RNA}/test_workflow_\${PIPELINE}.csv|' "${_generatedScriptsFolder}/generate_template.sh"
 
 	cp "${PIPELINE}/test/samplesheets/${SAMPLESHEET}" "${_generatedScriptsFolder}"
-	perl -p -e "s|/groups/umcg-atd/tmp01/|${WORKDIR}/|g" "${_generatedScriptsFolder}/${SAMPLESHEET}" > "${_generatedScriptsFolder}/${SAMPLESHEET}.tmp"
+
+	perl -pi -e "s|/groups/umcg-atd/tmp01/|/groups/umcg-atd/${TMP}/|g" "${_generatedScriptsFolder}/${SAMPLESHEET}"
+  perl -p -e "s|${_sheetName}|${_projectName}|g" "${_generatedScriptsFolder}/${SAMPLESHEET}" > "${_generatedScriptsFolder}/${SAMPLESHEET}.tmp"
   
 	mv -v "${_generatedScriptsFolder}/${SAMPLESHEET}"{.tmp,}
 
@@ -141,7 +145,7 @@ START_TIME=$(date +%s)
 
   perl -p -e 's|parameters.\${host}|parameters.talos|g' generate_template.sh
 
-  bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t tmp08
+  bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t "${TMP}"
 
 #	bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv"
 	cd scripts
@@ -150,7 +154,7 @@ START_TIME=$(date +%s)
 
 	bash submit.sh
 
-	cd "/groups/umcg-atd/tmp08/projects/NGS_RNA/${SAMPLESHEET%.csv}/run01/jobs/"
+	cd "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}/run01/jobs/"
 
 	pwd
 
