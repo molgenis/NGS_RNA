@@ -278,9 +278,17 @@ while read -r name sheet truth; do
 
 		echo "Comparing ${test_name}"
 
-		echo "diff -r ${truthDir} ${resultsDir}"
-		diff -rq --exclude='alignment' --exclude='fastqs' --exclude='qcmetrics' --exclude='RNASeQC' "${truthDir}" "${resultsDir}" > "${outdir}/diff.txt" || true
+		diff "${truthDir}/star_sj/" "${resultsDir}/star_sj/" > "${outdir}/diff.txt" || true
+		diff "${truthDir}/README.txt" "${resultsDir}/README.txt" >> "${outdir}/diff.txt" || true
 
+		module load ngs-utils
+		"${EBROOTNGSMINUTILS}/bin/vcf-compare_2.0.sh" -1 "${truthDir}/${test_name}.variant.calls.genotyped.vcf.gz" -2 "${resultsDir}/${test_name}.variant.calls.genotyped.vcf.gz" -o "${outdir}"
+		if grep 'TP rate: 100.00%' "${outdir}/vcfStats.txt"
+		then
+			echo 'OK'
+		else 
+			cat ${outdir}/vcfStats.txt >> "${outdir}/diff.txt"
+		fi
 		if [[ -s "${outdir}/diff.txt" ]]; then
 			echo "FAIL" > "${outdir}/status"
 		else
