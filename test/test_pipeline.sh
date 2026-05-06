@@ -55,11 +55,11 @@ function checkIfFinished(){
 	local _projectName="${1}"
 	count=0
 	minutes=0
-	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/*CopyToResultsDir_0.sh.sh.finished" ]
+	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/*CopyToResultsDir_0.sh.finished" ]
 	do
 
-		echo "${_projectName} is not finished in $minutes minutes, sleeping for 2 minutes"
-		sleep 120
+		echo "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
+		sleep 60
 		minutes=$((minutes+2))
 
 		count=$((count+2))

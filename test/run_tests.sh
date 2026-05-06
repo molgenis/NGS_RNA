@@ -250,10 +250,10 @@ while true; do
       running=1
     fi
   done
-  #clear
+  clear
   print_live_status
   [[ "${running}" -eq 0 ]] && break
-  sleep 3
+  sleep 10
 done
 
 # ------------------------
