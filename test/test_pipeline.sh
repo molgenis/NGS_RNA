@@ -118,7 +118,8 @@ START_TIME=$(date +%s)
   _sheetName=$(basename "${SAMPLESHEET%.csv}")
 	_generatedScriptsFolder="${WORKDIR}/generatedscripts"
 
-	
+	#cleanup
+  rm -rf "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}"
 	mkdir -p  "${WORKDIR}"/{tmp,generatedscripts,projects}
   mkdir -p  "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
 
@@ -143,7 +144,7 @@ START_TIME=$(date +%s)
 
 	cd "${_generatedScriptsFolder}/"
 
-  perl -p -e 's|parameters.\${host}|parameters.talos|g' generate_template.sh
+  perl -pi -e 's|parameters.\${host}|parameters.talos|g' generate_template.sh
 
   bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t "${TMP}"
 

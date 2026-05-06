@@ -193,9 +193,9 @@ while read -r name sheet truth; do
     mkdir -p "${outdir}"
 
     echo "Submitting ${test_name}"
-		echo "sbatch --parsable --job-name=${sheet%.*} --output=${outdir}/%x-%j.out --error=${outdir}/%x-%j.err ${pipelineDir}/test/test_pipeline.sh --samplesheet ${sheet} --workflow ${wf} --workdir ${outdir} --pipeline ${pipelineDir}"
+		echo "sbatch --parsable --job-name="${test_name}" --output=${outdir}/%x-%j.out --error=${outdir}/%x-%j.err ${pipelineDir}/test/test_pipeline.sh --samplesheet ${sheet} --workflow ${wf} --workdir ${outdir} --pipeline ${pipelineDir}"
 
-    jobid=$(sbatch --parsable --job-name="${sheet%.*}" --output="${outdir}/%x-%j.out" --error="${outdir}/%x-%j.err" ${pipelineDir}/test/test_pipeline.sh \
+    jobid=$(sbatch --parsable --job-name="${test_name}" --output="${outdir}/%x-%j.out" --error="${outdir}/%x-%j.err" ${pipelineDir}/test/test_pipeline.sh \
     --samplesheet "${sheet}" \
     --workflow "${wf}" \
     --workdir "${outdir}" \
