@@ -26,21 +26,21 @@ GROUP='umcg-atd'
 print_help() {
 cat <<EOF
 Usage:
-  test_pipeline.sh --samplesheet <file> --workflow <file> --outdir <dir>
+	test_pipeline.sh --samplesheet <file> --workflow <file> --outdir <dir>
 
 Required arguments:
-  -s, --samplesheet   Path to samplesheet CSV
-  -w, --workflow      Path to workflow CSV
-  -o, --outdir        Output directory
+	-s, --samplesheet		Path to samplesheet CSV
+	-w, --workflow			Path to workflow CSV
+	-o, --outdir				Output directory
 
 Optional:
-  -h, --help          Show this help
+	-h, --help					Show this help
 
 Example:
-  test_pipeline.sh \\
-    --samplesheet samplesheets/sr_hg38.csv \\
-    --workflow workflows/workflow_STAR.csv \\
-    --outdir runs/sr_hg38__STAR
+		test_pipeline.sh \\
+		--samplesheet samplesheets/sr_hg38.csv \\
+		--workflow workflows/workflow_STAR.csv \\
+		--outdir runs/sr_hg38__STAR
 EOF
 }
 
@@ -48,14 +48,14 @@ log() {
   echo -e "$(date '+%F %T') ${LOG_PREFIX} $*"
 }
 die() {
-  echo -e "$(date '+%F %T') ${ERROR_PREFIX} $*"
+	\echo -e "$(date '+%F %T') ${ERROR_PREFIX} $*"
 }
 
 function checkIfFinished(){
 	local _projectName="${1}"
 	count=0
 	minutes=0
-	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/*CopyToResultsDir_0.sh.finished" ]
+	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/s16_CopyToResultsDir_0.sh.finished" ]
 	do
 
 		echo "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
@@ -86,36 +86,36 @@ function checkIfFinished(){
 # ARG PARSING
 # ========================
 if [[ $# -eq 0 ]]; then
-  print_help
-  exit 1
+	print_help
+	exit 1
 fi
 
 while [[ $# -gt 0 ]]; do
-  case "${1}" in
-    -s|--samplesheet)
-      SAMPLESHEET="${2:-}"
-      shift 2
-      ;;
-    -f|--workflow)
-      WORKFLOW="${2:-}"
-      shift 2
-      ;;
-    -p|--pipeline)
-      PIPELINE="${2:-}"
-      shift 2
-      ;;
-    -w|--workdir)
-      WORKDIR="${2:-}"
-      shift 2
-      ;;
-    -h|--help)
-      print_help
-      exit 0
-      ;;
-    *)
-      exit 1
-      ;;
-  esac
+	case "${1}" in
+		-s|--samplesheet)
+			SAMPLESHEET="${2:-}"
+			shift 2
+			;;
+		-f|--workflow)
+			WORKFLOW="${2:-}"
+			shift 2
+			;;
+		-p|--pipeline)
+			PIPELINE="${2:-}"
+			shift 2
+			;;
+		-w|--workdir)
+			WORKDIR="${2:-}"
+			shift 2
+			;;
+		-h|--help)
+			print_help
+			exit 0
+			;;
+		*)
+			exit 1
+			;;
+	esac
 done
 
 # ========================
@@ -130,10 +130,10 @@ done
 
 log "Starting pipeline"
 log "Samplesheet : ${SAMPLESHEET}"
-log "Workflow    : ${WORKFLOW}"
-log "workDir     : ${WORKDIR}"
-log "pipeline    : ${PIPELINE}"
-log "SLURM job   : ${SLURM_JOB_ID:-local}"
+log "Workflow		: ${WORKFLOW}"
+log "workDir		 : ${WORKDIR}"
+log "pipeline		: ${PIPELINE}"
+log "SLURM job	 : ${SLURM_JOB_ID:-local}"
 
 START_TIME=$(date +%s)
 
@@ -148,11 +148,10 @@ _generatedScriptsFolder="${WORKDIR}/generatedscripts"
 
 #cleanup
 rm -rf "/groups/umcg-atd/${TMP}/projects/NGS_RNA/${_projectName}"
-mkdir -p  "${WORKDIR}"/{tmp,generatedscripts,projects}
-mkdir -p  "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
+mkdir -p	"${WORKDIR}"/{tmp,generatedscripts,projects}
+mkdir -p	"${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
 
 rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${PIPELINE}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
-
 
 echo "copy generate template"
 cp "${PIPELINE}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
@@ -168,15 +167,15 @@ perl -p -e "s|${_sheetName}|${_projectName}|g" "${_generatedScriptsFolder}/${SAM
 mv -v "${_generatedScriptsFolder}/${SAMPLESHEET}"{.tmp,}
 cd "${_generatedScriptsFolder}/"
 perl -pi -e 's|parameters.\${host}|parameters.talos|g' generate_template.sh
-  
+
 bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t "${TMP}"
-	
+
 cd scripts
-	
+
 bash CreateExternSamplesProjects_0.sh
-	
+
 cd "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}/run01/jobs/"
-  
+	
 # reduce runtime 
 perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkHaplotypeCallerGvcf_*.sh
 perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkGenotypeGvcf_*.sh
