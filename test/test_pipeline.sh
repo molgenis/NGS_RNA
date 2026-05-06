@@ -140,7 +140,7 @@ START_TIME=$(date +%s)
 	cd "${_generatedScriptsFolder}/"
 
   perl -p -e 's|parameters.\${host}|parameters.talos|g' generate_template.sh
-  
+
   bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv" -g umcg-atd -p "${SAMPLESHEET%.csv}" -w "${_generatedScriptsFolder}" -f "${SAMPLESHEET%.csv}" -t tmp08
 
 #	bash generate_template.sh -c "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv"
@@ -150,7 +150,7 @@ START_TIME=$(date +%s)
 
 	bash submit.sh
 
-	cd "${WORKDIR}/projects/NGS_RNA/${_projectName}/run01/jobs/"
+	cd "/groups/umcg-atd/tmp08/projects/NGS_RNA/${SAMPLESHEET%.csv}/run01/jobs/"
 
 	pwd
 
@@ -163,19 +163,5 @@ START_TIME=$(date +%s)
 	perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
 	sh submit.sh
-
-
-
-# ========================
-# TIMING
-# ========================
-
-sleep 20
-
-END_TIME=$(date +%s)
-DURATION=$(( (END_TIME - START_TIME) / 60 ))
-
-log "Pipeline finished successfully"
-log "Duration: ${DURATION} min"
 
 exit 0
