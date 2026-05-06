@@ -272,7 +272,7 @@ while read -r name sheet truth; do
 			continue
 		fi
 
-		test_name="${name}_${wf_name}/"
+		test_name="${name}_${wf_name}"
 		resultsDir="${projectsDir}/${test_name}/run01/results/"
 		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/"
 

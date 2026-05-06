@@ -45,10 +45,10 @@ EOF
 }
 
 log() {
-  echo -e "$(date '+%F %T') ${LOG_PREFIX} $*"
+	echo -e "$(date '+%F %T') ${LOG_PREFIX} $*"
 }
 die() {
-	\echo -e "$(date '+%F %T') ${ERROR_PREFIX} $*"
+	echo -e "$(date '+%F %T') ${ERROR_PREFIX} $*"
 }
 
 function checkIfFinished(){
@@ -58,28 +58,26 @@ function checkIfFinished(){
 	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/s16_CopyToResultsDir_0.sh.finished" ]
 	do
 
-		echo "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
+		log "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
 		sleep 60
 		minutes=$((minutes+2))
 
 		count=$((count+2))
 		if [[ "${count}" -eq 35 ]]
 		then
-			echo "the test was not finished within 35 minutes, let's kill it"
-			echo -e "\n"
-			for i in "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
+			log "the test was not finished within 35 minutes, let's kill it"
+				for i in "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
 			do
 				if [[ ! -f "${i}.finished" ]]
 				then
-					echo "$(basename $i) is not finished"
+					log "$(basename $i) is not finished"
 				fi
 			done
 			exit 1
 		fi
 	done
-	echo ""
-	echo "${_projectName} test succeeded!"
-	echo ""
+	log "${_projectName} test succeeded!"
+	
 }
 
 # ========================
@@ -153,7 +151,7 @@ mkdir -p	"${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
 
 rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${PIPELINE}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
 
-echo "copy generate template"
+log "copy generate template"
 cp "${PIPELINE}/templates/generate_template.sh" "${_generatedScriptsFolder}/generate_template.sh"
 
 
