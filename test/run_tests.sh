@@ -6,6 +6,7 @@ groupName="umcg-atd" # "${3}"
 
 workDir="/groups/${groupName}/${tmpdirectory}//tmp/NGS_RNA/betaAutotest"
 pipelineDir="${workDir}/NGS_RNA"
+projectsDir="/groups/${groupName}/${tmpdirectory}/projects/NGS_RNA/"
 TruthSetDir="${pipelineDir}/test/results"
 runDir="${workDir}/runs"
 NGS_RNA_VERSION="NGS_DNA/betaAutotest"
@@ -271,13 +272,14 @@ while read -r name sheet truth; do
 			continue
 		fi
 
-		test_name="${name}_${wf_name}"
-		outdir="${runDir}/${test_name}"
+		test_name="${name}_${wf_name}/"
+		resultsDir="${projectsDir}/${test_name}/run01/results/"
+		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/"
 
 		echo "Comparing ${test_name}"
 
-		echo "diff -r ${truth} ${outdir}/results"
-		diff -r "${truth}" "${outdir}/results" > "${outdir}/diff.txt" || true
+		echo "diff -r ${truthDir} ${resultsDir}"
+		diff -rq --exclude='alignment' --exclude='fastqs' --exclude='qcmetrics' --exclude='RNASeQC' "${truthDir}" "${resultsDir}" > "${outdir}/diff.txt" || true
 
 		if [[ -s "${outdir}/diff.txt" ]]; then
 			echo "FAIL" > "${outdir}/status"

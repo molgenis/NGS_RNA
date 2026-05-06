@@ -1,0 +1,66 @@
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: /groups/umcg-atd//tmp08/projects/NGS_RNA//PlatinumSubset_GRCh37_SR_workflow_GD/run01//rawdata/ngs//888888_TEST_9999_FLOWCELL_L1_SRR15529062.fq.gz
+Trimming mode: single-end
+Trim Galore version: 0.6.7
+Cutadapt version: 4.2
+Number of cores used for trimming: 1
+Quality Phred score cutoff: 20
+Quality encoding type selected: ASCII+33
+Unable to auto-detect most prominent adapter from the first specified file (count smallRNA: 0, count Illumina: 0, count Nextera: 0)
+Defaulting to Illumina universal adapter ( AGATCGGAAGAGC ). Specify -a SEQUENCE to avoid this behavior).
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; default (inconclusive auto-detection))
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length before a sequence gets removed: 20 bp
+Running FastQC on the data once trimming has completed
+Output file will be GZIP compressed
+
+
+This is cutadapt 4.2 with Python 3.10.4
+Command line parameters: -j 1 -e 0.1 -q 20 -O 1 -a AGATCGGAAGAGC /groups/umcg-atd//tmp08/projects/NGS_RNA//PlatinumSubset_GRCh37_SR_workflow_GD/run01//rawdata/ngs//888888_TEST_9999_FLOWCELL_L1_SRR15529062.fq.gz
+Processing single-end reads on 1 core ...
+Finished in 1.102 s (44.683 µs/read; 1.34 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:                  24,665
+Reads with adapters:                    10,579 (42.9%)
+Reads written (passing filters):        24,665 (100.0%)
+
+Total basepairs processed:     3,685,259 bp
+Quality-trimmed:                     441 bp (0.0%)
+Total written (filtered):      3,670,245 bp (99.6%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 10579 times
+
+Minimum overlap: 1
+No. of allowed errors:
+1-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 34.3%
+  C: 30.1%
+  G: 15.8%
+  T: 19.7%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	7511	6166.2	0	7511
+2	2329	1541.6	0	2329
+3	622	385.4	0	622
+4	77	96.3	0	77
+5	29	24.1	0	29
+6	4	6.0	0	4
+7	1	1.5	0	1
+9	6	0.1	0	0 6
+
+RUN STATISTICS FOR INPUT FILE: /groups/umcg-atd//tmp08/projects/NGS_RNA//PlatinumSubset_GRCh37_SR_workflow_GD/run01//rawdata/ngs//888888_TEST_9999_FLOWCELL_L1_SRR15529062.fq.gz
+=============================================
+24665 sequences processed in total
+Sequences removed because they became shorter than the length cutoff of 20 bp:	0 (0.0%)
+

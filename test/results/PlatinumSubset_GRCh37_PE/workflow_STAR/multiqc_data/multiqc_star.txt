@@ -1,0 +1,7 @@
+Sample	total_reads	avg_input_read_length	uniquely_mapped	uniquely_mapped_percent	avg_mapped_read_length	num_splices	num_annotated_splices	num_GTAG_splices	num_GCAG_splices	num_ATAC_splices	num_noncanonical_splices	mismatch_rate	deletion_rate	deletion_length	insertion_rate	insertion_length	multimapped	multimapped_percent	multimapped_toomany	multimapped_toomany_percent	unmapped_mismatches_percent	unmapped_tooshort_percent	unmapped_other_percent	unmapped_mismatches	unmapped_tooshort	unmapped_other
+SRR15529062	24665.0	297.0	24495.0	99.31	296.53	42028.0	41965.0	41986.0	3.0	0.0	39.0	0.42	0.01	1.51	0.01	1.75	167.0	0.68	0.0	0.0	0.0	0.01	0.0	0	3	0
+SRR15529062._STARpass1	24665.0	297.0	24549.0	99.53	296.51	42160.0	41707.0	42117.0	3.0	0.0	40.0	0.42	0.01	1.51	0.01	1.76	113.0	0.46	0.0	0.0	0.0	0.01	0.0	0	3	0
+SRR15529064	22517.0	297.0	22418.0	99.56	296.2	34656.0	34607.0	34585.0	34.0	0.0	37.0	0.3	0.01	1.47	0.01	1.44	98.0	0.44	0.0	0.0	0.0	0.0	0.0	0	0	0
+SRR15529064._STARpass1	22517.0	297.0	22440.0	99.66	296.19	34685.0	34431.0	34640.0	9.0	0.0	36.0	0.3	0.01	1.44	0.01	1.44	75.0	0.33	0.0	0.0	0.0	0.01	0.0	0	2	0
+SRR15529069	30237.0	297.0	30009.0	99.25	296.13	65335.0	65245.0	65219.0	35.0	15.0	66.0	0.38	0.01	1.72	0.01	1.46	226.0	0.75	0.0	0.0	0.0	0.01	0.0	0	2	0
+SRR15529069._STARpass1	30237.0	297.0	30124.0	99.63	296.11	65591.0	64899.0	65510.0	13.0	2.0	66.0	0.38	0.01	1.7	0.01	1.46	111.0	0.37	0.0	0.0	0.0	0.01	0.0	0	2	0

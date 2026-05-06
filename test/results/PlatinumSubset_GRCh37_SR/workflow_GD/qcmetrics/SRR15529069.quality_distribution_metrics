@@ -1,0 +1,48 @@
+## htsjdk.samtools.metrics.StringHeader
+# CollectMultipleMetrics INPUT=/groups/umcg-atd/tmp08/tmp/NGS_RNA/PlatinumSubset_GRCh37_SR_workflow_GD/run01/SRR15529069.sorted.merged.dedup.bam OUTPUT=/groups/umcg-atd//tmp08/tmp//NGS_RNA/PlatinumSubset_GRCh37_SR_workflow_GD/run01/SRR15529069 PROGRAM=[CollectAlignmentSummaryMetrics, CollectBaseDistributionByCycle, CollectInsertSizeMetrics, MeanQualityByCycle, QualityScoreDistribution] TMP_DIR=[/groups/umcg-atd/tmp08/tmp/processing] REFERENCE_SEQUENCE=/apps/data/Ensembl/GrCh37.75/pub/release-75/fasta/homo_sapiens/Homo_sapiens.GRCh37.dna.primary_assembly.fa    ASSUME_SORTED=true STOP_AFTER=0 METRIC_ACCUMULATION_LEVEL=[ALL_READS] INCLUDE_UNPAIRED=false VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+## htsjdk.samtools.metrics.StringHeader
+# Started on: Wed May 06 12:17:18 UTC 2026
+
+
+## HISTOGRAM	java.lang.Byte
+QUALITY	COUNT_OF_Q
+1	1
+2	90
+3	2215
+4	4705
+5	3473
+6	4240
+7	3587
+8	4058
+9	3930
+10	4752
+11	3688
+12	5288
+13	4734
+14	5854
+15	5924
+16	6765
+17	7127
+18	7646
+19	8622
+20	8649
+21	11327
+22	11224
+23	13510
+24	13573
+25	15445
+26	16585
+27	18957
+28	24229
+29	22914
+30	28363
+31	40528
+32	46112
+33	58925
+34	110215
+35	273698
+36	648921
+37	2293567
+38	740646
+39	15159
+
