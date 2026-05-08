@@ -275,12 +275,13 @@ while read -r name sheet truth; do
 			continue
 		fi
 
-		testName="${name}_${wf_name}"
+		test_name="${name}_${wf_name}"
+		outdir="${runDir}/${test_name}"
 		resultsDir="${projectsDir}/${test_name}/run01/results/"
 		truthBaseDir="${pipelineDir}/test/results/${name}/${wf_name}"
 		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/truth"
 
-		echo "Comparing ${testName}"
+		echo "Comparing ${test_name}"
 
 		# General check if all files if thruthDir are also in outputDir.
 		if rsync -rnc --delete \
@@ -302,9 +303,9 @@ while read -r name sheet truth; do
 			"${truthDir}" \
 			"${outdir}"
 		then
-			echo "PASS: ${testName}"
+			echo "PASS: ${test_name}"
   	else
-			echo "FAIL: ${testName} >> "${outdir}/diff.txt""
+			echo "FAIL: ${test_name} >> "${outdir}/diff.txt""
 		fi
 		# safe the test outcome in 'status' 
 		if [[ -s "${outdir}/diff.txt" ]]; then
