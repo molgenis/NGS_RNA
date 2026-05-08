@@ -11,7 +11,7 @@ declare -A JOBID_TO_TEST
 
 tmpdirectory="tmp08" # "${2}"
 groupName="umcg-atd" # "${3}"
-workDir="/groups/${groupName}/${tmpdirectory}//tmp/NGS_RNA/betaAutotest"
+workDir="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
 pipelineDir="${workDir}/NGS_RNA"
 projectsDir="/groups/${groupName}/${tmpdirectory}/projects/NGS_RNA/"
 TruthSetDir="${pipelineDir}/test/results"
@@ -318,7 +318,6 @@ done < "${CONFIG}"
 # ------------------------
 # SUMMARY
 # ------------------------
-echo ""
 echo "=== TEST SUMMARY ==="
 
 for dir in "${runDir}"/*; do

@@ -3,7 +3,7 @@ set -euo pipefail
 
 RESULTSDIR="${1}"
 TRUTHDIR="${2}"
-OUTDIR="${$3}"
+OUTDIR="${3}"
 
 test_name=$(basename ${RESULTSDIR})
 

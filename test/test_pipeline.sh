@@ -115,7 +115,7 @@ function checkIfFinished(){
 	local _projectName="${1}"
 	count=0
 	minutes=0
-	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/*_CopyToResultsDir_*.sh.finished" ]
+	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/pipeline.finished" ]
 	do
 
 		log "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
