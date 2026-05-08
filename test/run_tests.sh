@@ -212,8 +212,8 @@ echo "=== PREPARE ENVIRONMENT ==="
 prepareEnv
 
 echo "=== SUBMITTING TESTS ==="
-while read -r name sheet truth; do
-	[[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
+while read -r name sheet truth || [[ -n "$name" ]]; do
+  [[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
 
 	for wf in "${workflows[@]}"; do
 		wf_name=$(basename "${wf}" .csv)
@@ -265,7 +265,7 @@ done
 # ------------------------
 echo "=== COMPARING RESULTS ==="
 
-while read -r name sheet truth; do
+while read -r name sheet truth || [[ -n "$name" ]]; do	
 	[[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
 
 	for wf in "${workflows[@]}"; do
