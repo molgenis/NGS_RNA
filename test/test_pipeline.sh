@@ -51,35 +51,6 @@ die() {
 	echo -e "$(date '+%F %T') ${ERROR_PREFIX} $*"
 }
 
-function checkIfFinished(){
-	local _projectName="${1}"
-	count=0
-	minutes=0
-	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/s16_CopyToResultsDir_0.sh.finished" ]
-	do
-
-		log "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
-		sleep 60
-		minutes=$((minutes+2))
-
-		count=$((count+2))
-		if [[ "${count}" -eq 35 ]]
-		then
-			log "the test was not finished within 35 minutes, let's kill it"
-				for i in "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
-			do
-				if [[ ! -f "${i}.finished" ]]
-				then
-					log "$(basename $i) is not finished"
-				fi
-			done
-			exit 1
-		fi
-	done
-	log "${_projectName} test succeeded!"
-	
-}
-
 # ========================
 # ARG PARSING
 # ========================
@@ -116,6 +87,7 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
+
 # ========================
 # CHECK PARAMS
 # ========================
@@ -135,6 +107,38 @@ log "SLURM job	 : ${SLURM_JOB_ID:-local}"
 
 START_TIME=$(date +%s)
 
+
+# ========================
+# Monitor pipeline status
+# ========================
+function checkIfFinished(){
+	local _projectName="${1}"
+	count=0
+	minutes=0
+	while [ ! -f "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/*_CopyToResultsDir_*.sh.finished" ]
+	do
+
+		log "${_projectName} is not finished in $minutes minutes, sleeping for 1 minutes"
+		sleep 60
+		minutes=$((minutes+2))
+
+		count=$((count+2))
+		if [[ "${count}" -eq 35 ]]
+		then
+			log "the test was not finished within 35 minutes, let's kill it"
+				for i in "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/"*".sh"
+			do
+				if [[ ! -f "${i}.finished" ]]
+				then
+					log "$(basename $i) is not finished"
+				fi
+			done
+			exit 1
+		fi
+	done
+	log "${_projectName} test succeeded!"
+	
+}
 
 # ========================
 # PREPARE AND RUN PIPELINE
@@ -187,7 +191,7 @@ perl -pi -e 's|--time=23:59:00|--time=05:59:00|' *.sh
 
 sh submit.sh
 
-# wait until pipeline finishes
+# wait until pipeline is finished with a max op 35 min runtime.
 checkIfFinished "${_projectName}"
 
 exit 0

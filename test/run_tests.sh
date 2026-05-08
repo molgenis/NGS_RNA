@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
+
+# ------------------------
+# DEFAULTS
+# ------------------------
+declare -a workflows=("workflow_STAR.csv" "workflow_GD.csv")
+declare -A JOBID_TO_TEST
+
 tmpdirectory="tmp08" # "${2}"
 groupName="umcg-atd" # "${3}"
-
 workDir="/groups/${groupName}/${tmpdirectory}//tmp/NGS_RNA/betaAutotest"
 pipelineDir="${workDir}/NGS_RNA"
 projectsDir="/groups/${groupName}/${tmpdirectory}/projects/NGS_RNA/"
@@ -12,12 +19,6 @@ runDir="${workDir}/runs"
 NGS_RNA_VERSION="NGS_DNA/betaAutotest"
 CONFIG="${pipelineDir}/test/config.tsv"
 LAST_LINES=0
-
-# ------------------------
-# DEFAULTS
-# ------------------------
-declare -a workflows=("workflow_STAR.csv" "workflow_GD.csv")
-declare -A JOBID_TO_TEST
 
 FILTER_TESTS=""
 FILTER_SAMPLE=""
@@ -107,7 +108,7 @@ IFS=',' read -r -a WORKFLOW_LIST <<< "${FILTER_WORKFLOW}"
 
 
 # ------------------------
-# FILTER FUNCTION
+# FUNCTIONS
 # ------------------------
 function contains() {
 	local value="${1}"
@@ -165,13 +166,12 @@ function prepareEnv (){
 	# COPY DATA TO PIPELINEFOLDER
 	cd "${pipelineDir}"
 	
-	##BACK TO NORMAL FROM NOW ON
+	##Fetch PULLREQUEST from repo and merge with clone
 	git fetch --tags --progress https://github.com/molgenis/NGS_RNA/ +refs/pull/*:refs/remotes/origin/pr/*
 	COMMIT=$(git rev-parse refs/remotes/origin/pr/"${PULLREQUEST}"/merge^{commit})
 	echo "checkout commit: COMMIT"
 	git checkout -f "${COMMIT}"
 }
-
 
 function job_running() {
 	local jobid="${1}"
@@ -206,13 +206,12 @@ function print_status() {
 }
 
 # ------------------------
-#					 MAIN
+#	MAIN
 # ------------------------
 echo "=== PREPARE ENVIRONMENT ==="
 prepareEnv
 
 echo "=== SUBMITTING TESTS ==="
-
 while read -r name sheet truth; do
 	[[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
 
@@ -246,6 +245,7 @@ done < "${CONFIG}"
 # WAIT FOR JOBS
 # ------------------------
 echo "=== WAITING FOR JOBS ==="
+
 while true; do
 	running=0
 
