@@ -172,10 +172,6 @@ function prepareEnv (){
 	git checkout -f "${COMMIT}"
 }
 
-# ------------------------
-# WAIT FOR JOBS
-# ------------------------
-echo "=== WAITING FOR JOBS ==="
 
 function job_running() {
 	local jobid="${1}"
@@ -246,6 +242,10 @@ while read -r name sheet truth; do
 	done
 done < "${CONFIG}"
 
+# ------------------------
+# WAIT FOR JOBS
+# ------------------------
+echo "=== WAITING FOR JOBS ==="
 while true; do
 	running=0
 
@@ -275,11 +275,12 @@ while read -r name sheet truth; do
 			continue
 		fi
 
-		test_name="${name}_${wf_name}"
+		testName="${name}_${wf_name}"
 		resultsDir="${projectsDir}/${test_name}/run01/results/"
-		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/truth/"
+		truthBaseDir="${pipelineDir}/test/results/${name}/${wf_name}"
+		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/truth"
 
-		echo "Comparing ${test_name}"
+		echo "Comparing ${testName}"
 
 		# General check if all files if thruthDir are also in outputDir.
 		if rsync -rnc --delete \
@@ -296,14 +297,14 @@ while read -r name sheet truth; do
 		diff "${truthDir}/README.txt" "${resultsDir}/README.txt" >> "${outdir}/diff.txt" || true
 
 		#run specific validation scripts per test case.
-		if bash "${truthDir}/validate.sh" \
+		if bash "${truthBaseDir}/validate.sh" \
 			"${resultsDir}" \
 			"${truthDir}" \
 			"${outdir}"
 		then
-			echo "PASS: ${TEST_NAME}"
+			echo "PASS: ${testName}"
   	else
-			echo "FAIL: ${TEST_NAME} >> "${outdir}/diff.txt""
+			echo "FAIL: ${testName} >> "${outdir}/diff.txt""
 		fi
 		# safe the test outcome in 'status' 
 		if [[ -s "${outdir}/diff.txt" ]]; then
