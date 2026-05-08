@@ -149,13 +149,12 @@ function should_run_test() {
 	if [[ -n "${FILTER_WORKFLOW}" ]]; then
 		contains "${workflow}" "${WORKFLOW_LIST[@]}" || return 1
 	fi
-
 	return 0
 }
 
 function prepareEnv (){
 	#cleanup
-	rm -rf "${workDir}/*"
+	rm -rf "${workDir:-}"*
 	mkdir -p "${pipelineDir}"
 	mkdir -p "${runDir}"
 
@@ -164,7 +163,6 @@ function prepareEnv (){
 	git clone https://github.com/molgenis/NGS_RNA.git
 	
 	# COPY DATA TO PIPELINEFOLDER
-# mv NGS_RNA "${pipelinefolder}/"
 	cd "${pipelineDir}"
 	
 	##BACK TO NORMAL FROM NOW ON
@@ -177,7 +175,7 @@ echo "=== PREPARE ENVIRONMENT ==="
 prepareEnv
 
 echo "=== SUBMITTING TESTS ==="
-pwd
+
 while read -r name sheet truth; do
 	[[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
 
@@ -217,7 +215,7 @@ function job_running() {
 	squeue -j "${jobid}" -h | grep -q .
 }
 
-print_live_status() {
+print_status() {
 	local lines=0
 	local last="${LAST_LINES:-0}"
 
@@ -252,7 +250,7 @@ while true; do
 		fi
 	done
 	clear
-	print_live_status
+	print_status
 	[[ "${running}" -eq 0 ]] && break
 	sleep 10
 done
@@ -278,17 +276,31 @@ while read -r name sheet truth; do
 
 		echo "Comparing ${test_name}"
 
-		diff "${truthDir}/star_sj/" "${resultsDir}/star_sj/" > "${outdir}/diff.txt" || true
+		# General check if all files if thruthDir are also in outputDir.
+		if rsync -rnc --delete \
+			--exclude='alignment' \
+  		--exclude='fastqs' \
+			"${resultsDir}" "${truthDir}" | grep . > /dev/null
+		then     
+			echo "different" > "${outdir}/diff.txt"
+		else     
+			echo "ok"
+		fi
+
+		# Diff README (with all pipeline version) remained the same.
 		diff "${truthDir}/README.txt" "${resultsDir}/README.txt" >> "${outdir}/diff.txt" || true
 
-		module load ngs-utils
-		"${EBROOTNGSMINUTILS}/bin/vcf-compare_2.0.sh" -1 "${truthDir}/${test_name}.variant.calls.genotyped.vcf.gz" -2 "${resultsDir}/${test_name}.variant.calls.genotyped.vcf.gz" -o "${outdir}"
-		if grep 'TP rate: 100.00%' "${outdir}/vcfStats.txt"
+		#run specific validation scripts per test case.
+		if bash "${truthDir}/validate.sh" \
+			"${resultsDir}" \
+			"${truthDir}/truth"\
+			"${outdir}"
 		then
-			echo 'OK'
-		else 
-			cat ${outdir}/vcfStats.txt >> "${outdir}/diff.txt"
+			echo "PASS: ${TEST_NAME}"
+  	else
+			echo "FAIL: ${TEST_NAME} >> "${outdir}/diff.txt""
 		fi
+		# safe the test outcome in 'status' 
 		if [[ -s "${outdir}/diff.txt" ]]; then
 			echo "FAIL" > "${outdir}/status"
 		else

@@ -145,8 +145,10 @@ _sheetName=$(basename "${SAMPLESHEET%.csv}")
 _generatedScriptsFolder="${WORKDIR}/generatedscripts"
 
 #cleanup
-rm -rf "/groups/umcg-atd/${TMP}/projects/NGS_RNA/${_projectName}"
-mkdir -p	"${WORKDIR}"/{tmp,generatedscripts,projects}
+rm -rfv "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}"
+rm -rfv "/groups/${GROUP}/${TMP}/tmp/NGS_RNA/${_projectName}"
+rm -rfv "/groups/${GROUP}/tmp08/tmp/NGS_RNA/betaAutotest/runs/${_projectName}"
+mkdir -p	"${WORKDIR}"/generatedscripts
 mkdir -p	"${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
 
 rsync -r --verbose --recursive --links --no-perms --times --group --no-owner --devices --specials "${PIPELINE}/test/rawdata/MY_TEST_BAM_PROJECT/"SRR1552906[249]_[12].fq.gz "${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT/"
