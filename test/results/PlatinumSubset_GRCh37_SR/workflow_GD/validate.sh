@@ -5,7 +5,7 @@ RESULTSDIR="${1}"
 TRUTHDIR="${2}"
 OUTDIR="${3}"
 
-test_name=$(basename ${RESULTSDIR})
+test_name=$(basename ${OUTDIR})
 
 
 # compare STAR Splice Junctions files.
