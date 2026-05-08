@@ -171,6 +171,47 @@ function prepareEnv (){
 	echo "checkout commit: COMMIT"
 	git checkout -f "${COMMIT}"
 }
+
+# ------------------------
+# WAIT FOR JOBS
+# ------------------------
+echo "=== WAITING FOR JOBS ==="
+
+function job_running() {
+	local jobid="${1}"
+	squeue -j "${jobid}" -h | grep -q .
+}
+
+function print_status() {
+	local lines=0
+	local last="${LAST_LINES:-0}"
+
+	[[ "$last" =~ ^[0-9]+$ ]] || last=0
+
+	if [[ "${last}" -gt 0 ]]; then
+		printf "\033[%dA" "$last"
+	fi
+	echo "=== TEST STATUS ==="
+	printf "%-40s (%-10s)\n" \
+			"test_name" "slurm_status"
+	lines="${lines}"+1
+
+	for jobid in "${!JOBID_TO_TEST[@]}"; do
+		test_name="${JOBID_TO_TEST[$jobid]}"
+		slurm_state="$(get_slurm_state "${jobid}" || echo UNKNOWN)"
+		
+		printf "%-40s %-10s\n" \
+			"${test_name}:" "${slurm_state}"
+
+		lines="${lines}"+1
+	done
+
+	LAST_LINES="${lines}"
+}
+
+# ------------------------
+#					 MAIN
+# ------------------------
 echo "=== PREPARE ENVIRONMENT ==="
 prepareEnv
 
@@ -205,42 +246,6 @@ while read -r name sheet truth; do
 	done
 done < "${CONFIG}"
 
-# ------------------------
-# WAIT FOR JOBS
-# ------------------------
-echo "=== WAITING FOR JOBS ==="
-
-function job_running() {
-	local jobid="${1}"
-	squeue -j "${jobid}" -h | grep -q .
-}
-
-print_status() {
-	local lines=0
-	local last="${LAST_LINES:-0}"
-
-	[[ "$last" =~ ^[0-9]+$ ]] || last=0
-
-	if [[ "${last}" -gt 0 ]]; then
-		printf "\033[%dA" "$last"
-	fi
-	echo "=== TEST STATUS ==="
-	printf "%-40s (%-10s)\n" \
-			"test_name" "slurm_status"
-	lines="${lines}"+1
-
-	for jobid in "${!JOBID_TO_TEST[@]}"; do
-		test_name="${JOBID_TO_TEST[$jobid]}"
-		slurm_state="$(get_slurm_state "${jobid}" || echo UNKNOWN)"
-		
-		printf "%-40s %-10s\n" \
-			"${test_name}:" "${slurm_state}"
-
-		lines="${lines}"+1
-	done
-
-	LAST_LINES="${lines}"
-}
 while true; do
 	running=0
 
@@ -272,7 +277,7 @@ while read -r name sheet truth; do
 
 		test_name="${name}_${wf_name}"
 		resultsDir="${projectsDir}/${test_name}/run01/results/"
-		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/"
+		truthDir="${pipelineDir}/test/results/${name}/${wf_name}/truth/"
 
 		echo "Comparing ${test_name}"
 
@@ -293,7 +298,7 @@ while read -r name sheet truth; do
 		#run specific validation scripts per test case.
 		if bash "${truthDir}/validate.sh" \
 			"${resultsDir}" \
-			"${truthDir}/truth"\
+			"${truthDir}" \
 			"${outdir}"
 		then
 			echo "PASS: ${TEST_NAME}"
