@@ -20,7 +20,7 @@ then
 	echo 'OK'
 else 
 	cat ${OUTDIR}/vcfStats.txt >> "${OUTDIR}/diff.txt"
-    exit 1
+	exit 1
 fi
 
 exit 0

@@ -213,7 +213,7 @@ prepareEnv
 
 echo "=== SUBMITTING TESTS ==="
 while read -r name sheet truth || [[ -n "$name" ]]; do
-  [[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
+	[[ "${name}" =~ ^#.*$ || -z "${name}" ]] && continue
 
 	for wf in "${workflows[@]}"; do
 		wf_name=$(basename "${wf}" .csv)
@@ -286,7 +286,7 @@ while read -r name sheet truth || [[ -n "$name" ]]; do
 		# General check if all files if thruthDir are also in outputDir.
 		if rsync -rnc --delete \
 			--exclude='alignment' \
-  		--exclude='fastqs' \
+			--exclude='fastqs' \
 			"${resultsDir}" "${truthDir}" | grep . > /dev/null
 		then     
 			echo "different" > "${outdir}/diff.txt"
@@ -304,7 +304,7 @@ while read -r name sheet truth || [[ -n "$name" ]]; do
 			"${outdir}"
 		then
 			echo "PASS: ${test_name}"
-  	else
+	else
 			echo "FAIL: ${test_name} >> "${outdir}/diff.txt""
 		fi
 		# safe the test outcome in 'status' 
