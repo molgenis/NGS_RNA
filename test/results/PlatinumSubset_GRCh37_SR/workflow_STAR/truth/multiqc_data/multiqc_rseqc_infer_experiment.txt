@@ -1,0 +1,2 @@
+Sample	se_sense	se_antisense	failed
+stranded	0.5121	0.4788	0.0091

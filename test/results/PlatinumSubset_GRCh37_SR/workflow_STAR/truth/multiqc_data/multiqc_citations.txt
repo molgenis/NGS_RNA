@@ -1,0 +1,9 @@
+10.1093/bioinformatics/btw354                      # MultiQC
+10.1093/bioinformatics/bts356                      # rseqc
+10.1101/201178                                     # gatk
+10.1002/0471250953.bi1110s43                       # gatk
+10.1038/ng.806                                     # gatk
+10.1101/gr.107524.110                              # gatk
+10.1093/bioinformatics/btp352                      # Samtools
+10.1093/bioinformatics/bts635                      # star
+
