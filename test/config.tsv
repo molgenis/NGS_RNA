@@ -1,0 +1,5 @@
+#name	samplesheet	truthset
+PlatinumSubset_GRCh37_SR	PlatinumSubset_GRCh37_SR.csv	results/PlatinumSubset_GRCh37_SR
+PlatinumSubset_GRCh37_PE	PlatinumSubset_GRCh37_PE.csv	results/PlatinumSubset_GRCh37_PE
+#PlatinumSubset_GRCh38_SR	PlatinumSubset_GRCh38_SR.csv	results/PlatinumSubset_GRCh38_SR
+#PlatinumSubset_GRCh38_PE	PlatinumSubset_GRCh38_PE.csv	results/PlatinumSubset_GRCh38_PE

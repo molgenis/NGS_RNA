@@ -1,4 +1,3 @@
-
 <h1>NGS_RNA pipeline</h1>
 
 <h2>Description of the different steps used in the RNA analysis pipeline. </h2>
