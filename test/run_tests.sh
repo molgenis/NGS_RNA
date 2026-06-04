@@ -252,7 +252,7 @@ while true; do
 			running=1
 		fi
 	done
-	clear
+
 	print_status
 	[[ "${running}" -eq 0 ]] && break
 	sleep 10
