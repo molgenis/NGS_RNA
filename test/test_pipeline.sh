@@ -151,7 +151,7 @@ _generatedScriptsFolder="${WORKDIR}/generatedscripts"
 #cleanup
 rm -rfv "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}"
 rm -rfv "/groups/${GROUP}/${TMP}/tmp/NGS_RNA/${_projectName}"
-rm -rfv "/groups/${GROUP}/tmp08/tmp/NGS_RNA/betaAutotest/runs/${_projectName}"
+rm -rfv "/groups/${GROUP}/${TMP}/tmp/NGS_RNA/betaAutotest/runs/${_projectName}"
 mkdir -p	"${WORKDIR}"/generatedscripts
 mkdir -p	"${WORKDIR}/rawdata/ngs/MY_TEST_BAM_PROJECT"
 
@@ -178,7 +178,7 @@ cd scripts
 
 bash CreateExternSamplesProjects_0.sh
 
-cd "/groups/umcg-atd/tmp08/projects/NGS_RNA/${_projectName}/run01/jobs/"
+cd "/groups/${GROUP}/${TMP}/projects/NGS_RNA/${_projectName}/run01/jobs/"
 	
 # reduce runtime 
 perl -pi -e 's|-ERC GVCF|-L 1:17383226-183837051 \\\n  -ERC GVCF|' s*_GatkHaplotypeCallerGvcf_*.sh

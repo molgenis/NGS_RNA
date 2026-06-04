@@ -119,7 +119,7 @@ function contains() {
 	return 1
 }
 
-get_slurm_state() {
+function get_slurm_state() {
 	local jobid="${1}"
 	local state=""
 
