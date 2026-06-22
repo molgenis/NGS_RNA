@@ -17,7 +17,7 @@ parallel(
 				sh '''
             			sudo ssh -tt reception+talos 'exec bash -l << 'ENDSSH'
 	    					echo "Starting automated test"
-					bash /home/umcg-molgenis/run_tests.sh '''+env.CHANGE_ID+'''
+					bash /home/umcg-molgenis/run_tests.sh -p '''+env.CHANGE_ID+'''
 ENDSSH'
         '''	
 	}
@@ -48,7 +48,7 @@ ENDSSH'
 				sh '''
             			sudo ssh -tt portal+hyperchicken 'exec bash -l << 'ENDSSH'
 	    					echo "Starting automated test"
-					bash /home/umcg-molgenis/run_tests.sh '''+env.CHANGE_ID+'''
+					bash /home/umcg-molgenis/run_tests.sh -p '''+env.CHANGE_ID+'''
 ENDSSH'
         '''
 	}
