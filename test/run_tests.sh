@@ -7,7 +7,18 @@ set -euo pipefail
 declare -a workflows=("workflow_STAR.csv" "workflow_GD.csv")
 declare -A JOBID_TO_TEST
 
-tmpdirectory="tmp08" # "${2}"
+host=$(hostname -s)
+
+if [[ "${host}" == "talos" ]]
+then
+	tmpdirectory="tmp08" # "${2}"
+elif [[ "${host}" == "hyperchicken" ]]
+then
+	tmpdirectory="tmp09" # "${2}"
+else
+	echo "No valid host to run Jenkins."
+fi
+
 groupName="umcg-atd" # "${3}"
 workDir="/groups/${groupName}/${tmpdirectory}/tmp/NGS_RNA/betaAutotest"
 pipelineDir="${workDir}/NGS_RNA"
