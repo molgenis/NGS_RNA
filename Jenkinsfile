@@ -10,14 +10,14 @@ parallel(
     				stage ('Automated test') {
         
         				echo "Copy test from repo to molgenis home on Talos"
-        				sh "sudo scp test/test_pipeline.sh reception+talos:/home/umcg-molgenis/"
+        				sh "sudo scp test/run_tests.sh reception+talos:/home/umcg-molgenis/"
         
         				echo "Login to Talos"
 	    
 				sh '''
             			sudo ssh -tt reception+talos 'exec bash -l << 'ENDSSH'
 	    					echo "Starting automated test"
-					bash /home/umcg-molgenis/test_pipeline.sh '''+env.CHANGE_ID+'''
+					bash /home/umcg-molgenis/run_tests.sh '''+env.CHANGE_ID+'''
 ENDSSH'
         '''	
 	}
@@ -41,14 +41,14 @@ ENDSSH'
     				stage ('Automated test') {
         
         				echo "Copy test from repo to molgenis home on Hyperchicken"
-        				sh "sudo scp test/test_pipeline.sh portal+hyperchicken:/home/umcg-molgenis/"
+        				sh "sudo scp test/run_tests.sh portal+hyperchicken:/home/umcg-molgenis/"
         
         				echo "Login to Hyperchicken"
 	    
 				sh '''
             			sudo ssh -tt portal+hyperchicken 'exec bash -l << 'ENDSSH'
 	    					echo "Starting automated test"
-					bash /home/umcg-molgenis/test_pipeline.sh '''+env.CHANGE_ID+'''
+					bash /home/umcg-molgenis/run_tests.sh '''+env.CHANGE_ID+'''
 ENDSSH'
         '''
 	}
