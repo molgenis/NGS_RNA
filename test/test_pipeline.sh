@@ -16,8 +16,19 @@ WORKFLOW=""
 OUTDIR=""
 LOG_PREFIX="[TEST_PIPELINE]"
 ERROR_PREFIX="[ERROR]"
-TMP='tmp08'
 GROUP='umcg-atd'
+
+host=$(hostname -s)
+
+if [[ "${host}" == "talos" ]]
+then
+	TMP="tmp08"
+elif [[ "${host}" == "hyperchicken" ]]
+then
+	TMP="tmp09"
+else
+	echo "No valid host to run Jenkins."
+fi
 
 
 # ========================
