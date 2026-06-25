@@ -36,8 +36,6 @@ set -o pipefail
 
 #Load module
 module load "${picardVersion}"
-module load "${samtoolsVersion}"
-module load "${pythonVersion}"
 module load "${ngsVersion}"
 module load "${rVersion}"
 module list
