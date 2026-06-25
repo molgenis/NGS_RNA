@@ -20,14 +20,14 @@ GROUP='umcg-atd'
 
 host=$(hostname -s)
 
-if [[ "${host}" == "talos" ]]
+if [[ "${host}" == tl-* ]]
 then
 	TMP="tmp08"
-elif [[ "${host}" == "hyperchicken" ]]
+elif [[ "${host}" == hc-* ]]
 then
 	TMP="tmp09"
 else
-	echo "No valid host to run Jenkins."
+	echo "No valid host(${host}) to run Jenkins."
 fi
 
 
