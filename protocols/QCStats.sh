@@ -38,6 +38,7 @@ set -o pipefail
 module load "${picardVersion}"
 module load "${ngsVersion}"
 module load "${rVersion}"
+module load "${samtoolsVersion}"
 module list
 
 # Get strandness.
