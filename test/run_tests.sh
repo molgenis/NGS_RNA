@@ -165,6 +165,7 @@ function should_run_test() {
 function prepareEnv (){
 	#cleanup
 	rm -rf "${workDir:-}"*
+	rm -rf "${projectsDir:-}"PlatinumSubset_*
 	mkdir -p "${pipelineDir}"
 	mkdir -p "${runDir}"
 
