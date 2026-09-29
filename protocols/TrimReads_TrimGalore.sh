@@ -1,5 +1,5 @@
 set -o pipefail
-#MOLGENIS nodes=1 ppn=1 mem=4gb walltime=23:59:00
+#MOLGENIS nodes=1 ppn=4 mem=4gb walltime=23:59:00
 
 #Parameter mapping
 #string seqType
@@ -36,7 +36,7 @@ module list
 if [[ ${seqType} == "PE" ]]
 then
 
-	trim_galore --paired --fastqc --gzip --output_dir "${intermediateDir}" "${peEnd1BarcodeFqGz}" "${peEnd2BarcodeFqGz}" # --clip_R1 --clip_R2
+	trim_galore --cores 4 --paired --fastqc --gzip --output_dir "${intermediateDir}" "${peEnd1BarcodeFqGz}" "${peEnd2BarcodeFqGz}" # --clip_R1 --clip_R2
 
 	fastQfileName1=$(basename -s .fq.gz "${peEnd1BarcodeFqGz}")
 	fastQfileName2=$(basename -s .fq.gz "${peEnd2BarcodeFqGz}")
@@ -56,7 +56,7 @@ then
 elif [[ ${seqType} == "SR" ]]
 then
 
-	trim_galore --fastqc --gzip --output_dir "${intermediateDir}" "${srBarcodeFqGz}"
+	trim_galore --cores 4 --fastqc --gzip --output_dir "${intermediateDir}" "${srBarcodeFqGz}"
 
 	fastQfileName=$(basename -s .fq.gz "${srBarcodeFqGz}")
 

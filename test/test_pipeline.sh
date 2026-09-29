@@ -27,7 +27,7 @@ then
 elif [[ "${host}" == hyperchicken ]]
 then
 	TMP="tmp09"
-    headnode=hyperchicken
+	headnode=hyperchicken
 else
 	echo "No valid host(${host}) to run Jenkins."
 fi
