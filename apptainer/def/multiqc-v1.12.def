@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: ewels/multiqc:v1.12
+
+%runscript
+    exec python /rmats/rmats.py  "$@"
+
+%test
+    python /rmats/rmats.py  --version > /dev/null 2>&1
