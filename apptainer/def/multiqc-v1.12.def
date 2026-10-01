@@ -2,7 +2,7 @@ Bootstrap: docker
 From: ewels/multiqc:v1.12
 
 %runscript
-    exec python /rmats/rmats.py  "$@"
+    exec multiqc "$@"
 
 %test
-    python /rmats/rmats.py  --version > /dev/null 2>&1
+    multiqc --version > /dev/null 2>&1
