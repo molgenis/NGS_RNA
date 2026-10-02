@@ -1,0 +1,2 @@
+Bootstrap: docker
+From: scicomppublic/leafcutter:0.2.10

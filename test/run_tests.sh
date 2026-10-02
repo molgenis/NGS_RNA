@@ -12,11 +12,14 @@ host=$(hostname -s)
 if [[ "${host}" == "talos" ]]
 then
 	tmpdirectory="tmp08" # "${2}"
+	prm="prm08"
 elif [[ "${host}" == "hyperchicken" ]]
 then
 	tmpdirectory="tmp09" # "${2}"
+	prm="prm08"
 else
 	echo "No valid host to run Jenkins."
+	exit 1
 fi
 
 groupName="umcg-atd" # "${3}"
@@ -238,9 +241,9 @@ while read -r name sheet truth || [[ -n "$name" ]]; do
 		mkdir -p "${outdir}"
 
 		echo "Submitting ${test_name}"
-		echo "sbatch --parsable --job-name="${test_name}" --output=${outdir}/%x-%j.out --error=${outdir}/%x-%j.err ${pipelineDir}/test/test_pipeline.sh --samplesheet ${sheet} --workflow ${wf} --workdir ${outdir} --pipeline ${pipelineDir}"
+		echo "sbatch --parsable --job-name="${test_name}" --constraint="${prm}" --output=${outdir}/%x-%j.out --error=${outdir}/%x-%j.err ${pipelineDir}/test/test_pipeline.sh --samplesheet ${sheet} --workflow ${wf} --workdir ${outdir} --pipeline ${pipelineDir}"
 
-		jobid=$(sbatch --parsable --job-name="${test_name}" --output="${outdir}/%x-%j.out" --error="${outdir}/%x-%j.err" ${pipelineDir}/test/test_pipeline.sh \
+		jobid=$(sbatch --parsable --job-name="${test_name}" --constraint="${prm}" --output="${outdir}/%x-%j.out" --error="${outdir}/%x-%j.err" ${pipelineDir}/test/test_pipeline.sh \
 		--samplesheet "${sheet}" \
 		--workflow "${wf}" \
 		--workdir "${outdir}" \

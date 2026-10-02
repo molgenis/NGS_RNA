@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: ghcr.io/seqeralabs/rustqc:v0.2.1
+
+%runscript
+    exec rustqc "$@"
+
+%test
+    rustqc --version > /dev/null 2>&1

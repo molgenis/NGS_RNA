@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: mcfonsecalab/rmats:v4.1.2
+
+%runscript
+    exec python /rmats/rmats.py "$@"
+
+%test
+    python /rmats/rmats.py --version > /dev/null 2>&1

@@ -1,10 +1,11 @@
 #### ENVIRONMENT VARIABLES ####
 queue,atd
-workDir,/groups/${groupname}
-dataDir,${root}/data
-permanentDir,${workDir}/prm03
+workDir,/groups/${groupname}/
+dataDir,${root}/data/
 tmpName,tmp09
-root,/apps
+root,/apps/
+tempDir,${workDir}/${tmpName}/tmp/
+permanentDir,${workDir}/prm09
 
 ##### Tools and versions #####
 toolchain,foss-2022a
