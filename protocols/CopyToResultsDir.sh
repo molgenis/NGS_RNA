@@ -35,6 +35,12 @@ set -o pipefail
 #string groupname
 #string tmpName
 #string logsDir
+#string TAPDir
+#string expressionTAPDir
+#string splicingTAPDir
+#string maeTAPDir
+#string TINTAPdir
+#string strandednessTAPdir
 
 # Make result directories
 mkdir -p "${projectResultsDir}/alignment"
@@ -53,8 +59,8 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy BAM plus index plus md5 sum to results directory
 
-	mv -v "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
-	mv -v "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
+	#mv -v "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
+	#mv -v "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
 # copy qc metrics to qcmetrics folder
 
@@ -69,6 +75,12 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 	rsync -av "${intermediateDir}"/*.idxstats "${projectResultsDir}/qcmetrics/"
 	rsync -av "${intermediateDir}"/*.collectrnaseqmetrics "${projectResultsDir}/qcmetrics/"
 
+# copy the TIN values to the transcriptome_analysis_pipeline folder
+	rsync -av "${intermediateDir}"/TIN/*.housekeeping.summary.txt "${TINTAPdir}/"
+# copy the strandedness per sample to the strandedness TAP dir
+	rsync -av "${intermediateDir}"/*.strandedness.txt "${strandednessTAPdir}"
+	rsync -av "${intermediateDir}"/*.build.txt "${TAPDir}/build/"
+	
 	if [[ "${seqType}" == "PE" ]]
 	then
 		rsync -av "${intermediateDir}"/*.insert_size_metrics "${projectResultsDir}/qcmetrics/"
@@ -82,7 +94,6 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy variant vcfs.
 
-	rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
 	rsync -av "${intermediateDir}/"*".concordance.vcf"* "${projectResultsDir}/variants/concordance/"
 
 # Copy STAR annotated SpliceJunctions
@@ -95,10 +106,19 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		echo "Skip insertSizeMetrics. seqType is: ${seqType}"
 	fi
 
+	GenotypedVariantData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*genotyped.vcf*")
 	DESeq2data=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*DE*")
 	LeafcutterData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*Leafcutter*")
-	VIPData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*VIP*")
 	HTSeqData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*HTSeq*")
+	featureCountsData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*featureCounts*")
+	maeData=$(find "${projectJobsDir}" -maxdepth 1 -mindepth 1 -type f -name "*_mae_report.html")
+	
+	if [[ "${GenotypedVariantData}" -eq '0' ]]
+	then
+		echo "no GenotypedVariant data available"
+	else
+		rsync -av "${projectBatchGenotypedVariantCalls}"* "${projectResultsDir}/variants/"
+	fi
 
 	if [[ "${DESeq2data}" -eq '0' ]]
 	then
@@ -118,9 +138,11 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 	then
 		echo "no Leafcutter Data data available"
 	else
-		# Copy leafcutter
+		# Copy leafcutter junction files to the results dir and to the Transcriptome Analysis Pipeline (TAP) splicing dir.
 		mkdir -p "${projectResultsDir}/leafcutter"
-		# shellcheck source=/dev/null
+		cp "${intermediateDir}/${externalSampleID}.${sampleMergedBamExt}".junc "${projectResultsDir}/leafcutter"
+		cp "${intermediateDir}/${externalSampleID}.${sampleMergedBamExt}".junc "${splicingTAPDir}"
+		# Maybe this part can be removed, the statistical part of Leafcutter wil be in the TAP
 		source "${intermediateDir}/conditionCount.txt"
 		if [[ "${conditionCount}" == 2 ]]
 		then
@@ -138,15 +160,34 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		rsync -av "${intermediateDir}"/*.counts.txt "${projectResultsDir}/expression/"
 		rsync -av "${annotationGtf}" "${projectResultsDir}/expression/"
 		rsync -av "${projectHTseqExpressionTable}" "${projectResultsDir}/expression/"
+		# copy the counts file to the transcriptone_analysis_pipeline folder
+		rsync -av "${intermediateDir}"/*.counts.txt "${expressionTAPDir}/"
 	fi
 
-	if [[ "${VIPData}" -eq '0' ]]
+	if [[ "${featureCountsData}" -eq '0' ]]
 	then
-		echo "no VIP Data data available"
+		echo "no featureCountsdata available"
 	else
-		# Copy VIP vcf
-		mkdir -p "${projectResultsDir}/variants/vip"
-		rsync -av "${projectBatchGenotypedVIPPrefix}"* "${projectResultsDir}/variants/vip/"
+		# Make research results directories
+		mkdir -p "${projectResultsDir}/featureCounts/"
+		# copy feature counts results to results directory and to TAP directory
+		rsync -av "${intermediateDir}/featureCounts/"*outrider* "${projectResultsDir}/featureCounts/"
+		rsync -av "${intermediateDir}/featureCounts/"*featureCounts* "${projectResultsDir}/featureCounts/"
+		rsync -av "${intermediateDir}/featureCounts/"*outrider* "${expressionTAPDir}/"
+		rsync -av "${intermediateDir}/featureCounts/"*featureCounts* "${expressionTAPDir}/"
+		# if featureCounts has run, als copy the splice junction files comming from STAR to the TAP directory
+		rsync -av "${intermediateDir}/"*.SJ.out.tab "${splicingTAPDir}"
+	fi
+
+	if [[ "${maeData}" -eq '0' ]]
+	then
+		echo "no mono allelic expression data avalable"
+	else
+		# Make results directory for the NGS_RNA project
+		mkdir -p "${projectResultsDir}/maeData/"
+		rsync -av "${intermediateDir}/"*_mae_report.html "${projectResultsDir}/maeData/"
+		# copy the final .tsv file to the mae TAP directory, so it can be added to the TAP report
+		rsync -av "${intermediateDir}/"split*/*_result_mae_final.tsv "${maeTAPDir}"
 	fi
 
 echo "pipeline is finished"

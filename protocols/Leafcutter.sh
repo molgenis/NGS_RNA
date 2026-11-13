@@ -10,7 +10,6 @@ set -o pipefail
 #string strandedness
 #string sampleMergedBamExt
 #string annotationTxt
-#string leafcutterAllExon
 #string sifDir
 
 makeTmpDir "${intermediateDir}"

@@ -13,6 +13,7 @@ set -o pipefail
 #string groupname
 #string tmpName
 #string logsDir
+#string externalSampleID
 
 module load "${htseqVersion}"
 module load "${samtoolsVersion}"
@@ -25,12 +26,12 @@ tmpSampleHTseqExpressionText=${MC_tmpFile}
 
 
 # detect strand for HTSeq
-ROWNR=$(wc -l "${strandedness}" | awk '{ print $1 }')
+ROWNR=$(wc -l "${strandedness}/${externalSampleID}.strandedness.txt" | awk '{ print $1 }')
 
 if [[ "${ROWNR}" == 6 ]]
 then
-	num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
-	num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
+	num1="$(tail -n 2 "${strandedness}/${externalSampleID}.strandedness.txt" | awk '{print $7}' | head -n 1)"
+	num2="$(tail -n 1 "${strandedness}/${externalSampleID}.strandedness.txt" | awk '{print $7}')"
 
 	STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "yes"}else if($2 > 0.6){print "reverse"}else if($1 < 0.6 && $2 < 0.6){print "no"} }')
 
@@ -47,7 +48,7 @@ samtools \
 	htseq-count \
 	-m union \
 	-s "${STRANDED}" \
-	-i gene_name \
+	-i gene_id \
 	- \
 	"${annotationGtf}" \
 	> "${tmpSampleHTseqExpressionText}"

@@ -8,17 +8,24 @@ set -o pipefail
 #string bed12
 #string logsDir
 #string intermediateDir
+#string externalSampleID
+#string genome
 
 #Load module
 module load "${rSeQCVersion}"
 module list
 
-makeTmpDir "${strandedness}"
-tmpStrandedness=${MC_tmpFile}
+makeTmpDir "${intermediateDir}"
+tmpStrandednessDir=${MC_tmpFile}
 
 
-i=$(find "${intermediateDir}" -name "*.sorted.merged.bam" | shuf -n 1)
+i=$(find "${intermediateDir}" -name "${externalSampleID}.sorted.merged.bam")
 
-infer_experiment.py -r "${bed12}" -i "${i}" > "${tmpStrandedness}"
+infer_experiment.py -r "${bed12}" -i "${i}" > "${tmpStrandednessDir}/${externalSampleID}.strandedness.tmp.txt"
 
-mv "${tmpStrandedness}" "${strandedness}"
+mv "${tmpStrandednessDir}/${externalSampleID}.strandedness.tmp.txt" "${intermediateDir}/${externalSampleID}.strandedness.txt"
+
+# for the transcriptone-analysis-pipeline we need the build version
+echo "${genome}" > "${intermediateDir}/${externalSampleID}.build.txt"
+
+
