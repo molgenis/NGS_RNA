@@ -48,14 +48,16 @@ then
 	echo "Processing chromosome: ${MAEchrID}, for chr1 and chr2 do first only the chr1 and chr2 and then grep on chr1_ andn chr2_, if the grep is on chr1, it will also include chr10 trough chr19"
 	bcftools view -O z -o "${intermediateDir}/split.${base_vcf}/split.${base_vcf}.${MAEchrID}.vcf.gz" "${WGSvcfID}" "${MAEchrID}"
 	
-	declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}_" | cut -f 1 | sort | uniq))
+	mapfile -t chroms < <(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}_" | cut -f 1 | sort | uniq)
+	#declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}_" | cut -f 1 | sort | uniq))
 
 	for Chr in "${chroms[@]}"; do
 		echo "Processing chromosome: ${Chr}"
 		bcftools view -O z -o "${intermediateDir}/split.${base_vcf}/split.${base_vcf}.${Chr}.vcf.gz" "${WGSvcfID}" "${Chr}"
 	done
 else
-	declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}" | cut -f 1 | sort | uniq))
+	mapfile -t chroms < <(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}" | cut -f 1 | sort | uniq)
+	#declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}" | cut -f 1 | sort | uniq))
 	for Chr in "${chroms[@]}"; do
 		echo "Processing chromosome: ${Chr}"
 		bcftools view -O z -o "${intermediateDir}/split.${base_vcf}/split.${base_vcf}.${Chr}.vcf.gz" "${WGSvcfID}" "${Chr}"

@@ -59,8 +59,8 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 
 # Copy BAM plus index plus md5 sum to results directory
 
-	#mv -v "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
-	#mv -v "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
+	mv -v "${intermediateDir}"/*.sorted.merged.bam "${projectResultsDir}/alignment/"
+	mv -v "${intermediateDir}"/*.sorted.merged.bam.{md5sum,bai,bai.md5sum} "${projectResultsDir}/alignment/"
 
 # copy qc metrics to qcmetrics folder
 
@@ -143,13 +143,15 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		cp "${intermediateDir}/${externalSampleID}.${sampleMergedBamExt}".junc "${projectResultsDir}/leafcutter"
 		cp "${intermediateDir}/${externalSampleID}.${sampleMergedBamExt}".junc "${splicingTAPDir}"
 		# Maybe this part can be removed, the statistical part of Leafcutter wil be in the TAP
-		source "${intermediateDir}/conditionCount.txt"
-		if [[ "${conditionCount}" == 2 ]]
+		if [[ -f "${intermediateDir}/conditionCount.txt" ]]
 		then
-			rsync -av "${intermediateDir}"/*leafcutter_ds* "${projectResultsDir}/leafcutter/"
-		else
-			rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
-		fi
+			source "${intermediateDir}/conditionCount.txt"
+			if [[ "${conditionCount}" == 2 ]]
+			then
+				rsync -av "${intermediateDir}"/*leafcutter_ds* "${projectResultsDir}/leafcutter/"
+			else
+				rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
+			fi
 	fi
 
 	if [[ "${HTSeqData}" -eq '0' ]]

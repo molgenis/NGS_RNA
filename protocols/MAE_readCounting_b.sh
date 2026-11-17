@@ -42,7 +42,8 @@ function readCounting() {
 		printf "BAM contains read groups RG, continuing with ASEReadCounter...\n"
 	fi
 	
-	local _chr_base_vcf=$(basename -s .vcf.gz "${_chrvcfid}")
+	local _chr_base_vcf
+	_chr_base_vcf=$(basename -s .vcf.gz "${_chrvcfid}")
 	echo "_chr_base_vcf=${_chr_base_vcf}"
 	#base_vcf="${WGSvcfID%.vcf.gz}"
 	
@@ -96,14 +97,16 @@ then
 	echo "Processing chromosome: ${MAEchrID}, for chr1 and chr2 do first only the chr1 and chr2 and then grep on chr1_ andn chr2_, if the grep is on chr1, it will also include chr10 trough chr19"
 	readCounting "${intermediateDir}/split.${base_vcf}/split.${base_vcf}.${MAEchrID}.vcf.gz" "${MAEchrID}" "${intermediateDir}/split.${base_vcf}/"
 
-	declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}_" | cut -f 1 | sort | uniq))
+	mapfile -t chroms < <(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}_" | cut -f 1 | sort | uniq)
+#	declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}_" | cut -f 1 | sort | uniq))
 
 	for Chr in "${chroms[@]}"; do
 		echo "Processing chromosome: ${Chr}"
 		readCounting "${intermediateDir}/split.${base_vcf}/split.${base_vcf}.${Chr}.vcf.gz" "${Chr}" "${intermediateDir}/split.${base_vcf}/"
 	done
 else
-	declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}" | cut -f 1 | sort | uniq))
+	mapfile -t chroms < <(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}" | cut -f 1 | sort | uniq)
+#	declare -a chroms=($(bcftools view "${WGSvcfID}" | grep -v '^#' | grep "${MAEchrID}" | cut -f 1 | sort | uniq))
 	for Chr in "${chroms[@]}"; do
 		echo "Processing chromosome: ${Chr}"
 		readCounting "${intermediateDir}/split.${base_vcf}/split.${base_vcf}.${Chr}.vcf.gz" "${Chr}" "${intermediateDir}/split.${base_vcf}/"

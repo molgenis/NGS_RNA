@@ -89,7 +89,7 @@ ml "${ngsVersion}"
 module list
 
 
-
+# shellcheck disable=SC2016
 apptainer exec "${sifDir}/${reportSif}" bash -c '
 			# Build command
 			# the original command
@@ -107,8 +107,6 @@ apptainer exec "${sifDir}/${reportSif}" bash -c '
 
 			#echo "Running: ${cmd}"
 			#eval "${cmd}"
-
-
 '
 
 
