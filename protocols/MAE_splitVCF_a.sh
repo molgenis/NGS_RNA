@@ -31,7 +31,7 @@ fi
 
 mkdir -p "${intermediateDir}/split.${base_vcf}/"
 
- # Index the VCF if not indexed already
+# Index the VCF if not indexed already
 if [[ -f "${WGSvcfID}".csi ]]
 then
 	echo "index file already excists"
