@@ -34,7 +34,7 @@ fi
 ## 1 = forward strand == 1++,1--,2+-,2-+ 
 ## 2 = reversed strand == 1+-,1-+,2++,2--
 
-strandFraction=$(grep 1+-,1-+,2++,2-- "${strandedness}/${externalSampleID}.strandedness.txt" | sed 's/^[^:]*: //')
+strandFraction=$(grep 1+-,1-+,2++,2-- "${strandedness}" | sed 's/^[^:]*: //')
 
 if [[ "${strandFraction}" =~ ^0.9 ]]
 then

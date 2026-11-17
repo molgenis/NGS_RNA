@@ -22,8 +22,8 @@ module load "${pythonVersion}"
 module list
 
 # detect strand for RegTools
-num1="$(tail -n 2 "${intermediateDir}/${externalSampleID}.strandedness.txt" | awk '{print $7}' | head -n 1)"
-num2="$(tail -n 1 "${intermediateDir}/${externalSampleID}.strandedness.txt" | awk '{print $7}')"
+num1="$(tail -n 2 "${strandedness}" | awk '{print $7}' | head -n 1)"
+num2="$(tail -n 1 "${strandedness}" | awk '{print $7}')"
 
 STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "RF"}else if($2 > 0.6){print "FR"}else if($1 < 0.6 && $2 < 0.6){print "XS"} }')
 

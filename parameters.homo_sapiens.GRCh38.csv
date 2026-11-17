@@ -101,7 +101,7 @@ flagstatMetrics,${intermediateDir}${externalSampleID}.flagstat
 idxstatsMetrics,${intermediateDir}${externalSampleID}.idxstats
 dupStatMetrics,${intermediateDir}${externalSampleID}.mdupmetrics
 rnaSeqMetrics,${intermediateDir}${externalSampleID}.collectrnaseqmetrics
-strandedness,${intermediateDir}
+strandedness,${intermediateDir}/${externalSampleID}.strandedness.txt
 alignmentMetrics,${intermediateDir}${externalSampleID}.alignment_summary_metrics
 insertsizeMetrics,${intermediateDir}${externalSampleID}.insertsizemetrics
 insertsizeMetricspdf,${intermediateDir}${externalSampleID}.insert_size_histogram.pdf
