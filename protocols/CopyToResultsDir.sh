@@ -152,6 +152,9 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 			else
 				rsync -av "${intermediateDir}"/*leafcutter.outlier* "${projectResultsDir}/leafcutter/"
 			fi
+		else
+			echo "no conditionCount.txt file available"
+		fi
 	fi
 
 	if [[ "${HTSeqData}" -eq '0' ]]
