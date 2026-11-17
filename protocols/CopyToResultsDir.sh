@@ -145,6 +145,7 @@ mkdir -p "${projectResultsDir}/qcmetrics"
 		# Maybe this part can be removed, the statistical part of Leafcutter wil be in the TAP
 		if [[ -f "${intermediateDir}/conditionCount.txt" ]]
 		then
+			# shellcheck disable=SC1091
 			source "${intermediateDir}/conditionCount.txt"
 			if [[ "${conditionCount}" == 2 ]]
 			then
