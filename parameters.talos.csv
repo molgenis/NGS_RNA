@@ -17,12 +17,12 @@ samtoolsVersion,SAMtools/1.16.1-${GCCcoreVersion}
 bedToolsVersion,BEDTools/2.30.0-${GCCcoreVersion}
 BCFtoolsVersion,BCFtools/1.16-${GCCcoreVersion}
 sambambaVersion,sambamba/0.7.0
-picardVersion,picard/2.26.10-Java-8-LTS
+picardVersion,picard/2.26.10-Java-11-LTS
 htseqVersion,HTSeq/0.12.3-${GCCcoreVersion}-Python-3.10.4
 htsLibVersion,HTSlib/1.16-${GCCcoreVersion}
 pythonVersion,Python/3.10.4-${GCCcoreVersion}-bare
 pythonPlusVersion,PythonPlus/3.10.4-${GCCcoreVersion}-v23.01.1
-gatkVersion,GATK/4.2.4.1-Java-8-LTS
+gatkVersion,GATK/4.2.4.1-Java-11-LTS
 multiqcVersion,multiqc_v1.12.sif
 starVersion,STAR/2.7.9a-GCC-11.3.0
 picardJar,picard.jar

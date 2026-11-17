@@ -1,0 +1,8 @@
+Bootstrap: docker
+From: gudeqing/rnaseqc:2.4.2
+
+%runscript
+    exec rnaseqc "$@"
+
+%test
+    rnaseqc --version > /dev/null 2>&1
