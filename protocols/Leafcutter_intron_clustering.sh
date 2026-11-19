@@ -13,6 +13,7 @@ set -o pipefail
 #string sifDir
 #string pythonVersion
 #string leafcutterVersion
+#string externalSampleID
 
 #Load module
 module load "${regToolsVersion}"
@@ -28,6 +29,8 @@ STRANDED=$(echo -e "${num1}\t${num2}" | awk '{if ($1 > 0.6){print "RF"}else if($
 
 echo -e "\nWith strandedness type: ${STRANDED},
 where (0 = unstranded, 1 = first-strand/RF, 2, = second-strand/FR)."
+
+#create a junction file per sample.
 
 rm -f "${intermediateDir}${project}_juncfiles.txt"
 cd "${intermediateDir}" || exit
@@ -45,9 +48,10 @@ do
 	-s "${STRANDED}" \
 	"${bamfile}" \
 	-o "${bamfile}.junc"
-
+	
 	echo "${intermediateDir}${bamfile}.junc" >> "${intermediateDir}${project}_juncfiles.txt"
 done
+
 
 singularity exec --bind "/groups/:/groups,/apps/:/apps" "${sifDir}/${leafcutterVersion}" \
 python "/app/leafcutter/clustering/leafcutter_cluster_regtools.py" \
@@ -59,3 +63,4 @@ python "/app/leafcutter/clustering/leafcutter_cluster_regtools.py" \
 --nochromcheck=NOCHROMCHECK
 
 cd - || exit
+

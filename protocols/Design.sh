@@ -2,7 +2,6 @@ set -o pipefail
 #MOLGENIS nodes=1 ppn=1 mem=4gb walltime=05:59:00
 
 #Parameter mapping
-#string RDepBundle
 #string intermediateDir
 #list externalSampleID
 #string project

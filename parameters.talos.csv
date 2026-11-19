@@ -7,6 +7,11 @@ root,/apps/
 tempDir,${workDir}/${tmpName}/tmp/
 permanentDir,${workDir}/prm08
 
+## change the tmpDataDir to match your environment
+tmpDataDir,${workDir}/${tmpName}
+tempDir,${tmpDataDir}/tmp
+tempTmpDir,${tmpDataDir}/tmp/processing
+
 ##### Tools and versions #####
 toolchain,foss-2022a
 GCCcoreVersion,GCCcore-11.3.0
