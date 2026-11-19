@@ -1,0 +1,4 @@
+Sample	pe_sense	pe_antisense	failed
+SRR15529062.strandedness	0.4887	0.4639	0.0474
+SRR15529064.strandedness	0.4802	0.4621	0.0577
+SRR15529069.strandedness	0.4854	0.4647	0.0499

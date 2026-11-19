@@ -1,0 +1,7 @@
+Sample	Samtools_mqc-generalstats-samtools-flagstat_total	Samtools_mqc-generalstats-samtools-mapped_passed	RSeQC_mqc-generalstats-rseqc-TIN_stdev	RSeQC_mqc-generalstats-rseqc-TIN_median	Picard_mqc-generalstats-picard-PCT_RIBOSOMAL_BASES	Picard_mqc-generalstats-picard-PCT_MRNA_BASES	Picard_mqc-generalstats-picard-PCT_PF_READS_ALIGNED	Picard_mqc-generalstats-picard-summed_median	Picard_mqc-generalstats-picard-summed_mean	STAR_mqc-generalstats-star-uniquely_mapped_percent	STAR_mqc-generalstats-star-uniquely_mapped
+SRR15529062	49684	49678	7.097827864132412	40.19859434771261		90.7481	0.999878	1986	4290.523336	99.31	24496.0
+SRR15529062._STARpass1										99.49	24538.0
+SRR15529064	45270	45268	17.511728343258774	38.7326809681252		80.26830000000001	0.999956	414	1992.537252	99.55	22416.0
+SRR15529064._STARpass1										99.59	22425.0
+SRR15529069	60996	60992	7.56299010310164	39.293775042634906		92.6296	0.999934	1983	4144.488806	99.24	30007.0
+SRR15529069._STARpass1										99.5	30087.0

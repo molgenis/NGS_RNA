@@ -31,7 +31,7 @@ Options:
 	-t   tmpDirectory (default=basename of ../../ )
 	-w   workdir (default= current dir, ${pwd)
 	-c   createWorkflow (default=create_in-house_ngs_projects_workflow.csv, option "${EBROOTNGS_RNA}/create_external_samples_ngs_projects_workflow.csv")
-	-o   pipeline (default=GD, options: "STAR", "GD", "")
+	-o   pipeline (default=GD, options: "STAR", "GD", "TAP")
 ===============================================================================================================
 EOH
 	trap - EXIT
@@ -70,7 +70,7 @@ if [[ -z "${filePrefix:-}" ]]; then filePrefix=$(basename $(pwd)) ; fi ; echo "f
 if [[ -z "${runID:-}" ]]; then runID="run01" ; fi ; echo "runID=${runID}"
 if [[ -z "${project:-}" ]]; then project="${filePrefix}" ; fi ; echo "project=${project}"
 if [[ -z "${createWorkflow:-}" ]]; then createWorkflow="${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv" ; fi ; echo createWorkflow="${EBROOTNGS_RNA}/create_in-house_ngs_projects_workflow.csv"
-if [[ -z "${pipeline:-}" ]]; then pipeline="GD" ; fi ; echo "pipeline=GD"
+if [[ -z "${pipeline:-}" ]]; then pipeline="GD" ; fi ; echo "pipeline=${pipeline}"
 
 if [ ! -d "/groups/${group}" ]
 then
@@ -78,7 +78,26 @@ then
 	exit 1
 fi
 
-build="GRCh37" # GRCh37, HG19
+# get the build version from the samplesheet
+declare -a statsFileColumnNames=()
+declare -A statsFileColumnOffsets=()
+
+IFS=$',' read -r -a statsFileColumnNames <<< "$(head -1 "${project}.csv")"
+
+for (( offset = 0 ; offset < ${#statsFileColumnNames[@]} ; offset++ ))
+do
+	columnName="${statsFileColumnNames[${offset}]}"
+	statsFileColumnOffsets["${columnName}"]="${offset}"
+done
+
+buildFieldIndex=$((${statsFileColumnOffsets['build']} + 1))
+
+if [[ -n "${statsFileColumnOffsets['build']+isset}" ]]
+then
+	buildFieldIndex=$((${statsFileColumnOffsets['build']} + 1))
+fi
+
+build=$(awk -v s1="${buildFieldIndex}" 'BEGIN {FS=","}{OFS=","}{print $s1}' "${project}.csv" | tail -1)
 species="homo_sapiens"
 workflow="${EBROOTNGS_RNA}/workflow_${pipeline}.csv"
 customParameters="${EBROOTNGS_RNA}/parameters.${host}.csv"
@@ -94,6 +113,7 @@ perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${EBROOTNGS_RNA}/parame
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${customParameters}" > \
 "${workDir}/parameters.${host}.csv"
 
+cp "${EBROOTNGS_RNA}/batchIDList_${build}.csv" "${workDir}/batchIDList_${build}.csv"
 
 sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${workDir}/parameters.${host}.csv" \
@@ -111,4 +131,5 @@ ngsVersion=$(module list | grep -o -P 'NGS_RNA(.+)');\
 worksheet=${workDir}/${project}.csv;\
 parameters_build=${workDir}/parameters.${species}.${build}.csv;\
 parameters_chromosomes=${EBROOTNGS_RNA}/chromosomes.${species}.csv;\
-parameters_environment=${workDir}/parameters.${host}.csv"
+parameters_environment=${workDir}/parameters.${host}.csv;\
+parameters_MAEchr=${workDir}/batchIDList_${build}.csv"

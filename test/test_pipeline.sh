@@ -4,7 +4,7 @@
 #SBATCH --mem 1gb
 #SBATCH --open-mode=append
 #SBATCH --export=NONE
-#SBATCH --get-user-env=60L
+#SBATCH --get-user-env
 
 set -euo pipefail
 
