@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Interactive RNA outliers report</title>
+        <style>
+            body {
+                font-size: medium;
+                font-family: Helvetica, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: block;
+            }
+            
+            .topbar {
+                width: 100%;
+                height: 60px;
+                background-color: #222;
+                color: #fafafa;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                z-index: 1000;
+                border-bottom: solid #e4e4e4 1px;
+                box-shadow: 1px #dedede;
+                overflow: hidden;
+            }
+
+            #toggle-button {
+                font-size: 30px;
+                padding: 15px;
+                align-items: center;
+                cursor: pointer;
+                color: #fafafa;
+                background-color: #222;
+                border: none;
+                margin-right: 10px;
+            }
+            #toggle-button:hover {
+                color: #fafafa;
+                background-color: #111;
+            }
+
+            .sidebar {
+                list-style-type: none;
+                font-size: medium;
+                padding: 0px;
+                width: 200px;
+                height: 92vh;
+                position: fixed;
+                overflow-y: scroll;
+                left: -220px;
+                top: 45px;
+                transition: 0.2s;
+                z-index: 999;
+                border-right: solid #dadada 1px;
+                background-color: #fafafa;
+                padding-bottom: 20px;
+                -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                scrollbar-width: none;  /* Firefox */
+            }
+            .sidebar::-webkit-scrollbar { 
+                display: none;  /* Safari and Chrome */
+            }
+
+            li {
+                display: block;
+            }
+
+            .sidebar a {
+                display: block;
+                background-color: #fafafa;
+                border-radius: 10px;
+                margin: 10px;
+                text-align: center;
+                font-size: medium;
+                padding: 10px;
+                color: #222222;
+                text-decoration: none;
+                border: #dadada solid 1px;
+                cursor: pointer;
+            }
+
+            .sidebar a:hover {
+                background-color: #f0f0f0;
+            }
+
+            .sidebar a.active {
+                background-color: #222;
+                color: #f4f4f4;
+            }
+
+            .content {
+                margin-top: 60px;
+                padding: 10px;
+                transition: margin-left 0.2s;
+                flex-direction: column;
+                overflow: scroll;
+                -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                scrollbar-width: none;  /* Firefox */
+            }
+            .content::-webkit-scrollbar { 
+                display: none;  /* Safari and Chrome */
+            }
+
+
+            .card {
+                display: none;
+                background-color: #fafafa;
+                padding: 15px;
+                border-radius: 12px;
+                border: solid #dadada 1px;
+                box-shadow: 1px #cccccc;
+                margin-bottom: 10px;
+                overflow: scroll;
+                -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                scrollbar-width: none;  /* Firefox */
+            }
+
+            .card.active {
+                display: block;
+            }
+
+
+
+            .card-header {
+                text-align: center;
+                border-bottom: #dadada solid 1px;
+                color: #222;
+                font-size: medium;
+                margin-top: 0px;
+                padding-bottom: 10px;
+            }
+
+            .card-content {
+                display:flex;
+                padding: 10px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-content: stretch;
+            }
+
+            .filter-list {
+                list-style-type: none;
+                padding: 0;
+                font-size: small;
+                align-items: left;
+                padding: 5px;
+                margin: 3px;
+            }
+
+            .filter-list li {
+                margin: 5px 0;
+            }
+
+            .filter-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #ffffff;
+                padding: 5px;
+                border-radius: 5px;
+            }
+
+            .filter-item button {
+                background-color: #ff8965;
+                color: white;
+                border: none;
+                border-radius: 25%;
+                cursor: pointer;
+                width: 12px;
+                height: 5px;
+            }
+
+            .filter-input {
+                font-size: small;
+            }
+
+            .filter-input button {
+                background-color: #fafafa;
+                font-size: x-large;
+                color: #222;
+                border: none;
+                cursor: pointer;
+            }
+
+            .filter-input button:hover {
+                color: #444;
+                
+            }
+
+            .filter-input input {
+                margin: 5px;
+                width: 110px ;
+                border: #dadada solid 1px;
+                height: 20px;
+            } 
+
+
+            .filter-box {
+                display: none;
+                border-radius: 10px;
+                margin: 10px;
+                text-align: center;
+                align-items: center;
+                font-size: medium;
+                padding: 10px;
+                color: #222222;
+                text-decoration: none;
+                border: #dadada solid 1px;
+            }
+
+            .filter-box.active {
+                display: block;
+            }
+
+            .slider {
+                align-items: center;
+                font-size: smaller;
+                text-align: center;
+                color: #222222;
+            }
+
+
+            /*********** Baseline, reset styles ***********/
+            input[type="range"] {
+                -webkit-appearance: none;
+                appearance: none;
+                background: transparent;
+                cursor: pointer;
+                margin-top: 15px;
+            }
+            
+            /* Removes default focus */
+            input[type="range"]:focus {
+                outline: none;
+            }
+            
+            /******** Chrome, Safari, Opera and Edge Chromium styles ********/
+            /* slider track */
+            input[type="range"]::-webkit-slider-runnable-track {
+                background-color: #ebebeb;
+                border-radius: 0.5rem;
+                height: 0.5rem;
+            }
+
+            /* slider thumb */
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none; /* Override default look */
+                appearance: none;
+                margin-top: -4px; /* Centers thumb on the track */
+                background-color: #222;
+                border-radius: 0.5rem;
+                height: 1rem;
+                width: 1rem;
+            }
+
+            input[type="range"]:focus::-webkit-slider-thumb {
+                outline: 3px solid #222;
+                outline-offset: 0.125rem;
+            }
+
+            /*********** Firefox styles ***********/
+            /* slider track */
+            input[type="range"]::-moz-range-track {
+                background-color: #ebebeb;
+                border-radius: 0.5rem;
+                height: 0.5rem;
+            }
+
+            /* slider thumb */
+            input[type="range"]::-moz-range-thumb {
+                background-color: #222;
+                border: none; /*Removes extra border that FF applies*/
+                border-radius: 0.5rem;
+                height: 1rem;
+                width: 1rem;
+            }
+
+            input[type="range"]:focus::-moz-range-thumb{
+                outline: 3px solid #000000;
+                outline-offset: 0.125rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="topbar" class="topbar">
+            <button id="toggle-button">=</button>
+              patient_id: {{patient_id}}
+        </div>
+        <ul id="sidebar" class="sidebar">
+            <div style="height: 5px;"></div>
+            <li><a id="mae-button" onclick="showSection('mae')">MAE</a></li>
+            <li><a id="info-button" onclick="showSection('info')">Info</a></li>
+            
+            <div id="gene-filter" class="filter-box">
+                <div class="filter-input">
+                    <label for="gene-filter">Gene<br></label>
+                    <input  type="text" id="gene-input">
+                    <button onclick="addFilter('gene')">+</button>
+                </div>
+                <ul id="gene-filter-list" class="filter-list"></ul>
+            </div>
+            <div id="hpo-filter" class="filter-box">
+                <label for="hpo-filter-list" style="font-size: small;">HPO</label>
+                <ul id="hpo-filter-list" class="filter-list"></ul>
+                </div>
+            </div>
+
+            <!-- MAE filters  -->
+            <div id="mae-filters" class="filter-box">
+                <div id="mae-significance-slider" class="slider">
+                    <label for="mae-significance-filter">Significance ({{filter_pval}}):</label>
+                    <input type="range" id="mae-significance-filter" min="0" max="1" step="0.05" value="0.05" oninput="updateFilterValues()">
+                    <span id="mae-significance-value">0.05</span>
+                </div>
+                <div id="mae-effect-size-slider" class="slider">
+                        <label for="mae-effect-size-filter">log2FC:</label>
+                        <input type="range" id="mae-effect-size-filter" min="0" max="20" step="0.5" value="0" oninput="updateFilterValues()">
+                        <span id="mae-effect-size-value">0</span>
+                </div>
+            </div>
+        </ul>
+        <div id="content" class="content">
+
+            <!-- MAE content  -->
+            <div id="mae-card" class="card">
+                <div class="card-header">Mono allelic expression</div>
+                <div class="card-content">
+                    {{mae_table}}
+                    {{mae_plot}}
+                </div>
+            </div>
+            <!-- Run info -->
+            <div id="info-card" class="card">
+                <div class="card-header">Info</div>
+                <div class="card-content">
+                    <div style="font-size: medium;">
+                        <br>
+                        Analysis <br>
+                        --------------------------- <br>
+                        R version: {{R_version}} <br>
+                        MAE:  <br>
+                        GATK version: {{GATK_version}}<br>
+                        BCFtools version: {{bcftools_version}} <br>
+                        tMAE version: {{tMAE_version}}<br> <br>
+                        Report <br>
+                        --------------------------- <br>
+                        Python version: {{python_version}} <br>
+                        gene panel file: {{gene_panel_file}} <br>
+                        hpo terms: {{hpo_terms}}
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+        <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+
+        <script>
+            // Sidebar toggle
+            document.getElementById("toggle-button").addEventListener("click", function() {
+                let sidebar = document.getElementById("sidebar");
+                let content = document.getElementById("content");
+                if (sidebar.style.left === "0px") {
+                    sidebar.style.left = "-200px";
+                    content.style.marginLeft = "0px";
+                } else {
+                    sidebar.style.left = "0px";
+                    content.style.marginLeft = "200px";
+                }
+            });
+            
+            // Initialize DataTable
+            $(document).ready(function() {
+            
+            var maeTable = $('.mae_table').DataTable({
+                select: true,
+                scrollY: '350px',
+                scrollX: '1000px',
+                scrollCollapse: true,
+                pageLength: 10,
+                lengthMenu: [10],
+                dom: 'Btp',
+                buttons: ['excel'],
+                order: [['{{filter_pval}}', "asc"]]
+                
+            });
+            
+            var enrichtmentTable = $('.gene_enrichment').DataTable({
+                select: true,
+                scrollY: '350px',
+                scrollX: '1400px',
+                scrollCollapse: true,
+                pageLength: 10,
+                lengthMenu: [10],
+                dom: 'Btp',
+                buttons: ['excel'],
+                
+            });
+
+            filterTable();
+        });
+
+        // Filter significance and effect size on input change
+        $('#mae-significance-filter, #mae-effect-size-filter').on('input', updateFilterValues);
+
+        // Update the displayed filter values
+        function updateFilterValues() {
+            $('#mae-significance-value').text($('#mae-significance-filter').val());
+            $('#mae-effect-size-value').text($('#mae-effect-size-filter').val());
+            filterTable();
+        };
+        // add gene/hpo filtering
+        var hpoTerms = {{hpo_terms}};
+
+        // Function to automatically add HPO terms to the filter list
+        hpoTerms.forEach(function(term) {
+            var filterItem = $('<li class="filter-item"></li>').text(term);
+            var removeButton = $('<button></button>').click(function() {
+                $(this).parent().remove();
+                filterTable();
+            });
+            filterItem.append(removeButton);
+            $('#hpo-filter-list').append(filterItem);
+        });
+        function addFilter(type) {
+            var value = $('#' + type + '-input').val().trim();
+            if (value) {
+                var filterList = $('#' + type + '-filter-list');
+                var filterItem = $('<li class="filter-item"></li>').text(value);
+                var removeButton = $('<button></button>').click(function() {
+                    $(this).parent().remove();
+                    filterTable();
+                });
+                filterItem.append(removeButton);
+                filterList.append(filterItem);
+                $('#' + type + '-input').val(''); //clear input
+                filterTable();
+            }
+        };
+        
+
+            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            if ($(settings.nTable).hasClass('mae_table')){
+                var maeSignificanceFilter = parseFloat($('#mae-significance-filter').val());
+                var maeEffectSizeFilter = parseFloat($('#mae-effect-size-filter').val());
+                var maeSignificance = parseFloat(data[headerIndex(settings, 'padjust')] || 0);
+                var maeEffectSize = parseFloat(Math.abs(data[7]) || 0); // col index 6 is deltaPsi
+                var maeSignificance = parseFloat(data[headerIndex(settings, '{{filter_pval}}')] || 0);
+                var maeEffectSize = parseFloat(Math.abs(data[headerIndex(settings, 'log2FC')]) || 0);
+
+                if (
+                    ( isNaN(maeSignificanceFilter) && (isNaN(maeEffectSizeFilter)) ) ||
+                    ( isNaN(maeSignificanceFilter) && maeEffectSize >= maeEffectSizeFilter ) ||
+                    ( maeSignificance <= maeSignificanceFilter && isNaN(maeEffectSizeFilter) ) ||
+                    ( maeSignificance <= maeSignificanceFilter && maeEffectSize >= maeEffectSizeFilter )
+
+                ) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+            });
+
+        function headerIndex(settings, headerName) {
+            var index = -1;
+            settings.aoColumns.forEach(function(column, i) {
+                if (column.sTitle.includes(headerName)) {
+                index = i;
+                }
+            });
+            return index;
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('.sidebar a');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            var sections = document.querySelectorAll('.filter-box');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+
+            var sections = document.querySelectorAll('.card');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            
+            
+
+            var activeButtonfilter = document.getElementById(sectionId.concat("-button"));
+            activeButtonfilter.classList.add('active');
+
+            if (sectionId !== "info") {
+                var activeFiltersfilter = document.getElementById(sectionId.concat("-filters"));
+                activeFiltersfilter.classList.add('active');
+
+                var activeGenefilter = document.getElementById("gene-filter");
+                activeGenefilter.classList.add('active');
+
+                var hpoFilters = $('#hpo-filter-list').children().map(function() {
+                    return $(this).text().slice(0, -1).toLowerCase();
+                    }).get();
+
+                if (hpoFilters.length > 0) {
+                    document.getElementById("hpo-filter").classList.add('active')
+                };
+            }
+
+            var activeCardfilter = document.getElementById(sectionId.concat("-card"));
+            activeCardfilter.classList.add('active');
+        };
+
+        function filterTable() {
+            var geneFilters = $('#gene-filter-list').children().map(function() {
+                return $(this).text().slice(0, -1).toLowerCase();
+            }).get();
+
+            
+            var geneFilterString = geneFilters.length > 0 ? geneFilters.join('|') : '';
+
+            var hpoFilters = $('#hpo-filter-list').children().map(function() {
+                return $(this).text().slice(0, -1).toLowerCase();
+            }).get();
+            var hpoFilterString = hpoFilters.length > 0 ? hpoFilters.join('|') : '';
+
+            var maeTable = $('.mae_table').DataTable();
+            maeTable.columns().every(function() {
+                var header = this.header().textContent.toLowerCase();
+                if (header.includes('gene')) {
+                    this.search(geneFilterString, true, false).draw();
+                } else if (header.includes('hpo')) {
+                    this.search(hpoFilterString, true, false).draw();
+                }
+                    
+            });
+
+            maeTable.draw()
+        };
+
+        showSection("expression"); //Set expression as active on load
+        </script>
+    </body>
+</html>

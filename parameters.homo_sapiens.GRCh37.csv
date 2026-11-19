@@ -9,6 +9,12 @@ allRawtmpDataDir,${tmpDataDir}/rawdata/
 allRawNgstmpDataDir,${allRawtmpDataDir}/ngs/
 rawtmpDataDir,${allRawNgstmpDataDir}/${runPrefix}
 logsDir,${tmpDataDir}/logs
+TAPDir,${tmpDataDir}/TAPfiles/
+expressionTAPDir,${TAPDir}/expression/
+splicingTAPDir,${TAPDir}/splicing/
+maeTAPDir,${TAPDir}/mae/
+TINTAPdir,${TAPDir}/TIN/
+strandednessTAPdir,${TAPDir}/strandedness/
 srInputFile,${rawtmpDataDir}/${filePrefix}.fq.gz
 peEnd1FqGz,${rawtmpDataDir}/${filePrefix}_1.fq.gz
 peEnd2FqGz,${rawtmpDataDir}/${filePrefix}_2.fq.gz
@@ -97,7 +103,7 @@ flagstatMetrics,${intermediateDir}${externalSampleID}.flagstat
 idxstatsMetrics,${intermediateDir}${externalSampleID}.idxstats
 dupStatMetrics,${intermediateDir}${externalSampleID}.mdupmetrics
 rnaSeqMetrics,${intermediateDir}${externalSampleID}.collectrnaseqmetrics
-strandedness,${intermediateDir}stranded.txt
+strandedness,${intermediateDir}/${externalSampleID}.strandedness.txt
 alignmentMetrics,${intermediateDir}${externalSampleID}.alignment_summary_metrics
 insertsizeMetrics,${intermediateDir}${externalSampleID}.insertsizemetrics
 insertsizeMetricspdf,${intermediateDir}${externalSampleID}.insert_size_histogram.pdf
@@ -152,6 +158,5 @@ spliceaiSnv,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.snv.vcf.gz
 spliceaiIndel,/apps/data/SpliceAI/GRCh37/spliceai_scores.raw.indel.vcf.gz
 comonSnpsBed,/apps/data/GAD/gtf/SNP_GRCh37_hg19_concordanceCheckSnps_GRCh37_woChr.bed
 
-tmpDataDir,${workDir}/${tmpName}
-#tempDir,${tmpDataDir}/tmp
-tempTmpDir,${tmpDataDir}/tmp/processing
+
+

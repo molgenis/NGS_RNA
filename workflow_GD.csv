@@ -10,10 +10,6 @@ s06a_QCStats,protocols/QCStats.sh,s05_Stranded
 s06b_TIN,protocols/TIN.sh,s05_Stranded
 s06c_RNASeQC,protocols/RNASeQC.sh,s05_Stranded
 s06d_RNASeQCPlots,protocols/RNASeQCPlots.sh,s06c_RNASeQC
-s12a_SplitAndTrim,protocols/SplitAndTrim.sh,s04_MarkDuplicates
-s12b_BQSR,protocols/BQSR.sh,s12a_SplitAndTrim
-s12c_GatkHaplotypeCallerGvcf,protocols/GatkHaplotypeCallerGvcf.sh,s12b_BQSR
-s12d_GatkGenotypeGvcf,protocols/GatkGenotypeGvcf.sh,s12c_GatkHaplotypeCallerGvcf
-s14_MultiQCReport,protocols/MultiQCReport.sh,s06a_QCStats;s06b_TIN
-s15_MakeCondordanceVcf,protocols/MakeCondordanceVcf.sh,s03_MergeBam
-s16_CopyToResultsDir,protocols/CopyToResultsDir.sh,s12d_GatkGenotypeGvcf;s14_MultiQCReport
+s07_MultiQCReport,protocols/MultiQCReport.sh,s06a_QCStats;s06b_TIN;s06d_RNASeQCPlots
+s08_MakeCondordanceVcf,protocols/MakeCondordanceVcf.sh,s03_MergeBam
+s09_CopyToResultsDir,protocols/CopyToResultsDir.sh,s07_MultiQCReport;s08_MakeCondordanceVcf

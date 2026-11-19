@@ -19,6 +19,7 @@ set -o pipefail
 #string parameters_build
 #string parameters_environment
 #string parameters_chromosomes
+#string parameters_MAEchr
 #string worksheet
 #string outputdir
 #string workflowpath
@@ -110,6 +111,7 @@ sh "${EBROOTMOLGENISMINCOMPUTE}"/molgenis_compute.sh \
 -p "${parameters_build}" \
 -p "${parameters_environment}" \
 -p "${parameters_chromosomes}" \
+-p "${parameters_MAEchr}" \
 --header "${EBROOTNGS_RNA}/templates/slurm/header.ftl" \
 --footer "${EBROOTNGS_RNA}/templates/slurm/footer.ftl" \
 --submit "${EBROOTNGS_RNA}/templates/slurm/submit.ftl" \
