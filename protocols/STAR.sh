@@ -1,12 +1,12 @@
 set -o pipefail
-#MOLGENIS nodes=1 ppn=8 mem=40gb walltime=23:00:00
+#MOLGENIS nodes=1 ppn=8 mem=60gb walltime=23:00:00
 
 #Parameter mapping
 #string intermediateDir
 #string externalSampleID
 #string project
 #string starIndex
-#string	starVersion
+#string starVersion
 #string sambambaVersion
 #string mergedLeftBarcodeFqGz
 #string mergedRightBarcodeFqGz

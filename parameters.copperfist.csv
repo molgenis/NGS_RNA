@@ -3,7 +3,7 @@ queue,atd
 workDir,/groups/${groupname}
 dataDir,${root}/data
 permanentDir,${workDir}/prm06
-tmpName,tmp06
+tmpName,tmp16
 root,/apps
 
 ## change the tmpDataDir to match your environment
