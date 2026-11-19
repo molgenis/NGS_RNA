@@ -113,6 +113,7 @@ perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${EBROOTNGS_RNA}/parame
 perl ${EBROOTNGS_RNA}/convertParametersGitToMolgenis.pl "${customParameters}" > \
 "${workDir}/parameters.${host}.csv"
 
+cp "${EBROOTNGS_RNA}/batchIDList_${build}.csv" "${workDir}/batchIDList_${build}.csv"
 
 sh "${EBROOTMOLGENISMINCOMPUTE}/molgenis_compute.sh" \
 -p "${workDir}/parameters.${host}.csv" \

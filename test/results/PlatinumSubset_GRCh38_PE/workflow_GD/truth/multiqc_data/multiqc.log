@@ -1,0 +1,258 @@
+[2026-11-18 15:06:19,333] multiqc                                            [DEBUG  ]  This is MultiQC v1.12
+[2026-11-18 15:06:19,333] multiqc                                            [DEBUG  ]  No MultiQC config found: /usr/lib/python3.8/site-packages/multiqc_config.yaml
+[2026-11-18 15:06:19,335] multiqc                                            [DEBUG  ]  No MultiQC config found: /home/umcg-atd-ateambot/.multiqc_config.yaml
+[2026-11-18 15:06:19,335] multiqc                                            [DEBUG  ]  No MultiQC config found: multiqc_config.yaml
+[2026-11-18 15:06:19,352] multiqc                                            [DEBUG  ]  Loading config settings from: /intermediateDir/PlatinumSubset_NGS_RNA_GD_38_QC_config.yaml
+[2026-11-18 15:06:19,352] multiqc                                            [DEBUG  ]  New config 'report_header_info': [{'Pipeline Version': 'NGS_RNA/beta'}, {'Project': 'PlatinumSubset_NGS_RNA_GD_38'}, {'prepKit': 'Agilent'}, {'': ''}, {'Used toolversions': ' '}, {'': ''}, {'': 'Java/11-LTS'}, {'': 'FastQC/0.11.9-Java-11-LTS'}, {'': 'STAR/2.7.9a-GCC-11.3.0'}, {'': 'SAMtools/1.16.1-GCCcore-11.3.0'}, {'': 'R/4.4.0-foss-2022a-bare'}, {'': 'picard/2.26.10-Java-8-LTS'}, {'': 'HTSeq/0.12.3-GCCcore-11.3.0-Python-3.10.4'}, {'': 'Python/3.10.4-GCCcore-11.3.0-bare'}, {'': 'GATK/4.2.4.1-Java-8-LTS'}, {'': 'multiqc_v1.12.sif'}, {'': ''}, {'pipeline description': ''}, {'Gene expression quantification': ''}, {'': 'The trimmed fastQ files where aligned to build GRCh38_full_analysis_set_plus_decoy_hla.fa reference genome using'}, {'': 'STAR/2.7.9a-GCC-11.3.0 [1] allowing for 2 mismatches. Before gene quantification'}, {'': 'SAMtools/1.16.1-GCCcore-11.3.0 [2] was used to sort the aligned reads.'}, {'': 'The gene level quantification was performed by HTSeq/0.12.3-GCCcore-11.3.0-Python-3.10.4 [3] using --mode=union'}, {'': '--stranded=no and, Ensembl version 75 was used as gene annotation database which is included'}, {'': 'in folder expression/.'}, {'': ''}, {'QC metrics': ''}, {'': 'Quality control (QC) metrics are calculated for the raw sequencing data. This is done using'}, {'': 'the tool FastQC FastQC [4]. QC metrics are calculated for the aligned reads using'}, {'': 'Picard-tools [5] CollectRnaSeqMetrics, MarkDuplicates, CollectInsertSize-'}, {'': 'Metrics and SAMtools flagstat.These QC metrics form the basis in this final QC report.'}, {'': ''}, {'references': ''}, {'': ''}, {'': '1. Dobin A, Davis C a, Schlesinger F, Drenkow J, Zaleski C, Jha S, Batut P, Chaisson M,'}, {'': 'Gingeras TR: STAR: ultrafast universal RNA-seq aligner. Bioinformatics 2013, 29:15–21.'}, {'': '2. Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R,'}, {'': 'Subgroup 1000 Genome Project Data Processing: The Sequence Alignment/Map format and SAMtools.'}, {'': 'Bioinforma 2009, 25 (16):2078–2079.'}, {'': '3. Anders S, Pyl PT, Huber W: HTSeq – A Python framework to work with high-throughput sequencing data'}, {'': 'HTSeq – A Python framework to work with high-throughput sequencing data. 2014:0–5.'}, {'': '4. Andrews, S. (2010). FastQC a Quality Control Tool for High Throughput Sequence Data [Online].'}, {'': 'Available online at: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/ SAMtools/1.16.1-GCCcore-11.3.0'}, {'': '5. Picard Sourceforge Web site. http://picard.sourceforge.net/ picard/2.26.10-Java-8-LTS'}]
+[2026-11-18 15:06:19,353] multiqc                                            [DEBUG  ]  Command used: /usr/bin/multiqc -c /intermediateDir/PlatinumSubset_NGS_RNA_GD_38_QC_config.yaml -f /intermediateDir/ -o /projectResultsDir/
+[2026-11-18 15:06:19,535] multiqc                                            [WARNING]  MultiQC Version v1.35 now available!
+[2026-11-18 15:06:19,535] multiqc                                            [DEBUG  ]  Command     : /usr/bin/multiqc -c /intermediateDir/PlatinumSubset_NGS_RNA_GD_38_QC_config.yaml -f /intermediateDir/ -o /projectResultsDir/
+[2026-11-18 15:06:19,535] multiqc                                            [DEBUG  ]  Working dir : /groups/umcg-atd/tmp07/projects/NGS_RNA/PlatinumSubset_NGS_RNA_GD_38/run01/jobs
+[2026-11-18 15:06:19,535] multiqc                                            [DEBUG  ]  Template    : default
+[2026-11-18 15:06:19,535] multiqc                                            [DEBUG  ]  Running Python 3.8.1 (default, Dec 26 2019, 14:42:08)  [GCC 9.2.0]
+[2026-11-18 15:06:19,536] multiqc                                            [DEBUG  ]  Analysing modules: custom_content, ccs, ngsderive, purple, conpair, lima, peddy, somalier, methylQA, mosdepth, phantompeakqualtools, qualimap, preseq, quast, qorts, rna_seqc, rockhopper, rsem, rseqc, busco, bustools, goleft_indexcov, gffcompare, disambiguate, supernova, deeptools, sargasso, verifybamid, mirtrace, happy, mirtop, sambamba, homer, hops, macs2, theta2, snpeff, gatk, htseq, bcftools, featureCounts, fgbio, dragen, dedup, pbmarkdup, damageprofiler, biobambam2, jcvi, mtnucratio, picard, vep, sentieon, prokka, qc3C, nanostat, samblaster, samtools, sexdeterrmine, eigenstratdatabasetools, bamtools, jellyfish, vcftools, longranger, stacks, varscan2, snippy, bbmap, bismark, biscuit, hicexplorer, hicup, hicpro, salmon, kallisto, slamdunk, star, hisat2, tophat, bowtie2, bowtie1, snpsplit, odgi, pangolin, kat, leehom, adapterRemoval, clipandmerge, cutadapt, flexbar, kaiju, kraken, malt, trimmomatic, sickle, skewer, sortmerna, biobloomtools, fastq_screen, afterqc, fastp, fastqc, pychopper, pycoqc, minionqc, multivcfanalyzer, clusterflow, checkqc, bcl2fastq, bclconvert, interop, ivar, flash, seqyclean, optitype, whatshap
+[2026-11-18 15:06:19,536] multiqc                                            [DEBUG  ]  Using temporary directory for creating report: /local/203336/tmp3tbhijzq
+[2026-11-18 15:06:19,701] multiqc                                            [INFO   ]  Search path : /intermediateDir
+[2026-11-18 15:06:19,768] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.sorted.merged.dedup.bam
+[2026-11-18 15:06:19,806] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.concordance.vcf
+[2026-11-18 15:06:19,817] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.Aligned.sortedByCoord.out.bai
+[2026-11-18 15:06:19,836] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.concordance.vcf
+[2026-11-18 15:06:19,861] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.read_length_histogram.pdf
+[2026-11-18 15:06:19,861] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.base_distribution_by_cycle.pdf
+[2026-11-18 15:06:19,866] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.SJ.out.tab
+[2026-11-18 15:06:19,868] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529064.SJ.out.tab
+[2026-11-18 15:06:19,868] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.SJ.out.tab
+[2026-11-18 15:06:19,872] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.SJ.out.tab
+[2026-11-18 15:06:19,886] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529064.SJ.out.tab
+[2026-11-18 15:06:19,909] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.collectrnaseqmetrics
+[2026-11-18 15:06:19,911] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.collectrnaseqmetrics
+[2026-11-18 15:06:19,915] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.collectrnaseqmetrics
+[2026-11-18 15:06:19,925] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.collectrnaseqmetrics.pdf
+[2026-11-18 15:06:19,925] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.base_distribution_by_cycle.pdf
+[2026-11-18 15:06:19,926] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.sorted.merged.dedup.bam
+[2026-11-18 15:06:19,926] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.sorted.merged.dedup.bam.bai
+[2026-11-18 15:06:19,926] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.insert_size_histogram.pdf
+[2026-11-18 15:06:19,930] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.alignment_summary_metrics
+[2026-11-18 15:06:19,932] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.alignment_summary_metrics
+[2026-11-18 15:06:19,936] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.alignment_summary_metrics
+[2026-11-18 15:06:19,951] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:19,953] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529069.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:19,953] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:19,957] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:19,973] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529069.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:19,979] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.insert_size_metrics
+[2026-11-18 15:06:19,980] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529069.insert_size_metrics
+[2026-11-18 15:06:19,981] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.insert_size_metrics
+[2026-11-18 15:06:19,984] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.insert_size_metrics
+[2026-11-18 15:06:20,210] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529069.insert_size_metrics
+[2026-11-18 15:06:20,224] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.Log.out
+[2026-11-18 15:06:20,226] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529069.Log.out
+[2026-11-18 15:06:20,226] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.Log.out
+[2026-11-18 15:06:20,229] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: SRR15529069.Log.out
+[2026-11-18 15:06:20,230] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.Log.out
+[2026-11-18 15:06:20,367] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529069.Log.out
+[2026-11-18 15:06:20,375] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.concordance.vcf
+[2026-11-18 15:06:20,375] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.concordance.vcf.gz.tbi
+[2026-11-18 15:06:20,380] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.alignment_summary_metrics
+[2026-11-18 15:06:20,382] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.alignment_summary_metrics
+[2026-11-18 15:06:20,386] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.alignment_summary_metrics
+[2026-11-18 15:06:20,400] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.collectrnaseqmetrics
+[2026-11-18 15:06:20,402] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.collectrnaseqmetrics
+[2026-11-18 15:06:20,406] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.collectrnaseqmetrics
+[2026-11-18 15:06:20,416] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.sorted.merged.bam.bai
+[2026-11-18 15:06:20,417] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.Aligned.sortedByCoord.out.bai
+[2026-11-18 15:06:20,417] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.sorted.merged.dedup.bam.bai
+[2026-11-18 15:06:20,453] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.concordance.vcf.gz.tbi
+[2026-11-18 15:06:20,458] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.alignment_summary_metrics
+[2026-11-18 15:06:20,460] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.alignment_summary_metrics
+[2026-11-18 15:06:20,464] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.alignment_summary_metrics
+[2026-11-18 15:06:20,502] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.sorted.merged.dedup.bam
+[2026-11-18 15:06:20,502] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.quality_by_cycle.pdf
+[2026-11-18 15:06:20,503] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.concordance.vcf.gz.tbi
+[2026-11-18 15:06:20,504] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.Aligned.sortedByCoord.out.bai
+[2026-11-18 15:06:20,509] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.quality_distribution_metrics
+[2026-11-18 15:06:20,511] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.quality_distribution_metrics
+[2026-11-18 15:06:20,528] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.base_distribution_by_cycle.pdf
+[2026-11-18 15:06:20,528] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.quality_distribution.pdf
+[2026-11-18 15:06:20,528] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.sorted.merged.dedup.bam.md5
+[2026-11-18 15:06:20,528] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.sorted.merged.dedup.bam.bai.md5
+[2026-11-18 15:06:20,529] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.sorted.merged.bam
+[2026-11-18 15:06:20,529] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.insert_size_histogram.pdf
+[2026-11-18 15:06:20,533] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.sorted.merged.dedup.bam.bai.md5
+[2026-11-18 15:06:20,583] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.sorted.merged.dedup.bam.md5
+[2026-11-18 15:06:20,583] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.sorted.merged.dedup.bam.bai.md5
+[2026-11-18 15:06:20,603] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.sorted.merged.bam.bai
+[2026-11-18 15:06:20,607] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.quality_by_cycle_metrics
+[2026-11-18 15:06:20,609] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529069.quality_by_cycle_metrics
+[2026-11-18 15:06:20,609] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.quality_by_cycle_metrics
+[2026-11-18 15:06:20,613] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.quality_by_cycle_metrics
+[2026-11-18 15:06:20,628] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529069.quality_by_cycle_metrics
+[2026-11-18 15:06:20,629] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.collectrnaseqmetrics.pdf
+[2026-11-18 15:06:20,634] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.quality_by_cycle_metrics
+[2026-11-18 15:06:20,636] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529062.quality_by_cycle_metrics
+[2026-11-18 15:06:20,636] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.quality_by_cycle_metrics
+[2026-11-18 15:06:20,640] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.quality_by_cycle_metrics
+[2026-11-18 15:06:20,655] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529062.quality_by_cycle_metrics
+[2026-11-18 15:06:20,661] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: PlatinumSubset_NGS_RNA_GD_38_QC_config.yaml
+[2026-11-18 15:06:20,663] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: PlatinumSubset_NGS_RNA_GD_38_QC_config.yaml
+[2026-11-18 15:06:20,667] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: PlatinumSubset_NGS_RNA_GD_38_QC_config.yaml
+[2026-11-18 15:06:20,677] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.sorted.merged.dedup.bam.md5
+[2026-11-18 15:06:20,682] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.Log.out
+[2026-11-18 15:06:20,683] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529064.Log.out
+[2026-11-18 15:06:20,684] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.Log.out
+[2026-11-18 15:06:20,687] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: SRR15529064.Log.out
+[2026-11-18 15:06:20,687] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.Log.out
+[2026-11-18 15:06:20,824] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529064.Log.out
+[2026-11-18 15:06:20,831] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.quality_by_cycle.pdf
+[2026-11-18 15:06:20,831] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.read_length_histogram.pdf
+[2026-11-18 15:06:20,836] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.quality_distribution_metrics
+[2026-11-18 15:06:20,838] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.quality_distribution_metrics
+[2026-11-18 15:06:20,850] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.quality_distribution.pdf
+[2026-11-18 15:06:20,850] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.sorted.merged.bam
+[2026-11-18 15:06:20,850] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.insert_size_histogram.pdf
+[2026-11-18 15:06:20,856] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.SJ.out.tab
+[2026-11-18 15:06:20,857] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529062.SJ.out.tab
+[2026-11-18 15:06:20,858] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.SJ.out.tab
+[2026-11-18 15:06:20,861] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.SJ.out.tab
+[2026-11-18 15:06:20,876] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529062.SJ.out.tab
+[2026-11-18 15:06:20,882] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.quality_by_cycle_metrics
+[2026-11-18 15:06:20,884] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529064.quality_by_cycle_metrics
+[2026-11-18 15:06:20,884] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.quality_by_cycle_metrics
+[2026-11-18 15:06:20,888] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.quality_by_cycle_metrics
+[2026-11-18 15:06:20,903] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529064.quality_by_cycle_metrics
+[2026-11-18 15:06:20,904] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.sorted.merged.bam.bai
+[2026-11-18 15:06:20,909] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.SJ.out.tab
+[2026-11-18 15:06:20,911] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529069.SJ.out.tab
+[2026-11-18 15:06:20,911] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.SJ.out.tab
+[2026-11-18 15:06:20,915] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.SJ.out.tab
+[2026-11-18 15:06:20,930] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529069.SJ.out.tab
+[2026-11-18 15:06:20,931] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.sorted.merged.dedup.bam.bai
+[2026-11-18 15:06:20,954] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:20,956] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529062.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:20,956] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:20,959] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:20,976] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529062.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:20,982] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.insert_size_metrics
+[2026-11-18 15:06:20,983] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529062.insert_size_metrics
+[2026-11-18 15:06:20,984] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.insert_size_metrics
+[2026-11-18 15:06:20,987] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.insert_size_metrics
+[2026-11-18 15:06:21,190] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529062.insert_size_metrics
+[2026-11-18 15:06:21,202] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:21,204] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529064.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:21,204] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:21,208] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:21,224] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529064.base_distribution_by_cycle_metrics
+[2026-11-18 15:06:21,231] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.Log.out
+[2026-11-18 15:06:21,232] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529062.Log.out
+[2026-11-18 15:06:21,233] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.Log.out
+[2026-11-18 15:06:21,236] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: SRR15529062.Log.out
+[2026-11-18 15:06:21,236] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.Log.out
+[2026-11-18 15:06:21,372] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529062.Log.out
+[2026-11-18 15:06:21,380] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.sorted.merged.bam
+[2026-11-18 15:06:21,384] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.collectrnaseqmetrics
+[2026-11-18 15:06:21,386] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.collectrnaseqmetrics
+[2026-11-18 15:06:21,390] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.collectrnaseqmetrics
+[2026-11-18 15:06:21,400] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529064.quality_distribution.pdf
+[2026-11-18 15:06:21,402] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.read_length_histogram.pdf
+[2026-11-18 15:06:21,420] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529069.quality_by_cycle.pdf
+[2026-11-18 15:06:21,420] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: SRR15529062.collectrnaseqmetrics.pdf
+[2026-11-18 15:06:21,425] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.quality_distribution_metrics
+[2026-11-18 15:06:21,427] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.quality_distribution_metrics
+[2026-11-18 15:06:21,444] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.insert_size_metrics
+[2026-11-18 15:06:21,445] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529064.insert_size_metrics
+[2026-11-18 15:06:21,446] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.insert_size_metrics
+[2026-11-18 15:06:21,449] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.insert_size_metrics
+[2026-11-18 15:06:21,590] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529064.insert_size_metrics
+[2026-11-18 15:06:21,620] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,621] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,622] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,625] multiqc                                            [DEBUG  ]  File ignored by vep/vep_html because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,625] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,625] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,625] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,625] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,625] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,626] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,626] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:21,675] multiqc                                            [DEBUG  ]  File ignored by stacks/sumstats because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,194] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,350] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,351] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,352] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by vep/vep_html because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,355] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:24,406] multiqc                                            [DEBUG  ]  File ignored by stacks/sumstats because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:26,908] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,064] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,066] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,066] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,069] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,085] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,091] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529062.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,093] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529062.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,093] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529062.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,097] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: SRR15529062.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,097] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529062.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,246] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529062.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,269] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529069.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,271] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529069.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,271] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529069.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,274] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: SRR15529069.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,274] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529069.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,423] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529069.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,446] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SRR15529064.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,448] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SRR15529064.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,448] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SRR15529064.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,451] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: SRR15529064.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,452] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SRR15529064.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,601] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SRR15529064.sorted.merged.housekeeping.tin.xls
+[2026-11-18 15:06:27,625] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,627] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,627] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,631] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,646] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:27,653] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,655] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,655] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by vep/vep_html because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by vep/vep_txt because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,659] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:27,710] multiqc                                            [DEBUG  ]  File ignored by stacks/sumstats because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:30,231] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: geneInfo.tab
+[2026-11-18 15:06:30,385] multiqc                                            [DEBUG  ]  File ignored by ccs/v4 because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:30,387] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:30,387] multiqc                                            [DEBUG  ]  File ignored by lima/summary because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:30,391] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:30,404] multiqc                                            [DEBUG  ]  File ignored by nanostat because it exceeded search pattern filesize limit: SJ.out.tab
+[2026-11-18 15:06:30,749] multiqc.plots.bargraph                             [DEBUG  ]  Using matplotlib version 3.1.2
+[2026-11-18 15:06:30,750] multiqc.plots.linegraph                            [DEBUG  ]  Using matplotlib version 3.1.2
+[2026-11-18 15:06:30,762] multiqc.modules.rseqc.rseqc                        [INFO   ]  Found 3 infer_experiment reports
+[2026-11-18 15:06:30,764] multiqc.modules.rseqc.rseqc                        [INFO   ]  Found 3 tin reports
+[2026-11-18 15:06:30,796] multiqc.modules.picard.picard                      [INFO   ]  Found 3 AlignmentSummaryMetrics reports
+[2026-11-18 15:06:30,824] multiqc.modules.picard.picard                      [INFO   ]  Found 6 BaseDistributionByCycleMetrics reports
+[2026-11-18 15:06:31,178] multiqc.modules.picard.picard                      [INFO   ]  Found 3 InsertSizeMetrics reports
+[2026-11-18 15:06:31,212] multiqc.modules.picard.picard                      [INFO   ]  Found 3 QualityByCycleMetrics reports
+[2026-11-18 15:06:31,216] multiqc.modules.picard.picard                      [INFO   ]  Found 3 QualityScoreDistributionMetrics reports
+[2026-11-18 15:06:31,230] multiqc.modules.picard.picard                      [INFO   ]  Found 3 RnaSeqMetrics reports
+[2026-11-18 15:06:31,243] multiqc.modules.samtools.samtools                  [INFO   ]  Found 3 flagstat reports
+[2026-11-18 15:06:31,667] multiqc.modules.samtools.samtools                  [INFO   ]  Found 3 idxstats reports
+[2026-11-18 15:06:31,900] multiqc.modules.star.star                          [DEBUG  ]  Duplicate ReadsPerGene sample name found! Overwriting: SRR15529062
+[2026-11-18 15:06:32,115] multiqc.modules.star.star                          [DEBUG  ]  Duplicate ReadsPerGene sample name found! Overwriting: SRR15529069
+[2026-11-18 15:06:32,331] multiqc.modules.star.star                          [DEBUG  ]  Duplicate ReadsPerGene sample name found! Overwriting: SRR15529064
+[2026-11-18 15:06:32,331] multiqc.modules.star.star                          [INFO   ]  Found 6 reports and 3 gene count files
+[2026-11-18 15:06:32,349] multiqc                                            [INFO   ]  Compressing plot data
+[2026-11-18 15:06:32,922] multiqc                                            [INFO   ]  Report      : ../../../../../../../../projectResultsDir/multiqc_report.html
+[2026-11-18 15:06:32,922] multiqc                                            [INFO   ]  Data        : ../../../../../../../../projectResultsDir/multiqc_data
+[2026-11-18 15:06:32,922] multiqc                                            [DEBUG  ]  Moving data file from '/local/203336/tmp3tbhijzq/multiqc_data' to '/projectResultsDir/multiqc_data'
+[2026-11-18 15:06:33,271] multiqc                                            [INFO   ]  MultiQC complete
