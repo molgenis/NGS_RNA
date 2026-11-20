@@ -5,7 +5,7 @@ set -o pipefail
 #string tmpDataDir
 #string project
 #string ngsVersion
-#string pythonPlusVersion
+#string pythonVersion
 #string intermediateDir
 #string strandedness
 #string rMATsOutputDir
@@ -20,7 +20,7 @@ makeTmpDir "${intermediateDir}"
 tmpintermediateDir=${MC_tmpFile}
 
 module load "${ngsVersion}"
-module load "${pythonPlusVersion}"
+module load "${pythonVersion}"
 module list
 
 ZSCORE=3
