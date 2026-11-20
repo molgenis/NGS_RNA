@@ -8,8 +8,6 @@ s04_MarkDuplicates,protocols/MarkDuplicates.sh,s03_MergeBam
 s05_Stranded,protocols/Stranded.sh,s04_MarkDuplicates
 s06a_QCStats,protocols/QCStats.sh,s05_Stranded
 s06b_TIN,protocols/TIN.sh,s05_Stranded
-s06c_RNASeQC,protocols/RNASeQC.sh,s05_Stranded
-s06d_RNASeQCPlots,protocols/RNASeQCPlots.sh,s06c_RNASeQC
-s07_MultiQCReport,protocols/MultiQCReport.sh,s06a_QCStats;s06b_TIN;s06d_RNASeQCPlots
+s07_MultiQCReport,protocols/MultiQCReport.sh,s06a_QCStats;s06b_TIN
 s08_MakeCondordanceVcf,protocols/MakeCondordanceVcf.sh,s03_MergeBam
 s09_CopyToResultsDir,protocols/CopyToResultsDir.sh,s07_MultiQCReport;s08_MakeCondordanceVcf

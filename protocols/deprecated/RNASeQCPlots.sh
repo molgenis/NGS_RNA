@@ -2,7 +2,7 @@ set -o pipefail
 #MOLGENIS nodes=1 ppn=1 mem=1gb walltime=05:00:00
 
 #Parameter mapping
-#string pythonPlusVersion
+#string pythonVersion
 #string project
 #string ngsVersion
 #string rnaSeQCDir
@@ -11,7 +11,7 @@ set -o pipefail
 
 #Load module
 module load "${ngsVersion}"
-module load "${pythonPlusVersion}"
+module load "${pythonVersion}"
 module list
 
 
