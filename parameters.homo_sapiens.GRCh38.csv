@@ -141,7 +141,6 @@ speciesFileName,homo_sapiens
 indexFileID,GRCh38_full_analysis_set_plus_decoy_hla.fa
 indexFolderName,human_g1k_v38
 indicesDir,${dataDir}/ftp.broadinstitute.org/bundle/2.8/${genome}/
-dbSNPDir,/apps/data/GAD/dbnsp/
 indexFileFastaIndex,${indexSpecies}.fai
 indexSpecies,/apps/data/Ensembl/GrCh38.115/pub/release-115/fasta/homo_sapiens/${indexFileID}
 indexChrIntervalList,${indicesDir}/${indexFileID}.chr${chr}.interval_list
