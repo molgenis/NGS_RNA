@@ -26,18 +26,24 @@ The variant calling itself was done using HaplotypeCaller in GVCF mode. All  sam
 then jointly genotyped by taking the gVCFs produced earlier and running GenotypeGVCFs 
 on all of them together to create a set of raw SNP and indel calls. [6]
 
-Results archive
-The zipped archive contains the following data and subfolders:
 
-- alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out)
-- expression: textfiles with gene level quantification per sample and per project. 
+The results contains the following data and subfolders:
+
+For the GD workflow :
+- alignment: merged BAM file with index, md5sums and alignment statistics (.Log.final.out) 
 - fastqc: FastQC output
 - qcmetrics: Multiple qcMetrics and images generated with Picard-tools or SAMTools Flagstat.
-- leafcutter: Leafcutter and RegTools output files.
-- expression/Deseq2 differential expression analysis.
 - multiqc_data: Combined MultiQC tables used for multiqc report html.
-- variants: Variants calls using GATK.
+- variants: Variants calls using GATK. To create a concordance vcf.
 - rawdata: raw sequence file in the form of a gzipped fastq file (.fq.gz)
+
+The TAP (transcriptome-analysis-pipeline) workflow will contain extra steps, next to all the GD steps.
+- expression: textfiles with gene level quantification per sample and per project. 
+- Mono Allelic expression (only available with a WGS vcf)
+- the splice junction file, for aberrant splicing  
+
+This work flow will create input per sample for the TAP. 
+The TAP can calculate abberant expersion and splicing when enough samples are gathered.
 
 The root of the results directory contains the final QC report, README.txt, analysis results from each tool, 
 and the samplesheet which formed the basis for this analysis. 

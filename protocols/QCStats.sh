@@ -1,5 +1,5 @@
 set -o pipefail
-#MOLGENIS nodes=1 ppn=1 mem=8gb walltime=05:59:00
+#MOLGENIS nodes=1 ppn=1 mem=8gb walltime=23:59:00
 
 #Parameter mapping
 #string seqType
